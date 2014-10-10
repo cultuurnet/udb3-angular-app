@@ -7,7 +7,7 @@
  * # MainCtrl
  * Controller of the udbAppApp
  */
-angular.module('udbAppApp')
+angular.module('udbApp')
   .controller('MainCtrl', function ($scope) {
     $scope.awesomeThings = [
       'HTML5 Boilerplate',

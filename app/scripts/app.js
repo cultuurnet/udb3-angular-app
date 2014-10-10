@@ -2,14 +2,14 @@
 
 /**
  * @ngdoc overview
- * @name udbAppApp
+ * @name udbApp
  * @description
- * # udbAppApp
+ * # udbApp
  *
  * Main module of the application.
  */
 angular
-  .module('udbAppApp', [
+  .module('udbApp', [
     'ngAnimate',
     'ngCookies',
     'ngResource',
@@ -26,6 +26,10 @@ angular
       .when('/about', {
         templateUrl: 'views/about.html',
         controller: 'AboutCtrl'
+      })
+      .when('/search', {
+        templateUrl: 'views/search.html',
+        controller: 'SearchCtrl'
       })
       .otherwise({
         redirectTo: '/'
