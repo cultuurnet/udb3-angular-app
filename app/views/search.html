@@ -6,7 +6,7 @@
 
     <div class="input-group">
       <input type="text" name="main-search" value="main-search"
-      ng-model="searchQuery" udb-Debounce="1000"
+      ng-model="searchQuery"
       placeholder="schrijf een zoekopdracht" class="main-search-input form-control">
 
       <div class="input-group-btn main-search-button">
@@ -32,14 +32,14 @@
       <h4>Wanneer</h4>
     </div>
   </div>
-  <div class="col-sm-8">
+  <div class="col-sm-8 search-results" ng-class="{loading: resultViewer.loading}">
     <h2>Zoekresultaten</h2>
-    <p ng-hide="events.length">Geen evenementen gevonden, probeer een andere zoekopdracht.</p>
+    <p ng-hide="resultViewer.totalItems">Geen evenementen gevonden, probeer een andere zoekopdracht.</p>
 
-    <div ng-show="events.length">
-      <p>{{events.length}} evenementen gevonden:  {{resultViewer.startIndex}} / {{resultViewer.endIndex}}</p>
+    <div ng-show="resultViewer.totalItems">
+      <p>{{resultViewer.totalItems}} evenementen gevonden:</p>
       <ul>
-        <li ng-repeat="event in events | slice:resultViewer.startIndex:resultViewer.endIndex">
+        <li ng-repeat="event in resultViewer.events | slice:resultViewer.startIndex:resultViewer.endIndex">
           <span class="title">{{event.title}}</span>
         </li>
       </ul>

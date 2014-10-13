@@ -2,18 +2,19 @@
 
 /**
  * @ngdoc service
- * @name udbAppApp.UdbApi
+ * @name udbApp.UdbApi
  * @description
  * # UdbApi
- * Service in the udbAppApp.
+ * Service in the udbApp.
  */
 angular.module('udbApp')
-  .service('UdbApi', function UdbApi() {
+  .service('UdbApi', function UdbApi($q) {
     /**
      * @param {string} queryString - The query used to find events.
      */
-    this.findEvent = function (queryString) {
-      var events = [],
+    this.findEvents = function (queryString) {
+      var deferredEvents = $q.defer(),
+          events = [],
           exampleEvent = {
             'title': queryString,
             'calendarSummary' : 'someday',
@@ -23,13 +24,20 @@ angular.module('udbApp')
           };
 
       if(queryString.length) {
-          _.times(9000, function (n) {
-            var event = _.clone(exampleEvent);
-            event.title = event.title + ' ' + (n+1);
-            events.push(event);
-          });
+        _.times(9000, function (n) {
+          var event = _.clone(exampleEvent);
+          event.title = event.title + ' ' + (n+1);
+          events.push(event);
+        });
+
+        window.setTimeout(function () {
+          deferredEvents.resolve(events);
+        }, 300);
+      } else {
+        deferredEvents.resolve(events);
       }
 
-      return events;
+
+      return deferredEvents.promise;
     };
   });
