@@ -11,9 +11,4 @@ describe('Filter: slice', function () {
     slice = $filter('slice');
   }));
 
-  it('should return the input prefixed with "slice filter:"', function () {
-    var text = 'angularjs';
-    expect(slice(text)).toBe('slice filter: ' + text);
-  });
-
 });
