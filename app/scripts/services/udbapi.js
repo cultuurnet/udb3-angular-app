@@ -19,7 +19,7 @@ angular.module('udbApp')
             'title': queryString,
             'calendarSummary' : 'someday',
             'shortDescription': 'This is a short description',
-            'image' : 'http://lorempixel.com/300/300/',
+            'image' : 'http://placehold.it/300x200',
             'location': ' De Hoorn'
           };
 

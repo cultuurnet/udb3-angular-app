@@ -38,11 +38,27 @@
 
     <div ng-show="resultViewer.totalItems">
       <p>{{resultViewer.totalItems}} evenementen gevonden:</p>
-      <ul>
-        <li ng-repeat="event in resultViewer.events | slice:resultViewer.startIndex:resultViewer.endIndex">
-          <span class="title">{{event.title}}</span>
-        </li>
-      </ul>
+
+      <div class="row event" ng-repeat="event in resultViewer.events | slice:resultViewer.startIndex:resultViewer.endIndex">
+        <div class="col-sm-12">
+          <h3>{{event.title}}</h3>
+        </div>
+        <div class="col-sm-4">
+          <img ng-src="{{event.image}}" alt="{{event.title}}" class="img-responsive">
+        </div>
+        <div class="col-sm-8">
+          <dl>
+            <dt>Wanneer</dt>
+            <dd>{{event.calendarSummary}}</dd>
+
+            <dt>Waar</dt>
+            <dd>{{event.location}}</dd>
+
+            <dt>Beschrijving</dt>
+            <dd>{{event.shortDescription}}</dd>
+          </dl>
+        </div>
+      </div>
 
       <pagination total-items="resultViewer.totalItems" ng-model="resultViewer.currentPage"
         ng-change="resultViewer.pageChanged()" max-size="10"></pagination>
