@@ -14,20 +14,35 @@ angular.module('udbApp')
 
     $scope.searchQuery = '';
     $scope.resultViewer = new udb.SearchResultViewer();
+    $scope.queryErrors = [];
 
     var debouncedUpdateEvents = _.debounce(function(eventPromise){
       $scope.resultViewer.updateEvents(eventPromise);
     }, 1000);
 
     $scope.$watch('searchQuery', function (query) {
+      var errors = $scope.queryErrors = [];
+
       $scope.resultViewer.queryChanged(query);
       debouncedUpdateEvents(UdbApi.findEvents(query));
 
-      var queryTree = parser.parse(query);
+      var queryTree;
 
-      validator.validate(queryTree);
+      try {
+        queryTree = parser.parse(query);
+      } catch (e) {
+        errors.push(e.message);
+      }
 
-      console.log(queryTree);
+      if(queryTree) {
+        var validatorFeedback = validator.validate(queryTree);
+        if (_.isArray(validatorFeedback)) {
+          errors = _.union(validatorFeedback, errors);
+        }
+      }
+
+      $scope.queryErrors = errors;
+
     });
 
   });
