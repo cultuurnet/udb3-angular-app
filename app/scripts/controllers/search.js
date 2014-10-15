@@ -38,6 +38,8 @@ angular.module('udbApp')
         var validatorFeedback = validator.validate(queryTree);
         if (_.isArray(validatorFeedback)) {
           errors = _.union(validatorFeedback, errors);
+        } else {
+          console.log(validator.unparse(queryTree));
         }
       }
 

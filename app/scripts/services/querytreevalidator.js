@@ -17,9 +17,7 @@ angular.module('udbApp')
           right = current.right || false,
           nodes = [];
 
-      if(typeof errors === 'undefined'){
-        errors = [];
-      };
+      errors = errors || [];
 
       if(left) { nodes.push(left); }
       if(right) { nodes.push(right); }
@@ -34,10 +32,9 @@ angular.module('udbApp')
       var field = current.field;
       if(typeof(field) !== 'undefined') {
         if(field !== null && _.contains(validFields, field)) {
-          console.log(field);
         }
         else {
-          errors.push(field + " is not a valid search field");
+          errors.push(field + ' is not a valid search field');
         }
       }
 
@@ -53,5 +50,49 @@ angular.module('udbApp')
 
     this.validate = function (queryTree) {
       return validateFields(queryTree, 0);
+    }
+
+    var unparseTree = function (branch, depth, sentence) {
+
+      if(branch.left) {
+        var result;
+
+        if(branch.right) {
+          result = unparseTree(branch.left, depth + 1, sentence) + ' ' + branch.operator + ' ' + unparseTree(branch.right, depth + 1, sentence);
+          if(depth > 0) {
+            result = '(' + result + ')';
+          }
+        } else{
+          result = unparseTree(branch.left, depth + 1, sentence);
+        }
+
+        return result;
+
+      } else {
+        var fieldQuery = branch.field + ':',
+            term = branch.term;
+
+        if(term.indexOf(' ') !== -1) {
+          term = '"' + term + '"';
+        };
+
+        fieldQuery += term;
+
+        return sentence += fieldQuery;
+      }
+
+      if(depth == 0) {
+        return sentence;
+      }
+    }
+
+    this.unparse = function (queryTree) {
+      var queryString = '';
+
+      if(queryTree.left) {
+        queryString = unparseTree(queryTree, 0, '');
+      }
+
+      return queryString;
     }
   });
