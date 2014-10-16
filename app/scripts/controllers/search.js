@@ -2,10 +2,10 @@
 
 /**
  * @ngdoc function
- * @name udbAppApp.controller:SearchCtrl
+ * @name udbApp.controller:SearchCtrl
  * @description
  * # SearchCtrl
- * Controller of the udbAppApp
+ * Controller of the udbApp
  */
 angular.module('udbApp')
   .controller('SearchCtrl', function ($scope, UdbApi, LuceneQueryParser, QueryTreeValidator) {

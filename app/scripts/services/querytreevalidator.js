@@ -40,18 +40,18 @@ angular.module('udbApp')
       }
 
       var feedback;
-      if(depth == 0) {
+      if(depth === 0) {
         if(errors.length) {
           return errors;
         } else {
           return current;
         }
       }
-    }
+    };
 
     this.validate = function (queryTree) {
       return validateFields(queryTree, 0);
-    }
+    };
 
     var unparseTree = function (branch, depth, sentence) {
 
@@ -76,21 +76,21 @@ angular.module('udbApp')
 
         if(branch.field !== implicitToken) {
           fieldQuery += (branch.field + ':');
-        };
+        }
 
         if(term.indexOf(' ') !== -1) {
           term = '"' + term + '"';
-        };
+        }
 
         fieldQuery += term;
 
         return sentence += fieldQuery;
       }
 
-      if(depth == 0) {
+      if(depth === 0) {
         return sentence;
       }
-    }
+    };
 
     this.unparse = function (queryTree) {
       var queryString = '';
@@ -100,5 +100,5 @@ angular.module('udbApp')
       }
 
       return queryString;
-    }
+    };
   });
