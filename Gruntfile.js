@@ -117,7 +117,8 @@ module.exports = function (grunt) {
     jshint: {
       options: {
         jshintrc: '.jshintrc',
-        reporter: require('jshint-stylish')
+        reporter: require('jshint-stylish'),
+        ignores: ['<%= yeoman.app %>/scripts/parsers/{,*/}*.js']
       },
       all: {
         src: [
@@ -370,10 +371,26 @@ module.exports = function (grunt) {
         configFile: 'test/karma.conf.js',
         singleRun: true
       }
+    },
+
+    peg: {
+      options: { trackLineAndColumn: true },
+      lucene : {
+        src: '<%= yeoman.app %>/grammar/lucene.grammar',
+        dest: '<%= yeoman.app %>/scripts/parsers/lucenequeryparser.js',
+        options: {
+          angular: {
+            module: 'peg',
+            factory: 'LuceneQueryParser'
+          }
+        }
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-less');
+
+  grunt.loadNpmTasks('grunt-peg');
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
@@ -384,6 +401,7 @@ module.exports = function (grunt) {
       'clean:server',
       'wiredep',
       'concurrent:server',
+      'peg',
       'less',
       'autoprefixer',
       'connect:livereload',
@@ -399,6 +417,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'clean:server',
     'concurrent:test',
+    'peg',
     'less',
     'autoprefixer',
     'connect:test',
@@ -410,6 +429,7 @@ module.exports = function (grunt) {
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
+    'peg',
     'less',
     'autoprefixer',
     'concat',

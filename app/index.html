@@ -35,8 +35,8 @@
     </div>
 
 
-    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID -->
-     <script>
+    <!-- Google Analytics: change UA-XXXXX-X to be your site's ID
+    <script>
        (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
        (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
        m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
@@ -44,7 +44,7 @@
 
        ga('create', 'UA-XXXXX-X');
        ga('send', 'pageview');
-    </script>
+    </script> -->
 
     <!-- build:js(.) scripts/oldieshim.js -->
     <!--[if lt IE 9]>
@@ -77,10 +77,11 @@
         <script src="scripts/controllers/search.js"></script>
         <script src="scripts/filters/slice.js"></script>
         <script src="scripts/directives/udbdebounce.js"></script>
-        <script src="scripts/services/lucenequeryparser.js"></script>
+        <script src="scripts/services/lucenequerybuilder.js"></script>
         <script src="scripts/services/querytreevalidator.js"></script>
         <script src="scripts/services/querytreetranslator.js"></script>
         <script src="scripts/services/queryfields.js"></script>
+        <script src="scripts/parsers/lucenequeryparser.js"></script>
         <!-- endbuild -->
 </body>
 </html>

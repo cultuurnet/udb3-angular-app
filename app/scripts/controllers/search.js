@@ -8,8 +8,8 @@
  * Controller of the udbApp
  */
 angular.module('udbApp')
-  .controller('SearchCtrl', function ($scope, UdbApi, LuceneQueryParser, QueryTreeValidator) {
-    var parser = LuceneQueryParser,
+  .controller('SearchCtrl', function ($scope, UdbApi, LuceneQueryBuilder, QueryTreeValidator) {
+    var queryBuilder = LuceneQueryBuilder,
         validator = QueryTreeValidator;
 
     $scope.searchQuery = '';
@@ -21,7 +21,7 @@ angular.module('udbApp')
           queryTree;
 
       try {
-        queryTree = parser.parse(queryString);
+        queryTree = queryBuilder.parseQueryString(queryString);
       } catch (e) {
         errors.push(e.message);
       }
@@ -31,7 +31,7 @@ angular.module('udbApp')
         if (_.isArray(validatorFeedback)) {
           errors = _.union(validatorFeedback, errors);
         } else {
-          console.log(validator.unparse(queryTree));
+          console.log(queryBuilder.unparseQueryTree(queryTree));
         }
       }
 
