@@ -10,7 +10,8 @@
 angular.module('udbApp')
   .service('QueryTreeValidator', function QueryTreeValidator(queryFields) {
 
-    var validFields = queryFields;
+    var validFields = queryFields,
+        implicitToken = '<implicit>';
 
     var validateFields = function (current, depth, errors) {
       var left = current.left || false,
@@ -31,7 +32,7 @@ angular.module('udbApp')
 
       var field = current.field;
       if(typeof(field) !== 'undefined') {
-        if(field !== null && _.contains(validFields, field)) {
+        if(field !== null && (field === implicitToken || _.contains(validFields, field))) {
         }
         else {
           errors.push(field + ' is not a valid search field');
@@ -55,10 +56,11 @@ angular.module('udbApp')
     var unparseTree = function (branch, depth, sentence) {
 
       if(branch.left) {
-        var result;
+        var result,
+            operator = (branch.operator === implicitToken) ? ' ' : (' ' + branch.operator + ' ');
 
         if(branch.right) {
-          result = unparseTree(branch.left, depth + 1, sentence) + ' ' + branch.operator + ' ' + unparseTree(branch.right, depth + 1, sentence);
+          result = unparseTree(branch.left, depth + 1, sentence) + operator + unparseTree(branch.right, depth + 1, sentence);
           if(depth > 0) {
             result = '(' + result + ')';
           }
@@ -69,8 +71,12 @@ angular.module('udbApp')
         return result;
 
       } else {
-        var fieldQuery = branch.field + ':',
+        var fieldQuery = '',
             term = branch.term;
+
+        if(branch.field !== implicitToken) {
+          fieldQuery += (branch.field + ':');
+        };
 
         if(term.indexOf(' ') !== -1) {
           term = '"' + term + '"';
