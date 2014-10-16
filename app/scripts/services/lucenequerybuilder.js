@@ -15,6 +15,27 @@ angular.module('udbApp')
         return LuceneQueryParser.parse(queryString);
       };
 
+      var printTerm = function (node) {
+        var term = node.term;
+
+        // if the term is a phrase surround it with double quotes
+        if(term.indexOf(' ') !== -1) {
+          term = '"' + term + '"';
+        }
+
+        // check for fuzzy search modifier
+        if(node.similarity) {
+          term += ('~' + node.similarity);
+        }
+
+        // check for proximity modifier
+        if(node.proximity) {
+          term += ('~' + node.proximity);
+        }
+
+        return term;
+      };
+
       var unparseNode = function (branch, depth, sentence) {
 
         if(branch.left) {
@@ -29,6 +50,11 @@ angular.module('udbApp')
             if(depth > 0) {
               result = '(' + result + ')';
             }
+
+            if(branch.field && branch.field !== implicitToken) {
+              result = (branch.field + ':') + result;
+            }
+
           } else{
             result = unparseNode(branch.left, depth + 1, sentence);
           }
@@ -37,14 +63,10 @@ angular.module('udbApp')
 
         } else {
           var fieldQuery = '',
-              term = branch.term;
+              term = printTerm(branch);
 
-          if(branch.field !== implicitToken) {
+          if(branch.field !== implicitToken && branch.field !== null) {
             fieldQuery += (branch.field + ':');
-          }
-
-          if(term.indexOf(' ') !== -1) {
-            term = '"' + term + '"';
           }
 
           fieldQuery += term;

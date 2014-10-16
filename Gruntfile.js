@@ -62,6 +62,10 @@ module.exports = function (grunt) {
           '.tmp/css/{,*/}*.css',
           '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
         ]
+      },
+      peg: {
+        files: ['<%= yeoman.app %>/grammar/{,*/}*.grammar'],
+        tasks: ['peg']
       }
     },
 

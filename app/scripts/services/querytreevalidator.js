@@ -32,9 +32,7 @@ angular.module('udbApp')
 
       var field = current.field;
       if(typeof(field) !== 'undefined') {
-        if(field !== null && (field === implicitToken || _.contains(validFields, field))) {
-        }
-        else {
+        if(field !== null && field !== implicitToken && !_.contains(validFields, field)) {
           errors.push(field + ' is not a valid search field');
         }
       }
