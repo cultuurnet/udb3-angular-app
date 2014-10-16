@@ -15,6 +15,8 @@ angular.module('udbApp')
        * http://pegjs.majda.cz/
        */
 
+       /* jshint ignore:start */
+
       function quote(s) {
         /*
          * ECMA-262, 5th ed., 7.8.4: All characters may appear literally in a
@@ -1665,4 +1667,5 @@ angular.module('udbApp')
       result.SyntaxError.prototype = Error.prototype;
 
       return result;
+      /* jshint ignore:end */
     });
