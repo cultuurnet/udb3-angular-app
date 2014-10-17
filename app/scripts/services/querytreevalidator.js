@@ -8,7 +8,7 @@
  * Service in the udbApp.
  */
 angular.module('udbApp')
-  .service('QueryTreeValidator', function QueryTreeValidator(queryFields) {
+  .service('QueryTreeValidator', ['queryFields', function QueryTreeValidator(queryFields) {
 
     var validFields = queryFields,
         implicitToken = '<implicit>';
@@ -51,4 +51,4 @@ angular.module('udbApp')
       return validateFields(queryTree, 0);
     };
 
-  });
+  }]);
