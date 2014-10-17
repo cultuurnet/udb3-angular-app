@@ -5,4 +5,7 @@ dist
 bower_components
 app/css/
 app/scripts/parsers/
+app/scripts/config.js
 npm-debug.log
+config.json
+config_dev.json

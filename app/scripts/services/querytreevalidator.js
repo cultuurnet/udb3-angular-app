@@ -37,7 +37,6 @@ angular.module('udbApp')
         }
       }
 
-      var feedback;
       if(depth === 0) {
         if(errors.length) {
           return errors;

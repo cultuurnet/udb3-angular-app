@@ -8,36 +8,36 @@
  * Service in the udbApp.
  */
 angular.module('udbApp')
-  .service('UdbApi', function UdbApi($q) {
-    /**
-     * @param {string} queryString - The query used to find events.
-     */
-    this.findEvents = function (queryString) {
-      var deferredEvents = $q.defer(),
-          events = [],
-          exampleEvent = {
-            'title': queryString,
-            'calendarSummary' : 'someday',
-            'shortDescription': 'This is a short description',
-            'image' : 'http://placehold.it/300x200',
-            'location': ' De Hoorn'
-          };
+    .service('UdbApi', function UdbApi($q, $http, appConfig) {
+      /**
+       * @param {string} queryString - The query used to find events.
+       * @param {?number} start - From which offset the result set should start.
+       * @returns {Promise} A promise that signals a succesful retrieval of
+       *  search results or a failure.
+       */
+      this.findEvents = function (queryString, start) {
+        var deferredEvents = $q.defer(),
+            offset = start || 0;
 
-      if(queryString.length) {
-        _.times(9000, function (n) {
-          var event = _.clone(exampleEvent);
-          event.title = event.title + ' ' + (n+1);
-          events.push(event);
-        });
+        if (queryString.length) {
+          var request = $http.get(appConfig.baseUrl + 'search', {
+            params: {
+              'query': queryString,
+              'start': offset
+            }
+          });
+          request
+              .success(function (data) {
+                deferredEvents.resolve(data);
+              })
+              .error(function () {
+                deferredEvents.reject();
+              });
+        }
+        else {
+          deferredEvents.resolve({});
+        }
 
-        window.setTimeout(function () {
-          deferredEvents.resolve(events);
-        }, 300);
-      } else {
-        deferredEvents.resolve(events);
-      }
-
-
-      return deferredEvents.promise;
-    };
-  });
+        return deferredEvents.promise;
+      };
+    });
