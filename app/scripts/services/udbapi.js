@@ -28,7 +28,19 @@ angular.module('udbApp')
           });
           request
               .success(function (data) {
-                deferredEvents.resolve(data);
+                var singleEventRequests = [];
+                angular.forEach(data.member, function(value) {
+                  singleEventRequests.push($http.get(value['@id']));
+                });
+
+                $q.all(singleEventRequests).then(function(responses) {
+                  angular.forEach(responses, function(response, key) {
+                    data.member[key] = response.data;
+                  })
+
+                  deferredEvents.resolve(data);
+                });
+
               })
               .error(function () {
                 deferredEvents.reject();
