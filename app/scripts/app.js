@@ -75,8 +75,8 @@ udb.SearchResultViewer = (function () {
       var viewer = this;
 
       eventPromise.then(function (data) {
-        viewer.events = data.results || [];
-        viewer.totalItems = data.total || 0;
+        viewer.events = data.member || [];
+        viewer.totalItems = data.totalItems || 0;
         viewer.currentPage = 1;
         viewer.pageChanged();
         viewer.loading = false;
