@@ -38,16 +38,18 @@ angular.module('udbApp')
       return errors;
     };
 
-    var debouncedUpdateEvents = _.debounce(function(eventPromise){
+    var debouncedUpdateEvents = _.debounce(function(queryString){
+      var eventPromise = UdbApi.findEvents(queryString);
       $scope.resultViewer.updateEvents(eventPromise);
     }, 1000);
 
     $scope.$watch('searchQuery', function (queryString) {
 
-      $scope.resultViewer.queryChanged(queryString);
-      debouncedUpdateEvents(UdbApi.findEvents(queryString));
       $scope.queryErrors = parseQueryString(queryString);
-
+      if($scope.queryErrors.length === 0 ) {
+        $scope.resultViewer.queryChanged(queryString);
+        debouncedUpdateEvents(queryString);
+      }
     });
 
   });
