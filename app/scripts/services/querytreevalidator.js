@@ -18,8 +18,6 @@ angular.module('udbApp')
           right = current.right || false,
           nodes = [];
 
-      errors = errors || [];
-
       if(left) { nodes.push(left); }
       if(right) { nodes.push(right); }
 
@@ -36,18 +34,10 @@ angular.module('udbApp')
           errors.push(field + ' is not a valid search field');
         }
       }
-
-      if(depth === 0) {
-        if(errors.length) {
-          return errors;
-        } else {
-          return current;
-        }
-      }
     };
 
-    this.validate = function (queryTree) {
-      return validateFields(queryTree, 0);
+    this.validate = function (queryTree, errors) {
+      validateFields(queryTree, 0, errors);
     };
 
   }]);

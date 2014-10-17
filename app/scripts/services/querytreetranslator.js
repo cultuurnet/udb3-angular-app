@@ -12,14 +12,20 @@ angular.module('udbApp')
 
     var translations = queryFieldTranslations;
 
+    /**
+     * @param {string} field    - The field to translate.
+     * @param {string} srcLang  - To source language to translate from.
+     * @param {string} dstLang  - To destination language to translate to.
+     */
     var translateField = function(field, srcLang, dstLang) {
       var translation = field,
-          identifier = _.findKey(translations.srcLang, 'field');
+          identifier = _.findKey(translations[srcLang], function(src) {
+            return src === field;
+          });
 
       if(identifier) {
-        translation = translations.dstLang.identifier;
+        translation = translations[dstLang][identifier];
       }
-
       return translation;
     };
 
@@ -39,8 +45,8 @@ angular.module('udbApp')
       }
 
       var field = node.field;
-      if(typeof(field) !== 'undefined') {
-        field = translateField(field, 'nl', 'en');
+      if(field) {
+        node.field = translateField(field, 'nl', 'en');
       }
 
     };

@@ -9,10 +9,13 @@
  */
 angular.module('udbApp')
   .value('queryFields', [
-    'q',
     'title',
-    'calendarSummary',
-    'shortDescription',
+    'calendarsummary',
+    'shortdescription',
     'image',
-    'location'
+    'location_label',
+    'organiser_label',
+    'price',
+    'category_name',
+    'city'
   ]);
