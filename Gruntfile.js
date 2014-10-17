@@ -389,11 +389,28 @@ module.exports = function (grunt) {
           }
         }
       }
+    },
+
+    ngconstant: {
+      options: {
+        name: 'config',
+        dest: '<%= yeoman.app %>/scripts/config.js'
+      },
+      dev: {
+        constants: {
+          appConfig: grunt.file.readJSON('config_dev.json')
+        }
+      },
+      dist: {
+        constants: {
+          appConfig: grunt.file.readJSON('config.json')
+        }
+      },
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-less');
-
+  grunt.loadNpmTasks('grunt-ng-constant');
   grunt.loadNpmTasks('grunt-peg');
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
@@ -405,6 +422,7 @@ module.exports = function (grunt) {
       'clean:server',
       'wiredep',
       'concurrent:server',
+      'ngconstant:dev',
       'peg',
       'less',
       'autoprefixer',
@@ -421,6 +439,7 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'clean:server',
     'concurrent:test',
+    'ngconstant:dev',
     'peg',
     'less',
     'autoprefixer',
@@ -433,6 +452,7 @@ module.exports = function (grunt) {
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
+    'ngconstant:dist',
     'peg',
     'less',
     'autoprefixer',

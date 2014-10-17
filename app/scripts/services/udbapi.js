@@ -8,7 +8,7 @@
  * Service in the udbApp.
  */
 angular.module('udbApp')
-    .service('UdbApi', function UdbApi($q, $http) {
+    .service('UdbApi', function UdbApi($q, $http, appConfig) {
       /**
        * @param {string} queryString - The query used to find events.
        * @param {?number} start - From which offset the result set should start.
@@ -17,14 +17,13 @@ angular.module('udbApp')
        */
       this.findEvents = function (queryString, start) {
         var deferredEvents = $q.defer(),
-            start = start || 0,
-            base_url = 'http://culudb-silex.dev:8080/api/1.0/';
+            offset = start || 0;
 
         if (queryString.length) {
-          var request = $http.get(base_url + 'search', {
+          var request = $http.get(appConfig.baseUrl + 'search', {
             params: {
               'query': queryString,
-              'start': start
+              'start': offset
             }
           });
           request

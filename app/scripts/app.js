@@ -17,7 +17,8 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.bootstrap',
-    'peg'
+    'peg',
+    'config'
   ])
   .config(function ($routeProvider, $locationProvider) {
     $routeProvider
