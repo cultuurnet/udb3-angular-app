@@ -16,21 +16,46 @@ angular.module('udbApp')
       };
 
       var printTerm = function (node) {
-        var term = node.term;
+        var term = node.term,
+            isRangeExpression = (typeof node.term === 'undefined');
 
-        // if the term is a phrase surround it with double quotes
-        if(term.indexOf(' ') !== -1) {
-          term = '"' + term + '"';
-        }
+        if(isRangeExpression) {
+          var min = node.term_min, // jshint ignore:line
+              max = node.term_max, // jshint ignore:line
+              inclusive = node.inclusive;
 
-        // check for fuzzy search modifier
-        if(node.similarity) {
-          term += ('~' + node.similarity);
-        }
+          term = min + ' OR ' + max;
 
-        // check for proximity modifier
-        if(node.proximity) {
-          term += ('~' + node.proximity);
+          if(inclusive) {
+            term = '[' + term + ']';
+          } else {
+            term = '{' + term + '}';
+          }
+        } else {
+          // if the term is a phrase surround it with double quotes
+          if(term.indexOf(' ') !== -1) {
+            term = '"' + term + '"';
+          }
+
+          // check for fuzzy search modifier
+          if(node.similarity) {
+            term += ('~' + node.similarity);
+          }
+
+          // check for proximity modifier
+          if(node.proximity) {
+            term += ('~' + node.proximity);
+          }
+
+          // check for prefix modifier
+          if(node.prefix) {
+            term = node.prefix + term;
+          }
+
+          // check for boost modifier
+          if(node.boost) {
+            term += ('^' + node.boost);
+          }
         }
 
         return term;
