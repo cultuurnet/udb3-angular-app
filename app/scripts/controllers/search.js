@@ -21,25 +21,26 @@ angular.module('udbApp')
       $scope.resultViewer.updateEvents(eventPromise);
     }, 1000);
 
-    $scope.$watch('searchQuery', function (queryString) {
-      $scope.queryErrors = [];
-      var queryTree = queryBuilder.parseQueryString(queryString, $scope.queryErrors);
+    var updateQuery = function (query) {
+      var realQuery = queryBuilder.unparse(query);
+      $scope.resultViewer.queryChanged(realQuery);
+      debouncedUpdateEvents(realQuery);
 
-      if($scope.queryErrors.length === 0) {
-        queryBuilder.translate(queryTree);
-        queryBuilder.validate(queryTree, $scope.queryErrors);
+      if(realQuery !== query.queryString) {
+        $scope.realQuery = realQuery;
+      } else {
+        $scope.realQuery = false;
       }
+    };
 
-      if($scope.queryErrors.length === 0) {
-        var realQuery = queryBuilder.unparseQueryTree(queryTree);
-        $scope.resultViewer.queryChanged(queryString);
-        debouncedUpdateEvents(realQuery);
+    $scope.$watch('searchQuery', function (queryString) {
+      var query = queryBuilder.createQuery(queryString);
 
-        if(realQuery !== queryString) {
-          $scope.realQuery = realQuery;
-        } else {
-          $scope.realQuery = false;
-        }
+      if(queryBuilder.isValid(query)) {
+        updateQuery(query);
+        $scope.queryErrors = [];
+      } else {
+        $scope.queryErrors = query.errors;
       }
 
     });

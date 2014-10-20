@@ -8,27 +8,48 @@
  * Service in the udbApp.
  */
 angular.module('udbApp')
-  .service('LuceneQueryBuilder', ['LuceneQueryParser', function LuceneQueryBuilder(LuceneQueryParser, QueryFieldValidator, QueryTreeTranslator) {
+  .service('LuceneQueryBuilder', ['LuceneQueryParser', 'QueryTreeValidator', 'QueryTreeTranslator', function LuceneQueryBuilder(LuceneQueryParser, QueryTreeValidator, QueryTreeTranslator) {
       var implicitToken = '<implicit>';
 
-      this.translate = function (queryTree) {
-        QueryTreeTranslator.translateQueryTree(queryTree);
+      this.translate = function (query) {
+        QueryTreeTranslator.translateQueryTree(query.queryTree);
       };
 
-      this.validate = function (queryTree) {
-        QueryFieldValidator.validate(queryTree, errors);
+      this.validate = function (query) {
+        QueryTreeValidator.validate(query.queryTree, query.errors);
       };
 
-      this.parseQueryString = function (queryString, errors) {
-        var queryTree;
+      this.isValid = function(query) {
+        this.translate(query);
+        this.validate(query);
 
+        return query.errors.length === 0;
+      };
+
+      this.parseQueryString = function (query) {
         try {
-          queryTree = LuceneQueryParser.parse(queryString);
+          query.queryTree = LuceneQueryParser.parse(query.queryString);
         } catch (e) {
-          errors.push(e.message);
+          query.errors.push(e.message);
         }
 
-        return queryTree;
+        return query.queryTree;
+      };
+
+    /**
+     *
+     * @param {string} queryString
+     */
+      this.createQuery = function (queryString) {
+        var query = {
+          queryString: queryString,
+          queryTree: {},
+          errors: []
+        };
+
+        this.parseQueryString(query);
+
+        return query;
       };
 
       var printTerm = function (node) {
@@ -118,6 +139,10 @@ angular.module('udbApp')
         if(depth === 0) {
           return sentence;
         }
+      };
+
+      this.unparse = function (query) {
+        return this.unparseQueryTree(query.queryTree);
       };
 
       this.unparseQueryTree = function (queryTree) {

@@ -36,7 +36,7 @@ angular.module('udbApp')
                 $q.all(singleEventRequests).then(function(responses) {
                   angular.forEach(responses, function(response, key) {
                     data.member[key] = response.data;
-                  })
+                  });
 
                   deferredEvents.resolve(data);
                 });
