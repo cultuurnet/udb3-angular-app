@@ -8,11 +8,27 @@
  * Service in the udbApp.
  */
 angular.module('udbApp')
-  .service('LuceneQueryBuilder', ['LuceneQueryParser', function LuceneQueryBuilder(LuceneQueryParser) {
+  .service('LuceneQueryBuilder', ['LuceneQueryParser', function LuceneQueryBuilder(LuceneQueryParser, QueryFieldValidator, QueryTreeTranslator) {
       var implicitToken = '<implicit>';
 
-      this.parseQueryString = function (queryString) {
-        return LuceneQueryParser.parse(queryString);
+      this.translate = function (queryTree) {
+        QueryTreeTranslator.translateQueryTree(queryTree);
+      };
+
+      this.validate = function (queryTree) {
+        QueryFieldValidator.validate(queryTree, errors);
+      };
+
+      this.parseQueryString = function (queryString, errors) {
+        var queryTree;
+
+        try {
+          queryTree = LuceneQueryParser.parse(queryString);
+        } catch (e) {
+          errors.push(e.message);
+        }
+
+        return queryTree;
       };
 
       var printTerm = function (node) {
