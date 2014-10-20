@@ -8,33 +8,49 @@
  * Controller of the udbApp
  */
 angular.module('udbApp')
-  .controller('SearchCtrl', function ($scope, UdbApi, LuceneQueryBuilder) {
+  .controller('SearchCtrl', function ($scope, UdbApi, LuceneQueryBuilder, $window) {
     var queryBuilder = LuceneQueryBuilder;
 
     $scope.searchQuery = '';
     $scope.resultViewer = new udb.SearchResultViewer();
     $scope.queryErrors = [];
     $scope.realQuery = false;
+    $scope.activeQuery = false;
 
-    var debouncedUpdateEvents = _.debounce(function(queryString) {
-      var eventPromise = UdbApi.findEvents(queryString);
-      $scope.resultViewer.updateEvents(eventPromise);
+    var debouncedFindEvents = _.debounce(function(queryString) {
+      findEvents(queryString);
     }, 1000);
 
     var updateQuery = function (query) {
       var realQuery = queryBuilder.unparse(query);
       $scope.resultViewer.queryChanged(realQuery);
-      debouncedUpdateEvents(realQuery);
+      debouncedFindEvents(realQuery);
 
-      if(realQuery !== query.queryString) {
+      if(realQuery !== query.originalQueryString) {
         $scope.realQuery = realQuery;
       } else {
         $scope.realQuery = false;
       }
     };
 
+    var findEvents = function (query) {
+      var offset = $scope.resultViewer.currentPage - 1;
+      var queryString = typeof query === 'string' ? query : query.queryString;
+      var eventPromise = UdbApi.findEvents(queryString, offset);
+
+      $scope.resultViewer.loading = true;
+
+      eventPromise.then(function(pagedEvents) {
+        $scope.resultViewer.updateEvents(pagedEvents);
+      }, function (error) {
+        window.alert('something went wrong while looking for events: ' + error);
+      });
+    };
+
     $scope.$watch('searchQuery', function (queryString) {
       var query = queryBuilder.createQuery(queryString);
+
+      $scope.activeQuery = query;
 
       if(queryBuilder.isValid(query)) {
         updateQuery(query);
@@ -44,4 +60,10 @@ angular.module('udbApp')
       }
 
     });
+
+    $scope.$watch('resultViewer.currentPage', function (currentPage) {
+      findEvents($scope.activeQuery);
+      $window.scroll(0, 0);
+    });
+
   });

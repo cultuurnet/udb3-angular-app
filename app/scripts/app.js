@@ -57,7 +57,7 @@ udb.SearchResultViewer = (function () {
    * @param pagSize
    */
   var searchResultViewer = function (pageSize) {
-    this.pageSize = pageSize || 50;
+    this.pageSize = pageSize || 30;
     this.events = [];
     this.totalItems = 0;
     this.currentPage = 1;
@@ -71,18 +71,15 @@ udb.SearchResultViewer = (function () {
     setPage: function (index) {
       this.currentPage = index;
     },
-    updateEvents: function (eventPromise) {
+    updateEvents: function (pagedResults) {
       var viewer = this;
 
-      eventPromise.then(function (data) {
-        viewer.events = data.member || [];
-        viewer.totalItems = data.totalItems || 0;
-        viewer.currentPage = 1;
-        viewer.pageChanged();
-        viewer.loading = false;
-      }, function (error) {
-        window.alert('something went wrong while looking for events');
-      });
+      viewer.pageSize = pagedResults.itemsPerPage || 30;
+      viewer.events = pagedResults.member || [];
+      viewer.totalItems = pagedResults.totalItems || 0;
+
+      viewer.pageChanged();
+      viewer.loading = false;
     },
     pageChanged: function () {
       this.updatePageRange();
@@ -100,6 +97,8 @@ udb.SearchResultViewer = (function () {
       } else {
         this.loading = false;
       }
+
+      this.currentPage = 1;
     }
   };
 

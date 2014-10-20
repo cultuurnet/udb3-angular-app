@@ -26,7 +26,6 @@ angular.module('udbApp')
         translation = identifier.toLowerCase();
       }
 
-      console.log([translation, identifier]);
       return translation;
     };
 

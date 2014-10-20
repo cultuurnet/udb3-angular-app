@@ -11,7 +11,7 @@ angular.module('udbApp')
     .service('UdbApi', function UdbApi($q, $http, appConfig) {
       /**
        * @param {string} queryString - The query used to find events.
-       * @param {?number} start - From which offset the result set should start.
+       * @param {?number} start - From which page offset the result set should start.
        * @returns {Promise} A promise that signals a succesful retrieval of
        *  search results or a failure.
        */

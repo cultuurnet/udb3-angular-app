@@ -42,6 +42,7 @@ angular.module('udbApp')
      */
       this.createQuery = function (queryString) {
         var query = {
+          originalQueryString: queryString,
           queryString: queryString,
           queryTree: {},
           errors: []
@@ -142,7 +143,8 @@ angular.module('udbApp')
       };
 
       this.unparse = function (query) {
-        return this.unparseQueryTree(query.queryTree);
+        query.queryString = this.unparseQueryTree(query.queryTree);
+        return query.queryString;
       };
 
       this.unparseQueryTree = function (queryTree) {

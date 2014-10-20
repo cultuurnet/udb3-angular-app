@@ -53,7 +53,7 @@
     <div ng-show="resultViewer.totalItems">
       <p>{{resultViewer.totalItems}} evenementen gevonden:</p>
 
-      <div class="row event" ng-repeat="event in resultViewer.events | slice:resultViewer.startIndex:resultViewer.endIndex">
+      <div class="row event" ng-repeat="event in resultViewer.events">
         <div class="col-sm-12">
           <h3>{{event.name}}</h3>
         </div>
@@ -74,7 +74,7 @@
         </div>
       </div>
 
-      <pagination total-items="resultViewer.totalItems" ng-model="resultViewer.currentPage"
+      <pagination total-items="resultViewer.totalItems" ng-model="resultViewer.currentPage" items-per-page="resultViewer.pageSize"
         ng-change="resultViewer.pageChanged()" max-size="10"></pagination>
     </div>
   </div>
