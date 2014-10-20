@@ -15,17 +15,18 @@ angular.module('udbApp')
     /**
      * @param {string} field    - The field to translate.
      * @param {string} srcLang  - To source language to translate from.
-     * @param {string} dstLang  - To destination language to translate to.
      */
-    var translateField = function(field, srcLang, dstLang) {
+    var translateField = function(field, srcLang) {
       var translation = field,
           identifier = _.findKey(translations[srcLang], function(src) {
             return src === field;
           });
 
       if(identifier) {
-        translation = translations[dstLang][identifier];
+        translation = identifier.toLowerCase();
       }
+
+      console.log([translation, identifier]);
       return translation;
     };
 
@@ -44,9 +45,9 @@ angular.module('udbApp')
         }
       }
 
-      var field = node.field;
-      if(field) {
-        node.field = translateField(field, 'nl', 'en');
+      if(node.field) {
+        node.field = translateField(node.field, 'en');
+        node.field = translateField(node.field, 'nl');
       }
 
     };
