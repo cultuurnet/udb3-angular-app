@@ -24,7 +24,8 @@ angular.module('udbApp')
             params: {
               'query': queryString,
               'start': offset
-            }
+            },
+            withCredentials: true
           });
           request
               .success(function (data) {
