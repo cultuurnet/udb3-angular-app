@@ -3,7 +3,7 @@
 describe('Service: queryFields', function () {
 
   // load the service's module
-  beforeEach(module('udbAppApp'));
+  beforeEach(module('udbApp'));
 
   // instantiate service
   var queryFields;
