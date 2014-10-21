@@ -165,10 +165,19 @@ field_exp
     }
 
 fieldname
-  = fieldname:unquoted_term [:]
+  = fieldname:unquoted_field [:]
     {
         return fieldname;
     }
+
+unquoted_field
+  = field:field_char+
+    {
+        return field.join('');
+    }
+
+field_char
+  = '.' / [^: \t\r\n\f\{\}()"+/^~\[\]]
 
 term
   = op:prefix_operator_exp? term:quoted_term proximity:proximity_modifier? boost:boost_modifier? _*
@@ -215,7 +224,7 @@ unquoted_term
     }
 
 term_char
-  = '.' / [^: \t\r\n\f\{\}()"+-/^~\[\]]
+  = '.' / [^: \t\r\n\f\{\}()"+\-/^~\[\]]
 
 
 quoted_term
