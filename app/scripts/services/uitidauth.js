@@ -41,4 +41,11 @@ angular.module('udbApp')
       $window.location.href = authUrl;
     };
 
+    /**
+     * Returns the currently logged in user
+     */
+    this.getUser = function () {
+      return $cookieStore.get('user');
+    };
+
   });

@@ -62,11 +62,11 @@ angular.module('udbApp')
       this.getMe = function () {
         var deferredUser = $q.defer();
 
-        var storedUser = $cookieStore.get('user');
+        var activeUser = uitidAuth.getUser();
 
-        if(storedUser) {
+        if(activeUser) {
           console.log('retrieving user info from cookie');
-          deferredUser.resolve(storedUser);
+          deferredUser.resolve(activeUser);
         } else {
           console.log('logging in the user');
           uitidAuth.login();

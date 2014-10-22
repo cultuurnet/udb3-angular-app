@@ -8,10 +8,15 @@
  * Controller of the udbAppApp
  */
 angular.module('udbApp')
-  .controller('MainCtrl', function ($scope, uitidAuth, $cookieStore) {
+  .controller('MainCtrl', function ($scope, uitidAuth) {
     $scope.login = function () {
       uitidAuth.login();
     };
 
-    $scope.user = $cookieStore.get('user') || false;
+    $scope.$watch(function () {
+      return uitidAuth.getUser();
+    }, function (user) {
+      $scope.user = user;
+    }, true);
+
   });
