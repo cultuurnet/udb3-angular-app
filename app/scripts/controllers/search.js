@@ -42,8 +42,6 @@ angular.module('udbApp')
 
       eventPromise.then(function(pagedEvents) {
         $scope.resultViewer.updateEvents(pagedEvents);
-      }, function (error) {
-        window.alert('something went wrong while looking for events: ' + error);
       });
     };
 

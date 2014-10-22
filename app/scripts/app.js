@@ -20,7 +20,7 @@ angular
     'peg',
     'config'
   ])
-  .config(function ($routeProvider, $locationProvider) {
+  .config(function ($routeProvider, $locationProvider, $httpProvider) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -39,6 +39,8 @@ angular
       });
 
 		$locationProvider.html5Mode(true);
+
+    $httpProvider.interceptors.push('udbHttpInterceptor');
   });
 
 /**
