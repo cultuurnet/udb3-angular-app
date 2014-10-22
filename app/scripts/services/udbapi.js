@@ -8,7 +8,7 @@
  * Service in the udbApp.
  */
 angular.module('udbApp')
-    .service('UdbApi', function UdbApi($q, $http, appConfig, $cookieStore, $location, $window) {
+    .service('UdbApi', function UdbApi($q, $http, appConfig, $cookieStore, uitidAuth) {
       var apiUrl = appConfig.baseApiUrl;
 
       /**
@@ -57,35 +57,10 @@ angular.module('udbApp')
       };
 
     /**
-     * Log the active user out.
-     */
-    this.logout = function () {
-      var logoutUrl = appConfig.baseUrl + 'logout',
-          request = $http.get(logoutUrl);
-
-      $cookieStore.remove('user');
-
-      return request;
-    };
-
-    this.login = function () {
-      var currentLocation = $location.absUrl(),
-        authUrl = appConfig.authUrl;
-
-      authUrl += '?destination=' + currentLocation;
-      $window.location.href = authUrl;
-    };
-
-    /**
      * @returns {Promise} A promise with the credentials of the currently logged in user.
      */
       this.getMe = function () {
-        var deferredUser = $q.defer(),
-            user = {
-              id: '247d4bc0-83c2-47c6-ae28-b4e733827956',
-              nick: 'bramcordie',
-              fullName: 'Bram Cordie'
-            };
+        var deferredUser = $q.defer();
 
         var storedUser = $cookieStore.get('user');
 
@@ -94,9 +69,7 @@ angular.module('udbApp')
           deferredUser.resolve(storedUser);
         } else {
           console.log('logging in the user');
-          $cookieStore.put('user', user);
-          this.login();
-          deferredUser.resolve(user);
+          uitidAuth.login();
         }
 
         return deferredUser.promise;

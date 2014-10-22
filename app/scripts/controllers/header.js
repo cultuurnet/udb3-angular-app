@@ -8,10 +8,10 @@
  * Controller of the udbApp
  */
 angular.module('udbApp')
-  .controller('HeaderCtrl', ['UdbApi', '$scope','$cookieStore', function (UdbApi, $scope, $cookieStore) {
+  .controller('HeaderCtrl', ['uitidAuth', '$scope','$cookieStore', function (uitidAuth, $scope, $cookieStore) {
 
     var logout = function () {
-      var logoutRequest = UdbApi.logout();
+      var logoutRequest = uitidAuth.logout();
 
       logoutRequest.then(function () {
         $scope.user = false;
@@ -19,7 +19,7 @@ angular.module('udbApp')
     };
 
     var login = function () {
-      var loginRequest = UdbApi.getMe();
+      var loginRequest = uitidAuth.login();
 
       loginRequest.then(function (credentials) {
         $scope.user = credentials;
