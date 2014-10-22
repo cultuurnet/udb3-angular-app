@@ -18,11 +18,13 @@
 
     <!-- Add your site or application content here -->
     <div class="container">
-      <div class="header">
+      <div class="header" ng-controller="HeaderCtrl">
         <ul class="nav nav-pills pull-right">
-          <li><a ng-href="/">Home</a></li>
-          <li><a ng-href="/about">About</a></li>
-          <li><a ng-href="/search">Search</a></li>
+            <li><a ng-href="/">Home</a></li>
+            <li ng-show="user"><a ng-href="/search">Search</a></li>
+            <li ng-hide="user"><a ng-click="login()">login</a></li>
+            <li ng-show="user" class="disabled"><a ng-bind="user.fullName"></a></li>
+            <li ng-show="user"><a ng-click="logout()">logout</a></li>
         </ul>
         <h3 class="text-muted">UiTdatabank</h3>
       </div>
@@ -85,6 +87,7 @@
         <script src="scripts/services/queryfields.js"></script>
         <script src="scripts/parsers/lucenequeryparser.js"></script>
         <script src="scripts/services/udbhttpinterceptor.js"></script>
+        <script src="scripts/controllers/header.js"></script>
         <!-- endbuild -->
 </body>
 </html>

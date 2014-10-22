@@ -10,12 +10,11 @@
 angular.module('udbApp')
   .factory('udbHttpInterceptor', function ($q, $location, $window, appConfig) {
 
-    var login  = function () {
+    var login = function () {
       var currentLocation = $location.absUrl(),
         authUrl = appConfig.authUrl;
 
       authUrl += '?destination=' + currentLocation;
-      console.log(authUrl);
       $window.location.href = authUrl;
     };
 
@@ -27,7 +26,7 @@ angular.module('udbApp')
           login();
         }
 
-        // Maybe the user is 
+        // Maybe the user is
         if (rejection.status === 403) {
           login();
         }

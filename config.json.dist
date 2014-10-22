@@ -1,4 +1,5 @@
 {
-  "baseUrl": "http://culudb-silex.dev:8080/api/1.0/",
+  "baseUrl": "http://culudb-silex.dev:8080/",
+  "baseApiUrl": "http://culudb-silex.dev:8080/api/1.0/",
   "authUrl": "http://culudb-silex.dev:8080/culturefeed/oauth/connect"
 }
