@@ -34,7 +34,7 @@ angular.module('udbApp')
     };
 
     var findEvents = function (query) {
-      var offset = $scope.resultViewer.currentPage - 1;
+      var offset = ($scope.resultViewer.currentPage - 1) * $scope.resultViewer.pageSize;
       var queryString = typeof query === 'string' ? query : query.queryString;
       var eventPromise = UdbApi.findEvents(queryString, offset);
 
