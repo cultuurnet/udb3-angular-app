@@ -7,8 +7,8 @@
  * # udbEvent
  */
 angular.module('udbApp')
-  .directive('udbEvent', function (UdbApi) {
-    return {
+  .directive('udbEvent', function factory(UdbApi) {
+    var udbEvent = {
       restrict: 'A',
       link: function postLink(scope) {
         if(!scope.event.title) {
@@ -24,4 +24,6 @@ angular.module('udbApp')
         }
       }
     };
+
+    return udbEvent;
   });
