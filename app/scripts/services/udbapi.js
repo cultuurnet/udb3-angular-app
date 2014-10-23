@@ -34,23 +34,7 @@ angular.module('udbApp')
           });
           request
               .success(function (data) {
-                var singleEventRequests = [];
-                angular.forEach(data.member, function(value) {
-                  singleEventRequests.push($http.get(value['@id'], {
-                    headers: {
-                      'Accept': 'application/ld+json'
-                    }
-                  }));
-                });
-
-                $q.all(singleEventRequests).then(function(responses) {
-                  angular.forEach(responses, function(response, key) {
-                    data.member[key] = response.data;
-                  });
-
-                  deferredEvents.resolve(data);
-                });
-
+                deferredEvents.resolve(data);
               })
               .error(function () {
                 deferredEvents.reject();
@@ -62,6 +46,22 @@ angular.module('udbApp')
 
         return deferredEvents.promise;
       };
+
+    this.getEventByLDId = function(eventId) {
+      var deferredEvent = $q.defer();
+
+      var eventRequest  = $http.get(eventId, {
+        headers: {
+          'Accept': 'application/ld+json'
+        }
+      });
+
+      eventRequest.success(function(eventData) {
+        deferredEvent.resolve(eventData);
+      });
+
+      return deferredEvent.promise;
+    };
 
     /**
      * @returns {Promise} A promise with the credentials of the currently logged in user.

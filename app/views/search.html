@@ -54,24 +54,27 @@
       <p>{{resultViewer.totalItems}} evenementen gevonden:</p>
 
       <div class="row event" ng-repeat="event in resultViewer.events">
-        <div class="col-sm-12">
-          <h3>{{event.name}}</h3>
-        </div>
-        <div class="col-sm-4">
-          <img ng-src="{{event.image}}" alt="{{event.name}}" class="img-responsive">
-        </div>
-        <div class="col-sm-8">
-          <dl>
-            <dt>Wanneer</dt>
-            <dd>{{event.calendarSummary}}</dd>
+          <div udb-event="event" ng-hide="fetching">
+              <p ng-bind="fetching"></p>
+              <div class="col-sm-12">
+                  <h3>{{event.name}}</h3>
+              </div>
+              <div class="col-sm-4">
+                  <img ng-src="{{event.image}}" alt="{{event.name}}" class="img-responsive">
+              </div>
+              <div class="col-sm-8">
+                  <dl>
+                      <dt>Wanneer</dt>
+                      <dd>{{event.calendarSummary}}</dd>
 
-            <dt>Waar</dt>
-            <dd>{{event.location}}</dd>
+                      <dt>Waar</dt>
+                      <dd>{{event.location}}</dd>
 
-            <dt>Beschrijving</dt>
-            <dd>{{event.shortDescription}}</dd>
-          </dl>
-        </div>
+                      <dt>Beschrijving</dt>
+                      <dd>{{event.shortDescription}}</dd>
+                  </dl>
+              </div>
+          </div>
       </div>
 
       <pagination total-items="resultViewer.totalItems" ng-model="resultViewer.currentPage" items-per-page="resultViewer.pageSize"

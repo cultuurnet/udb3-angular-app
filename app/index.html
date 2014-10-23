@@ -22,9 +22,10 @@
         <ul class="nav nav-pills pull-right">
             <li><a ng-href="/">Home</a></li>
             <li ng-show="user"><a ng-href="/search">Zoeken</a></li>
-            <li ng-hide="user"><a ng-click="login()">Aanmelden</a></li>
+            <li ng-hide="user"><a ng-click="login()" ng-href="#">Aanmelden</a></li>
             <li ng-show="user" class="disabled"><a ng-bind="user.nick"></a></li>
-            <li ng-show="user"><a ng-click="logout()">Afmelden</a></li>
+            <li ng-show="user"><a ng-click="logout()" ng-href="#">Afmelden</a></li>
+            <li class="dropdown"></li>
         </ul>
         <h3 class="text-muted">UiTdatabank</h3>
       </div>
@@ -89,6 +90,7 @@
         <script src="scripts/services/udbhttpinterceptor.js"></script>
         <script src="scripts/controllers/header.js"></script>
         <script src="scripts/services/uitidauth.js"></script>
+        <script src="scripts/directives/udbevent.js"></script>
         <!-- endbuild -->
 </body>
 </html>
