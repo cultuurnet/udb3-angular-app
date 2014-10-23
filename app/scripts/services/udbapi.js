@@ -8,8 +8,9 @@
  * Service in the udbApp.
  */
 angular.module('udbApp')
-    .service('UdbApi', function UdbApi($q, $http, appConfig, $cookieStore, uitidAuth) {
+    .service('UdbApi', function UdbApi($q, $http, appConfig, $cookieStore, uitidAuth, $cacheFactory) {
       var apiUrl = appConfig.baseApiUrl;
+      var eventCache = $cacheFactory('evenCache');
 
       /**
        * @param {string} queryString - The query used to find events.
@@ -50,15 +51,22 @@ angular.module('udbApp')
     this.getEventByLDId = function(eventId) {
       var deferredEvent = $q.defer();
 
-      var eventRequest  = $http.get(eventId, {
-        headers: {
-          'Accept': 'application/ld+json'
-        }
-      });
+      var event = eventCache.get(eventId);
 
-      eventRequest.success(function(eventData) {
-        deferredEvent.resolve(eventData);
-      });
+      if(event) {
+        deferredEvent.resolve(event);
+      } else {
+        var eventRequest  = $http.get(eventId, {
+          headers: {
+            'Accept': 'application/ld+json'
+          }
+        });
+
+        eventRequest.success(function(eventData) {
+          eventCache.put(eventId, eventData);
+          deferredEvent.resolve(eventData);
+        });
+      }
 
       return deferredEvent.promise;
     };
