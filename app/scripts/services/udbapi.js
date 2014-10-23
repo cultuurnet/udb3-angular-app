@@ -75,8 +75,19 @@ angular.module('udbApp')
           console.log('retrieving user info from cookie');
           deferredUser.resolve(activeUser);
         } else {
-          console.log('logging in the user');
-          uitidAuth.login();
+
+          var request = $http.get(apiUrl + 'user', {
+            withCredentials: true
+          });
+
+          request.success(function(userData) {
+            $cookieStore.put('user', userData);
+            deferredUser.resolve(userData);
+          });
+
+          request.error(function () {
+            deferredUser.reject();
+          });
         }
 
         return deferredUser.promise;
