@@ -27,13 +27,20 @@ angular.module('udbApp')
               'query': queryString,
               'start': offset
             },
-            withCredentials: true
+            withCredentials: true,
+            headers: {
+              'Accept': 'application/ld+json'
+            }
           });
           request
               .success(function (data) {
                 var singleEventRequests = [];
                 angular.forEach(data.member, function(value) {
-                  singleEventRequests.push($http.get(value['@id']));
+                  singleEventRequests.push($http.get(value['@id'], {
+                    headers: {
+                      'Accept': 'application/ld+json'
+                    }
+                  }));
                 });
 
                 $q.all(singleEventRequests).then(function(responses) {
