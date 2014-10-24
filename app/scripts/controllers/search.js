@@ -8,7 +8,7 @@
  * Controller of the udbApp
  */
 angular.module('udbApp')
-  .controller('SearchCtrl', function ($scope, UdbApi, LuceneQueryBuilder, $window) {
+  .controller('SearchCtrl', function ($scope, UdbApi, LuceneQueryBuilder, $window, $location) {
     var queryBuilder = LuceneQueryBuilder;
 
     $scope.searchQuery = '';
@@ -17,10 +17,33 @@ angular.module('udbApp')
     $scope.realQuery = false;
     $scope.activeQuery = false;
 
+    $scope.$watch(function () {
+      return $location.search();
+    }, function (searchParams) {
+      console.log(searchParams);
+
+      if(searchParams.page) {
+        $scope.resultViewer.currentPage = parseInt(searchParams.page);
+      }
+
+      if(searchParams.query) {
+        var query = String(searchParams.query);
+        $scope.searchQuery = query || '';
+      }
+    }, true);
+
+    /**
+     * This debounce function can be used to delay searching when an input field changes.
+     * @param {String} A query string used to find events.
+     */
     var debouncedFindEvents = _.debounce(function(queryString) {
       findEvents(queryString);
     }, 1000);
 
+    /**
+     *
+     * @param Query A query object used to update the interface and result viewer.
+     */
     var updateQuery = function (query) {
       var realQuery = queryBuilder.unparse(query);
       $scope.resultViewer.queryChanged(realQuery);
@@ -33,10 +56,27 @@ angular.module('udbApp')
       }
     };
 
+    /**
+     * Fires off a search for events using a plain query string or a query object.
+     * @param {String|Query} A query string or object to search with.
+     */
     var findEvents = function (query) {
       var offset = ($scope.resultViewer.currentPage - 1) * $scope.resultViewer.pageSize;
       var queryString = typeof query === 'string' ? query : query.queryString;
       var eventPromise = UdbApi.findEvents(queryString, offset);
+
+      // Check if a query string is defined else clear the relevant search parameters.
+      if(queryString) {
+        $location.search({
+          'query' : $scope.searchQuery,
+          'page' : String($scope.resultViewer.currentPage)
+        });
+      } else {
+        $location.search({
+          'query': null,
+          'page': null
+        });
+      }
 
       $scope.resultViewer.loading = true;
 
@@ -59,9 +99,12 @@ angular.module('udbApp')
 
     });
 
-    $scope.$watch('resultViewer.currentPage', function (currentPage) {
-      findEvents($scope.activeQuery);
-      $window.scroll(0, 0);
+    $scope.$watch('resultViewer.currentPage', function (newPageNr, oldPageNr) {
+      if(newPageNr !== oldPageNr) {
+        console.log([newPageNr, oldPageNr]);
+        findEvents($scope.activeQuery);
+        $window.scroll(0, 0);
+      }
     });
 
   });

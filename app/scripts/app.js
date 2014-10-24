@@ -32,7 +32,8 @@ angular
       })
       .when('/search', {
         templateUrl: 'views/search.html',
-        controller: 'SearchCtrl'
+        controller: 'SearchCtrl',
+        reloadOnSearch: false
       })
       .otherwise({
         redirectTo: '/'
