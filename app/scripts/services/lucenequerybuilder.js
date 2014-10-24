@@ -62,7 +62,7 @@ angular.module('udbApp')
               max = node.term_max, // jshint ignore:line
               inclusive = node.inclusive;
 
-          term = min + ' OR ' + max;
+          term = min + ' TO ' + max;
 
           if(inclusive) {
             term = '[' + term + ']';
