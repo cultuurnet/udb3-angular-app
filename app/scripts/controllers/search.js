@@ -20,7 +20,6 @@ angular.module('udbApp')
     $scope.$watch(function () {
       return $location.search();
     }, function (searchParams) {
-      console.log(searchParams);
 
       if(searchParams.page) {
         $scope.resultViewer.currentPage = parseInt(searchParams.page);
@@ -101,7 +100,6 @@ angular.module('udbApp')
 
     $scope.$watch('resultViewer.currentPage', function (newPageNr, oldPageNr) {
       if(newPageNr !== oldPageNr) {
-        console.log([newPageNr, oldPageNr]);
         findEvents($scope.activeQuery);
         $window.scroll(0, 0);
       }

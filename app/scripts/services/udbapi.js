@@ -80,7 +80,6 @@ angular.module('udbApp')
         var activeUser = uitidAuth.getUser();
 
         if(activeUser) {
-          console.log('retrieving user info from cookie');
           deferredUser.resolve(activeUser);
         } else {
 
