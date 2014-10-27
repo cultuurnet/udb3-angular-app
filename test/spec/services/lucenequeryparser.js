@@ -1,13 +1,13 @@
 'use strict';
 
-describe('Service: LuceneQueryParser', function () {
+describe('Service: LuceneQueryBuilder', function () {
 
   // load the service's module
-  beforeEach(module('udbAppApp'));
+  beforeEach(module('udbApp'));
 
   // instantiate service
-  var LuceneQueryParser;
-  beforeEach(inject(function (_LuceneQueryParser_) {
-    LuceneQueryParser = _LuceneQueryParser_;
+  var LuceneQueryBuilder;
+  beforeEach(inject(function (_LuceneQueryBuilder_) {
+    LuceneQueryBuilder = _LuceneQueryBuilder_;
   }));
 });
