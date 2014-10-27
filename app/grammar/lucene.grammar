@@ -171,13 +171,13 @@ fieldname
     }
 
 unquoted_field
-  = field:field_char+
+  = first_character:[^: \t\r\n\f\{\}()+\-"^~\[\]] field:field_char*
     {
-        return field.join('');
+        return first_character + field.join('');
     }
 
 field_char
-  = '.' / [^: \t\r\n\f\{\}()"+/^~\[\]]
+  = [^: \t\r\n\f\{\}()+"^~\[\]]
 
 term
   = op:prefix_operator_exp? term:quoted_term proximity:proximity_modifier? boost:boost_modifier? _*
@@ -197,7 +197,7 @@ term
             result['prefix'] = op;
         }
 
-        return result;
+        return result;1
     }
   / op:prefix_operator_exp? term:unquoted_term similarity:fuzzy_modifier? boost:boost_modifier? _*
     {
@@ -218,13 +218,13 @@ term
     }
 
 unquoted_term
-  = term:term_char+
+  = first_character:[^,: \t\r\n\f\{\}()+\-"^~\[\]] term:term_char*
     {
-        return term.join('');
+        return first_character + term.join('');
     }
 
 term_char
-  = '.' / [^: \t\r\n\f\{\}()"+\-/^~\[\]]
+  = [^ \t\r\n\f\{\}()+"^~\[\]]
 
 
 quoted_term
