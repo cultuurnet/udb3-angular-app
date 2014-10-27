@@ -1,6 +1,8 @@
 'use strict';
 
-describe('Service: ', function () {
+/* jshint sub: true */
+
+describe('Service: LuceneQueryParser', function () {
 
   // load the service's module
   beforeEach(module('udbApp'));
@@ -11,22 +13,22 @@ describe('Service: ', function () {
     lucenequeryparser = _LuceneQueryParser_;
   }));
 
-  describe("lucenequeryparser: whitespace handling", function() {
+  describe('whitespace handling', function() {
 
     // term parsing
-    it("handles empty string", function() {
+    it('handles empty string', function() {
       var results = lucenequeryparser.parse('');
 
       expect(isEmpty(results)).toBe(true);
     });
 
-    it("handles leading whitespace with no contents", function() {
+    it('handles leading whitespace with no contents', function() {
       var results = lucenequeryparser.parse(' \r\n');
 
       expect(isEmpty(results)).toBe(true);
     });
 
-    it("handles leading whitespace before an expression string", function() {
+    it('handles leading whitespace before an expression string', function() {
       var results = lucenequeryparser.parse(' Test:Foo');
 
       expect(results['left']['field']).toBe('Test');
@@ -35,54 +37,53 @@ describe('Service: ', function () {
 
     function isEmpty(arr)
     {
-      for(var i in arr)
-      {
+      for (var i = 0; i < arr.length; i++) {
         return false;
       }
       return true;
     }
   });
 
-  describe("lucenequeryparser: term parsing", function() {
+  describe('term parsing', function() {
 
     // term parsing
-    it("parses terms", function() {
+    it('parses terms', function() {
       var results = lucenequeryparser.parse('bar');
 
       expect(results['left']['term']).toBe('bar');
     });
 
-    it("parses quoted terms", function() {
+    it('parses quoted terms', function() {
       var results = lucenequeryparser.parse('"fizz buzz"');
 
       expect(results['left']['term']).toBe('fizz buzz');
     });
   });
 
-  describe("lucenequeryparser: term prefix operators", function() {
+  describe('term prefix operators', function() {
 
-    it("parses prefix operators (-)", function() {
+    it('parses prefix operators (-)', function() {
       var results = lucenequeryparser.parse('-bar');
 
       expect(results['left']['term']).toBe('bar');
       expect(results['left']['prefix']).toBe('-');
     });
 
-    it("parses prefix operator (+)", function() {
+    it('parses prefix operator (+)', function() {
       var results = lucenequeryparser.parse('+bar');
 
       expect(results['left']['term']).toBe('bar');
       expect(results['left']['prefix']).toBe('+');
     });
 
-    it("parses prefix operator on quoted term (-)", function() {
+    it('parses prefix operator on quoted term (-)', function() {
       var results = lucenequeryparser.parse('-"fizz buzz"');
 
       expect(results['left']['term']).toBe('fizz buzz');
       expect(results['left']['prefix']).toBe('-');
     });
 
-    it("parses prefix operator on quoted term (+)", function() {
+    it('parses prefix operator on quoted term (+)', function() {
       var results = lucenequeryparser.parse('+"fizz buzz"');
 
       expect(results['left']['term']).toBe('fizz buzz');
@@ -90,30 +91,30 @@ describe('Service: ', function () {
     });
   });
 
-  describe("lucenequeryparser: field name support", function() {
+  describe('field name support', function() {
 
-    it("parses implicit field name for term", function() {
+    it('parses implicit field name for term', function() {
       var results = lucenequeryparser.parse('bar');
 
       expect(results['left']['field']).toBe('<implicit>');
       expect(results['left']['term']).toBe('bar');
     });
 
-    it("parses implicit field name for quoted term", function() {
+    it('parses implicit field name for quoted term', function() {
       var results = lucenequeryparser.parse('"fizz buzz"');
 
       expect(results['left']['field']).toBe('<implicit>');
       expect(results['left']['term']).toBe('fizz buzz');
     });
 
-    it("parses explicit field name for term", function() {
+    it('parses explicit field name for term', function() {
       var results = lucenequeryparser.parse('foo:bar');
 
       expect(results['left']['field']).toBe('foo');
       expect(results['left']['term']).toBe('bar');
     });
 
-    it("parses explicit field name including dots (e.g 'sub.field') for term", function() {
+    it('parses explicit field name including dots (e.g "sub.field") for term', function() {
       var results = lucenequeryparser.parse('sub.foo:bar');
 
       expect(results['left']['field']).toBe('sub.foo');
@@ -121,14 +122,14 @@ describe('Service: ', function () {
     });
 
 
-    it("parses explicit field name for quoted term", function() {
+    it('parses explicit field name for quoted term', function() {
       var results = lucenequeryparser.parse('foo:"fizz buzz"');
 
       expect(results['left']['field']).toBe('foo');
       expect(results['left']['term']).toBe('fizz buzz');
     });
 
-    it("parses explicit field name for term with prefix", function() {
+    it('parses explicit field name for term with prefix', function() {
       var results = lucenequeryparser.parse('foo:-bar');
 
       expect(results['left']['field']).toBe('foo');
@@ -142,7 +143,7 @@ describe('Service: ', function () {
       expect(results['left']['prefix']).toBe('+');
     });
 
-    it("parses explicit field name for quoted term with prefix", function() {
+    it('parses explicit field name for quoted term with prefix', function() {
       var results = lucenequeryparser.parse('foo:-"fizz buzz"');
 
       expect(results['left']['field']).toBe('foo');
@@ -158,9 +159,9 @@ describe('Service: ', function () {
 
   });
 
-  describe("lucenequeryparser: conjunction operators", function() {
+  describe('conjunction operators', function() {
 
-    it("parses implicit conjunction operator (OR)", function() {
+    it('parses implicit conjunction operator (OR)', function() {
       var results = lucenequeryparser.parse('fizz buzz');
 
       expect(results['left']['term']).toBe('fizz');
@@ -168,7 +169,7 @@ describe('Service: ', function () {
       expect(results['right']['term']).toBe('buzz');
     });
 
-    it("parses explicit conjunction operator (AND)", function() {
+    it('parses explicit conjunction operator (AND)', function() {
       var results = lucenequeryparser.parse('fizz AND buzz');
 
       expect(results['left']['term']).toBe('fizz');
@@ -176,7 +177,7 @@ describe('Service: ', function () {
       expect(results['right']['term']).toBe('buzz');
     });
 
-    it("parses explicit conjunction operator (OR)", function() {
+    it('parses explicit conjunction operator (OR)', function() {
       var results = lucenequeryparser.parse('fizz OR buzz');
 
       expect(results['left']['term']).toBe('fizz');
@@ -184,7 +185,7 @@ describe('Service: ', function () {
       expect(results['right']['term']).toBe('buzz');
     });
 
-    it("parses explicit conjunction operator (NOT)", function() {
+    it('parses explicit conjunction operator (NOT)', function() {
       var results = lucenequeryparser.parse('fizz NOT buzz');
 
       expect(results['left']['term']).toBe('fizz');
@@ -192,7 +193,7 @@ describe('Service: ', function () {
       expect(results['right']['term']).toBe('buzz');
     });
 
-    it("parses explicit conjunction operator (&&)", function() {
+    it('parses explicit conjunction operator (&&)', function() {
       var results = lucenequeryparser.parse('fizz && buzz');
 
       expect(results['left']['term']).toBe('fizz');
@@ -200,7 +201,7 @@ describe('Service: ', function () {
       expect(results['right']['term']).toBe('buzz');
     });
 
-    it("parses explicit conjunction operator (||)", function() {
+    it('parses explicit conjunction operator (||)', function() {
       var results = lucenequeryparser.parse('fizz || buzz');
 
       expect(results['left']['term']).toBe('fizz');
@@ -209,9 +210,9 @@ describe('Service: ', function () {
     });
   });
 
-  describe("lucenequeryparser: parentheses groups", function() {
+  describe('parentheses groups', function() {
 
-    it("parses parentheses group", function() {
+    it('parses parentheses group', function() {
       var results = lucenequeryparser.parse('fizz (buzz baz)');
 
       expect(results['left']['term']).toBe('fizz');
@@ -224,7 +225,7 @@ describe('Service: ', function () {
       expect(rightNode['right']['term']).toBe('baz');
     });
 
-    it("parses parentheses groups with explicit conjunction operators ", function() {
+    it('parses parentheses groups with explicit conjunction operators ', function() {
       var results = lucenequeryparser.parse('fizz AND (buzz OR baz)');
 
       expect(results['left']['term']).toBe('fizz');
@@ -238,9 +239,9 @@ describe('Service: ', function () {
     });
   });
 
-  describe("lucenequeryparser: range expressions", function() {
+  describe('range expressions', function() {
 
-    it("parses inclusive range expression", function() {
+    it('parses inclusive range expression', function() {
       var results = lucenequeryparser.parse('foo:[bar TO baz]');
 
       expect(results['left']['field']).toBe('foo');
@@ -249,7 +250,7 @@ describe('Service: ', function () {
       expect(results['left']['inclusive']).toBe(true);
     });
 
-    it("parses inclusive range expression", function() {
+    it('parses inclusive range expression', function() {
       var results = lucenequeryparser.parse('foo:{bar TO baz}');
 
       expect(results['left']['field']).toBe('foo');
@@ -259,7 +260,7 @@ describe('Service: ', function () {
     });
   });
 
-  describe("lucenequeryparser: Lucene Query syntax documentation examples", function() {
+  describe('Lucene Query syntax documentation examples', function() {
 
     /*
      Examples from Lucene documentation at

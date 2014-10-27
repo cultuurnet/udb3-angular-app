@@ -383,9 +383,11 @@ module.exports = function (grunt) {
         src: '<%= yeoman.app %>/grammar/lucene.grammar',
         dest: '<%= yeoman.app %>/scripts/parsers/lucenequeryparser.js',
         options: {
-          angular: {
-            module: 'peg',
-            factory: 'LuceneQueryParser'
+          wrapper: function (src, parser) {
+            return '\'use strict\';\n' +
+            'angular.module(\'peg\', []).factory(\'LuceneQueryParser\', function () {\n' +
+            ' return ' + parser + '\n' +
+            '});';
           }
         }
       }

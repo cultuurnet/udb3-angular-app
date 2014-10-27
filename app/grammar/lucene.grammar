@@ -54,7 +54,7 @@
  *
  * Other Notes:
  *
- * - For any field name, unnamed/default fields will have the value "<implicit>".
+ * - For any field name, unnamed/default fields will have the value '<implicit>'.
  * - Wildcards (fo*, f?o) and fuzzy search modifiers (foo~.8) will be part of the term value.
  * - Escaping is not supported and generally speaking, will break the parser.
  * - Conjunction operators that appear at the beginning of the query violate the logic of the
@@ -68,7 +68,7 @@
  *       Return: { "operator": "AND" }
  *
  *       Query: OR AND foo
- *       Return: { "left": { "field": "<implicit>", "term": "foo" } }
+ *       Return: { "left": { "field": '<implicit>', "term": "foo" } }
  *
  *  To test the grammar, use the online parser generator at http://pegjs.majda.cz/online
  *
@@ -137,10 +137,7 @@ paren_exp
 field_exp
   = fieldname:fieldname? range:range_operator_exp
     {
-        range['field'] =
-            fieldname == ''
-                ? "<implicit>"
-                : fieldname;
+        range['field'] = fieldname || '<implicit>';
 
         return range;
     }
@@ -152,10 +149,7 @@ field_exp
   / fieldname:fieldname? term:term
     {
         var fieldexp = {
-            'field':
-                fieldname == ''
-                    ? "<implicit>"
-                    : fieldname
+            'field': (fieldname || '<implicit>')
             };
 
         for(var key in term)
@@ -184,15 +178,15 @@ term
       {
         var result = { 'term': term };
 
-        if('' != proximity)
+        if(proximity)
         {
             result['proximity'] = proximity;
         }
-        if('' != boost)
+        if(boost)
         {
             result['boost'] = boost;
         }
-        if('' != op)
+        if(op)
         {
             result['prefix'] = op;
         }
@@ -202,15 +196,15 @@ term
   / op:prefix_operator_exp? term:unquoted_term similarity:fuzzy_modifier? boost:boost_modifier? _*
     {
         var result = { 'term': term };
-        if('' != similarity)
+        if(similarity)
         {
             result['similarity'] = similarity;
         }
-        if('' != boost)
+        if(boost)
         {
             result['boost'] = boost;
         }
-        if('' != op)
+        if(op)
         {
             result['prefix'] = op;
         }
@@ -248,7 +242,7 @@ boost_modifier
 fuzzy_modifier
   = '~' fuzziness:decimal_exp?
     {
-        return fuzziness == '' ? 0.5 : fuzziness;
+        return fuzziness || 0.5;
     }
 
 decimal_or_int_exp
@@ -258,7 +252,7 @@ decimal_or_int_exp
 decimal_exp
  = '0.' val:[0-9]+
     {
-        return parseFloat("0." + val.join(''));
+        return parseFloat('0.' + val.join(''));
     }
 
 int_exp
