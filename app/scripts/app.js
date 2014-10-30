@@ -17,10 +17,11 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.bootstrap',
+    'ui.select',
     'peg',
     'config'
   ])
-  .config(function ($routeProvider, $locationProvider, $httpProvider) {
+  .config(function ($routeProvider, $locationProvider, $httpProvider, uiSelectConfig) {
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -42,6 +43,8 @@ angular
 		$locationProvider.html5Mode(true);
 
     $httpProvider.interceptors.push('udbHttpInterceptor');
+
+    uiSelectConfig.theme = 'bootstrap';
   })
   .run(function (UdbApi) {
     UdbApi.getMe();
@@ -71,11 +74,38 @@ udb.SearchResultViewer = (function () {
     this.startIndex = 0;
     this.endIndex = 0;
     this.loading = false;
+    this.selectedIds = [];
   };
 
   searchResultViewer.prototype = {
     setPage: function (index) {
       this.currentPage = index;
+    },
+    toggleSelectId: function (id) {
+      var selectedIds = this.selectedIds,
+          isSelected = _.contains(selectedIds, id);
+
+      if(isSelected) {
+        _.remove(selectedIds, function(iid) { return id === iid; });
+      } else {
+        selectedIds.push(id);
+      }
+    },
+    deselectAll: function () {
+      this.selectedIds = [];
+    },
+    selectAll: function () {
+      var events = this.events,
+          selectedIds = this.selectedIds;
+
+      _.each(events, function (event) {
+        selectedIds.push(event['@id']);
+      });
+
+      this.selectedIds = _.uniq(selectedIds);
+    },
+    isIdSelected: function (id) {
+      return _.contains(this.selectedIds, id);
     },
     updateEvents: function (pagedResults) {
       var viewer = this;
@@ -105,6 +135,7 @@ udb.SearchResultViewer = (function () {
       }
 
       this.currentPage = 1;
+      this.selectedIds = [];
     }
   };
 

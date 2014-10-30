@@ -1,3 +1,21 @@
+<script type="text/ng-template" id="event-tag-modal.html">
+    <div class="modal-body">
+
+        <label>Labels</label>
+
+        <ui-select multiple ng-model="$parent.labels" theme="bootstrap" ng-disabled="disabled" style="width: 300px;">
+            <ui-select-match placeholder="Kies een label...">{{$item}}</ui-select-match>
+            <ui-select-choices repeat="label in availableLabels | filter:$select.search">
+                {{label}}
+            </ui-select-choices>
+        </ui-select>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="ok()">Labels toevoegen</button>
+        <button class="btn btn-warning" ng-click="close()">annuleren</button>
+    </div>
+</script>
+
 <div class="main-search">
   <form class="form-horizontal" role="form">
     <div class="form-group" ng-class="{'has-error': queryErrors.length}">
@@ -52,8 +70,15 @@
 
     <div ng-show="resultViewer.totalItems">
       <p>{{resultViewer.totalItems}} evenementen gevonden:</p>
+        <p>{{resultViewer.selectedIds.length }} geselecteerd -
+            <a href="#" ng-click="tagSelection()">taggen</a> -
+            <a href="#" ng-click="resultViewer.deselectAll()">deselecteer</a> -
+            <a href="#" ng-click="resultViewer.selectAll()">selecteer alles</a>
+        </p>
 
-      <div class="row event" ng-repeat="event in resultViewer.events">
+      <div class="row event" ng-repeat="event in resultViewer.events"
+           ng-class="{selected: resultViewer.isIdSelected(event['@id'])}"
+           ng-click="resultViewer.toggleSelectId(event['@id'])">
           <div udb-event="event" ng-hide="fetching">
               <div class="col-sm-12">
                   <h3>{{event.name}}</h3>
@@ -71,6 +96,14 @@
 
                       <dt>Beschrijving</dt>
                       <dd>{{event.shortDescription}}</dd>
+
+                      <div ng-show="event.labels">
+                          <dt>Labels</dt>
+                          <dd>
+                              <span ng-repeat="label in event.labels" class="label label-info" ng-bind="label">
+                              </span>
+                          </dd>
+                      </div>
                   </dl>
               </div>
           </div>

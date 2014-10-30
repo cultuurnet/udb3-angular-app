@@ -8,7 +8,7 @@
  * Controller of the udbApp
  */
 angular.module('udbApp')
-  .controller('SearchCtrl', function ($scope, UdbApi, LuceneQueryBuilder, $window, $location) {
+  .controller('SearchCtrl', function ($scope, UdbApi, LuceneQueryBuilder, $window, $location, $modal) {
     var queryBuilder = LuceneQueryBuilder;
 
     $scope.searchQuery = '';
@@ -83,6 +83,33 @@ angular.module('udbApp')
         $scope.resultViewer.updateEvents(pagedEvents);
       });
     };
+
+    var tagSelection = function () {
+
+      var selectedIds = $scope.resultViewer.selectedIds;
+
+      if(!selectedIds.length) {
+        $window.alert('First select the events you want to tag.');
+        return;
+      }
+
+      var modal = $modal.open({
+        templateUrl: 'event-tag-modal.html',
+        controller: 'EventTagModalCtrl'
+      });
+
+      modal.result.then(function (tags) {
+        _.each(selectedIds, function (eventId) {
+          var eventPromise = UdbApi.getEventByLDId(eventId);
+
+          eventPromise.then(function (event) {
+            event.tags = _.union((event.tags || []), tags);
+          });
+        });
+      });
+    };
+
+    $scope.tagSelection = tagSelection;
 
     $scope.$watch('searchQuery', function (queryString) {
       var query = queryBuilder.createQuery(queryString);
