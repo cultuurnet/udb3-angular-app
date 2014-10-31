@@ -26,7 +26,7 @@ angular.module('udbApp')
       'AVAILABLEFROM' : 'available'
     },
     fr: {
-        LOCATION: 'location',
+        LOCATION_LABEL: 'location',
         TITLE: 'titre'
     },
     nl: {
