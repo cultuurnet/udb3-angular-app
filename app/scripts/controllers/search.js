@@ -8,11 +8,11 @@
  * Controller of the udbApp
  */
 angular.module('udbApp')
-  .controller('SearchCtrl', function ($scope, UdbApi, LuceneQueryBuilder, $window, $location) {
+  .controller('SearchCtrl', function ($scope, UdbApi, LuceneQueryBuilder, $window, $location, SearchResultViewer) {
     var queryBuilder = LuceneQueryBuilder;
 
     $scope.searchQuery = '';
-    $scope.resultViewer = new udb.SearchResultViewer();
+    $scope.resultViewer = new SearchResultViewer();
     $scope.queryErrors = [];
     $scope.realQuery = false;
     $scope.activeQuery = false;
@@ -80,7 +80,7 @@ angular.module('udbApp')
       $scope.resultViewer.loading = true;
 
       eventPromise.then(function(pagedEvents) {
-        $scope.resultViewer.updateEvents(pagedEvents);
+        $scope.resultViewer.setResults(pagedEvents);
       });
     };
 
