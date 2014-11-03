@@ -22,8 +22,8 @@ angular.module('udbApp')
     });
 
     var ok = function () {
-      var tags = $scope.tags;
-      $modalInstance.close(tags);
+      var labels = $scope.labels;
+      $modalInstance.close(labels);
     };
 
     var close = function () {
