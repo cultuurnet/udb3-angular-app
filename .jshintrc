@@ -21,6 +21,7 @@
   "globals": {
     "angular": false,
     "_": false,
-    "udb": true
+    "udb": true,
+    "io": false
   }
 }

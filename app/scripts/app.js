@@ -18,9 +18,15 @@ angular
     'ngTouch',
     'ui.bootstrap',
     'peg',
-    'config'
+    'config',
+    'btford.socket-io'
   ])
-  .config(function ($routeProvider, $locationProvider, $httpProvider) {
+  .config([
+    '$routeProvider',
+    '$locationProvider',
+    '$httpProvider',
+    function ($routeProvider, $locationProvider, $httpProvider) {
+
     $routeProvider
       .when('/', {
         templateUrl: 'views/main.html',
@@ -42,7 +48,8 @@ angular
 		$locationProvider.html5Mode(true);
 
     $httpProvider.interceptors.push('udbHttpInterceptor');
-  })
-  .run(function (UdbApi) {
+
+    }])
+  .run(function (UdbApi, jobLogger) {
     UdbApi.getMe();
   });

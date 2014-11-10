@@ -8,7 +8,7 @@
  * Controller of the udbAppApp
  */
 angular.module('udbApp')
-  .controller('MainCtrl', function ($scope, uitidAuth) {
+  .controller('MainCtrl', ['$scope', 'uitidAuth', function ($scope, uitidAuth) {
     $scope.login = function () {
       uitidAuth.login();
     };
@@ -18,5 +18,4 @@ angular.module('udbApp')
     }, function (user) {
       $scope.user = user;
     }, true);
-
-  });
+  }]);
