@@ -9,6 +9,7 @@
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
     <!-- build:css(.tmp) styles/main.css -->
     <link rel="stylesheet" href="css/app.css">
+      <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.min.css"/>
     <!-- endbuild -->
   </head>
   <body ng-app="udbApp" ng-controller="AppCtrl" ng-class="{'push-left': showJobLog}">
@@ -42,7 +43,7 @@
 
     <div class="udb-job-log" ng-class="{'shown': showJobLog}">
         <div class="row">
-            <div ng-repeat="job in jobs" class="udb-job col-sm-12">
+            <div ng-repeat="job in jobs" class="col-sm-12">
                 {{::job.id}} - {{ job.state }} - <b>{{job.taggedCount}} / {{::job.eventCount}}</b>
                 <progressbar value="job.progress"></progressbar>
             </div>
@@ -82,6 +83,7 @@
     <script src="bower_components/lodash/dist/lodash.compat.js"></script>
     <script src="bower_components/angular-socket-io/socket.js"></script>
     <script src="bower_components/socket.io-client/socket.io.js"></script>
+    <script src="bower_components/angular-ui-select/dist/select.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -110,7 +112,7 @@
         <script src="scripts/directives/udbworkindicator.js"></script>
         <script src="scripts/directives/udbjoblog.js"></script>
         <script src="scripts/controllers/app.js"></script>
-        <script src="scripts/directives/udbjob.js"></script>
+        <script src="scripts/controllers/eventtagmodal.js"></script>
         <!-- endbuild -->
 </body>
 </html>

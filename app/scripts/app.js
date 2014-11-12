@@ -17,6 +17,7 @@ angular
     'ngSanitize',
     'ngTouch',
     'ui.bootstrap',
+    'ui.select',
     'peg',
     'config',
     'btford.socket-io'
@@ -25,7 +26,8 @@ angular
     '$routeProvider',
     '$locationProvider',
     '$httpProvider',
-    function ($routeProvider, $locationProvider, $httpProvider) {
+    'uiSelectConfig',
+    function ($routeProvider, $locationProvider, $httpProvider, uiSelectConfig) {
 
     $routeProvider
       .when('/', {
@@ -48,7 +50,8 @@ angular
 		$locationProvider.html5Mode(true);
 
     $httpProvider.interceptors.push('udbHttpInterceptor');
-
+      
+    uiSelectConfig.theme = 'bootstrap';
     }])
   .run(function (UdbApi, jobLogger) {
     UdbApi.getMe();
