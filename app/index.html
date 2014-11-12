@@ -11,7 +11,7 @@
     <link rel="stylesheet" href="css/app.css">
     <!-- endbuild -->
   </head>
-  <body ng-app="udbApp">
+  <body ng-app="udbApp" ng-controller="AppCtrl" ng-class="{'push-left': showJobLog}">
     <!--[if lt IE 7]>
       <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
@@ -27,7 +27,10 @@
             <li ng-show="user"><a ng-click="logout()" ng-href="#">Afmelden</a></li>
             <li class="dropdown"></li>
         </ul>
-        <h3 class="text-muted">UiTdatabank</h3>
+        <h3 class="text-muted">
+            <span class="udb-work-indicator" ng-click="toggleJobLog()"></span>
+            UiTdatabank
+        </h3>
       </div>
 
       <div ng-view=""></div>
@@ -35,6 +38,15 @@
       <div class="footer">
         <p>CultuurNet Vlaanderen</p>
       </div>
+    </div>
+
+    <div class="udb-job-log" ng-class="{'shown': showJobLog}">
+        <div class="row">
+            <div ng-repeat="job in jobs" class="udb-job col-sm-12">
+                {{::job.id}} - {{ job.state }} - <b>{{job.taggedCount}} / {{::job.eventCount}}</b>
+                <progressbar value="job.progress"></progressbar>
+            </div>
+        </div>
     </div>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID
@@ -95,6 +107,10 @@
         <script src="scripts/services/searchresultviewer.js"></script>
         <script src="scripts/services/udbsocket.js"></script>
         <script src="scripts/services/joblogger.js"></script>
+        <script src="scripts/directives/udbworkindicator.js"></script>
+        <script src="scripts/directives/udbjoblog.js"></script>
+        <script src="scripts/controllers/app.js"></script>
+        <script src="scripts/directives/udbjob.js"></script>
         <!-- endbuild -->
 </body>
 </html>

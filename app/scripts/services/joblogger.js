@@ -14,11 +14,9 @@ angular.module('udbApp')
     var jobs = {};
 
     function jobStarted (data) {
-      var job = jobs[data['job_id']] = {
-        id: data['job_id'],
-        events: {},
-        state: 'started'
-      };
+      var job = jobs[data['job_id']];
+
+      job.state = 'started';
 
       console.log('job with id: ' + job.id + ' started');
     }
@@ -46,6 +44,8 @@ angular.module('udbApp')
         }
 
         event.tagged = true;
+        ++job.taggedCount;
+        job.progress =  (job.taggedCount / job.eventCount) * 100;
       }
 
       console.log('Tagged event: ' + event.id + '. ' + _.size(job.events) + ' events tagged so far.');
@@ -57,6 +57,35 @@ angular.module('udbApp')
 
     this.getJobs = function () {
       return jobs;
+    };
+
+    this.hasUnfinishedJobs = function () {
+      var unfinishedJob = _.find(jobs, function (job) {
+        return job.state !== 'finished';
+      });
+
+      return !!unfinishedJob;
+    };
+
+    this.createJob = function (jobId, events) {
+      if(jobs[jobId]) {
+        throw 'There\'s an exisiting job with this id';
+      }
+
+      var job = jobs[jobId] = {
+        id: jobId,
+        events: {},
+        state: 'created',
+        eventCount: events.length || 1,
+        taggedCount: 0,
+        progress: 0
+      };
+
+      _.each(events, function (event) {
+        job.events[event.id] = event;
+      });
+
+      console.log('job with id: ' + job.id + ' created');
     };
 
   }]);
