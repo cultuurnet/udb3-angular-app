@@ -26,8 +26,10 @@ angular
     '$routeProvider',
     '$locationProvider',
     '$httpProvider',
+    '$sceDelegateProvider',
     'uiSelectConfig',
-    function ($routeProvider, $locationProvider, $httpProvider, uiSelectConfig) {
+    'appConfig',
+    function ($routeProvider, $locationProvider, $httpProvider, $sceDelegateProvider, uiSelectConfig, appConfig) {
 
     $routeProvider
       .when('/', {
@@ -50,6 +52,11 @@ angular
 		$locationProvider.html5Mode(true);
 
     $httpProvider.interceptors.push('udbHttpInterceptor');
+
+    $sceDelegateProvider.resourceUrlWhitelist([
+      'self',
+      appConfig.baseUrl + '**'
+    ]);
       
     uiSelectConfig.theme = 'bootstrap';
     }])

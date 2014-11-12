@@ -77,11 +77,20 @@ angular.module('udbApp')
     this.getRecentLabels = function () {
       var deferredLabels = $q.defer();
 
-      deferredLabels.resolve([
-        'tags',
-        'are',
-        'awesome'
-      ]);
+      var request = $http.get(apiUrl + 'user/keywords', {
+        withCredentials: true,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      request
+        .success(function (data) {
+          deferredLabels.resolve(data);
+        })
+        .error(function () {
+          deferredLabels.reject();
+        });
 
       return deferredLabels.promise;
     };
@@ -130,4 +139,20 @@ angular.module('udbApp')
 
         return deferredUser.promise;
       };
+
+    this.tagEvents = function (eventIds, label) {
+      return $http.post(appConfig.baseUrl + 'events/tag',
+        {
+          'keyword': label,
+          'events' : eventIds
+        },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+    };
+
     });

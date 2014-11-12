@@ -8,7 +8,7 @@
  * Controller of the udbApp
  */
 angular.module('udbApp')
-  .controller('SearchCtrl', function ($scope, UdbApi, LuceneQueryBuilder, $window, $location, $modal, SearchResultViewer) {
+  .controller('SearchCtrl', function ($scope, UdbApi, LuceneQueryBuilder, $window, $location, $modal, SearchResultViewer, jobLogger) {
     var queryBuilder = LuceneQueryBuilder;
 
     $scope.searchQuery = '';
@@ -104,6 +104,20 @@ angular.module('udbApp')
 
           eventPromise.then(function (event) {
             event.labels = _.union((event.labels || []), labels);
+          });
+        });
+
+        _.each(labels, function (label) {
+          var eventIds = _.map(selectedIds, function (id) {
+                return id.split('/').pop();
+              }),
+              jobPromise = UdbApi.tagEvents(eventIds, label);
+
+          jobPromise.success(function (jobData) {
+            var jobId = jobData.commandId;
+            jobLogger.createJob(jobId, _.map(eventIds, function(id) {
+              return { 'id': id };
+            }));
           });
         });
       });

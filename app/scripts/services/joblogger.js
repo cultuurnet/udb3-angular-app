@@ -48,7 +48,7 @@ angular.module('udbApp')
         job.progress =  (job.taggedCount / job.eventCount) * 100;
       }
 
-      console.log('Tagged event: ' + event.id + '. ' + _.size(job.events) + ' events tagged so far.');
+      console.log('Tagged event: ' + event.id + '. ' + job.taggedCount + ' of ' + job.eventCount + ' events tagged so far.');
     }
 
     udbSocket.on('event_was_tagged', eventWasTagged);
