@@ -67,7 +67,7 @@ angular.module('udbApp')
       return !!unfinishedJob;
     };
 
-    this.createJob = function (jobId, events) {
+    this.createJob = function (jobId, events, keyword) {
       if(jobs[jobId]) {
         throw 'There\'s an exisiting job with this id';
       }
@@ -75,6 +75,7 @@ angular.module('udbApp')
       var job = jobs[jobId] = {
         id: jobId,
         events: {},
+        description: 'Tagging ' + events.length + ' events with keyword ' + keyword,
         state: 'created',
         eventCount: events.length || 1,
         taggedCount: 0,

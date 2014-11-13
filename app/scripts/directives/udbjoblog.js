@@ -12,6 +12,10 @@ angular.module('udbApp')
       restrict: 'C',
       link: function postLink(scope, element, attrs) {
         scope.jobs = jobLogger.getJobs();
+
+        scope.hasJobs = function () {
+          return !!_.size(scope.jobs);
+        };
       }
     };
   });

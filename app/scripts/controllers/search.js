@@ -117,7 +117,7 @@ angular.module('udbApp')
             var jobId = jobData.commandId;
             jobLogger.createJob(jobId, _.map(eventIds, function(id) {
               return { 'id': id };
-            }));
+            }), label);
           });
         });
       });
