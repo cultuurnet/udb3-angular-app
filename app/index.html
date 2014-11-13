@@ -44,8 +44,8 @@
     <div class="udb-job-log" ng-class="{'shown': showJobLog}">
         <div class="row">
             <div class="col-sm-12">
-                <p class="lead">Job log</p>
-                <p ng-hide="hasJobs()">There are no new jobs.</p>
+                <p class="lead">Taken</p>
+                <p ng-hide="hasJobs()">Er zijn geen nieuwe taken.</p>
             </div>
 
             <div ng-repeat="job in jobs | orderBy:'+':true" class="col-sm-12">

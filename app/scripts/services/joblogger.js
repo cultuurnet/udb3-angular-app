@@ -76,7 +76,7 @@ angular.module('udbApp')
       var job = jobs[jobId] = {
         id: jobId,
         events: {},
-        description: 'Tagging ' + events.length + ' events with keyword ' + keyword,
+        description: 'Tag ' + events.length + ' evenementen met label ' + keyword,
         state: 'created',
         eventCount: events.length || 1,
         taggedCount: 0,
