@@ -8,7 +8,7 @@
  * Controller of the udbApp
  */
 angular.module('udbApp')
-  .controller('SearchCtrl', function ($scope, UdbApi, LuceneQueryBuilder, $window, $location, SearchResultViewer) {
+  .controller('SearchCtrl', function ($scope, UdbApi, LuceneQueryBuilder, $window, $location, $modal, SearchResultViewer, jobLogger) {
     var queryBuilder = LuceneQueryBuilder;
 
     $scope.searchQuery = '';
@@ -83,6 +83,51 @@ angular.module('udbApp')
         $scope.resultViewer.setResults(pagedEvents);
       });
     };
+
+    var tagSelection = function () {
+
+      var selectedIds = $scope.resultViewer.selectedIds;
+
+      if(!selectedIds.length) {
+        $window.alert('First select the events you want to tag.');
+        return;
+      }
+
+      var modal = $modal.open({
+        templateUrl: 'event-tag-modal.html',
+        controller: 'EventTagModalCtrl'
+      });
+
+      modal.result.then(function (labels) {
+
+        // get rid of empty labels
+        labels = _.without(labels, "");
+
+        _.each(selectedIds, function (eventId) {
+          var eventPromise = UdbApi.getEventByLDId(eventId);
+
+          eventPromise.then(function (event) {
+            event.labels = _.union((event.labels || []), labels);
+          });
+        });
+
+        _.each(labels, function (label) {
+          var eventIds = _.map(selectedIds, function (id) {
+                return id.split('/').pop();
+              }),
+              jobPromise = UdbApi.tagEvents(eventIds, label);
+
+          jobPromise.success(function (jobData) {
+            var jobId = jobData.commandId;
+            jobLogger.createJob(jobId, _.map(eventIds, function(id) {
+              return { 'id': id };
+            }), label);
+          });
+        });
+      });
+    };
+
+    $scope.tagSelection = tagSelection;
 
     $scope.$watch('searchQuery', function (queryString) {
       var query = queryBuilder.createQuery(queryString);

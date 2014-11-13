@@ -17,10 +17,59 @@
   display: none;
 }
 
+.event.selected {
+  background: powderblue;
+}
+
+.udb-work-indicator {
+  width: 40px;
+  height: 40px;
+  line-height: 40px;
+  text-align: center;
+  display: inline-block;
+}
+
+.udb-work-indicator.working {
+  animation: rotating 1s linear infinite;
+}
+
+.udb-job-log {
+  width: 240px;
+  left: -240px;
+  position: fixed;
+  top: 0px;
+  bottom: 0px;
+  transition: left 0.3s ease;
+  overflow-x: hidden;
+  overflow-y: auto;
+  background: #ddd;
+  border-right: silver;
+  padding: 10px;
+}
+
+.udb-job-log.shown {
+  left: 0px;
+}
+
+@keyframes rotating {
+  from{
+    transform: rotate(0deg);
+  }
+  to{
+    transform: rotate(360deg);
+  }
+}
+
 /* Space out content a bit */
-body {
+body{
   padding-top: 20px;
   padding-bottom: 20px;
+  transition: margin-left 0.3s ease;
+  margin-left: 0px;
+}
+
+body.push-left {
+  margin-left: 240px;
 }
 
 /* Everything but the jumbotron gets side spacing for mobile first views */

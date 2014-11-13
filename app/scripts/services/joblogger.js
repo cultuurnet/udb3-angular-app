@@ -12,13 +12,12 @@
 angular.module('udbApp')
   .service('jobLogger', ['udbSocket', function jobLogger(udbSocket, udbApi) {
     var jobs = {};
+    var queue = [];
 
     function jobStarted (data) {
-      var job = jobs[data['job_id']] = {
-        id: data['job_id'],
-        events: {},
-        state: 'started'
-      };
+      var job = jobs[data['job_id']];
+
+      job.state = 'started';
 
       console.log('job with id: ' + job.id + ' started');
     }
@@ -46,9 +45,11 @@ angular.module('udbApp')
         }
 
         event.tagged = true;
+        ++job.taggedCount;
+        job.progress =  (job.taggedCount / job.eventCount) * 100;
       }
 
-      console.log('Tagged event: ' + event.id + '. ' + _.size(job.events) + ' events tagged so far.');
+      console.log('Tagged event: ' + event.id + '. ' + job.taggedCount + ' of ' + job.eventCount + ' events tagged so far.');
     }
 
     udbSocket.on('event_was_tagged', eventWasTagged);
@@ -56,7 +57,39 @@ angular.module('udbApp')
     udbSocket.on('job_finished', jobFinished);
 
     this.getJobs = function () {
-      return jobs;
+      return queue;
+    };
+
+    this.hasUnfinishedJobs = function () {
+      var unfinishedJob = _.find(jobs, function (job) {
+        return job.state !== 'finished';
+      });
+
+      return !!unfinishedJob;
+    };
+
+    this.createJob = function (jobId, events, keyword) {
+      if(jobs[jobId]) {
+        throw 'There\'s an existing job with this id';
+      }
+
+      var job = jobs[jobId] = {
+        id: jobId,
+        events: {},
+        description: 'Tag ' + events.length + ' evenementen met label ' + keyword,
+        state: 'created',
+        eventCount: events.length || 1,
+        taggedCount: 0,
+        progress: 0
+      };
+
+      _.each(events, function (event) {
+        job.events[event.id] = event;
+      });
+
+      queue.push(job);
+
+      console.log('job with id: ' + job.id + ' created');
     };
 
   }]);

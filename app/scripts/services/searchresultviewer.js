@@ -20,13 +20,36 @@ angular.module('udbApp')
       this.events = [];
       this.totalItems = 0;
       this.currentPage = 1;
-      this.grouped = false;
-      this.startIndex = 0;
-      this.endIndex = 0;
       this.loading = false;
     };
 
     SearchResultViewer.prototype = {
+      toggleSelectId: function (id) {
+        var selectedIds = this.selectedIds,
+          isSelected = _.contains(selectedIds, id);
+
+        if(isSelected) {
+          _.remove(selectedIds, function(iid) { return id === iid; });
+        } else {
+          selectedIds.push(id);
+        }
+      },
+      deselectAll: function () {
+        this.selectedIds = [];
+      },
+      selectAll: function () {
+        var events = this.events,
+          selectedIds = this.selectedIds;
+
+        _.each(events, function (event) {
+          selectedIds.push(event['@id']);
+        });
+
+        this.selectedIds = _.uniq(selectedIds);
+      },
+      isIdSelected: function (id) {
+        return _.contains(this.selectedIds, id);
+      },
       setResults: function (pagedResults) {
         var viewer = this;
 
@@ -37,13 +60,14 @@ angular.module('udbApp')
         viewer.loading = false;
       },
       queryChanged: function (query) {
-        if (query.length) {
+        if(query.length) {
           this.loading = true;
         } else {
           this.loading = false;
         }
 
         this.currentPage = 1;
+        this.selectedIds = [];
       }
     };
 

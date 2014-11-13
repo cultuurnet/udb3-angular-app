@@ -72,6 +72,30 @@ angular.module('udbApp')
     };
 
     /**
+     * @returns {Promise} A list of tags wrapped as a promise.
+     */
+    this.getRecentLabels = function () {
+      var deferredLabels = $q.defer();
+
+      var request = $http.get(apiUrl + 'user/keywords', {
+        withCredentials: true,
+        headers: {
+          'Accept': 'application/json'
+        }
+      });
+
+      request
+        .success(function (data) {
+          deferredLabels.resolve(data);
+        })
+        .error(function () {
+          deferredLabels.reject();
+        });
+
+      return deferredLabels.promise;
+    };
+
+    /**
      * @returns {Promise} A promise with the credentials of the currently logged in user.
      */
       this.getMe = function () {
@@ -99,4 +123,20 @@ angular.module('udbApp')
 
         return deferredUser.promise;
       };
+
+    this.tagEvents = function (eventIds, label) {
+      return $http.post(appConfig.baseUrl + 'events/tag',
+        {
+          'keyword': label,
+          'events' : eventIds
+        },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+    };
+
     });
