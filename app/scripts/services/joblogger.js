@@ -12,6 +12,7 @@
 angular.module('udbApp')
   .service('jobLogger', ['udbSocket', function jobLogger(udbSocket, udbApi) {
     var jobs = {};
+    var queue = [];
 
     function jobStarted (data) {
       var job = jobs[data['job_id']];
@@ -56,7 +57,7 @@ angular.module('udbApp')
     udbSocket.on('job_finished', jobFinished);
 
     this.getJobs = function () {
-      return jobs;
+      return queue;
     };
 
     this.hasUnfinishedJobs = function () {
@@ -84,6 +85,8 @@ angular.module('udbApp')
       _.each(events, function (event) {
         job.events[event.id] = event;
       });
+
+      queue.push(job);
 
       console.log('job with id: ' + job.id + ' created');
     };
