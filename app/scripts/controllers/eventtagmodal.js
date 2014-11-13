@@ -22,7 +22,21 @@ angular.module('udbApp')
     });
 
     var ok = function () {
-      var labels = $scope.labels;
+      // Get the labels selected by checkbox
+      var checkedLabels = $scope.labelSelection.filter(function (label) {
+        return label.selected;
+      }).map(function (label) {
+        return label.name;
+      });
+
+      //add the labels
+      var inputLabels = parseLabelInput($scope.labelName);
+
+      // join arrays and remove doubles
+      var labels = _.union(checkedLabels, inputLabels);
+
+      console.log(labels);
+
       $modalInstance.close(labels);
     };
 
@@ -30,12 +44,26 @@ angular.module('udbApp')
       $modalInstance.dismiss('cancel');
     };
 
+    function parseLabelInput (stringWithLabels) {
+      var labels = stringWithLabels.split(';');
+
+      labels = _.each(labels, function (label, index) {
+        labels[index] = label.trim();
+      });
+
+      return labels;
+    }
+
     tagPromise.then(function (labels) {
       $scope.availableLabels = labels;
+      $scope.labelSelection = _.map(labels, function(label) {
+        return {'name': label, 'selected': false}
+      });
     });
     // ui-select can't get to this scope variable unless you reference it from the $parent scope.
     // seems to be 1.3 specific issue, see: https://github.com/angular-ui/ui-select/issues/243
     $scope.labels = [];
     $scope.close = close;
     $scope.ok = ok;
+    $scope.labelName = "";
   });

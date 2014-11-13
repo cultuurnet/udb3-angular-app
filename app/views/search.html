@@ -3,15 +3,28 @@
 
         <label>Labels</label>
 
-        <ui-select multiple ng-model="$parent.labels" theme="bootstrap" ng-disabled="disabled" style="width: 300px;">
-            <ui-select-match placeholder="Kies een label...">{{$item}}</ui-select-match>
-            <ui-select-choices repeat="label in availableLabels | filter:$select.search">
-                {{label}}
-            </ui-select-choices>
-        </ui-select>
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="input-group">
+                    <input type="text" ng-model="labelName" class="form-control"/>
+                    <span class="input-group-btn">
+                        <button class="btn btn-default" ng-click="addNewLabel()">label toevoegen</button>
+                    </span>
+                </div>
+            </div>
+
+            <div class="col-lg-12">
+                <div class="checkbox" ng-repeat="label in labelSelection">
+                    <label>
+                        <input type="checkbox" ng-model="label.selected" />
+                        <span ng-bind="label.name"></span>
+                    </label>
+                </div>
+            </div>
+        </div>
     </div>
     <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="ok()">Labels toevoegen</button>
+        <button class="btn btn-primary" ng-click="ok()">bevestigen</button>
         <button class="btn btn-warning" ng-click="close()">annuleren</button>
     </div>
 </script>
