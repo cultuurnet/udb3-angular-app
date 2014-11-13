@@ -30,7 +30,7 @@ angular.module('udbApp')
       });
 
       //add the labels
-      var inputLabels = parseLabelInput($scope.labelName);
+      var inputLabels = parseLabelInput($scope.labelNames);
 
       // join arrays and remove doubles
       var labels = _.union(checkedLabels, inputLabels);
@@ -57,7 +57,7 @@ angular.module('udbApp')
     tagPromise.then(function (labels) {
       $scope.availableLabels = labels;
       $scope.labelSelection = _.map(labels, function(label) {
-        return {'name': label, 'selected': false}
+        return {'name': label, 'selected': false};
       });
     });
     // ui-select can't get to this scope variable unless you reference it from the $parent scope.
@@ -65,5 +65,5 @@ angular.module('udbApp')
     $scope.labels = [];
     $scope.close = close;
     $scope.ok = ok;
-    $scope.labelName = "";
+    $scope.labelNames = '';
   });
