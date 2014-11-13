@@ -43,7 +43,7 @@ angular.module('udbApp')
       });
 
       // remove empty strings
-      labels = _.without(labels, "");
+      labels = _.without(labels, '');
 
       return labels;
     }
