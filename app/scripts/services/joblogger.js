@@ -69,7 +69,7 @@ angular.module('udbApp')
 
     this.createJob = function (jobId, events) {
       if(jobs[jobId]) {
-        throw 'There\'s an exisiting job with this id';
+        throw 'There\'s an existing job with this id';
       }
 
       var job = jobs[jobId] = {
