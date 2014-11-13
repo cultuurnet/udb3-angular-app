@@ -45,14 +45,39 @@ angular.module('udbApp')
         }
 
         event.tagged = true;
-        ++job.taggedCount;
-        job.progress =  (job.taggedCount / job.eventCount) * 100;
+        updateProgress(job);
       }
 
       console.log('Tagged event: ' + event.id + '. ' + job.taggedCount + ' of ' + job.eventCount + ' events tagged so far.');
     }
 
+    function eventWasNotTagged (data) {
+      var jobId = data['job_id'],
+          eventId = data['event_id'],
+          job = jobs[jobId],
+          event;
+
+      if (job) {
+        event = job.events[eventId];
+        if (!event) {
+          event = job.events[eventId] = {
+            id: eventId
+          };
+        }
+
+        event.tagged = false;
+        updateProgress(job);
+      }
+      console.log('Tagging event failed: ' + eventId + '. Error message: ' + data.error);
+    }
+
+    function updateProgress(job) {
+      ++job.taggedCount;
+      job.progress =  (job.taggedCount / job.eventCount) * 100;
+    }
+
     udbSocket.on('event_was_tagged', eventWasTagged);
+    udbSocket.on('event_was_not_tagged', eventWasNotTagged);
     udbSocket.on('job_started', jobStarted);
     udbSocket.on('job_finished', jobFinished);
 
