@@ -43,7 +43,7 @@
 
     <div class="udb-job-log" ng-class="{'shown': showJobLog}">
         <div class="row">
-            <div ng-repeat="job in jobs" class="col-sm-12">
+            <div ng-repeat="job in jobs | orderBy:'+':true" class="col-sm-12">
                 {{::job.id}} - {{ job.state }} - <b>{{job.taggedCount}} / {{::job.eventCount}}</b>
                 <progressbar value="job.progress"></progressbar>
             </div>
