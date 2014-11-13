@@ -76,7 +76,7 @@
           </div>
       </div>
 
-      <pagination total-items="resultViewer.totalItems" ng-model="resultViewer.currentPage" items-per-page="resultViewer.pageSize"
+      <pagination total-items="resultViewer.totalItems" ng-model="resultViewer.currentPage" items-per-page="resultViewer.pageSize" ng-show="resultViewer.totalItems > 0"
         ng-change="resultViewer.pageChanged()" max-size="10"></pagination>
     </div>
   </div>
