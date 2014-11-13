@@ -50,7 +50,9 @@
 
             <div ng-repeat="job in jobs | orderBy:'+':true" class="col-sm-12">
                 {{::job.description}} - {{ job.state }} - <b>{{job.taggedCount}} / {{::job.eventCount}}</b>
-                <progressbar value="job.progress"></progressbar>
+                <progressbar value="job.progress" type="{{giveJobBarType(job)}}">
+                    <i ng-show="job.warning" ng-bind="job.warning"></i>
+                </progressbar>
             </div>
         </div>
     </div>
