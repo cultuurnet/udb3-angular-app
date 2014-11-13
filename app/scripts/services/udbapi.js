@@ -96,22 +96,6 @@ angular.module('udbApp')
     };
 
     /**
-     * @returns {Promise} A list of markers wrapped as a promise.
-     */
-    this.getMarkers = function () {
-      var deferredMarkers = $q.defer();
-
-      deferredMarkers.resolve([
-        'markers',
-        'are',
-        'reserved',
-        'tags'
-      ]);
-
-      return deferredMarkers.promise;
-    };
-
-    /**
      * @returns {Promise} A promise with the credentials of the currently logged in user.
      */
       this.getMe = function () {

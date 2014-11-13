@@ -10,16 +10,7 @@
 angular.module('udbApp')
   .controller('EventTagModalCtrl', function ($scope, $modalInstance, UdbApi) {
 
-    var getRecentLabels = UdbApi.getRecentLabels();
-    var getMarkers = UdbApi.getMarkers();
-
-    var tagPromise = getRecentLabels.then(function (labels) {
-      if(labels.length) {
-        return labels;
-      } else {
-        return getMarkers;
-      }
-    });
+    var labelPromise = UdbApi.getRecentLabels();
 
     var ok = function () {
       // Get the labels selected by checkbox
@@ -35,8 +26,6 @@ angular.module('udbApp')
       // join arrays and remove doubles
       var labels = _.union(checkedLabels, inputLabels);
 
-      console.log(labels);
-
       $modalInstance.close(labels);
     };
 
@@ -45,16 +34,21 @@ angular.module('udbApp')
     };
 
     function parseLabelInput (stringWithLabels) {
+      //split sting into array of labels
       var labels = stringWithLabels.split(';');
 
+      // trim whitespaces
       labels = _.each(labels, function (label, index) {
         labels[index] = label.trim();
       });
 
+      // remove empty strings
+      labels = _.without(labels, "");
+
       return labels;
     }
 
-    tagPromise.then(function (labels) {
+    labelPromise.then(function (labels) {
       $scope.availableLabels = labels;
       $scope.labelSelection = _.map(labels, function(label) {
         return {'name': label, 'selected': false};

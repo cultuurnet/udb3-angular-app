@@ -99,6 +99,10 @@ angular.module('udbApp')
       });
 
       modal.result.then(function (labels) {
+
+        // get rid of empty labels
+        labels = _.without(labels, "");
+
         _.each(selectedIds, function (eventId) {
           var eventPromise = UdbApi.getEventByLDId(eventId);
 
