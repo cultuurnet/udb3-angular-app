@@ -16,6 +16,22 @@ angular.module('udbApp')
         scope.hasJobs = function () {
           return !!_.size(scope.jobs);
         };
+
+        scope.giveJobBarType = function (job) {
+          var barType = 'info',
+            failedTags = _.filter(job.events, function (event) {
+              return typeof event.tagged !== 'undefined' && event.tagged === false;
+            });
+
+          if(failedTags.length) {
+            barType = 'warning';
+            job.warning = failedTags.length + " mislukt";
+          } else if(job.progress === 100) {
+            barType = 'success';
+          }
+
+          return barType;
+        }
       }
     };
   });
