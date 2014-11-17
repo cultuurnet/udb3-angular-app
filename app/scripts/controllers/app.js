@@ -13,7 +13,6 @@ angular.module('udbApp')
 
     function toggleJobLog() {
       $scope.showJobLog = !$scope.showJobLog;
-      console.log($scope.showJobLog);
     }
 
     $scope.toggleJobLog = toggleJobLog;

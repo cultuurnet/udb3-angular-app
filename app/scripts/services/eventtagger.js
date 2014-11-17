@@ -30,12 +30,13 @@ angular.module('udbApp')
      * @param {string} query
      * @param {string} label
      */
-    this.tagQuery = function (query, label) {
+    this.tagQuery = function (query, label, eventCount) {
       var jobPromise = UdbApi.tagQuery(query, label);
+      eventCount = eventCount || 0;
 
       jobPromise.success(function (jobData) {
         var jobId = jobData.commandId;
-        jobLogger.createJob(jobId, jobData.eventCount, label);
+        jobLogger.createJob(jobId, eventCount, label);
       });
 
     };

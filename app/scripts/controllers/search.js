@@ -119,7 +119,8 @@ angular.module('udbApp')
     };
 
     function tagActiveQuery () {
-      var query = $scope.activeQuery;
+      var query = $scope.activeQuery,
+          eventCount = $scope.resultViewer.totalItems;
 
       if(queryBuilder.isValid(query)) {
         var modal = $modal.open({
@@ -129,7 +130,7 @@ angular.module('udbApp')
 
         modal.result.then(function (labels) {
           _.each(labels, function (label) {
-            eventTagger.tagQuery(query.queryString, label);
+            eventTagger.tagQuery(query.queryString, label, eventCount);
           });
         });
       } else {
