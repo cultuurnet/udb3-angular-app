@@ -30,6 +30,18 @@ angular.module('udbApp')
       console.log('job with id: ' + job.id + ' finished');
     }
 
+    function touchJobEvent (job, eventId) {
+      var event = job.events[eventId];
+
+      if (!event) {
+        event = job.events[eventId] = {
+          id: eventId
+        };
+      }
+
+      return event;
+    }
+
     function eventWasTagged (data) {
       var jobId = data['job_id'],
           eventId = data['event_id'],
@@ -37,13 +49,7 @@ angular.module('udbApp')
           event;
 
       if(job) {
-        event = job.events[eventId];
-        if(!event) {
-          event = job.events[eventId] = {
-            id: eventId
-          };
-        }
-
+        event = touchJobEvent(job, eventId);
         event.tagged = true;
         updateProgress(job);
       }
@@ -58,13 +64,7 @@ angular.module('udbApp')
           event;
 
       if (job) {
-        event = job.events[eventId];
-        if (!event) {
-          event = job.events[eventId] = {
-            id: eventId
-          };
-        }
-
+        event = touchJobEvent(job, eventId);
         event.tagged = false;
         updateProgress(job);
       }
@@ -101,16 +101,26 @@ angular.module('udbApp')
       var job = jobs[jobId] = {
         id: jobId,
         events: {},
-        description: 'Tag ' + events.length + ' evenementen met label ' + keyword,
         state: 'created',
-        eventCount: events.length || 1,
         taggedCount: 0,
         progress: 0
       };
 
-      _.each(events, function (event) {
-        job.events[event.id] = event;
-      });
+      // Check if the events parameter is an array or number and set the event count accordingly
+      var eventCount = 0;
+      // If it's an array add the events and count them
+      if(events instanceof Array) {
+        eventCount = events.length || 1;
+        _.each(events, function (event) {
+          job.events[event.id] = event;
+        });
+        // If it's a number use the number as count
+      } else if (typeof events === 'number'){
+        eventCount = events || 1;
+      }
+      // set the actual event count and a readable description
+      job.eventCount = eventCount;
+      job.description = 'Tag ' + eventCount+ ' evenementen met label ' + keyword;
 
       queue.push(job);
 

@@ -139,4 +139,19 @@ angular.module('udbApp')
       );
     };
 
+    this.tagQuery = function (query, label) {
+      return $http.post(appConfig.baseUrl + 'query/tag',
+        {
+          'keyword': label,
+          'query' : query
+        },
+        {
+          withCredentials: true,
+          headers: {
+            'Content-Type': 'application/json'
+          }
+        }
+      );
+    };
+
     });

@@ -25,13 +25,13 @@ angular.module('udbApp')
 
           if(failedTags.length) {
             barType = 'warning';
-            job.warning = failedTags.length + " mislukt";
+            job.warning = failedTags.length + ' mislukt';
           } else if(job.progress === 100) {
             barType = 'success';
           }
 
           return barType;
-        }
+        };
       }
     };
   });

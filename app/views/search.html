@@ -66,9 +66,10 @@
     <div ng-show="resultViewer.totalItems">
       <p>{{resultViewer.totalItems}} evenementen gevonden:</p>
         <p>{{resultViewer.selectedIds.length }} geselecteerd -
-            <a href="#" ng-click="tagSelection()">taggen</a> -
+            <a href="#" ng-click="tagSelection()">tag selectie</a> -
+            <a href="#" ng-click="tagActiveQuery()">tag alle zoekresultaten</a> -
             <a href="#" ng-click="resultViewer.deselectAll()">deselecteer</a> -
-            <a href="#" ng-click="resultViewer.selectAll()">selecteer alles</a>
+            <a href="#" ng-click="resultViewer.selectAll()">selecteer pagina</a>
         </p>
 
       <div class="row event" ng-repeat="event in resultViewer.events"
