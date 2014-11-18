@@ -7,7 +7,7 @@
  * # udbEvent
  */
 angular.module('udbApp')
-  .directive('udbEvent', function factory(UdbApi) {
+  .directive('udbEvent', ['UdbApi', 'jsonLDLangFilter', function factory(UdbApi, jsonLDLangFilter) {
     var udbEvent = {
       restrict: 'A',
       link: function postLink(scope) {
@@ -16,7 +16,7 @@ angular.module('udbApp')
           var eventPromise = UdbApi.getEventByLDId(scope.event['@id']);
 
           eventPromise.then(function (event) {
-            scope.event = event;
+            scope.event = jsonLDLangFilter(event);
             scope.fetching = false;
           });
         } else {
@@ -26,4 +26,4 @@ angular.module('udbApp')
     };
 
     return udbEvent;
-  });
+  }]);
