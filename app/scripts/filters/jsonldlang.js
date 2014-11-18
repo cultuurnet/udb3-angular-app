@@ -12,7 +12,7 @@ angular.module('udbApp')
   .filter('jsonLDLang', function () {
     return function (jsonLDObject, preferredLanguage) {
       var translatedObject = _.cloneDeep(jsonLDObject),
-          containedProperties = ['name', 'shortDescription'],
+          containedProperties = ['name', 'description'],
           languages = ['nl', 'en', 'fr', 'de'],
           // set a default language if none is specified
           language = preferredLanguage || 'nl';
