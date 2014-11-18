@@ -73,8 +73,12 @@
         </p>
 
       <div class="row event" ng-repeat="event in resultViewer.events"
-           ng-class="{selected: resultViewer.isIdSelected(event['@id'])}"
-           ng-click="resultViewer.toggleSelectId(event['@id'])">
+              ng-class="{selected: resultViewer.isIdSelected(event['@id'])}">
+          <div class="event-side-bar">
+              <input type="checkbox"
+                     ng-checked="resultViewer.isIdSelected(event['@id'])"
+                     ng-click="resultViewer.toggleSelectId(event['@id'])"/>
+          </div>
           <div udb-event="event" ng-hide="fetching">
               <div class="col-sm-12">
                   <h3>{{event.name}}</h3>
@@ -82,7 +86,7 @@
               <div class="col-sm-4">
                   <img ng-src="{{event.image}}" alt="{{event.name}}" class="img-responsive">
               </div>
-              <div class="col-sm-8">
+              <div class="col-sm-7">
                   <dl>
                       <dt>Wanneer</dt>
                       <dd>{{event.calendarSummary}}</dd>
@@ -96,7 +100,7 @@
                       <div ng-show="event.labels">
                           <dt>Labels</dt>
                           <dd>
-                              <span ng-repeat="label in event.labels" class="label label-info" ng-bind="label">
+                              <span ng-repeat="label in event.labels" class="label label-info event-label" ng-bind="label">
                               </span>
                           </dd>
                       </div>
