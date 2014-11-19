@@ -20,6 +20,8 @@ angular.module('udbApp')
 
         // The json-LD object that's return from the server
         var eventLD = {};
+        // stores the ID parsed from the json-LD object
+        var eventID = false;
 
         if(!scope.event.title) {
           scope.fetching = true;
@@ -27,6 +29,7 @@ angular.module('udbApp')
 
           eventPromise.then(function (event) {
             eventLD = event;
+            eventID =  event['@id'].split('/').pop();
             scope.event = jsonLDLangFilter(event, scope.activeLanguage);
             scope.fetching = false;
           });
@@ -39,22 +42,21 @@ angular.module('udbApp')
           scope.event = jsonLDLangFilter(eventLD, scope.activeLanguage);
         };
 
-        function translateEventProperty(event, property, lang, value) {
-          event[property][lang] = value;
-        };
+        function translateEventProperty (property, translation) {
+          var language = scope.activeLanguage;
+
+          if(translation && translation !== eventLD[property][language]) {
+            UdbApi.translateEventProperty(eventID, property, language, translation);
+          }
+        }
 
         scope.$watch('event.name', function (name) {
+          translateEventProperty('name', name);
+        });
 
-          console.log({
-            title: name,
-            lang: scope.activeLanguage,
-            changed: (name != eventLD.name[scope.activeLanguage])
-          });
-
-          if(name && name != eventLD.name[scope.activeLanguage]) {
-            translateEventProperty(eventLD, 'name', scope.activeLanguage, name);
-          }
-        })
+        scope.$watch('event.description', function (description) {
+          translateEventProperty('description', description);
+        });
       }
     };
 

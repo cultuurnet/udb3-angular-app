@@ -10,6 +10,12 @@
 angular.module('udbApp')
     .service('UdbApi', function UdbApi($q, $http, appConfig, $cookieStore, uitidAuth, $cacheFactory) {
       var apiUrl = appConfig.baseApiUrl;
+      var defaultApiConfig = {
+            withCredentials: true,
+            headers: {
+              'Content-Type': 'application/json'
+            }
+          };
       var eventCache = $cacheFactory('evenCache');
 
       /**
@@ -131,12 +137,7 @@ angular.module('udbApp')
           'keyword': label,
           'events' : eventIds
         },
-        {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
+        defaultApiConfig
       );
     };
 
@@ -146,12 +147,19 @@ angular.module('udbApp')
           'keyword': label,
           'query' : query
         },
-        {
-          withCredentials: true,
-          headers: {
-            'Content-Type': 'application/json'
-          }
-        }
+        defaultApiConfig
+      );
+    };
+
+    this.translateEventProperty = function (eventId, property, language, translation) {
+
+      var translationData = {};
+      translationData[property] = translation;
+
+      return $http.post(
+        appConfig.baseUrl + 'event/' + eventId + '/' + language + '/' + property,
+        translationData,
+        defaultApiConfig
       );
     };
 
