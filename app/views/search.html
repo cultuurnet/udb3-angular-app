@@ -109,11 +109,14 @@
                           editable-textarea="event.description"
                           onbeforesave="updateDescription($data)"></dd>
 
-                      <div ng-show="event.labels">
+                      <div>
                           <dt>Labels</dt>
                           <dd>
                               <span ng-repeat="label in event.labels" class="label label-info event-label" ng-bind="label">
                               </span>
+                          </dd>
+                          <dd ng-hide="event.labels.length">
+                              Dit evenement is nog niet getagd.
                           </dd>
                       </div>
                   </dl>
