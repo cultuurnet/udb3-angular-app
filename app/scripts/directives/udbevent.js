@@ -42,21 +42,23 @@ angular.module('udbApp')
           scope.event = jsonLDLangFilter(eventLD, scope.activeLanguage);
         };
 
-        function translateEventProperty (property, translation) {
+        function translateEventProperty (property, translation, apiProperty) {
           var language = scope.activeLanguage;
+          var udbProperty = apiProperty || property;
 
           if(translation && translation !== eventLD[property][language]) {
-            UdbApi.translateEventProperty(eventID, property, language, translation);
+            // TODO: Move this to a service that sets up the logging
+            UdbApi.translateEventProperty(eventID, udbProperty, language, translation);
           }
         }
 
-        scope.$watch('event.name', function (name) {
-          translateEventProperty('name', name);
-        });
+        scope.updateName = function (value) {
+          translateEventProperty('name', value, 'title');
+        };
 
-        scope.$watch('event.description', function (description) {
-          translateEventProperty('description', description);
-        });
+        scope.updateDescription = function (value) {
+          translateEventProperty('description', value);
+        };
       }
     };
 

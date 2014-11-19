@@ -17,6 +17,11 @@ angular.module('udbApp')
     function jobStarted (data) {
       var job = jobs[data['job_id']];
 
+      // ignore event if the job is not found
+      if(!job) {
+        return;
+      }
+
       job.state = 'started';
 
       console.log('job with id: ' + job.id + ' started');
@@ -24,6 +29,11 @@ angular.module('udbApp')
 
     function jobFinished (data) {
       var job = jobs[data['job_id']];
+
+      // ignore event if the job is not found
+      if(!job) {
+        return;
+      }
 
       job.state = 'finished';
 

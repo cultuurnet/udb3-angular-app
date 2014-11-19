@@ -87,7 +87,11 @@
           </div>
           <div udb-event="event" ng-hide="fetching">
               <div class="col-sm-12">
-                  <h3 class="event-name" editable-text="event.name" ng-bind="event.name || 'example name'"></h3>
+                  <h3 class="event-name"
+                      editable-text="event.name"
+                      onbeforesave="updateName($data)"
+                      ng-bind="event.name || 'example name'">
+                  </h3>
               </div>
               <div class="col-sm-4">
                   <img ng-src="{{event.image}}" alt="{{event.name}}" class="img-responsive">
@@ -101,7 +105,9 @@
                       <dd>{{event.location}}</dd>
 
                       <dt>Beschrijving</dt>
-                      <dd ng-bind-html="event.description"></dd>
+                      <dd ng-bind-html="event.description"
+                          editable-textarea="event.description"
+                          onbeforesave="updateDescription($data)"></dd>
 
                       <div ng-show="event.labels">
                           <dt>Labels</dt>
