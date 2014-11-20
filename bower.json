@@ -16,8 +16,8 @@
     "lodash": "~2.4.1",
     "angular-socket-io": "~0.6.0",
     "socket.io-client": "~1.2.0",
-    "angular-ui-select": "~0.8.3",
-    "angular-xeditable": "~0.1.8"
+    "angular-xeditable": "~0.1.8",
+    "angular-ui-select": "2dotstwice/ui-select#tagging-support"
   },
   "devDependencies": {
     "angular-mocks": "~1.3.0",
