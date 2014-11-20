@@ -57,6 +57,8 @@
                 </div>
                 <div ng-switch-when="single">
                     {{::job.description}} - {{ job.state }}
+                    <progressbar value="job.progress" type="{{giveJobBarType(job)}}">
+                    </progressbar>
                 </div>
             </div>
         </div>

@@ -36,6 +36,7 @@ angular.module('udbApp')
       }
 
       job.state = 'finished';
+      job.progress = 100;
 
       console.log('job with id: ' + job.id + ' finished');
     }
@@ -119,7 +120,8 @@ angular.module('udbApp')
         id: jobId,
         type: 'single',
         state: 'created',
-        description: description
+        description: description,
+        progress: 0
       };
 
       this.addJob(job);
