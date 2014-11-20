@@ -35,11 +35,28 @@ angular.module('udbApp')
         return;
       }
 
-      job.state = 'finished';
+      if (job.state != 'failed') {
+        job.state = 'finished';
+      }
       job.progress = 100;
 
       console.log('job with id: ' + job.id + ' finished');
     }
+
+      function jobFailed(data) {
+        var job = jobs[data['job_id']];
+
+        // ignore event if the job is not found
+        if(!job) {
+          return;
+        }
+
+        job.state = 'failed';
+
+        job.progress = 100;
+
+        console.log('job with id: ' + job.id + ' failed');
+      }
 
     function touchJobEvent (job, eventId) {
       var event = job.events[eventId];
@@ -91,6 +108,7 @@ angular.module('udbApp')
     udbSocket.on('event_was_not_tagged', eventWasNotTagged);
     udbSocket.on('job_started', jobStarted);
     udbSocket.on('job_finished', jobFinished);
+    udbSocket.on('job_failed', jobFailed);
 
     this.getJobs = function () {
       return queue;
@@ -98,7 +116,7 @@ angular.module('udbApp')
 
     this.hasUnfinishedJobs = function () {
       var unfinishedJob = _.find(jobs, function (job) {
-        return job.state !== 'finished';
+        return job.state !== 'finished' && job.state !== 'failed';
       });
 
       return !!unfinishedJob;
