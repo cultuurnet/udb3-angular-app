@@ -48,11 +48,16 @@
                 <p ng-hide="hasJobs()">Er zijn geen nieuwe taken.</p>
             </div>
 
-            <div ng-repeat="job in jobs | orderBy:'+':true" class="col-sm-12">
+            <div ng-repeat="job in jobs | orderBy:'+':true" class="col-sm-12" ng-switch="job.type">
+                <div ng-switch-when="batch">
                 {{::job.description}} - {{ job.state }} - <b>{{job.taggedCount}} / {{::job.eventCount}}</b>
                 <progressbar value="job.progress" type="{{giveJobBarType(job)}}">
                     <i ng-show="job.warning" ng-bind="job.warning"></i>
                 </progressbar>
+                </div>
+                <div ng-switch-when="single">
+                    {{::job.description}} - {{ job.state }}
+                </div>
             </div>
         </div>
     </div>
@@ -123,6 +128,7 @@
         <script src="scripts/controllers/eventtagmodal.js"></script>
         <script src="scripts/services/eventtagger.js"></script>
         <script src="scripts/filters/jsonldlang.js"></script>
+        <script src="scripts/services/eventtranslator.js"></script>
         <!-- endbuild -->
 </body>
 </html>

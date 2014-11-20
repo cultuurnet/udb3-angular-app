@@ -7,7 +7,8 @@
  * # udbEvent
  */
 angular.module('udbApp')
-  .directive('udbEvent', ['UdbApi', 'jsonLDLangFilter', function factory(UdbApi, jsonLDLangFilter) {
+  .directive('udbEvent', ['UdbApi', 'jsonLDLangFilter', 'EventTranslator',
+    function factory(UdbApi, jsonLDLangFilter, EventTranslator) {
     var udbEvent = {
       restrict: 'A',
       link: function postLink(scope, iElement, iAttrs) {
@@ -21,7 +22,7 @@ angular.module('udbApp')
         // The json-LD object that's return from the server
         var eventLD = {};
         // stores the ID parsed from the json-LD object
-        var eventID = false;
+        var eventID = '';
 
         if(!scope.event.title) {
           scope.fetching = true;
@@ -29,7 +30,7 @@ angular.module('udbApp')
 
           eventPromise.then(function (event) {
             eventLD = event;
-            eventID =  event['@id'].split('/').pop();
+            eventID = event['@id'].split('/').pop();
             scope.event = jsonLDLangFilter(event, scope.activeLanguage);
             scope.fetching = false;
           });
@@ -43,12 +44,12 @@ angular.module('udbApp')
         };
 
         function translateEventProperty (property, translation, apiProperty) {
-          var language = scope.activeLanguage;
-          var udbProperty = apiProperty || property;
+          var language = scope.activeLanguage,
+              udbProperty = apiProperty || property;
 
           if(translation && translation !== eventLD[property][language]) {
-            // TODO: Move this to a service that sets up the logging
-            UdbApi.translateEventProperty(eventID, udbProperty, language, translation);
+            EventTranslator.translateProperty(eventID, udbProperty, language, translation);
+            eventLD[property][language] = translation;
           }
         }
 

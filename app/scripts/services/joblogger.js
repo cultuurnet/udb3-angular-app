@@ -103,17 +103,36 @@ angular.module('udbApp')
       return !!unfinishedJob;
     };
 
-    this.createJob = function (jobId, events, keyword) {
-      if(jobs[jobId]) {
+    this.addJob = function (job) {
+      if(jobs[job.id]) {
         throw 'There\'s an existing job with this id';
       }
 
-      var job = jobs[jobId] = {
+      jobs[job.id] = job;
+      queue.push(job);
+
+      console.log('job with id: ' + job.id + ' created');
+    };
+
+    this.createTranslationJob = function (jobId, description) {
+      var job = {
+        id: jobId,
+        type: 'single',
+        state: 'created',
+        description: description
+      };
+
+      this.addJob(job);
+    };
+
+    this.createJob = function (jobId, events, keyword) {
+      var job = {
         id: jobId,
         events: {},
         state: 'created',
         taggedCount: 0,
-        progress: 0
+        progress: 0,
+        type: 'batch'
       };
 
       // Check if the events parameter is an array or number and set the event count accordingly
@@ -132,9 +151,7 @@ angular.module('udbApp')
       job.eventCount = eventCount;
       job.description = 'Tag ' + eventCount+ ' evenementen met label ' + keyword;
 
-      queue.push(job);
-
-      console.log('job with id: ' + job.id + ' created');
+      this.addJob(job);
     };
 
   }]);
