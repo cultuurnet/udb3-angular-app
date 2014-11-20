@@ -17,8 +17,6 @@ angular.module('udbApp')
           // set a default language if none is specified
           language = preferredLanguage || 'nl';
 
-      console.log(jsonLDObject);
-
       _.each(containedProperties, function (property) {
         // make sure then property is set on the object
         if(translatedObject[property]) {
@@ -36,8 +34,6 @@ angular.module('udbApp')
           translatedObject[property] = translatedProperty;
         }
       });
-
-      console.log(translatedObject);
 
       return translatedObject;
     };

@@ -73,20 +73,32 @@
         </p>
 
       <div class="row event" ng-repeat="event in resultViewer.events"
-              ng-class="{selected: resultViewer.isIdSelected(event['@id'])}">
+              ng-class="{selected: resultViewer.isIdSelected(event['@id'])}"
+              udb-event="event"
+              ng-hide="fetching">
           <div class="event-side-bar">
               <input type="checkbox"
                      ng-checked="resultViewer.isIdSelected(event['@id'])"
                      ng-click="resultViewer.toggleSelectId(event['@id'])"/>
+              <div ng-repeat="language in languageSelector"
+                      ng-click="setLanguage(language.lang)"
+                      class="event-language-option"
+                      ng-class="{active: (activeLanguage === language.lang)}">
+                  <span ng-bind="language.lang"></span>
+              </div>
           </div>
-          <div udb-event="event" ng-hide="fetching">
+          <div class="event-content">
               <div class="col-sm-12">
-                  <h3>{{event.name}}</h3>
+                  <h3 class="event-name"
+                      editable-text="event.name"
+                      onbeforesave="updateName($data)"
+                      ng-bind="event.name || 'example name'">
+                  </h3>
               </div>
               <div class="col-sm-4">
                   <img ng-src="{{event.image}}" alt="{{event.name}}" class="img-responsive">
               </div>
-              <div class="col-sm-7">
+              <div class="col-sm-8">
                   <dl>
                       <dt>Wanneer</dt>
                       <dd>{{event.calendarSummary}}</dd>
@@ -95,13 +107,18 @@
                       <dd>{{event.location}}</dd>
 
                       <dt>Beschrijving</dt>
-                      <dd>{{event.description}}</dd>
-
-                      <div ng-show="event.labels">
+                      <dd ng-bind-html="event.description"
+                          editable-textarea="event.description"
+                          onbeforesave="updateDescription($data)"></dd>
+                      
+                      <div>
                           <dt>Labels</dt>
                           <dd>
                               <span ng-repeat="label in event.labels" class="label label-info event-label" ng-bind="label">
                               </span>
+                          </dd>
+                          <dd ng-hide="event.labels.length">
+                              Dit evenement is nog niet getagd.
                           </dd>
                       </div>
                   </dl>

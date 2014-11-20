@@ -48,11 +48,18 @@
                 <p ng-hide="hasJobs()">Er zijn geen nieuwe taken.</p>
             </div>
 
-            <div ng-repeat="job in jobs | orderBy:'+':true" class="col-sm-12">
+            <div ng-repeat="job in jobs | orderBy:'+':true" class="col-sm-12" ng-switch="job.type">
+                <div ng-switch-when="batch">
                 {{::job.description}} - {{ job.state }} - <b>{{job.taggedCount}} / {{::job.eventCount}}</b>
                 <progressbar value="job.progress" type="{{giveJobBarType(job)}}">
                     <i ng-show="job.warning" ng-bind="job.warning"></i>
                 </progressbar>
+                </div>
+                <div ng-switch-when="single">
+                    {{::job.description}} - {{ job.state }}
+                    <progressbar value="job.progress" type="{{giveJobBarType(job)}}">
+                    </progressbar>
+                </div>
             </div>
         </div>
     </div>
@@ -91,6 +98,7 @@
     <script src="bower_components/angular-socket-io/socket.js"></script>
     <script src="bower_components/socket.io-client/socket.io.js"></script>
     <script src="bower_components/angular-ui-select/dist/select.js"></script>
+    <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -122,6 +130,7 @@
         <script src="scripts/controllers/eventtagmodal.js"></script>
         <script src="scripts/services/eventtagger.js"></script>
         <script src="scripts/filters/jsonldlang.js"></script>
+        <script src="scripts/services/eventtranslator.js"></script>
         <!-- endbuild -->
 </body>
 </html>

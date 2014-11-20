@@ -31,6 +31,7 @@ module.exports = function(config) {
       'bower_components/socket.io-client/socket.io.js',
       'bower_components/angular-socket-io/socket.js',
       'bower_components/angular-ui-select/dist/select.js',
+      'bower_components/angular-xeditable/dist/js/xeditable.js',
       'app/scripts/**/*.js',
       'test/mock/**/*.js',
       'test/spec/**/*.js'
