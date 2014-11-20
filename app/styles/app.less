@@ -93,6 +93,21 @@ Build date: 2014-01-10
   animation: rotating 1s linear infinite;
 }
 
+.repeat-animation.ng-enter {
+  -webkit-transition: all linear 1s;
+  -moz-transition: all linear 1s;
+  -o-transition: all linear 1s;
+  transition: all linear 1s;
+}
+
+.repeat-animation.ng-enter {
+  opacity: 0;
+}
+
+.repeat-animation.ng-enter.ng-enter-active {
+  opacity: 1;
+}
+
 .udb-job-log {
   width: 240px;
   left: -240px;

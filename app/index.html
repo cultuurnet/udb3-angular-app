@@ -48,7 +48,7 @@
                 <p ng-hide="hasJobs()">Er zijn geen nieuwe taken.</p>
             </div>
 
-            <div ng-repeat="job in jobs | orderBy:'+':true" class="col-sm-12" ng-switch="job.type">
+            <div ng-repeat="job in jobs" class="col-sm-12 repeat-animation" ng-switch="job.type">
                 <div ng-switch-when="batch">
                 {{::job.description}} - {{ job.state }} - <b>{{job.taggedCount}} / {{::job.eventCount}}</b>
                 <progressbar value="job.progress" type="{{giveJobBarType(job)}}">

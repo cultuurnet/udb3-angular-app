@@ -109,8 +109,10 @@ angular.module('udbApp')
         throw 'There\'s an existing job with this id';
       }
 
+      job.created = new Date();
+
       jobs[job.id] = job;
-      queue.push(job);
+      queue.unshift(job);
 
       console.log('job with id: ' + job.id + ' created');
     };
