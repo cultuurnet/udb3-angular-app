@@ -7,8 +7,8 @@
  * # udbEvent
  */
 angular.module('udbApp')
-  .directive('udbEvent', ['UdbApi', 'jsonLDLangFilter', 'EventTranslator',
-    function factory(UdbApi, jsonLDLangFilter, EventTranslator) {
+  .directive('udbEvent', ['UdbApi', 'jsonLDLangFilter', 'EventTranslator', 'eventTagger',
+    function factory(UdbApi, jsonLDLangFilter, EventTranslator, eventTagger) {
     var udbEvent = {
       restrict: 'A',
       link: function postLink(scope, iElement, iAttrs) {
@@ -18,6 +18,7 @@ angular.module('udbApp')
           {'lang': 'fr'},
           {'lang': 'en'}
         ];
+        scope.availableLabels = eventTagger.recentLabels;
 
         // The json-LD object that's return from the server
         var eventLD = {};
@@ -31,6 +32,7 @@ angular.module('udbApp')
           eventPromise.then(function (event) {
             eventLD = event;
             eventID = event['@id'].split('/').pop();
+            scope.availableLabels = _.union(event.labels, eventTagger.recentLabels);
             scope.event = jsonLDLangFilter(event, scope.activeLanguage);
             scope.fetching = false;
           });
@@ -59,6 +61,19 @@ angular.module('udbApp')
 
         scope.updateDescription = function (value) {
           translateEventProperty('description', value);
+        };
+
+        scope.labelAdded = function (label) {
+          eventTagger.tag(eventID, label);
+          eventLD.labels.push(label);
+          _.uniq(eventLD.labels);
+        };
+
+        scope.labelRemoved = function (label) {
+          eventTagger.untag(eventID, label);
+          _.remove(eventLD.labels, function (iLabel) {
+            return iLabel === label;
+          });
         };
       }
     };

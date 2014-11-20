@@ -163,4 +163,19 @@ angular.module('udbApp')
       );
     };
 
+    this.tagEvent = function (eventId, label) {
+      return $http.post(
+        appConfig.baseUrl + 'event/' + eventId + '/keywords',
+        { 'keyword': label},
+        defaultApiConfig
+      );
+    };
+
+    this.untagEvent = function (eventId, label) {
+      return $http.delete(
+        appConfig.baseUrl + 'event/' + eventId + '/keywords/' + label,
+        defaultApiConfig
+      );
+    };
+
     });
