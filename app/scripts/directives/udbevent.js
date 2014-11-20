@@ -64,16 +64,16 @@ angular.module('udbApp')
         };
 
         scope.labelAdded = function (label) {
-          var labels = eventLD.labels;
-
           eventTagger.tag(eventID, label);
-          labels.push(label);
-          eventLD.labels = _.uniq(labels);
+          eventLD.labels.push(label);
+          _.uniq(eventLD.labels);
         };
 
         scope.labelRemoved = function (label) {
           eventTagger.untag(eventID, label);
-          eventLD.labels = _.remove(eventLD.labels, label);
+          _.remove(eventLD.labels, function (iLabel) {
+            return iLabel === label;
+          });
         };
       }
     };
