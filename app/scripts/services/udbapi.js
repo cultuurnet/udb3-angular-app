@@ -69,7 +69,9 @@ angular.module('udbApp')
         });
 
         eventRequest.success(function(eventData) {
-          eventData.labels = eventData.concept;
+          eventData.labels = _.map(eventData.concept, function (label) {
+            return label;
+          });
           eventCache.put(eventId, eventData);
           deferredEvent.resolve(eventData);
         });
