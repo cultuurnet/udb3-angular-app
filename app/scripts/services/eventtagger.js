@@ -27,27 +27,35 @@ angular.module('udbApp')
 
     /**
      * Tag an event with a label
-     * @param {string} eventId
+     * @param {Event} event
      * @param {string} label
      */
-    this.tag = function (eventId, label) {
-      var jobPromise = UdbApi.tagEvent(eventId, label);
+    this.tag = function (event, label) {
+      var jobPromise = UdbApi.tagEvent(event.id, label);
 
       jobPromise.success(function (jobData) {
-        jobLogger.createTranslationJob(jobData.commandId, 'tag evenement met label: ' + label);
+        event.tag(label);
+        jobLogger.createTranslationJob(
+          jobData.commandId,
+          'Tag "'+ event.name.nl +'" met label: ' + label + '.',
+          event);
       });
     };
 
     /**
      * Untag a label from an event
-     * @param {string} eventId
+     * @param {Event} event
      * @param {string} label
      */
-    this.untag = function (eventId, label) {
-      var jobPromise = UdbApi.untagEvent(eventId, label);
+    this.untag = function (event, label) {
+      var jobPromise = UdbApi.untagEvent(event.id, label);
 
       jobPromise.success(function (jobData) {
-        jobLogger.createTranslationJob(jobData.commandId, label + ' verwijderen van evenement');
+        event.untag(label);
+        jobLogger.createTranslationJob(
+          jobData.commandId,
+          'Verwijder ' + label + '  van "' + event.name.nl + '".',
+          event);
       });
     };
 

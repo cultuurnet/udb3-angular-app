@@ -35,7 +35,7 @@ angular.module('udbApp')
         return;
       }
 
-      if (job.state != 'failed') {
+      if (job.state !== 'failed') {
         job.state = 'finished';
       }
       job.progress = 100;
