@@ -13,6 +13,7 @@ angular.module('udbApp')
     'cdbid',
     'title',
     'keywords',
+    'organiser_keywords',
     'city',
     'zipcode',
     'country',
