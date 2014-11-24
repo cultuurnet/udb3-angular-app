@@ -101,7 +101,7 @@ angular.module('udbApp')
       modal.result.then(function (labels) {
 
         _.each(selectedIds, function (eventId) {
-          var eventPromise = udbApi.getEventByLDId(eventId);
+          var eventPromise = udbApi.getEventById(eventId);
 
           eventPromise.then(function (event) {
             event.labels = _.union((event.labels || []), labels);

@@ -73,13 +73,13 @@
         </p>
 
       <div class="row event" ng-repeat="event in resultViewer.events"
-              ng-class="{selected: resultViewer.isIdSelected(event['@id'])}"
+              ng-class="{selected: resultViewer.isIdSelected(event.id)}"
               udb-event="event"
               ng-hide="fetching">
           <div class="event-side-bar">
               <input type="checkbox"
-                     ng-checked="resultViewer.isIdSelected(event['@id'])"
-                     ng-click="resultViewer.toggleSelectId(event['@id'])"/>
+                     ng-checked="resultViewer.isIdSelected(event.id)"
+                     ng-click="resultViewer.toggleSelectId(event.id)"/>
               <div ng-repeat="language in languageSelector"
                       ng-click="setLanguage(language.lang)"
                       class="event-language-option"
