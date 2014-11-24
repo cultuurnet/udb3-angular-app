@@ -1,14 +1,14 @@
 'use strict';
 
-describe('Service: EventTranslator', function () {
+describe('Service: eventTranslator', function () {
 
   // load the service's module
   beforeEach(module('udbApp'));
 
   // instantiate service
-  var EventTranslator;
-  beforeEach(inject(function (_EventTranslator_) {
-    EventTranslator = _EventTranslator_;
+  var eventTranslator;
+  beforeEach(inject(function (_eventTranslator_) {
+    eventTranslator = _eventTranslator_;
   }));
 
 });

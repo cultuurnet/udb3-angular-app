@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc service
- * @name udbApp.EventTranslator
+ * @name udbApp.eventTranslator
  * @description
- * # EventTranslator
+ * # eventTranslator
  * Service in the udbApp.
  */
 angular.module('udbApp')
-  .service('EventTranslator', function EventTranslator(jobLogger, UdbApi) {
+  .service('eventTranslator', function EventTranslator(jobLogger, UdbApi) {
 
     /**
      * Translates an event property to a given language and adds the job to the logger

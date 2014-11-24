@@ -7,8 +7,8 @@
  * # udbEvent
  */
 angular.module('udbApp')
-  .directive('udbEvent', ['UdbApi', 'jsonLDLangFilter', 'EventTranslator', 'eventTagger',
-    function factory(UdbApi, jsonLDLangFilter, EventTranslator, eventTagger) {
+  .directive('udbEvent', ['UdbApi', 'jsonLDLangFilter', 'eventTranslator', 'eventTagger',
+    function factory(UdbApi, jsonLDLangFilter, eventTranslator, eventTagger) {
     var udbEvent = {
       restrict: 'A',
       link: function postLink(scope, iElement, iAttrs) {
@@ -47,7 +47,7 @@ angular.module('udbApp')
               udbProperty = apiProperty || property;
 
           if(translation && translation !== event[property][language]) {
-            EventTranslator.translateProperty(event, udbProperty, language, translation);
+            eventTranslator.translateProperty(event, udbProperty, language, translation);
           }
         }
 
