@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc service
- * @name udbApp.UdbApi
+ * @name udbApp.udbApi
  * @description
- * # UdbApi
+ * # udbApi
  * Service in the udbApp.
  */
 angular.module('udbApp')
-    .service('UdbApi', function UdbApi($q, $http, appConfig, $cookieStore, uitidAuth, $cacheFactory) {
+    .service('udbApi', function UdbApi($q, $http, appConfig, $cookieStore, uitidAuth, $cacheFactory, UdbEvent) {
       var apiUrl = appConfig.baseApiUrl;
       var defaultApiConfig = {
             withCredentials: true,
@@ -54,7 +54,7 @@ angular.module('udbApp')
         return deferredEvents.promise;
       };
 
-    this.getEventByLDId = function(eventId) {
+    this.getEventById = function(eventId) {
       var deferredEvent = $q.defer();
 
       var event = eventCache.get(eventId);
@@ -62,22 +62,27 @@ angular.module('udbApp')
       if(event) {
         deferredEvent.resolve(event);
       } else {
-        var eventRequest  = $http.get(eventId, {
-          headers: {
-            'Accept': 'application/ld+json'
-          }
-        });
-
-        eventRequest.success(function(eventData) {
-          eventData.labels = _.map(eventData.concept, function (label) {
-            return label;
+        var eventRequest  = $http.get(
+          appConfig.baseUrl + 'event/' + eventId,
+          {
+            headers: {
+              'Accept': 'application/ld+json'
+            }
           });
-          eventCache.put(eventId, eventData);
-          deferredEvent.resolve(eventData);
+
+        eventRequest.success(function(jsonEvent) {
+          var event = new UdbEvent(jsonEvent);
+          eventCache.put(eventId, event);
+          deferredEvent.resolve(event);
         });
       }
 
       return deferredEvent.promise;
+    };
+
+    this.getEventByLDId = function (eventLDId) {
+      var eventId = eventLDId.split('/').pop();
+      return this.getEventById(eventId);
     };
 
     /**

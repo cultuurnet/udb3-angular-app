@@ -42,7 +42,7 @@ angular.module('udbApp')
           selectedIds = this.selectedIds;
 
         _.each(events, function (event) {
-          selectedIds.push(event['@id']);
+          selectedIds.push(event.id);
         });
 
         this.selectedIds = _.uniq(selectedIds);

@@ -7,8 +7,8 @@
  * # udbEvent
  */
 angular.module('udbApp')
-  .directive('udbEvent', ['UdbApi', 'jsonLDLangFilter', 'EventTranslator', 'eventTagger',
-    function factory(UdbApi, jsonLDLangFilter, EventTranslator, eventTagger) {
+  .directive('udbEvent', ['udbApi', 'jsonLDLangFilter', 'eventTranslator', 'eventTagger',
+    function factory(udbApi, jsonLDLangFilter, eventTranslator, eventTagger) {
     var udbEvent = {
       restrict: 'A',
       link: function postLink(scope, iElement, iAttrs) {
@@ -20,18 +20,15 @@ angular.module('udbApp')
         ];
         scope.availableLabels = eventTagger.recentLabels;
 
-        // The json-LD object that's return from the server
-        var eventLD = {};
-        // stores the ID parsed from the json-LD object
-        var eventID = '';
+        // The event object that's returned from the server
+        var event;
 
         if(!scope.event.title) {
           scope.fetching = true;
-          var eventPromise = UdbApi.getEventByLDId(scope.event['@id']);
+          var eventPromise = udbApi.getEventByLDId(scope.event['@id']);
 
-          eventPromise.then(function (event) {
-            eventLD = event;
-            eventID = event['@id'].split('/').pop();
+          eventPromise.then(function (eventObject) {
+            event = eventObject;
             scope.availableLabels = _.union(event.labels, eventTagger.recentLabels);
             scope.event = jsonLDLangFilter(event, scope.activeLanguage);
             scope.fetching = false;
@@ -42,16 +39,15 @@ angular.module('udbApp')
 
         scope.setLanguage = function (lang) {
           scope.activeLanguage = lang;
-          scope.event = jsonLDLangFilter(eventLD, scope.activeLanguage);
+          scope.event = jsonLDLangFilter(event, scope.activeLanguage);
         };
 
         function translateEventProperty (property, translation, apiProperty) {
           var language = scope.activeLanguage,
               udbProperty = apiProperty || property;
 
-          if(translation && translation !== eventLD[property][language]) {
-            EventTranslator.translateProperty(eventID, udbProperty, language, translation);
-            eventLD[property][language] = translation;
+          if(translation && translation !== event[property][language]) {
+            eventTranslator.translateProperty(event, udbProperty, language, translation);
           }
         }
 
@@ -64,16 +60,11 @@ angular.module('udbApp')
         };
 
         scope.labelAdded = function (label) {
-          eventTagger.tag(eventID, label);
-          eventLD.labels.push(label);
-          _.uniq(eventLD.labels);
+          eventTagger.tag(event, label);
         };
 
         scope.labelRemoved = function (label) {
-          eventTagger.untag(eventID, label);
-          _.remove(eventLD.labels, function (iLabel) {
-            return iLabel === label;
-          });
+          eventTagger.untag(event, label);
         };
       }
     };

@@ -35,7 +35,7 @@ angular.module('udbApp')
         return;
       }
 
-      if (job.state != 'failed') {
+      if (job.state !== 'failed') {
         job.state = 'finished';
       }
       job.progress = 100;
@@ -171,7 +171,7 @@ angular.module('udbApp')
       }
       // set the actual event count and a readable description
       job.eventCount = eventCount;
-      job.description = 'Tag ' + eventCount+ ' evenementen met label ' + keyword;
+      job.description = 'Tag ' + eventCount + ' evenementen met label "' + keyword + '".';
 
       this.addJob(job);
     };
