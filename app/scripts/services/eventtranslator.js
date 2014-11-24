@@ -26,9 +26,20 @@ angular.module('udbApp')
         // TODO get rid of this hack;
         if(property === 'title') { property = 'name'; }
         event[property][language] = translation;
+        var jobTitle;
+        switch (property) {
+          case 'name':
+            jobTitle =  'Vertaal naam van evenement "' + event.name.nl + '".';
+            break;
+          case 'description':
+            jobTitle = 'Vertaal omschrijving van evenement "' + event.name.nl + '".';
+            break;
+          default:
+            jobTitle = 'Vertaal ' + property + ' van evenement "' + event.name.nl + '".';
+        }
         jobLogger.createTranslationJob(
           jobId,
-          'Vertaal ' + property + ' van evenement "' + event.name.nl + '".',
+          jobTitle,
           event);
       });
 

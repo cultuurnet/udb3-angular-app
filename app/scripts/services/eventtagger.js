@@ -37,7 +37,7 @@ angular.module('udbApp')
         event.tag(label);
         jobLogger.createTranslationJob(
           jobData.commandId,
-          'Tag "'+ event.name.nl +'" met label: ' + label + '.',
+          'Tag "'+ event.name.nl +'" met label "' + label + '".',
           event);
       });
     };
@@ -54,7 +54,7 @@ angular.module('udbApp')
         event.untag(label);
         jobLogger.createTranslationJob(
           jobData.commandId,
-          'Verwijder ' + label + '  van "' + event.name.nl + '".',
+          'Verwijder label "' + label + '" van "' + event.name.nl + '".',
           event);
       });
     };
