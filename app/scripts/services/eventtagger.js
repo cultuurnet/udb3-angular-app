@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc service
- * @name udbApp.EventTagger
+ * @name udbApp.evenTagger
  * @description
- * # EventTagger
+ * # eventTagger
  * Service in the udbApp.
  */
 angular.module('udbApp')
@@ -27,7 +27,7 @@ angular.module('udbApp')
 
     /**
      * Tag an event with a label
-     * @param {Event} event
+     * @param {UdbEvent} event
      * @param {string} label
      */
     this.tag = function (event, label) {
@@ -44,7 +44,7 @@ angular.module('udbApp')
 
     /**
      * Untag a label from an event
-     * @param {Event} event
+     * @param {UdbEvent} event
      * @param {string} label
      */
     this.untag = function (event, label) {

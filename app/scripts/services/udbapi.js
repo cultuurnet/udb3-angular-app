@@ -8,7 +8,7 @@
  * Service in the udbApp.
  */
 angular.module('udbApp')
-    .service('UdbApi', function UdbApi($q, $http, appConfig, $cookieStore, uitidAuth, $cacheFactory, Event) {
+    .service('UdbApi', function UdbApi($q, $http, appConfig, $cookieStore, uitidAuth, $cacheFactory, UdbEvent) {
       var apiUrl = appConfig.baseApiUrl;
       var defaultApiConfig = {
             withCredentials: true,
@@ -71,7 +71,7 @@ angular.module('udbApp')
           });
 
         eventRequest.success(function(jsonEvent) {
-          var event = new Event(jsonEvent);
+          var event = new UdbEvent(jsonEvent);
           eventCache.put(eventId, event);
           deferredEvent.resolve(event);
         });

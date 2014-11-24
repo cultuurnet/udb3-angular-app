@@ -2,23 +2,23 @@
 
 /**
  * @ngdoc service
- * @name udbApp.Event
+ * @name udbApp.UdbEvent
  * @description
- * # Event
- * Factory in the udbApp.
+ * # UdbEvent
+ * UdbEvent factory
  */
 angular.module('udbApp')
-  .factory('Event', function () {
+  .factory('UdbEvent', function () {
     /**
-     * @class Event
+     * @class UdbEvent
      * @constructor
      * @param jsonEvent
      */
-    var Event = function (jsonEvent) {
+    var UdbEvent = function (jsonEvent) {
       this.parseJson(jsonEvent);
     };
 
-    Event.prototype = {
+    UdbEvent.prototype = {
       parseJson: function (jsonEvent) {
         this.id = jsonEvent['@id'].split('/').pop();
         this.name = jsonEvent.name || {};
@@ -58,5 +58,5 @@ angular.module('udbApp')
       }
     };
 
-    return (Event);
+    return (UdbEvent);
   });

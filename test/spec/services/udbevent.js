@@ -1,18 +1,18 @@
 'use strict';
 
-describe('Service: Event', function () {
+describe('Service: UdbEvent', function () {
 
   // load the service's module
   beforeEach(module('udbApp'));
 
   // instantiate service
-  var Event;
-  beforeEach(inject(function (_Event_) {
-    Event = _Event_;
+  var UdbEvent;
+  beforeEach(inject(function (_UdbEvent_) {
+    UdbEvent = _UdbEvent_;
   }));
 
   it('should do something', function () {
-    expect(!!Event).toBe(true);
+    expect(!!UdbEvent).toBe(true);
   });
 
 });
