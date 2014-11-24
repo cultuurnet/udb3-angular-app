@@ -8,7 +8,7 @@
  * Service in the udbApp.
  */
 angular.module('udbApp')
-  .service('eventTranslator', function EventTranslator(jobLogger, UdbApi) {
+  .service('eventTranslator', function EventTranslator(jobLogger, udbApi) {
 
     /**
      * Translates an event property to a given language and adds the job to the logger
@@ -19,7 +19,7 @@ angular.module('udbApp')
      * @param {string}    translation  Translation to save
      */
     this.translateProperty = function (event, property, language, translation) {
-      var jobPromise = UdbApi.translateEventProperty(event.id, property, language, translation);
+      var jobPromise = udbApi.translateEventProperty(event.id, property, language, translation);
 
       jobPromise.success(function (jobData) {
         var jobId = jobData.commandId;

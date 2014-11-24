@@ -2,13 +2,13 @@
 
 /**
  * @ngdoc service
- * @name udbApp.UdbApi
+ * @name udbApp.udbApi
  * @description
- * # UdbApi
+ * # udbApi
  * Service in the udbApp.
  */
 angular.module('udbApp')
-    .service('UdbApi', function UdbApi($q, $http, appConfig, $cookieStore, uitidAuth, $cacheFactory, UdbEvent) {
+    .service('udbApi', function UdbApi($q, $http, appConfig, $cookieStore, uitidAuth, $cacheFactory, UdbEvent) {
       var apiUrl = appConfig.baseApiUrl;
       var defaultApiConfig = {
             withCredentials: true,

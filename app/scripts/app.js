@@ -68,7 +68,7 @@ angular
 
       uiSelectConfig.theme = 'bootstrap';
     }])
-  .run(function (UdbApi, jobLogger, editableOptions) {
-    UdbApi.getMe();
+  .run(function (udbApi, jobLogger, editableOptions) {
+    udbApi.getMe();
     editableOptions.theme = 'bs3';
   });

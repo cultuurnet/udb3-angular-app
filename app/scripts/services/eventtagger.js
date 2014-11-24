@@ -8,7 +8,7 @@
  * Service in the udbApp.
  */
 angular.module('udbApp')
-  .service('eventTagger', function EventTagger(jobLogger, UdbApi) {
+  .service('eventTagger', function EventTagger(jobLogger, udbApi) {
 
     var eventTagger = this;
 
@@ -16,7 +16,7 @@ angular.module('udbApp')
     eventTagger.recentLabels = ['some', 'recent', 'label'];
 
     function updateRecentLabels () {
-      var labelPromise = UdbApi.getRecentLabels();
+      var labelPromise = udbApi.getRecentLabels();
 
       labelPromise.then(function (labels) {
         eventTagger.recentLabels = labels;
@@ -31,7 +31,7 @@ angular.module('udbApp')
      * @param {string} label
      */
     this.tag = function (event, label) {
-      var jobPromise = UdbApi.tagEvent(event.id, label);
+      var jobPromise = udbApi.tagEvent(event.id, label);
 
       jobPromise.success(function (jobData) {
         event.tag(label);
@@ -48,7 +48,7 @@ angular.module('udbApp')
      * @param {string} label
      */
     this.untag = function (event, label) {
-      var jobPromise = UdbApi.untagEvent(event.id, label);
+      var jobPromise = udbApi.untagEvent(event.id, label);
 
       jobPromise.success(function (jobData) {
         event.untag(label);
@@ -64,7 +64,7 @@ angular.module('udbApp')
      * @param {string} label
      */
     this.tagEventsById = function (eventIds, label) {
-      var jobPromise = UdbApi.tagEvents(eventIds, label);
+      var jobPromise = udbApi.tagEvents(eventIds, label);
 
       jobPromise.success(function (jobData) {
         var jobId = jobData.commandId;
@@ -80,7 +80,7 @@ angular.module('udbApp')
      * @param {string} label
      */
     this.tagQuery = function (query, label, eventCount) {
-      var jobPromise = UdbApi.tagQuery(query, label);
+      var jobPromise = udbApi.tagQuery(query, label);
       eventCount = eventCount || 0;
 
       jobPromise.success(function (jobData) {

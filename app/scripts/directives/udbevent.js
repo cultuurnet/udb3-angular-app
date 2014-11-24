@@ -7,8 +7,8 @@
  * # udbEvent
  */
 angular.module('udbApp')
-  .directive('udbEvent', ['UdbApi', 'jsonLDLangFilter', 'eventTranslator', 'eventTagger',
-    function factory(UdbApi, jsonLDLangFilter, eventTranslator, eventTagger) {
+  .directive('udbEvent', ['udbApi', 'jsonLDLangFilter', 'eventTranslator', 'eventTagger',
+    function factory(udbApi, jsonLDLangFilter, eventTranslator, eventTagger) {
     var udbEvent = {
       restrict: 'A',
       link: function postLink(scope, iElement, iAttrs) {
@@ -25,7 +25,7 @@ angular.module('udbApp')
 
         if(!scope.event.title) {
           scope.fetching = true;
-          var eventPromise = UdbApi.getEventByLDId(scope.event['@id']);
+          var eventPromise = udbApi.getEventByLDId(scope.event['@id']);
 
           eventPromise.then(function (eventObject) {
             event = eventObject;

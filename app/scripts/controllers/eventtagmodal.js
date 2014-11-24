@@ -8,9 +8,9 @@
  * Controller of the udbApp
  */
 angular.module('udbApp')
-  .controller('EventTagModalCtrl', function ($scope, $modalInstance, UdbApi) {
+  .controller('EventTagModalCtrl', function ($scope, $modalInstance, udbApi) {
 
-    var labelPromise = UdbApi.getRecentLabels();
+    var labelPromise = udbApi.getRecentLabels();
 
     var ok = function () {
       // Get the labels selected by checkbox

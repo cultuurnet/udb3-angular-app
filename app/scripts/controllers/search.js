@@ -8,7 +8,7 @@
  * Controller of the udbApp
  */
 angular.module('udbApp')
-  .controller('SearchCtrl', function ($scope, UdbApi, LuceneQueryBuilder, $window, $location, $modal, SearchResultViewer, eventTagger) {
+  .controller('SearchCtrl', function ($scope, udbApi, LuceneQueryBuilder, $window, $location, $modal, SearchResultViewer, eventTagger) {
     var queryBuilder = LuceneQueryBuilder;
 
     $scope.searchQuery = '';
@@ -62,7 +62,7 @@ angular.module('udbApp')
     var findEvents = function (query) {
       var offset = ($scope.resultViewer.currentPage - 1) * $scope.resultViewer.pageSize;
       var queryString = typeof query === 'string' ? query : query.queryString;
-      var eventPromise = UdbApi.findEvents(queryString, offset);
+      var eventPromise = udbApi.findEvents(queryString, offset);
 
       // Check if a query string is defined else clear the relevant search parameters.
       if(queryString) {
@@ -101,7 +101,7 @@ angular.module('udbApp')
       modal.result.then(function (labels) {
 
         _.each(selectedIds, function (eventId) {
-          var eventPromise = UdbApi.getEventByLDId(eventId);
+          var eventPromise = udbApi.getEventByLDId(eventId);
 
           eventPromise.then(function (event) {
             event.labels = _.union((event.labels || []), labels);
