@@ -14,6 +14,13 @@ angular.module('udbApp')
      * @class SearchResultViewer
      * @constructor
      * @param pagSize
+     *
+     * @property {object[]}   events       - A list of json-LD event objects
+     * @property {number}     pageSize     - The current page size
+     * @property {number}     totalItems   - The total items found
+     * @property {number}     currentPage  - The index of the current page without zeroing
+     * @property {boolean}    loading      - A flag to indicate the period between changing of the query and
+     *                                       receiving of the results.
      */
     var SearchResultViewer = function (pageSize) {
       this.pageSize = pageSize || 30;
@@ -42,7 +49,8 @@ angular.module('udbApp')
           selectedIds = this.selectedIds;
 
         _.each(events, function (event) {
-          selectedIds.push(event.id);
+          var eventId = event['@id'].split('/').pop();
+          selectedIds.push(eventId);
         });
 
         this.selectedIds = _.uniq(selectedIds);
