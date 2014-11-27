@@ -1,29 +1,3 @@
-<script type="text/ng-template" id="event-tag-modal.html">
-    <div class="modal-body">
-
-        <label>Labels</label>
-
-        <div class="row">
-            <div class="col-lg-12">
-                <input type="text" ng-model="labelNames" class="form-control"/>
-            </div>
-
-            <div class="col-lg-12">
-                <div class="checkbox" ng-repeat="label in labelSelection">
-                    <label>
-                        <input type="checkbox" ng-model="label.selected" />
-                        <span ng-bind="label.name"></span>
-                    </label>
-                </div>
-            </div>
-        </div>
-    </div>
-    <div class="modal-footer">
-        <button class="btn btn-primary" ng-click="ok()">label</button>
-        <button class="btn btn-warning" ng-click="close()">annuleren</button>
-    </div>
-</script>
-
 <div class="main-search">
   <form class="form-horizontal" role="form">
     <div class="form-group" ng-class="{'has-error': queryErrors.length}">

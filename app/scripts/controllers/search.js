@@ -104,7 +104,7 @@ angular.module('udbApp')
       }
 
       var modal = $modal.open({
-        templateUrl: 'event-tag-modal.html',
+        templateUrl: 'views/event-tag-modal.html',
         controller: 'EventTagModalCtrl'
       });
 
@@ -134,7 +134,7 @@ angular.module('udbApp')
 
       if(queryBuilder.isValid(query)) {
         var modal = $modal.open({
-          templateUrl: 'event-tag-modal.html',
+          templateUrl: 'views/event-tag-modal.html',
           controller: 'EventTagModalCtrl'
         });
 
