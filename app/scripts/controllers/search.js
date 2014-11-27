@@ -8,7 +8,16 @@
  * Controller of the udbApp
  */
 angular.module('udbApp')
-  .controller('SearchCtrl', function ($scope, udbApi, LuceneQueryBuilder, $window, $location, $modal, SearchResultViewer, eventTagger) {
+  .controller('SearchCtrl', function (
+    $scope,
+    udbApi,
+    LuceneQueryBuilder,
+    $window,
+    $location,
+    $modal,
+    SearchResultViewer,
+    eventTagger
+) {
     var queryBuilder = LuceneQueryBuilder;
 
     $scope.searchQuery = '';
@@ -47,6 +56,7 @@ angular.module('udbApp')
       var realQuery = queryBuilder.unparse(query);
       $scope.resultViewer.queryChanged(realQuery);
       debouncedFindEvents(realQuery);
+      $scope.query = query;
 
       if(realQuery !== query.originalQueryString) {
         $scope.realQuery = realQuery;

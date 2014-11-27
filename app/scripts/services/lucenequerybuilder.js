@@ -156,4 +156,45 @@ angular.module('udbApp')
 
         return queryString;
       };
-    }]);
+
+    var flattenNode = function (branch, depth, fields, operator) {
+      if(branch.left) {
+          flattenNode(branch.left, depth + 1, fields, operator);
+
+        if(branch.right) {
+
+          operator = operator || branch.operator;
+          if(operator !== branch.operator) {
+            throw 'Can\'t flatten when using multiple operators.';
+          }
+
+          _.last(fields).operator = branch.operator;
+          flattenNode(branch.right, depth + 1, fields, operator);
+        }
+      } else {
+        var field = {
+          field: branch.field,
+          term: branch.term
+        };
+
+        if(branch.prefix && branch.prefix === '-') {
+          field.modifier = '<>';
+        } else {
+          field.modifier = '=';
+        }
+        fields.push(field);
+      }
+
+      if(depth === 0 ) {
+        return fields;
+      }
+    };
+
+    this.flattenQueryTree = function (query) {
+      var tree = query.queryTree;
+      var fields = flattenNode(tree, 0, [], false);
+
+      return fields;
+    };
+
+  }]);

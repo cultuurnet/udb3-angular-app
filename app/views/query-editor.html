@@ -1,0 +1,15 @@
+<div ng-repeat="fieldQuery in flatFields">
+    <select ng-options="field for field in fields"
+            ng-model="fieldQuery.field">
+    </select>
+    <select ng-options="op for op in ['=', '<>']"
+            ng-model="fieldQuery.modifier">
+    </select>
+    <input type="text" ng-model="fieldQuery.term"/>
+    <select ng-options="operator for operator in operators"
+            ng-model="fieldQuery.operator"
+            ng-if="fieldQuery.operator">
+    </select>
+</div>
+
+<p ng-show="queryFormError" ng-bind="queryFormError"></p>
