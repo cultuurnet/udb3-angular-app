@@ -155,6 +155,8 @@ angular.module('udbApp')
       var query = queryBuilder.createQuery(queryString);
 
       $scope.activeQuery = query;
+      console.log(query.queryTree);
+      console.log(queryBuilder.groupQueryTree(query.queryTree));
 
       if(queryBuilder.isValid(query)) {
         updateQuery(query);

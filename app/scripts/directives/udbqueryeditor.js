@@ -13,6 +13,13 @@ angular
       templateUrl: 'views/query-editor.html',
       restrict: 'E',
       controllerAs: 'qe',
+      link: function link(scope) {
+        var queryBuilder = LuceneQueryBuilder;
+
+        scope.$watch('query.queryTree', function (queryTree){
+          scope.qe.groupedQueryTree = queryBuilder.groupQueryTree(queryTree);
+        }, true);
+      },
       controller: function QueryEditor($scope) {
         var qe = this,
             queryBuilder = LuceneQueryBuilder;
@@ -96,13 +103,6 @@ angular
 
           root.nodes.push(group);
         };
-
-      },
-      link: function postLink(scope, element, attrs) {
-        scope.$watch('query', function (query) {
-          scope.qe.flattenTree(query);
-          console.log(query);
-        }, true);
       }
     };
   });

@@ -157,6 +157,12 @@ angular.module('udbApp')
         return queryString;
       };
 
+    /**
+     * Unparse a grouped field information tree to a query string
+     *
+     * @param   {object}  groupedTree     A tree structure with field groups
+     * @return  {string}  A query string
+     */
     this.unparseGroupedTree = function (groupedTree) {
       var root = groupedTree;
       var queryString = '';
@@ -192,5 +198,64 @@ angular.module('udbApp')
 
       return queryString;
     };
+
+    /**
+     * Generate a grouped field information tree from a query tree
+     *
+     * The query tree should not be nest different operators deeper than 2 levels.
+     * Modifiers will be ignored.
+     *
+     * @param   {object}  queryTree   - The queryTree to get information from
+     *
+     * @return  {object}              - A grouped field information tree
+     */
+    this.groupQueryTree = function (queryTree) {
+      var groupedFieldTree = {
+        type: 'root',
+        nodes: []
+      };
+
+      groupedFieldTree.operator = queryTree.operator || 'OR';
+
+      this.groupNode(queryTree, groupedFieldTree);
+
+      return groupedFieldTree;
+    };
+
+    /**
+     * Group the nodes in a query tree branch
+     *
+     * @param {object}  branch        - The branch of a query tree
+     * @param {object}  fieldTree     - The field tree that will be returned
+     */
+    this.groupNode = function (branch, fieldTree) {
+      if (branch.left) {
+        var fieldGroup = {
+          type: 'group',
+          operator: branch.operator,
+          nodes: []
+        };
+
+        if (branch.left.field) {
+          fieldGroup.nodes.push(makeField(branch.left));
+        }
+
+        if (branch.right && branch.right.field) {
+          fieldGroup.nodes.push(makeField(branch.right));
+        } else {
+          throw 'We must go deeper!';
+        }
+
+        fieldTree.nodes.push(fieldGroup);
+      }
+    };
+
+    function makeField(node) {
+      return {
+        field: node.field,
+        term: node.term,
+        fieldType: 'string'
+      };
+    }
 
   }]);
