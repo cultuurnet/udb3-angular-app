@@ -157,44 +157,40 @@ angular.module('udbApp')
         return queryString;
       };
 
-    var flattenNode = function (branch, depth, fields, operator) {
-      if(branch.left) {
-          flattenNode(branch.left, depth + 1, fields, operator);
+    this.unparseGroupedTree = function (groupedTree) {
+      var root = groupedTree;
+      var queryString = '';
 
-        if(branch.right) {
+      _.forEach(root.nodes, function (node, nodeIndex) {
+        var nodeString = '';
+        if(node.type === 'group') {
+          var group = node;
 
-          operator = operator || branch.operator;
-          if(operator !== branch.operator) {
-            throw 'Can\'t flatten when using multiple operators.';
-          }
+          nodeString += '(';
 
-          _.last(fields).operator = branch.operator;
-          flattenNode(branch.right, depth + 1, fields, operator);
-        }
-      } else {
-        var field = {
-          field: branch.field,
-          term: branch.term
-        };
+          _.forEach(group.nodes, function(field, fieldIndex) {
+            if(fieldIndex) {
+              nodeString += ' ' + node.operator + ' ';
+            }
+            nodeString += field.field + ':' + field.term;
+          });
 
-        if(branch.prefix && branch.prefix === '-') {
-          field.modifier = '<>';
+          nodeString += ')';
+        } else if (node.type === 'field') {
+          var field = node.nodes[0];
+          nodeString = field.field + ':' + field.term;
         } else {
-          field.modifier = '=';
+          console.log('node type not recognized?');
         }
-        fields.push(field);
-      }
 
-      if(depth === 0 ) {
-        return fields;
-      }
-    };
+        // do not prepend the first node with an operator
+        if(nodeIndex) {
+          queryString += ' ' + root.operator + ' ';
+        }
+        queryString += nodeString;
+      });
 
-    this.flattenQueryTree = function (query) {
-      var tree = query.queryTree;
-      var fields = flattenNode(tree, 0, [], false);
-
-      return fields;
+      return queryString;
     };
 
   }]);

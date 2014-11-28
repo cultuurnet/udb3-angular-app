@@ -1,15 +1,52 @@
-<div ng-repeat="fieldQuery in flatFields">
-    <select ng-options="field for field in fields"
-            ng-model="fieldQuery.field">
-    </select>
-    <select ng-options="op for op in ['=', '<>']"
-            ng-model="fieldQuery.modifier">
-    </select>
-    <input type="text" ng-model="fieldQuery.term"/>
-    <select ng-options="operator for operator in operators"
-            ng-model="fieldQuery.operator"
-            ng-if="fieldQuery.operator">
-    </select>
+<div>
+    <div class="field-group">
+        <div class="operator">
+            <select ng-options="operator for operator in qe.operators"
+                    ng-model="qe.groupedQueryTree.operator" class="form-control"
+                    ng-disabled="qe.groupedQueryTree.nodes.length < 2"></select>
+        </div>
+
+        <div ng-repeat="node in qe.groupedQueryTree.nodes" class="field-group {{node.type}}"
+             ng-style="{background: qe.colorScheme[$index]}">
+            <div class="operator"
+                    ng-style="{background: qe.colorScheme[$index]}">
+                <select ng-options="operator for operator in qe.operators"
+                        ng-model="node.operator" ng-disabled="node.type === 'field'"
+                        class="form-control"></select>
+                 </div>
+            <div class="field-query row" ng-repeat="field in node.nodes">
+                <div class="col-sm-5">
+                    <select ng-options="fieldOption for fieldOption in qe.fields"
+                            ng-model="field.field" class="form-control">
+                    </select>
+                </div>
+
+                <div class="col-sm-7">
+                    <div class="input-group">
+                        <input type="text" ng-model="field.term" class="form-control"/>
+                        <span class="input-group-btn">
+                            <button ng-click="qe.removeField($parent.$index, $index)"
+                                    class="btn btn-default" type="button">X</button>
+                        </span>
+                    </div>
+                </div>
+            </div>
+
+            <button type="button" class="btn btn-default"
+                    ng-click="qe.addField($index)">
+                veld toevoegen
+            </button>
+        </div>
+        <button type="button" class="btn btn-default"
+                ng-click="qe.addGroup()">
+            groep toevoegen
+        </button>
+        <button type="button" class="btn btn-success" style="float:right"
+                ng-click="qe.updateQueryString()">
+            Zoek
+        </button>
+    </div>
+
 </div>
 
-<p ng-show="queryFormError" ng-bind="queryFormError"></p>
+<p ng-show="qe.queryFormError" ng-bind="qe.queryFormError"></p>
