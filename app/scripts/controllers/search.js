@@ -151,12 +151,21 @@ angular.module('udbApp')
     $scope.tagSelection = tagSelection;
     $scope.tagActiveQuery = tagActiveQuery;
 
+    $scope.editQuery = function () {
+      var query = $scope.activeQuery;
+
+      if(query) {
+        console.log(query.queryTree);
+        console.log(queryBuilder.groupQueryTree(query.queryTree));
+      } else {
+        console.log('What query?');
+      }
+    };
+
     $scope.$watch('searchQuery', function (queryString) {
       var query = queryBuilder.createQuery(queryString);
 
       $scope.activeQuery = query;
-      console.log(query.queryTree);
-      console.log(queryBuilder.groupQueryTree(query.queryTree));
 
       if(queryBuilder.isValid(query)) {
         updateQuery(query);

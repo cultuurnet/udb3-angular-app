@@ -158,6 +158,7 @@ angular.module('udbApp')
       };
 
     /**
+     * @description
      * Unparse a grouped field information tree to a query string
      *
      * @param   {object}  groupedTree     A tree structure with field groups
@@ -200,9 +201,9 @@ angular.module('udbApp')
     };
 
     /**
+     * @description
      * Generate a grouped field information tree from a query tree
-     *
-     * The query tree should not be nest different operators deeper than 2 levels.
+     * The query tree should not nest different operators deeper than 2 levels.
      * Modifiers will be ignored.
      *
      * @param   {object}  queryTree   - The queryTree to get information from
@@ -218,41 +219,95 @@ angular.module('udbApp')
       groupedFieldTree.operator = queryTree.operator || 'OR';
 
       this.groupNode(queryTree, groupedFieldTree);
+      this.cleanUpGroupedFieldTree(groupedFieldTree);
 
       return groupedFieldTree;
     };
 
     /**
-     * Group the nodes in a query tree branch
+     * @description
+     * Clean up a field tree after grouping.
+     * Used by groupQueryTree to cleanse a freshly grouped tree.
+     *
+     * @param {object} groupedFieldTree
+     */
+    this.cleanUpGroupedFieldTree = function (groupedFieldTree) {
+      _.forEach(groupedFieldTree.nodes, function (fieldGroup) {
+        // This property is just used to track implicit fields and can be removed when switching groups.
+        delete fieldGroup.implicitField;
+
+        // Switch the type of the node to field instead of group if it only contains one field.
+        if(fieldGroup.nodes && fieldGroup.nodes.length === 1) {
+          fieldGroup.type = 'field';
+        }
+
+        // Replace any remaining implicitly declared operators with OR.
+        // Assuming the following term grouping syntax was used "field:(term1 term2)".
+        if(fieldGroup.operator === implicitToken) {
+          fieldGroup.operator = 'OR';
+        }
+      });
+    };
+
+    /**
+     * @description
+     * Group a node in a query tree branch.
+     * You should not need to call this method directly, use groupQueryTree instead.
      *
      * @param {object}  branch        - The branch of a query tree
      * @param {object}  fieldTree     - The field tree that will be returned
+     * @param {object}  [fieldGroup]  - Keeps track of the current field group
      */
-    this.groupNode = function (branch, fieldTree) {
-      if (branch.left) {
-        var fieldGroup = {
+    this.groupNode = function (branch, fieldTree, fieldGroup) {
+      if (branch.operator && (!fieldGroup || branch.operator !== fieldGroup.operator)) {
+        var newFieldGroup = {
           type: 'group',
           operator: branch.operator,
           nodes: []
         };
 
-        if (branch.left.field) {
-          fieldGroup.nodes.push(makeField(branch.left));
+        fieldTree.nodes.push(newFieldGroup);
+        fieldGroup = newFieldGroup;
+      }
+
+      // Track the last used field name to apply to implicitly defined terms
+      if(branch.field && branch.field !== implicitToken) {
+        fieldGroup.implicitField = branch.field;
+      }
+
+      if(branch.term) {
+        var field = branch.field;
+
+        // Handle implicit field names by using the last used field name
+        if(field === implicitToken) {
+          if(fieldGroup.implicitField) {
+            field = fieldGroup.implicitField;
+          } else {
+            throw 'Field name is implicit and not defined elsewhere.';
+          }
         }
 
-        if (branch.right && branch.right.field) {
-          fieldGroup.nodes.push(makeField(branch.right));
-        } else {
-          throw 'We must go deeper!';
-        }
+        fieldGroup.nodes.push(makeField(branch, field));
+      }
 
-        fieldTree.nodes.push(fieldGroup);
+      if(branch.left) {
+        this.groupNode(branch.left, fieldTree, fieldGroup);
+        if(branch.right) {
+          this.groupNode(branch.right, fieldTree, fieldGroup);
+        }
       }
     };
 
-    function makeField(node) {
+    /**
+     * @description
+     * Generate a field object that's used to render the query editor fields.
+     *
+     * @param {object} node The node with all the necessary information
+     * @return {object} A field object used to render the query editor
+     */
+    function makeField(node, fieldName) {
       return {
-        field: node.field,
+        field: fieldName || node.field,
         term: node.term,
         fieldType: 'string'
       };
