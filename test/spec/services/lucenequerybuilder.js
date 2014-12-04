@@ -57,5 +57,81 @@ describe('Service: LuceneQueryBuilder', function () {
     it('Unparses queries with field grouping', function () {
       createAndCompareUnparsedQuery('title:(+return +"pink panther")');
     });
+
+    it('Groups query tree fields with different operators', function () {
+      var queryString = 'battery:horse AND staple:chair OR car:dinosaur';
+      var query = LuceneQueryBuilder.createQuery(queryString);
+      var groupedQueryTree = LuceneQueryBuilder.groupQueryTree(query.queryTree);
+
+      var exampleTree =
+      { operator: 'AND',
+        type: 'root',
+        nodes: [
+          { type: 'field',
+            nodes: [
+              {
+                field: 'battery',
+                term: 'horse',
+                fieldType: 'string'
+              }
+            ],
+            operator: 'AND'
+          },
+
+          { type: 'group',
+            operator: 'OR',
+            nodes: [
+              {
+                field: 'staple',
+                term: 'chair',
+                fieldType: 'string'
+              },
+              {
+                field: 'car',
+                term: 'dinosaur',
+                fieldType: 'string'
+              }
+            ]
+          }
+        ]
+      };
+
+      expect(groupedQueryTree).toEqual(exampleTree);
+    });
+
+    it('Groups query tree fields with grouped terms', function () {
+      var queryString = 'animal:(cat dog deer)';
+      var query = LuceneQueryBuilder.createQuery(queryString);
+      var groupedQueryTree = LuceneQueryBuilder.groupQueryTree(query.queryTree);
+
+      var exampleTree =
+      { operator: 'OR',
+        type: 'root',
+        nodes: [
+          { type: 'group',
+            nodes: [
+              {
+                field: 'animal',
+                term: 'cat',
+                fieldType: 'string'
+              },
+              {
+                field: 'animal',
+                term: 'dog',
+                fieldType: 'string'
+              },
+              {
+                field: 'animal',
+                term: 'deer',
+                fieldType: 'string'
+              }
+            ],
+            operator: 'OR'
+          }
+        ]
+      };
+
+      expect(groupedQueryTree).toEqual(exampleTree);
+    });
   });
 });
