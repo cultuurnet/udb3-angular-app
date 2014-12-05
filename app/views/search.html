@@ -60,17 +60,61 @@
 
 <div class="row">
   <div class="col-sm-12 search-results" ng-class="{loading: resultViewer.loading}">
-    <h2>Zoekresultaten</h2>
+
+      <div class="activiteit-nav">
+          <div class="row">
+              <div class="col-xs-12">
+                  <ul class="nav nav-pills" role="tablist">
+                      <li>
+                          <p class="count-results">
+                              <span ng-bind="resultViewer.totalItems"></span> resultaten
+                          </p>
+                      </li>
+                      <li>
+                          <label for="rv-event-{{propertyKey}}"
+                                 ng-repeat="(propertyKey, property) in resultViewer.eventProperties">
+                              <input type="checkbox" id="rv-event-{{propertyKey}}" ng-model="property.visible"/>
+                              {{property.name}}
+                          </label>
+                      </li>
+                      <li role="presentation" class="dropdown">
+                          <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
+                              <span class="selectedField">Invoer-informatie</span> <span class="caret"></span>
+                          </a>
+                          <ul class="dropdown-menu" role="menu" aria-labelledby="rv-event-specific">
+                              <li role="presentation" ng-repeat="specific in resultViewer.eventSpecifics">
+                                  <a role="menuitem" tabindex="-1" href="#" ng-bind="specific.name"
+                                     ng-click="resultViewer.activateSpecific(specific)"></a>
+                              </li>
+                          </ul>
+                  </ul>
+              </div>
+          </div>
+      </div>
+
     <p ng-hide="resultViewer.totalItems">Geen evenementen gevonden, probeer een andere zoekopdracht.</p>
 
     <div ng-show="resultViewer.totalItems">
-      <p>{{resultViewer.totalItems}} evenementen gevonden:</p>
-        <p>{{resultViewer.selectedIds.length }} geselecteerd -
-            <a href="#" ng-click="tagSelection()">tag selectie</a> -
-            <a href="#" ng-click="tagActiveQuery()">tag alle zoekresultaten</a> -
-            <a href="#" ng-click="resultViewer.deselectAll()">deselecteer</a> -
-            <a href="#" ng-click="resultViewer.selectAll()">selecteer pagina</a>
-        </p>
+        <div class="alert alert-info rv-selection-actions" role="alert" ng-show="resultViewer.selectedIds.length">
+            {{resultViewer.selectedIds.length }} items geselecteerd
+            (<a href="#" class="alert-link" ng-click="resultViewer.deselectAll()">deselecteer</a> -
+            <a href="#" class="alert-link" ng-click="tagSelection()">tag selectie</a> -
+            <a href="#" class="alert-link" ng-click="tagActiveQuery()">tag alle  <span ng-bind="resultViewer.totalItems"></span> zoekresultaten</a>)
+        </div>
+
+        <div class="activiteit-header">
+            <div class="row">
+                <div class="col-xs-5">
+                    <div class="col-wat">
+                        <div class="rv-selection-state fa {{resultViewer.selectionState.icon}}"
+                                ng-click="resultViewer.toggleSelection()"></div>
+                        Wat
+                    </div>
+                </div>
+                <div class="col-xs-2">  Waar   </div>
+                <div class="col-xs-2">  Wanneer   </div>
+                <div class="col-xs-3">  <span class="selectedField" ng-bind="resultViewer.activeSpecific.name"></span> </div>
+            </div>
 
       <div class="row event" ng-repeat="event in resultViewer.events"
               ng-class="{selected: resultViewer.isIdSelected(event.id)}"
@@ -80,51 +124,67 @@
               <input type="checkbox"
                      ng-checked="resultViewer.isIdSelected(event.id)"
                      ng-click="resultViewer.toggleSelectId(event.id)"/>
-              <div ng-repeat="language in languageSelector"
-                      ng-click="setLanguage(language.lang)"
-                      class="event-language-option"
-                      ng-class="{active: (activeLanguage === language.lang)}">
-                  <span ng-bind="language.lang"></span>
-              </div>
           </div>
           <div class="event-content">
-              <div class="col-sm-12">
+              <div class="col-sm-5">
                   <h3 class="event-name"
                       editable-text="event.name"
                       onbeforesave="updateName($data)"
                       ng-bind="event.name || 'example name'">
                   </h3>
               </div>
-              <div class="col-sm-4">
+
+              <div class="col-sm-2">
+                  {{event.location}}
+              </div>
+
+              <div class="col-sm-2">
+                  {{event.calendarSummary}}
+              </div>
+
+              <div class="col-sm-3" class="rv-specific-event-info">
+                  <div class="rv-event-info-input"
+                       ng-show="resultViewer.activeSpecific.id === 'input'">
+                      01/23/4567 - 16:30 <br/>
+                      Dude MCMan <br/>
+                      ACME INC.
+                  </div>
+
+                  <div class="rv-event-info-price"
+                       ng-show="resultViewer.activeSpecific.id === 'price'">
+                      $$$
+                  </div>
+
+                  <div class="rv-event-info-translation"
+                       ng-show="resultViewer.activeSpecific.id === 'translation'">
+                      EN - FR - DE
+                  </div>
+              </div>
+
+              <div class="col-sm-4" ng-show="resultViewer.eventProperties.image.visible">
                   <img ng-src="{{event.image}}" alt="{{event.name}}" class="img-responsive">
               </div>
-              <div class="col-sm-8">
-                  <dl>
-                      <dt>Wanneer</dt>
-                      <dd>{{event.calendarSummary}}</dd>
+              <div class="col-sm-8" >
+                  <div ng-show="resultViewer.eventProperties.description.visible">
+                      <strong>Beschrijving</strong>
+                      <div ng-show="resultViewer.eventProperties.description.visible"
+                           ng-bind-html="event.description"
+                           editable-textarea="event.description"
+                           onbeforesave="updateDescription($data)"></div>
+                  </div>
 
-                      <dt>Waar</dt>
-                      <dd>{{event.location}}</dd>
-
-                      <dt>Beschrijving</dt>
-                      <dd ng-bind-html="event.description"
-                          editable-textarea="event.description"
-                          onbeforesave="updateDescription($data)"></dd>
-
-                      <dt>Labels</dt>
-                      <dd>
-                          <span ng-hide="event.labels.length">Dit evenement is nog niet getagd.</span>
-                          <ui-select multiple ng-model="event.labels" tagging tagging-label="(label toevoegen)"
-                                     theme="bootstrap" ng-disabled="disabled"
-                                     on-select="labelAdded($item)" on-remove="labelRemoved($item)">
-                              <ui-select-match placeholder="Voeg een label toe...">{{$item}}</ui-select-match>
-                              <ui-select-choices repeat="label in availableLabels">
-                                  <div ng-bind-html="label | highlight: $select.search"></div>
-                              </ui-select-choices>
-                          </ui-select>
-                      </dd>
-
-                  </dl>
+                  <div ng-show="resultViewer.eventProperties.labels.visible">
+                      <span ng-hide="event.labels.length">Dit evenement is nog niet getagd.</span>
+                      <ui-select multiple ng-model="event.labels" tagging tagging-label="(label toevoegen)"
+                                 theme="bootstrap" ng-disabled="disabled"
+                                 on-select="labelAdded($item)" on-remove="labelRemoved($item)">
+                          <ui-select-match placeholder="Voeg een label toe...">{{$item}}</ui-select-match>
+                          <ui-select-choices repeat="label in availableLabels">
+                              <div ng-bind-html="label | highlight: $select.search"></div>
+                          </ui-select-choices>
+                      </ui-select>
+                  </div>
+              </div>
               </div>
           </div>
       </div>

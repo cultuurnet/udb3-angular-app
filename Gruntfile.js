@@ -157,7 +157,10 @@ module.exports = function (grunt) {
     less: {
       app: {
         options: {
-          paths: ['bower_components/bootstrap/less'],
+          paths: [
+            'bower_components/bootstrap/less',
+            'bower_components/components-font-awesome/less'
+          ],
           strictMath: true,
           sourceMap: true,
           outputSourceFiles: true,
@@ -189,7 +192,10 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
-        exclude: ['bower_components/bootstrap/dist/css/bootstrap.css'],
+        exclude: [
+          'bower_components/bootstrap/dist/css/bootstrap.css',
+          'bower_components/components-font-awesome/css/font-awesome.css'
+        ],
         ignorePath:  /\.\.\//,
         options: {
           'overrides': {
@@ -351,6 +357,11 @@ module.exports = function (grunt) {
         }, {
           expand: true,
           cwd: 'bower_components/bootstrap/dist',
+          src: 'fonts/*',
+          dest: '<%= yeoman.dist %>'
+        }, {
+          expand: true,
+          cwd: 'bower_components/components-font-awesome',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>'
         }]
