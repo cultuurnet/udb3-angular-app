@@ -12,7 +12,7 @@ angular.module('udbApp')
 
     var SelectionState = {
       ALL: { 'name': 'all', 'icon': 'fa-check-square' },
-      NONE: { 'name': 'none', 'icon': 'fa-square' },
+      NONE: { 'name': 'none', 'icon': 'fa-square-o' },
       SOME: { 'name': 'some', 'icon': 'fa-minus-square' }
     };
 
@@ -60,7 +60,7 @@ angular.module('udbApp')
       toggleSelection: function () {
         var state = this.selectionState;
 
-        if( state == SelectionState.SOME || state == SelectionState.ALL) {
+        if( state === SelectionState.SOME || state === SelectionState.ALL) {
           this.deselectPageItems();
         } else {
           this.selectPageItems();
