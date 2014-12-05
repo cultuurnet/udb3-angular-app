@@ -9,3 +9,39 @@
 .rv-selection-actions {
   text-align: center;
 }
+
+.rv-controls {
+  border-bottom: 1px solid #CCC;
+}
+
+.rv-item-counter {
+  padding: 10px 15px 10px 0;
+  margin: 0;
+  font-weight: bold;
+}
+
+.rv-control-toggle {
+  padding: 10px 15px;
+  font-weight: normal;
+  cursor: pointer;
+  user-select: none;
+  color: @link-color;
+}
+
+.rv-control-toggle input[type=checkbox]{
+  display:none;
+}
+
+.rv-control-toggle:before
+{
+  width: 18px;
+  display: inline-block;
+  text-align: center;
+  content: "\f096";
+  font-family: "FontAwesome";
+}
+
+.rv-control-toggle.active:before
+{
+  content: "\f14a";
+}

@@ -61,17 +61,17 @@
 <div class="row">
   <div class="col-sm-12 search-results" ng-class="{loading: resultViewer.loading}">
 
-      <div class="activiteit-nav">
+      <div class="rv-controls">
           <div class="row">
               <div class="col-xs-12">
                   <ul class="nav nav-pills" role="tablist">
                       <li>
-                          <p class="count-results">
+                          <p class="rv-item-counter">
                               <span ng-bind="resultViewer.totalItems"></span> resultaten
                           </p>
                       </li>
                       <li>
-                          <label for="rv-event-{{propertyKey}}"
+                          <label for="rv-event-{{propertyKey}}" class="rv-control-toggle" ng-class="{active: property.visible}"
                                  ng-repeat="(propertyKey, property) in resultViewer.eventProperties">
                               <input type="checkbox" id="rv-event-{{propertyKey}}" ng-model="property.visible"/>
                               {{property.name}}
