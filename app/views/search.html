@@ -145,8 +145,8 @@
               </div>
 
               <div class="col-sm-2">
-                  <div class="udb-place-name" ng-bind="event.location"></div>
-                  <div class="udb-place-city" ng-bind="event.location"></div>
+                  <div class="udb-place-name" ng-bind="event.location.name"></div>
+                  <div class="udb-place-city" ng-bind="event.location.address.addressLocality"></div>
               </div>
 
               <div class="col-sm-2">
@@ -154,11 +154,11 @@
               </div>
 
               <div class="col-sm-3" class="rv-specific-event-info">
-                  <div class="rv-event-info-input"
+                  <div class="rv-event-info-input udb-organiser"
                        ng-show="resultViewer.activeSpecific.id === 'input'">
-                      01/23/4567 - 16:30 <br/>
-                      Dude MCMan <br/>
-                      ACME INC.
+                      <div ng-bind="event.organiser.name"></div>
+                      <div class="udb-email" ng-bind="event.organiser.email"></div>
+                      <div ng-bind="event.organiser.phone"></div>
                   </div>
 
                   <div class="rv-event-info-price"

@@ -29,6 +29,11 @@ angular.module('udbApp')
         this.labels = _.map(jsonEvent.concept, function(label) {
           return label;
         });
+        this.organiser = {
+          name: jsonEvent.organiser.name,
+          email: jsonEvent.organiser.email[0] || '-',
+          phone: jsonEvent.organiser.phone[0] || '-'
+        };
       },
       /**
        * Tag the event with a label or a list of labels
