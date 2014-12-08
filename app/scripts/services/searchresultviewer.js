@@ -143,6 +143,17 @@ angular.module('udbApp')
       },
       activateSpecific: function (specific) {
         this.activeSpecific = specific;
+      },
+      /**
+       * Checks if at least one of the event properties is visible
+       * @return {boolean}
+       */
+      isShowingProperties: function () {
+        var property = _.find(this.eventProperties, function (property) {
+          return property.visible;
+        });
+
+        return !!property;
       }
     };
 

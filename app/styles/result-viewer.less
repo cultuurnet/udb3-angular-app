@@ -1,9 +1,16 @@
+@import "utility.less";
+@import "variables.less";
+
+@rv-item-info-padding: 0.5em;
+
 .rv-selection-state {
   width: 30px;
   height: 30px;
   text-align: center;
   line-height: 30px;
   font-size: 18px;
+  user-select: none;
+  cursor: pointer;
 }
 
 .rv-selection-actions {
@@ -28,12 +35,11 @@
   color: @link-color;
 }
 
-.rv-control-toggle input[type=checkbox]{
+.rv-control-toggle input[type=checkbox] {
   display:none;
 }
 
-.rv-control-toggle:before
-{
+.rv-control-toggle:before {
   width: 18px;
   display: inline-block;
   text-align: center;
@@ -41,7 +47,97 @@
   font-family: "FontAwesome";
 }
 
-.rv-control-toggle.active:before
-{
+.rv-control-toggle.active:before {
   content: "\f14a";
+}
+
+.rv-first-column {
+  padding-left: 30px;
+}
+
+.rv-item.row {
+  margin: 0;
+  position: relative;
+  padding: 14px 0;
+  border-bottom: 2px solid #CCC;
+  overflow: hidden;
+  display: block;
+  background-color: #F0F0F0;
+}
+
+.rv-item.selected {
+  background: #dae1e8;
+}
+
+.rv-item-sidebar {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  width: 30px;
+  height: 30px;
+  text-align: center;
+  line-height: 30px;
+}
+
+.rv-item-info {
+  border-bottom: 3px solid #CCC;
+  color: #777;
+  padding-bottom: @rv-item-info-padding;
+  padding-top: @rv-item-info-padding;
+  position: relative;
+}
+
+.rv-item-info .row{
+  margin: 0;
+  min-height: 30px;
+  line-height: 28px;
+}
+
+.rv-item-info .rv-item-sidebar {
+  padding: @rv-item-info-padding 0;
+}
+.rv-item {
+  .udb-short-info {
+    .keep-tight();
+    text-transform: uppercase;
+    height: 30;
+    line-height: 30px;
+    font-size: @font-size-small;
+  }
+
+  .udb-category {
+
+  }
+
+  .udb-theme {
+    color: #999;
+  }
+
+  .udb-title {
+    .keep-tight();
+    color: @link-color;
+    font-weight: bold;
+    font-size: @font-size-h2;
+  }
+
+  .udb-place-name {
+    .keep-tight();
+  }
+
+  .udb-place-city {
+    .keep-tight();
+    font-weight: bold;
+  }
+
+  .udb-details {
+    padding: 15px;
+    background-color: #FFF;
+    margin: 15px;
+    border-top: 1px dotted #CCC;
+  }
+
+  .udb-description {
+    color: @gray-light;
+  }
+
 }

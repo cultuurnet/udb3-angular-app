@@ -25,37 +25,39 @@
 </script>
 
 <div class="main-search">
-  <form class="form-horizontal" role="form">
-    <div class="form-group" ng-class="{'has-error': queryErrors.length}">
-      <label for="main-search" class="col-sm-1 control-label">
-        Zoeken
-      </label>
+    <form class="form-horizontal" role="form">
+        <div class="form-group" ng-class="{'has-error': queryErrors.length}">
+            <label for="main-search" class="col-sm-1 control-label">
+                Zoeken
+            </label>
 
-      <div class="input-group" class="col-sm-11">
-        <input type="text" name="main-search" value="main-search"
-        ng-model="searchQuery"
-        placeholder="schrijf een zoekopdracht" class="main-search-input form-control">
+            <div class="col-sm-11">
+                <div class="input-group">
+                    <input type="text" name="main-search" value="main-search"
+                           ng-model="searchQuery"
+                           placeholder="schrijf een zoekopdracht" class="main-search-input form-control">
 
-        <div class="input-group-btn main-search-button">
-          <button type="submit" class="btn btn-default">
-            <span class="glyphicon glyphicon-search"></span>
-          </button>
+                    <div class="input-group-btn main-search-button">
+                        <button type="submit" class="btn btn-default">
+                            <span class="fa fa-search"></span>
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="query-errors col-sm-11 col-sm-offset-1">
+                <span ng-repeat="error in queryErrors" class="help-block">
+                  {{error}}
+                </span>
+            </div>
+
+            <div class="col-sm-11 col-sm-offset-1" ng-show="realQuery">
+                <span class="help-block">
+                  real query: <strong>{{realQuery}}</strong>
+                </span>
+            </div>
         </div>
-      </div>
-
-      <div class="query-errors col-sm-11 col-sm-offset-1">
-        <span ng-repeat="error in queryErrors" class="help-block">
-          {{error}}
-        </span>
-      </div>
-
-      <div class="col-sm-11 col-sm-offset-1" ng-show="realQuery">
-        <span class="help-block">
-          real query: <strong>{{realQuery}}</strong>
-        </span>
-      </div>
-    </div>
-  </form>
+    </form>
 </div>
 
 <div class="row">
@@ -95,47 +97,56 @@
     <p ng-hide="resultViewer.totalItems">Geen evenementen gevonden, probeer een andere zoekopdracht.</p>
 
     <div ng-show="resultViewer.totalItems">
-        <div class="alert alert-info rv-selection-actions" role="alert" ng-show="resultViewer.selectedIds.length">
-            {{resultViewer.selectedIds.length }} items geselecteerd
-            (<a href="#" class="alert-link" ng-click="resultViewer.deselectAll()">deselecteer</a> -
-            <a href="#" class="alert-link" ng-click="tagSelection()">tag selectie</a> -
-            <a href="#" class="alert-link" ng-click="tagActiveQuery()">tag alle  <span ng-bind="resultViewer.totalItems"></span> zoekresultaten</a>)
-        </div>
+        <div class="rv-item-info">
 
-        <div class="activiteit-header">
-            <div class="row">
-                <div class="col-xs-5">
-                    <div class="col-wat">
-                        <div class="rv-selection-state fa {{resultViewer.selectionState.icon}}"
-                                ng-click="resultViewer.toggleSelection()"></div>
-                        Wat
-                    </div>
+            <div class="row" ng-hide="resultViewer.selectedIds.length">
+                <div class="col-sm-5 rv-first-column">
+                    Wat
                 </div>
-                <div class="col-xs-2">  Waar   </div>
-                <div class="col-xs-2">  Wanneer   </div>
-                <div class="col-xs-3">  <span class="selectedField" ng-bind="resultViewer.activeSpecific.name"></span> </div>
+                <div class="col-sm-2">  Waar   </div>
+                <div class="col-sm-2">  Wanneer   </div>
+                <div class="col-sm-3">  <span class="selectedField" ng-bind="resultViewer.activeSpecific.name"></span> </div>
             </div>
 
-      <div class="row event" ng-repeat="event in resultViewer.events"
+            <div class="row" ng-show="resultViewer.selectedIds.length">
+                <div class="col-sm-12 rv-first-column">
+                {{resultViewer.selectedIds.length }} items geselecteerd
+                    (<a href="#" class="alert-link" ng-click="resultViewer.deselectAll()">deselecteer</a> -
+                    <a href="#" class="alert-link" ng-click="tagSelection()">tag selectie</a> -
+                    <a href="#" class="alert-link" ng-click="tagActiveQuery()">tag alle  <span ng-bind="resultViewer.totalItems"></span> zoekresultaten</a>)
+                </div>
+            </div>
+
+            <div class="rv-item-sidebar">
+                <div class="rv-selection-state fa {{resultViewer.selectionState.icon}}"
+                     ng-click="resultViewer.toggleSelection()"></div>
+            </div>
+        </div>
+
+      <div class="row rv-item" ng-repeat="event in resultViewer.events"
               ng-class="{selected: resultViewer.isIdSelected(event.id)}"
               udb-event="event"
               ng-hide="fetching">
-          <div class="event-side-bar">
-              <input type="checkbox"
-                     ng-checked="resultViewer.isIdSelected(event.id)"
-                     ng-click="resultViewer.toggleSelectId(event.id)"/>
-          </div>
           <div class="event-content">
-              <div class="col-sm-5">
-                  <h3 class="event-name"
-                      editable-text="event.name"
-                      onbeforesave="updateName($data)"
-                      ng-bind="event.name || 'example name'">
-                  </h3>
+              <div class="col-sm-5 rv-first-column">
+                  <div class="rv-item-sidebar">
+                      <div class="rv-selection-state" ng-click="resultViewer.toggleSelectId(event.id)">
+                          <span class="fa"
+                                ng-class="resultViewer.isIdSelected(event.id) ? 'fa-check-square' : 'fa-square-o'"></span>
+                      </div>
+                  </div>
+
+                  <div class="udb-short-info">
+                      <span class="udb-category">Category Category Category</span>
+                       •
+                      <span class="udb-theme">Theme Theme Theme</span>
+                  </div>
+                  <div class="udb-title" ng-bind="event.name"></div>
               </div>
 
               <div class="col-sm-2">
-                  {{event.location}}
+                  <div class="udb-place-name" ng-bind="event.location"></div>
+                  <div class="udb-place-city" ng-bind="event.location"></div>
               </div>
 
               <div class="col-sm-2">
@@ -161,30 +172,30 @@
                   </div>
               </div>
 
-              <div class="col-sm-4" ng-show="resultViewer.eventProperties.image.visible">
-                  <img ng-src="{{event.image}}" alt="{{event.name}}" class="img-responsive">
-              </div>
-              <div class="col-sm-8" >
-                  <div ng-show="resultViewer.eventProperties.description.visible">
-                      <strong>Beschrijving</strong>
-                      <div ng-show="resultViewer.eventProperties.description.visible"
-                           ng-bind-html="event.description"
-                           editable-textarea="event.description"
-                           onbeforesave="updateDescription($data)"></div>
-                  </div>
+              <div class="col-sm-12" ng-show="resultViewer.isShowingProperties()">
+                  <div class="udb-details row">
+                      <div class="col-sm-2" ng-show="resultViewer.eventProperties.image.visible">
+                          <img ng-src="{{event.image}}" alt="{{event.name}}" class="img-responsive">
+                      </div>
+                      <div ng-class="resultViewer.eventProperties.image.visible ? 'col-sm-10' : 'col-sm-12'">
+                          <div ng-show="resultViewer.eventProperties.description.visible">
+                              <div ng-show="resultViewer.eventProperties.description.visible"
+                                   ng-bind-html="event.description" class="udb-description"></div>
+                          </div>
 
-                  <div ng-show="resultViewer.eventProperties.labels.visible">
-                      <span ng-hide="event.labels.length">Dit evenement is nog niet getagd.</span>
-                      <ui-select multiple ng-model="event.labels" tagging tagging-label="(label toevoegen)"
-                                 theme="bootstrap" ng-disabled="disabled"
-                                 on-select="labelAdded($item)" on-remove="labelRemoved($item)">
-                          <ui-select-match placeholder="Voeg een label toe...">{{$item}}</ui-select-match>
-                          <ui-select-choices repeat="label in availableLabels">
-                              <div ng-bind-html="label | highlight: $select.search"></div>
-                          </ui-select-choices>
-                      </ui-select>
+                          <div ng-show="resultViewer.eventProperties.labels.visible">
+                              <span ng-hide="event.labels.length">Dit evenement is nog niet getagd.</span>
+                              <ui-select multiple ng-model="event.labels" tagging tagging-label="(label toevoegen)"
+                                         theme="bootstrap" ng-disabled="disabled"
+                                         on-select="labelAdded($item)" on-remove="labelRemoved($item)">
+                                  <ui-select-match placeholder="Voeg een label toe...">{{$item}}</ui-select-match>
+                                  <ui-select-choices repeat="label in availableLabels">
+                                      <div ng-bind-html="label | highlight: $select.search"></div>
+                                  </ui-select-choices>
+                              </ui-select>
+                          </div>
+                      </div>
                   </div>
-              </div>
               </div>
           </div>
       </div>
