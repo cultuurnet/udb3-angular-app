@@ -13,10 +13,10 @@ angular.module('udbApp')
     return function(number, currencyCode) {
       var currencies = {
           EUR: {
-            symbol: "€",
-            thousand: ".",
-            decimal: ",",
-            format: "%s%v",
+            symbol: '€',
+            thousand: '.',
+            decimal: ',',
+            format: '%s%v',
             precision: 2
           }
         };
