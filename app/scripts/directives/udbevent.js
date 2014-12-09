@@ -12,6 +12,43 @@ angular.module('udbApp')
     var udbEvent = {
       restrict: 'A',
       link: function postLink(scope, iElement, iAttrs) {
+
+        var TranslationState = {
+          ALL: { 'name': 'all', 'icon': 'fa-circle' },
+          NONE: { 'name': 'none', 'icon': 'fa-circle-o' },
+          SOME: { 'name': 'some', 'icon': 'fa-dot-circle-o' }
+        };
+
+        function updateTranslationState (event) {
+          var languages = {'en': false, 'fr': false, 'de': false},
+              properties = ['name', 'description'];
+
+          _.forEach(languages, function (language, languageKey) {
+            var translationCount = 0,
+                state;
+
+            _.forEach(properties, function(property) {
+              if(event[property] && event[property][languageKey]) {
+                ++translationCount;
+              }
+            });
+
+            if(translationCount) {
+              if(translationCount === properties.length) {
+                state = TranslationState.ALL;
+              } else {
+                state = TranslationState.SOME;
+              }
+            } else {
+              state = TranslationState.NONE;
+            }
+
+            languages[languageKey] = state;
+          });
+
+          event.translationState = languages;
+        }
+
         scope.activeLanguage = 'nl';
         scope.languageSelector = [
           {'lang': 'nl'},
@@ -29,6 +66,7 @@ angular.module('udbApp')
 
           eventPromise.then(function (eventObject) {
             event = eventObject;
+            updateTranslationState(event);
             scope.availableLabels = _.union(event.labels, eventTagger.recentLabels);
             scope.event = jsonLDLangFilter(event, scope.activeLanguage);
             scope.fetching = false;

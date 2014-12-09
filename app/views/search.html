@@ -157,15 +157,15 @@
                   <div class="rv-event-info-input udb-organiser"
                        ng-show="resultViewer.activeSpecific.id === 'input'">
                       <div>
-                          <span class="fa fa-clock-o"></span>
+                          <span class="fa fa-clock-o"></span>&nbsp;
                           <span ng-bind="event.organiser.name"></span>
                       </div>
                       <div class="udb-email">
-                          <span class="fa fa-user"></span>
+                          <span class="fa fa-user"></span>&nbsp;
                           <span ng-bind="event.organiser.email"></span>
                       </div>
                       <div>
-                          <span class="fa fa-building-o"></span>
+                          <span class="fa fa-building-o"></span>&nbsp;
                           <span ng-bind="event.organiser.phone"></span>
                       </div>
                   </div>
@@ -177,7 +177,15 @@
 
                   <div class="rv-event-info-translation"
                        ng-show="resultViewer.activeSpecific.id === 'translation'">
-                      EN - FR - DE
+                      <button type="button" class="btn btn-default">
+                          <span class="fa {{event.translationState['fr'].icon}}"></span> fr
+                      </button>
+                      <button type="button" class="btn btn-default">
+                          <span class="fa {{event.translationState['en'].icon}}"></span> en
+                      </button>
+                      <button type="button" class="btn btn-default">
+                          <span class="fa {{event.translationState['de'].icon}}"></span> de
+                      </button>
                   </div>
               </div>
 
