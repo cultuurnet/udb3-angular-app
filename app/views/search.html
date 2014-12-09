@@ -156,9 +156,18 @@
               <div class="col-sm-3" class="rv-specific-event-info">
                   <div class="rv-event-info-input udb-organiser"
                        ng-show="resultViewer.activeSpecific.id === 'input'">
-                      <div ng-bind="event.organiser.name"></div>
-                      <div class="udb-email" ng-bind="event.organiser.email"></div>
-                      <div ng-bind="event.organiser.phone"></div>
+                      <div>
+                          <span class="fa fa-clock-o"></span>
+                          <span ng-bind="event.organiser.name"></span>
+                      </div>
+                      <div class="udb-email">
+                          <span class="fa fa-user"></span>
+                          <span ng-bind="event.organiser.email"></span>
+                      </div>
+                      <div>
+                          <span class="fa fa-building-o"></span>
+                          <span ng-bind="event.organiser.phone"></span>
+                      </div>
                   </div>
 
                   <div class="rv-event-info-price"
