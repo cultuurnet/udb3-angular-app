@@ -16,4 +16,14 @@ describe('Filter: currency', function () {
     expect(currency(12.3)).toBe(formattedPrice);
   });
 
+  it('should append decimals to a flat number', function () {
+    var formattedPrice = '€12,00';
+    expect(currency(12)).toBe(formattedPrice);
+  });
+
+  it('should round off more than 2 decimals', function () {
+    var formattedPrice = '€12,35';
+    expect(currency(12.3456)).toBe(formattedPrice);
+  });
+
 });

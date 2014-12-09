@@ -16,7 +16,8 @@ angular.module('udbApp')
             symbol: "€",
             thousand: ".",
             decimal: ",",
-            format: "%s%v"
+            format: "%s%v",
+            precision: 2
           }
         };
 
@@ -26,6 +27,6 @@ angular.module('udbApp')
         currency = currencies.EUR;
       }
 
-      return accounting.formatMoney(number, currency.symbol, 2, currency.thousand, currency.decimal, currency.format);
+      return accounting.formatMoney(number, currency);
     };
   });
