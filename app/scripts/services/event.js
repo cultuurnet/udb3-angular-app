@@ -34,6 +34,7 @@ angular.module('udbApp')
           email: jsonEvent.organiser.email[0] || '-',
           phone: jsonEvent.organiser.phone[0] || '-'
         };
+        this.price = parseFloat(jsonEvent.bookingInfo.price);
       },
       /**
        * Tag the event with a label or a list of labels
