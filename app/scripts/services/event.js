@@ -37,6 +37,9 @@ angular.module('udbApp')
           };
         }
         this.price = parseFloat(jsonEvent.bookingInfo.price);
+        this.publisher = jsonEvent.publisher || '';
+        this.created = new Date(jsonEvent.created);
+        this.creator = jsonEvent.creator || '';
       },
       /**
        * Tag the event with a label or a list of labels

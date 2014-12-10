@@ -158,15 +158,15 @@
                        ng-show="resultViewer.activeSpecific.id === 'input'">
                       <div>
                           <span class="fa fa-clock-o"></span>&nbsp;
-                          <span ng-bind="event.organiser.name"></span>
+                          <span ng-bind="event.created | date : 'dd/MM/yyyy • HH:mm'"></span>
                       </div>
                       <div class="udb-email">
                           <span class="fa fa-user"></span>&nbsp;
-                          <span ng-bind="event.organiser.email"></span>
+                          <span ng-bind="event.creator"></span>
                       </div>
                       <div>
                           <span class="fa fa-building-o"></span>&nbsp;
-                          <span ng-bind="event.organiser.phone"></span>
+                          <span ng-bind="event.publisher"></span>
                       </div>
                   </div>
 
