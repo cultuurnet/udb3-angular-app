@@ -9,6 +9,20 @@
  */
 angular.module('udbApp')
   .factory('UdbEvent', function () {
+
+    function getCategoryLabel (jsonEvent, domain) {
+      var label;
+      var category = _.find(jsonEvent.terms, function (category) {
+        return category.domain === domain;
+      });
+
+      if(category) {
+        label = category.label;
+      }
+
+      return label;
+    }
+
     /**
      * @class UdbEvent
      * @constructor
@@ -40,6 +54,8 @@ angular.module('udbApp')
         this.publisher = jsonEvent.publisher || '';
         this.created = new Date(jsonEvent.created);
         this.creator = jsonEvent.creator || '';
+        this.type = getCategoryLabel(jsonEvent, 'eventtype') || '';
+        this.theme = getCategoryLabel(jsonEvent, 'theme') || '';
       },
       /**
        * Tag the event with a label or a list of labels
