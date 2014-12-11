@@ -150,7 +150,15 @@
               </div>
 
               <div class="col-sm-2">
-                  {{event.calendarSummary}}
+                  <span ng-if="!event.endDate && !event.startDate">Permanent</span>
+                  <span ng-if="event.startDate && !event.endDate">
+                      <span class="udb-start-date" ng-bind="event.startDate | date: 'yyyy-MM-dd'"></span>
+                  </span>
+                  <span ng-if="event.endDate && event.startDate" class="udb-date-range">
+                      <span class="udb-start-date" ng-bind="event.startDate | date: 'yyyy-MM-dd'"></span>
+                      ,…,
+                      <span class="udb-end-date" ng-bind="event.endDate | date: 'yyyy-MM-dd'"></span>
+                  </span>
               </div>
 
               <div class="col-sm-3" class="rv-specific-event-info">
