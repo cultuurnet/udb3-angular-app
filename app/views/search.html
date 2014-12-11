@@ -81,7 +81,7 @@
                       </li>
                       <li role="presentation" class="dropdown">
                           <a class="dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-expanded="false">
-                              <span class="selectedField">Invoer-informatie</span> <span class="caret"></span>
+                              <span class="selectedField" ng-bind="resultViewer.activeSpecific.name"></span> <span class="caret"></span>
                           </a>
                           <ul class="dropdown-menu" role="menu" aria-labelledby="rv-event-specific">
                               <li role="presentation" ng-repeat="specific in resultViewer.eventSpecifics">
