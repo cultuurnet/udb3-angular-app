@@ -186,6 +186,7 @@
                   <div class="rv-event-info-translation btn-toolbar"
                        ng-show="resultViewer.activeSpecific.id === 'translation'">
                       <button type="button" ng-repeat="language in languageSelector"
+                              ng-class="{active: activeLanguage === language.lang}"
                               class="btn btn-default" ng-click="setLanguage(language.lang)">
                           <span class="fa {{event.translationState[language.lang].icon}}"></span>
                           {{language.lang}}
@@ -195,6 +196,11 @@
 
               <div class="col-sm-12" ng-show="eventTranslation">
                   <div class="udb-details row">
+
+                      <button type="button" class="close" ng-click="stopTranslating()">
+                          <span aria-hidden="true">&times;</span><span class="sr-only">Close</span>
+                      </button>
+
                       <div class="col-sm-12">
                           <div class="udb-translation-info">Wijzig de {{activeLanguage}} vertaling</div>
 

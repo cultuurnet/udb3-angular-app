@@ -116,6 +116,10 @@ angular.module('udbApp')
           translateEventProperty(propertyName, translation, apiProperty);
         };
 
+        scope.stopTranslating = function () {
+          scope.eventTranslation = undefined;
+        };
+
         function translateEventProperty (property, translation, apiProperty) {
           var language = scope.activeLanguage,
               udbProperty = apiProperty || property;
