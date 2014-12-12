@@ -10,7 +10,7 @@
  */
 angular.module('udbApp')
   .filter('jsonLDLang', function () {
-    return function (jsonLDObject, preferredLanguage) {
+    return function (jsonLDObject, preferredLanguage, shouldFallback) {
       var translatedObject = _.cloneDeep(jsonLDObject),
           containedProperties = ['name', 'description'],
           languages = ['nl', 'en', 'fr', 'de'],
@@ -18,17 +18,19 @@ angular.module('udbApp')
           language = preferredLanguage || 'nl';
 
       _.each(containedProperties, function (property) {
-        // make sure then property is set on the object
+        // make sure the property is set on the object
         if(translatedObject[property]) {
           var translatedProperty = translatedObject[property][language],
               langIndex = 0;
 
           // if there is no translation available for the provided language or default language
           // check for a default language
-          while(!translatedProperty && langIndex < languages.length) {
-            var fallbackLanguage = languages[langIndex];
-            translatedProperty = translatedObject[property][fallbackLanguage];
-            ++langIndex;
+          if(shouldFallback) {
+            while(!translatedProperty && langIndex < languages.length) {
+              var fallbackLanguage = languages[langIndex];
+              translatedProperty = translatedObject[property][fallbackLanguage];
+              ++langIndex;
+            }
           }
 
           translatedObject[property] = translatedProperty;

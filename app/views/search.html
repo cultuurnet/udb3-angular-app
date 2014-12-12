@@ -183,17 +183,58 @@
                       <span ng-bind="event.price | currency"></span>
                   </div>
 
-                  <div class="rv-event-info-translation"
+                  <div class="rv-event-info-translation btn-toolbar"
                        ng-show="resultViewer.activeSpecific.id === 'translation'">
-                      <button type="button" class="btn btn-default">
-                          <span class="fa {{event.translationState['fr'].icon}}"></span> fr
+                      <button type="button" ng-repeat="language in languageSelector"
+                              class="btn btn-default" ng-click="setLanguage(language.lang)">
+                          <span class="fa {{event.translationState[language.lang].icon}}"></span>
+                          {{language.lang}}
                       </button>
-                      <button type="button" class="btn btn-default">
-                          <span class="fa {{event.translationState['en'].icon}}"></span> en
-                      </button>
-                      <button type="button" class="btn btn-default">
-                          <span class="fa {{event.translationState['de'].icon}}"></span> de
-                      </button>
+                  </div>
+              </div>
+
+              <div class="col-sm-12" ng-show="eventTranslation">
+                  <div class="udb-details row">
+                      <div class="col-sm-12">
+                          <div class="udb-translation-info">Wijzig de {{activeLanguage}} vertaling</div>
+
+                          <div class="row udb-property-translation">
+                              <div class="col-sm-6">
+                                  <div class="form-group">
+                                      <label>Titel</label>
+                                      <input type="text" class="form-control" ng-model="eventTranslation.name"/>
+                                  </div>
+                                  <div ng-show="hasPropertyChanged('name')">
+                                      <button ng-show="eventTranslation.name" class="btn btn-danger" ng-click="applyPropertyChanges('name')">Opslaan</button>
+                                      <button class="btn btn-default" ng-click="undoPropertyChanges('name')">Annuleren</button>
+                                  </div>
+                              </div>
+                              <div class="col-sm-6">
+                                  <strong>Basis-titel</strong>
+                                  <div ng-bind="event.name"></div>
+                              </div>
+                          </div>
+
+
+                          <div class="row udb-property-translation">
+                              <div class="col-sm-6">
+                                  <div class="form-group">
+                                      <label>Beschrijving</label>
+                                      <textarea class="form-control resize-vertical" rows="3" ng-model="eventTranslation.description"></textarea>
+                                  </div>
+                                  <div ng-show="hasPropertyChanged('description')">
+                                      <button ng-show="eventTranslation.description" class="btn btn-danger" ng-click="applyPropertyChanges('description')">Opslaan</button>
+                                      <button class="btn btn-default" ng-click="undoPropertyChanges('description')">Annuleren</button>
+                                  </div>
+                              </div>
+                              <div class="col-sm-6">
+                                  <strong>Basis-beschrijving</strong>
+                                  <div ng-bind="event.description"></div>
+                              </div>
+                          </div>
+                      </div>
+
+
                   </div>
               </div>
 
