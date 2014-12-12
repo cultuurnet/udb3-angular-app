@@ -118,6 +118,7 @@ angular.module('udbApp')
 
         scope.stopTranslating = function () {
           scope.eventTranslation = undefined;
+          scope.activeLanguage = 'nl';
         };
 
         function translateEventProperty (property, translation, apiProperty) {
