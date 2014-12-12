@@ -211,7 +211,7 @@
                                       <input type="text" class="form-control" ng-model="eventTranslation.name"/>
                                   </div>
                                   <div ng-show="hasPropertyChanged('name')">
-                                      <button ng-show="eventTranslation.name" class="btn btn-danger" ng-click="applyPropertyChanges('name')">Opslaan</button>
+                                      <button ng-disabled="!eventTranslation.name" class="btn btn-danger" ng-click="applyPropertyChanges('name')">Opslaan</button>
                                       <button class="btn btn-default" ng-click="undoPropertyChanges('name')">Annuleren</button>
                                   </div>
                               </div>
@@ -229,7 +229,7 @@
                                       <textarea class="form-control resize-vertical" rows="3" ng-model="eventTranslation.description"></textarea>
                                   </div>
                                   <div ng-show="hasPropertyChanged('description')">
-                                      <button ng-show="eventTranslation.description" class="btn btn-danger" ng-click="applyPropertyChanges('description')">Opslaan</button>
+                                      <button ng-disabled="!eventTranslation.description" class="btn btn-danger" ng-click="applyPropertyChanges('description')">Opslaan</button>
                                       <button class="btn btn-default" ng-click="undoPropertyChanges('description')">Annuleren</button>
                                   </div>
                               </div>
