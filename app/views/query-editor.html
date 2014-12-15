@@ -41,10 +41,17 @@
                 ng-click="qe.addGroup()">
             groep toevoegen
         </button>
-        <button type="button" class="btn btn-success" style="float:right"
-                ng-click="qe.updateQueryString()">
-            Zoek
-        </button>
+        <div class="btn-group pull-right">
+            <button type="button" class="btn btn-default"
+                    ng-click="hideQueryEditor()">
+                Annuleren
+            </button>
+            <button type="button" class="btn btn-success"
+                    ng-click="qe.updateQueryString()">
+                Zoek
+            </button>
+        </div>
+
     </div>
 
 </div>

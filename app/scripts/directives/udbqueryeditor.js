@@ -16,9 +16,11 @@ angular
       link: function link(scope) {
         var queryBuilder = LuceneQueryBuilder;
 
-        scope.$watch('query.queryTree', function (queryTree){
-          scope.qe.groupedQueryTree = queryBuilder.groupQueryTree(queryTree);
-        }, true);
+        scope.$watch('activeQuery.groupedQueryTree', function (groupedQueryTree) {
+          if(groupedQueryTree) {
+            scope.qe.groupedQueryTree = groupedQueryTree;
+          }
+        },true);
       },
       controller: function QueryEditor($scope) {
         var qe = this,

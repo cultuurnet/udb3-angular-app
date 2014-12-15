@@ -25,6 +25,7 @@ angular.module('udbApp')
     $scope.queryErrors = [];
     $scope.realQuery = false;
     $scope.activeQuery = false;
+    $scope.queryEditorShown = false;
 
     $scope.$watch(function () {
       return $location.search();
@@ -154,12 +155,15 @@ angular.module('udbApp')
     $scope.editQuery = function () {
       var query = $scope.activeQuery;
 
-      if(query) {
-        console.log(query.queryTree);
-        console.log(queryBuilder.groupQueryTree(query.queryTree));
-      } else {
-        console.log('What query?');
+      if(query && queryBuilder.isValid(query)) {
+        query.groupedQueryTree = queryBuilder.groupQueryTree(query.queryTree);
       }
+
+      $scope.queryEditorShown = true;
+    };
+
+    $scope.hideQueryEditor = function () {
+      $scope.queryEditorShown = false;
     };
 
     $scope.$watch('searchQuery', function (queryString) {
