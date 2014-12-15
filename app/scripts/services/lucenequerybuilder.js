@@ -213,10 +213,9 @@ angular.module('udbApp')
     this.groupQueryTree = function (queryTree) {
       var groupedFieldTree = {
         type: 'root',
-        nodes: []
+        nodes: [],
+        operator: queryTree.operator || 'OR'
       };
-
-      groupedFieldTree.operator = queryTree.operator || 'OR';
 
       this.groupNode(queryTree, groupedFieldTree);
       this.cleanUpGroupedFieldTree(groupedFieldTree);
@@ -259,10 +258,14 @@ angular.module('udbApp')
      * @param {object}  [fieldGroup]  - Keeps track of the current field group
      */
     this.groupNode = function (branch, fieldTree, fieldGroup) {
-      if (branch.operator && (!fieldGroup || branch.operator !== fieldGroup.operator)) {
+      // if the operator is implicit, you're dealing with grouped terms eg: field:(term1 term2)
+      if(branch.operator === implicitToken) {
+        branch.operator = 'OR';
+      }
+      if (!fieldGroup || branch.operator && (branch.operator !== fieldGroup.operator)) {
         var newFieldGroup = {
           type: 'group',
-          operator: branch.operator,
+          operator: branch.operator || 'OR',
           nodes: []
         };
 
