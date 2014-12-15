@@ -56,6 +56,7 @@ angular.module('udbApp')
         this.creator = jsonEvent.creator || '';
         this.type = getCategoryLabel(jsonEvent, 'eventtype') || '';
         this.theme = getCategoryLabel(jsonEvent, 'theme') || '';
+        this.calendarType = jsonEvent.calendarType || '';
         this.startDate = jsonEvent.startDate;
         this.endDate = jsonEvent.endDate;
       },
