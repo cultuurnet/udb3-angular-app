@@ -21,14 +21,20 @@
                     </select>
                 </div>
 
-                <div class="col-sm-7">
-                    <div class="input-group">
-                        <input type="text" ng-model="field.term" class="form-control"/>
-                        <span class="input-group-btn">
-                            <button ng-click="qe.removeField($parent.$index, $index)"
-                                    class="btn btn-default" type="button">X</button>
-                        </span>
-                    </div>
+                <div class="col-sm-6 field-query-term" ng-switch="field.fieldType">
+                    <input ng-switch-when="string" type="text" ng-model="field.term"
+                           class="form-control"/>
+
+                    <select ng-options="term._label as term._label for term in qe.termOptions[field.field]"
+                            ng-model="field.term" class="form-control" ng-switch-when="term"></select>
+
+                    <select ng-options="option for option in qe.termOptions[field.field]"
+                            ng-model="field.term" class="form-control" ng-switch-when="choice"></select>
+                </div>
+
+                <div class="col-sm-1">
+                    <button ng-click="qe.removeField($parent.$index, $index)"
+                            class="btn btn-default pull-right" type="button">X</button>
                 </div>
             </div>
 

@@ -8,7 +8,7 @@
  */
 angular
   .module('udbApp')
-  .directive('udbQueryEditor', function ( queryFields, LuceneQueryBuilder) {
+  .directive('udbQueryEditor', function ( queryFields, queryFieldTypes, LuceneQueryBuilder, taxonomyTerms) {
     return {
       templateUrl: 'views/query-editor.html',
       restrict: 'E',
@@ -35,6 +35,15 @@ angular
         };
         qe.colorScheme = ['rgb(141,211,199)','rgb(255,255,179)','rgb(190,186,218)','rgb(251,128,114)','rgb(128,177,211)','rgb(253,180,98)','rgb(179,222,105)','rgb(252,205,229)','rgb(217,217,217)','rgb(188,128,189)','rgb(204,235,197)'];
 
+        // Hold options for both term and choice query-field types
+        qe.termOptions = _.groupBy(taxonomyTerms, function (term) {
+            return 'category_' + term._domain + '_name';
+          });
+        _.forEach(queryFieldTypes, function(fieldType) {
+          if(fieldType.type === 'choice') {
+            qe.termOptions[fieldType.name] = fieldType.options;
+          }
+        });
 
         /**
          * Update the search input field with the data from the query editor

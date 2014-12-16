@@ -8,7 +8,19 @@
  * Service in the udbApp.
  */
 angular.module('udbApp')
-  .service('LuceneQueryBuilder', ['LuceneQueryParser', 'QueryTreeValidator', 'QueryTreeTranslator', function LuceneQueryBuilder(LuceneQueryParser, QueryTreeValidator, QueryTreeTranslator) {
+  .service('LuceneQueryBuilder', [
+    'LuceneQueryParser',
+    'QueryTreeValidator',
+    'QueryTreeTranslator',
+    'queryFieldTypes',
+    'taxonomyTerms',
+    function LuceneQueryBuilder(
+      LuceneQueryParser,
+      QueryTreeValidator,
+      QueryTreeTranslator,
+      queryFieldTypes,
+      taxonomyTerms
+    ) {
       var implicitToken = '<implicit>';
 
       this.translate = function (query) {
@@ -179,13 +191,13 @@ angular.module('udbApp')
             if(fieldIndex) {
               nodeString += ' ' + node.operator + ' ';
             }
-            nodeString += field.field + ':' + field.term;
+            nodeString += field.field + ':' + printTerm(field);
           });
 
           nodeString += ')';
         } else if (node.type === 'field') {
           var field = node.nodes[0];
-          nodeString = field.field + ':' + field.term;
+          nodeString = field.field + ':' + printTerm(field);
         } else {
           console.log('node type not recognized?');
         }
@@ -245,6 +257,50 @@ angular.module('udbApp')
         if(fieldGroup.operator === implicitToken) {
           fieldGroup.operator = 'OR';
         }
+
+        // add field-query type and map options for term and choice fields
+        _.forEach(fieldGroup.nodes, function (field){
+
+          // Find the field-query field type
+          var fieldType = _.find(queryFieldTypes, function (fieldType) {
+            return fieldType.name === field.field;
+          });
+
+          // Set the type and map options depending on field type
+          if(fieldType) {
+            field.fieldType = fieldType.type;
+
+            // terms should be matched to their domain and used as the field-query field
+            // if no matching taxonomy term is found the query-field should be removed
+            if(fieldType.type === 'term') {
+              var taxonomyTerm = _.find(taxonomyTerms, function (term) {
+                return term._label.toUpperCase() === field.term.toUpperCase();
+              });
+
+              if(taxonomyTerm) {
+                var domainFieldName = 'category_' + taxonomyTerm._domain + '_name';
+                field.field = domainFieldName;
+                field.term = taxonomyTerm._label;
+              } else {
+                field.valid = false;
+              }
+            }
+
+            // Look up options for choice query-fields
+            if(fieldType.type === 'choice') {
+              var option = _.find(fieldType.options, function (option) {
+                return option === field.term.toUpperCase();
+              });
+
+              if(option) {
+                field.term = option;
+              } else {
+                field.valid = false;
+              }
+            }
+          }
+
+        });
       });
     };
 
