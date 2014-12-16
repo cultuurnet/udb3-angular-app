@@ -282,7 +282,7 @@ angular.module('udbApp')
                 field.field = domainFieldName;
                 field.term = taxonomyTerm._label;
               } else {
-                field.valid = false;
+                field.invalid = true;
               }
             }
 
@@ -295,7 +295,16 @@ angular.module('udbApp')
               if(option) {
                 field.term = option;
               } else {
-                field.valid = false;
+                field.invalid = true;
+              }
+            }
+
+            // Make sure check field-queries are either true or false
+            if(fieldType.type === 'check') {
+              if(_.contains(['TRUE', 'FALSE'], field.term.toUpperCase())) {
+                field.term = field.term.toUpperCase();
+              } else {
+                field.invalid = true;
               }
             }
           }

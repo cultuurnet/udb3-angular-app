@@ -30,6 +30,13 @@
 
                     <select ng-options="option for option in qe.termOptions[field.field]"
                             ng-model="field.term" class="form-control" ng-switch-when="choice"></select>
+
+                    <div class="checkbox" ng-switch-when="check">
+                        <label>
+                            <input type="checkbox" ng-model="field.term"
+                                   ng-true-value="'TRUE'" ng-false-value="'FALSE'"> {{field.term}}
+                        </label>
+                    </div>
                 </div>
 
                 <div class="col-sm-1">

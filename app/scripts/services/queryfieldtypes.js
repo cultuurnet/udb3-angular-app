@@ -33,7 +33,7 @@ angular.module('udbApp')
     {name: 'lastupdatedby', type: 'string'},
     {name: 'creationdate', type: 'string'},
     {name: 'createdby', type: 'string'},
-    {name: 'permanent', type: 'string'},
+    {name: 'permanent', type: 'check'},
     {name: 'datetype', type: 'choice', options: ['today', 'tomorrow', 'thisweekend', 'nextweekend', 'next7days', 'next14days', 'next30days', 'next3months', 'next6months', 'next12months', 'permanent']},
     {name: 'category_eventtype_name', type: 'term'},
     {name: 'category_theme_name', type: 'term'},
@@ -45,6 +45,6 @@ angular.module('udbApp')
     {name: 'recommend_count', type: 'string'},
     {name: 'attend_count', type: 'string'},
     {name: 'comment_count', type: 'string'},
-    {name: 'private', type: 'string'},
+    {name: 'private', type: 'check'},
     {name: 'availablefrom', type: 'string'}
   ]);
