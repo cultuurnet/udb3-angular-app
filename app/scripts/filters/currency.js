@@ -16,8 +16,8 @@ angular.module('udbApp')
             symbol: '€',
             thousand: '.',
             decimal: ',',
-            format: '%s%v',
-            precision: 2
+            format: '%s %v',
+            precision: 2  
           }
         };
 
