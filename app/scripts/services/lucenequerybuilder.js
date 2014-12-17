@@ -232,6 +232,8 @@ angular.module('udbApp')
       this.groupNode(queryTree, groupedFieldTree);
       this.cleanUpGroupedFieldTree(groupedFieldTree);
 
+      console.log({og: queryTree, grouped: groupedFieldTree});
+
       return groupedFieldTree;
     };
 
@@ -343,7 +345,7 @@ angular.module('udbApp')
         fieldGroup.implicitField = branch.field;
       }
 
-      if(branch.term) {
+      if(branch.term || (branch.term_min && branch.term_max)) {
         var field = branch.field;
 
         // Handle implicit field names by using the last used field name
@@ -376,7 +378,9 @@ angular.module('udbApp')
     function makeField(node, fieldName) {
       return {
         field: fieldName || node.field,
-        term: node.term,
+        term: node.term || undefined,
+        min: node.term_min || undefined,
+        max: node.term_max || undefined,
         fieldType: 'string'
       };
     }
