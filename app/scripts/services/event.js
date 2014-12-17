@@ -50,7 +50,9 @@ angular.module('udbApp')
             phone: jsonEvent.organiser.phone[0] || '-'
           };
         }
-        this.price = parseFloat(jsonEvent.bookingInfo.price);
+        if (jsonEvent.bookingInfo && jsonEvent.bookingInfo.length > 0) {
+          this.price = parseFloat(jsonEvent.bookingInfo[0].price);
+        }
         this.publisher = jsonEvent.publisher || '';
         this.created = new Date(jsonEvent.created);
         this.creator = jsonEvent.creator || '';

@@ -180,7 +180,7 @@
 
                   <div class="rv-event-info-price"
                        ng-show="resultViewer.activeSpecific.id === 'price'">
-                      <span ng-bind="event.price | currency"></span>
+                      <span ng-if="event.price" ng-bind="event.price | currency"></span>
                   </div>
 
                   <div class="rv-event-info-translation"
