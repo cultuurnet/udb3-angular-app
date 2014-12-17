@@ -114,6 +114,19 @@ angular
 
           root.nodes.push(group);
         };
+
+        qe.updateFieldType = function (field) {
+          var fieldName = field.field,
+              fieldType = _.find(queryFieldTypes, function (fieldType) {
+                return fieldType.name === fieldName;
+              });
+
+          if(field.fieldType !== fieldType.type) {
+            // TODO: Maybe try to do a type conversion?
+            field.term = '';
+            field.fieldType = fieldType.type;
+          }
+        };
       }
     };
   });

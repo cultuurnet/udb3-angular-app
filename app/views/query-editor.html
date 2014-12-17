@@ -17,25 +17,37 @@
             <div class="field-query row" ng-repeat="field in node.nodes">
                 <div class="col-sm-5">
                     <select ng-options="fieldOption for fieldOption in qe.fields"
-                            ng-model="field.field" class="form-control">
+                            ng-model="field.field" class="form-control" ng-change="qe.updateFieldType(field)">
                     </select>
                 </div>
 
                 <div class="col-sm-6 field-query-term" ng-switch="field.fieldType">
-                    <input ng-switch-when="string" type="text" ng-model="field.term"
-                           class="form-control"/>
+                    <div ng-switch-when="string">
+                        <input  type="text" ng-model="field.term"
+                                class="form-control"/>
+                    </div>
 
-                    <select ng-options="term._label as term._label for term in qe.termOptions[field.field]"
-                            ng-model="field.term" class="form-control" ng-switch-when="term"></select>
+                    <div ng-switch-when="term">
+                        <select ng-options="term._label as term._label for term in qe.termOptions[field.field]"
+                            ng-model="field.term" class="form-control" >
+                            <option value="">-- maak een keuze --</option>
+                        </select>
+                    </div>
 
-                    <select ng-options="option for option in qe.termOptions[field.field]"
-                            ng-model="field.term" class="form-control" ng-switch-when="choice"></select>
+                    <div ng-switch-when="choice">
+                        <select ng-options="option for option in qe.termOptions[field.field]"
+                                 ng-model="field.term" class="form-control">
+                            <option value="">-- maak een keuze --</option>
+                        </select>
+                    </div>
 
-                    <div class="checkbox" ng-switch-when="check">
-                        <label>
-                            <input type="checkbox" ng-model="field.term"
-                                   ng-true-value="'TRUE'" ng-false-value="'FALSE'"> {{field.term}}
-                        </label>
+                    <div ng-switch-when="check">
+                        <div class="checkbox">
+                            <label>
+                                <input type="checkbox" ng-model="field.term"
+                                       ng-true-value="'TRUE'" ng-false-value="'FALSE'"> {{field.term}}
+                            </label>
+                        </div>
                     </div>
                 </div>
 
