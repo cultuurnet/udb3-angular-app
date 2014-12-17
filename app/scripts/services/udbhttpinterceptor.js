@@ -20,6 +20,10 @@ angular.module('udbApp')
 
     return {
       'responseError': function(rejection) {
+        var currentPath = $location.path();
+        if (currentPath == '/' || currentPath == '/about') {
+          return $q.reject(rejection);
+        }
 
         // Check if the request got rejected because of authorization and redirect
         if (rejection.status === 401) {
