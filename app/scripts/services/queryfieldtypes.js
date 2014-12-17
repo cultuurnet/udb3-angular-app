@@ -24,14 +24,14 @@ angular.module('udbApp')
     {name: 'agefrom', type: 'string'},
     {name: 'detail_lang', type: 'choice', options: ['nl', 'fr', 'en', 'de']},
     {name: 'price', type: 'string'},
-    {name: 'startdate', type: 'string'},
-    {name: 'enddate', type: 'string'},
+    {name: 'startdate', type: 'date-range'},
+    {name: 'enddate', type: 'date-range'},
     {name: 'organiser_label', type: 'string'},
     {name: 'location_label', type: 'string'},
     {name: 'externalid', type: 'string'},
-    {name: 'lastupdated', type: 'string'},
+    {name: 'lastupdated', type: 'date-range'},
     {name: 'lastupdatedby', type: 'string'},
-    {name: 'creationdate', type: 'string'},
+    {name: 'creationdate', type: 'date-range'},
     {name: 'createdby', type: 'string'},
     {name: 'permanent', type: 'check'},
     {name: 'datetype', type: 'choice', options: ['today', 'tomorrow', 'thisweekend', 'nextweekend', 'next7days', 'next14days', 'next30days', 'next3months', 'next6months', 'next12months', 'permanent']},
@@ -46,5 +46,5 @@ angular.module('udbApp')
     {name: 'attend_count', type: 'string'},
     {name: 'comment_count', type: 'string'},
     {name: 'private', type: 'check'},
-    {name: 'availablefrom', type: 'string'}
+    {name: 'availablefrom', type: 'date-range'}
   ]);

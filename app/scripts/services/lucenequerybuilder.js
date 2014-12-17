@@ -232,8 +232,6 @@ angular.module('udbApp')
       this.groupNode(queryTree, groupedFieldTree);
       this.cleanUpGroupedFieldTree(groupedFieldTree);
 
-      console.log({og: queryTree, grouped: groupedFieldTree});
-
       return groupedFieldTree;
     };
 
@@ -345,7 +343,7 @@ angular.module('udbApp')
         fieldGroup.implicitField = branch.field;
       }
 
-      if(branch.term || (branch.term_min && branch.term_max)) {
+      if(branch.term || (branch.term_min && branch.term_max)) {  // jshint ignore:line
         var field = branch.field;
 
         // Handle implicit field names by using the last used field name
@@ -379,8 +377,8 @@ angular.module('udbApp')
       return {
         field: fieldName || node.field,
         term: node.term || undefined,
-        min: node.term_min || undefined,
-        max: node.term_max || undefined,
+        min: node.term_min || undefined,  // jshint ignore:line
+        max: node.term_max || undefined,  // jshint ignore:line
         fieldType: 'string'
       };
     }
