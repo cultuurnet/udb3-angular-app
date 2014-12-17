@@ -190,10 +190,10 @@
 
                   <div class="rv-event-info-translation btn-toolbar"
                        ng-show="resultViewer.activeSpecific.id === 'translation'">
-                      <button type="button" ng-repeat="language in languageSelector"
+                      <button type="button" ng-repeat="language in ::languageSelector"
                               ng-class="{active: activeLanguage === language.lang}"
                               class="btn btn-default" ng-click="setLanguage(language.lang)">
-                          <span class="fa {{event.translationState[language.lang].icon}}"></span>
+                          <span class="fa {{getLanguageTranslationIcon(language.lang)}}"></span>
                           {{language.lang}}
                       </button>
                   </div>
@@ -207,7 +207,15 @@
                       </button>
 
                       <div class="col-sm-12">
-                          <div class="udb-translation-info">Wijzig de {{activeLanguage}} vertaling</div>
+                          <div ng-switch="hasActiveTranslation()">
+                              <div ng-switch-when="false" class="udb-translation-info">
+                                  Voer een {{activeLanguage}} vertaling in
+                              </div>
+
+                              <div ng-switch-default class="udb-translation-info">
+                                  Wijzig de {{activeLanguage}} vertaling
+                              </div>
+                          </div>
 
                           <div class="row udb-property-translation">
                               <div class="col-sm-6">
@@ -215,14 +223,14 @@
                                       <label>Titel</label>
                                       <input type="text" class="form-control" ng-model="eventTranslation.name"/>
                                   </div>
-                                  <div ng-show="hasPropertyChanged('name')">
+                                  <div ng-show="hasPropertyChanged('name') && hasActiveTranslation()">
                                       <button ng-disabled="!eventTranslation.name" class="btn btn-danger" ng-click="applyPropertyChanges('name')">Opslaan</button>
                                       <button class="btn btn-default" ng-click="undoPropertyChanges('name')">Annuleren</button>
                                   </div>
                               </div>
                               <div class="col-sm-6">
                                   <strong>Basis-titel</strong>
-                                  <div ng-bind="event.name"></div>
+                                  <div ng-bind-html="::event.name"></div>
                               </div>
                           </div>
 
@@ -233,7 +241,7 @@
                                       <label>Beschrijving</label>
                                       <textarea class="form-control resize-vertical" rows="3" ng-model="eventTranslation.description"></textarea>
                                   </div>
-                                  <div ng-show="hasPropertyChanged('description')">
+                                  <div ng-show="hasPropertyChanged('description') && hasActiveTranslation()">
                                       <button ng-disabled="!eventTranslation.description" class="btn btn-danger" ng-click="applyPropertyChanges('description')">Opslaan</button>
                                       <button class="btn btn-default" ng-click="undoPropertyChanges('description')">Annuleren</button>
                                   </div>
@@ -242,6 +250,11 @@
                                   <strong>Basis-beschrijving</strong>
                                   <div ng-bind="event.description"></div>
                               </div>
+                          </div>
+
+                          <div ng-hide="hasActiveTranslation()">
+                              <button ng-disabled="!eventTranslation.name" class="btn btn-danger" ng-click="translate()">Opslaan</button>
+                              <button class="btn btn-default" ng-click="stopTranslating()">Annuleren</button>
                           </div>
                       </div>
 

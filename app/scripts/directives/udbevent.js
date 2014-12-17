@@ -49,6 +49,25 @@ angular.module('udbApp')
           event.translationState = languages;
         }
 
+        scope.hasActiveTranslation = function () {
+          return event && event.translationState[scope.activeLanguage] !== TranslationState.NONE;
+        };
+
+        scope.getLanguageTranslationIcon = function (lang) {
+          var icon = TranslationState.NONE.icon;
+
+          if(event && lang) {
+            icon = event.translationState[lang].icon;
+          }
+
+          return icon;
+        };
+
+        scope.translate = function () {
+          scope.applyPropertyChanges('name');
+          scope.applyPropertyChanges('description');
+        };
+
         scope.activeLanguage = 'nl';
         scope.languageSelector = [
           {'lang': 'fr'},
@@ -126,7 +145,11 @@ angular.module('udbApp')
               udbProperty = apiProperty || property;
 
           if(translation && translation !== event[property][language]) {
-            eventTranslator.translateProperty(event, udbProperty, language, translation);
+            var translationPromise = eventTranslator.translateProperty(event, udbProperty, language, translation);
+
+            translationPromise.then(function () {
+              updateTranslationState(event);
+            });
           }
         }
 
