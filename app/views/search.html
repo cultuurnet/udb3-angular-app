@@ -214,7 +214,7 @@
                               <div ng-bind-html="event.description" class="udb-description"></div>
                           </div>
 
-                          <div ng-show="resultViewer.eventProperties.labels.visible">
+                          <div ng-show="resultViewer.eventProperties.labels.visible" class="udb-labels">
                               <span ng-hide="event.labels.length">Dit evenement is nog niet getagd.</span>
                               <ui-select multiple ng-model="event.labels" tagging tagging-label="(label toevoegen)"
                                          theme="bootstrap" ng-disabled="disabled"
