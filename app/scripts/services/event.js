@@ -40,22 +40,25 @@ angular.module('udbApp')
         this.calendarSummary = jsonEvent.calendarSummary;
         this.location = jsonEvent.location;
         this.image = jsonEvent.image;
-        this.labels = _.map(jsonEvent.concept, function(label) {
+        this.labels = _.map(jsonEvent.concept, function (label) {
           return label;
         });
-        if(jsonEvent.organiser) {
+        if (jsonEvent.organiser) {
           this.organiser = {
             name: jsonEvent.organiser.name,
             email: jsonEvent.organiser.email[0] || '-',
             phone: jsonEvent.organiser.phone[0] || '-'
           };
         }
-        this.price = parseFloat(jsonEvent.bookingInfo.price);
+        if (jsonEvent.bookingInfo && jsonEvent.bookingInfo.length > 0) {
+          this.price = parseFloat(jsonEvent.bookingInfo[0].price);
+        }
         this.publisher = jsonEvent.publisher || '';
         this.created = new Date(jsonEvent.created);
         this.creator = jsonEvent.creator || '';
         this.type = getCategoryLabel(jsonEvent, 'eventtype') || '';
         this.theme = getCategoryLabel(jsonEvent, 'theme') || '';
+        this.calendarType = jsonEvent.calendarType || '';
         this.startDate = jsonEvent.startDate;
         this.endDate = jsonEvent.endDate;
       },
