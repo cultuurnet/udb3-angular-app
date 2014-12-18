@@ -1,0 +1,54 @@
+@import "variables.less";
+
+.jumbotron-landing {
+
+  background-color: transparent;
+  padding: 15px;
+
+  .lead {
+    font-size: @font-size-h1;
+    color: @gray-light;
+  }
+
+  li {
+    color: @gray-light;
+  }
+
+  .countdown-phase {
+    color: @brand-primary;
+  }
+
+  .countdown {
+    margin: 2em 0 4em;
+  }
+
+  @media(min-width: @screen-sm-min) {
+    .launch-counter {
+      text-align:right;
+    }
+
+    .launch-features {
+      text-align:left;
+
+    }
+  }
+
+  @media(max-width: @screen-sm-min) {
+    .launch-counter {
+      display: none;
+    }
+
+    .launch-features ul {
+      .list-unstyled;
+    }
+  }
+
+  .udb2-info {
+    margin-top: 2em;
+    font-size: @font-size-large;
+  }
+
+  .udb2-info strong{
+    text-transform: uppercase;
+  }
+}

@@ -16,7 +16,7 @@ angular.module('udbApp')
           // Chapter 7.3.3. Rules for expressing monetary units
           // http://publications.europa.eu/code/en/en-370303.htm
           EUR: {
-            symbol: '€',
+            symbol: '',
             thousand: '.',
             decimal: ',',
             format: '%s%v',

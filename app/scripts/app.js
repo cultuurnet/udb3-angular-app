@@ -38,7 +38,6 @@ angular
       uiSelectConfig,
       appConfig
     ) {
-
       $routeProvider
         .when('/', {
           templateUrl: 'views/main.html',
@@ -51,7 +50,12 @@ angular
         .when('/search', {
           templateUrl: 'views/search.html',
           controller: 'SearchCtrl',
-          reloadOnSearch: false
+          reloadOnSearch: false,
+          resolve: {
+            permission: function (authorizationService, $route) {
+              return authorizationService.isLoggedIn();
+            }
+          }
         })
         .otherwise({
           redirectTo: '/'

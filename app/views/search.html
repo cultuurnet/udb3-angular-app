@@ -73,10 +73,12 @@
                           </p>
                       </li>
                       <li>
-                          <label for="rv-event-{{propertyKey}}" class="rv-control-toggle" ng-class="{active: property.visible}"
-                                 ng-repeat="(propertyKey, property) in resultViewer.eventProperties">
-                              <input type="checkbox" id="rv-event-{{propertyKey}}" ng-model="property.visible"/>
-                              {{property.name}}
+                          <label for="rv-event-{{propertyKey}}" class="rv-control-toggle"
+                                 ng-class="{active: resultViewer.eventProperties[propertyKey].visible}"
+                                 ng-repeat="propertyKey in ['description', 'labels', 'image']">
+                              <input type="checkbox" id="rv-event-{{propertyKey}}"
+                                     ng-model="resultViewer.eventProperties[propertyKey].visible"/>
+                              <span ng-bind="resultViewer.eventProperties[propertyKey].name"></span>
                           </label>
                       </li>
                       <li role="presentation" class="dropdown">
@@ -185,6 +187,7 @@
 
                   <div class="rv-event-info-price"
                        ng-show="resultViewer.activeSpecific.id === 'price'">
+                      <i class="fa fa-eur meta icon"></i>
                       <span ng-if="event.price" ng-bind="event.price | currency"></span>
                   </div>
 
@@ -269,11 +272,10 @@
                       </div>
                       <div ng-class="resultViewer.eventProperties.image.visible ? 'col-sm-10' : 'col-sm-12'">
                           <div ng-show="resultViewer.eventProperties.description.visible">
-                              <div ng-show="resultViewer.eventProperties.description.visible"
-                                   ng-bind-html="event.description" class="udb-description"></div>
+                              <div ng-bind-html="event.description" class="udb-description"></div>
                           </div>
 
-                          <div ng-show="resultViewer.eventProperties.labels.visible">
+                          <div ng-show="resultViewer.eventProperties.labels.visible" class="udb-labels">
                               <span ng-hide="event.labels.length">Dit evenement is nog niet getagd.</span>
                               <ui-select multiple ng-model="event.labels" tagging tagging-label="(label toevoegen)"
                                          theme="bootstrap" ng-disabled="disabled"
