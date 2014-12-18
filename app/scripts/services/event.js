@@ -40,7 +40,7 @@ angular.module('udbApp')
         this.calendarSummary = jsonEvent.calendarSummary;
         this.location = jsonEvent.location;
         this.image = jsonEvent.image;
-        this.labels = _.map(jsonEvent.concept, function (label) {
+        this.labels = _.map(jsonEvent.keywords, function (label) {
           return label;
         });
         if (jsonEvent.organiser) {
