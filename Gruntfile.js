@@ -83,7 +83,7 @@ module.exports = function (grunt) {
           open: true,
           middleware: function (connect) {
             return [
-              modRewrite(['!\\.html|\\.js|\\.svg|\\.css|\\.png$ /index.html [L]']),
+              modRewrite(['!\\.html|\\.js|\\.svg|\\.css|\\.png|\\.eot|\\.woff|\\.ttf|\\.swf|\\.otf$ /index.html [L]']),
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',
@@ -157,7 +157,10 @@ module.exports = function (grunt) {
     less: {
       app: {
         options: {
-          paths: ['bower_components/bootstrap/less'],
+          paths: [
+            'bower_components/bootstrap/less',
+            'bower_components/components-font-awesome/less'
+          ],
           strictMath: true,
           sourceMap: true,
           outputSourceFiles: true,
@@ -189,7 +192,10 @@ module.exports = function (grunt) {
     wiredep: {
       app: {
         src: ['<%= yeoman.app %>/index.html'],
-        exclude: ['bower_components/bootstrap/dist/css/bootstrap.css'],
+        exclude: [
+          'bower_components/bootstrap/dist/css/bootstrap.css',
+          'bower_components/components-font-awesome/css/font-awesome.css'
+        ],
         ignorePath:  /\.\.\//,
         options: {
           'overrides': {
@@ -353,6 +359,11 @@ module.exports = function (grunt) {
           cwd: 'bower_components/bootstrap/dist',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>'
+        }, {
+          expand: true,
+          cwd: 'bower_components/components-font-awesome',
+          src: 'fonts/*',
+          dest: '<%= yeoman.dist %>'
         }]
       },
       styles: {
@@ -360,19 +371,28 @@ module.exports = function (grunt) {
         cwd: '<%= yeoman.app %>/css',
         dest: '.tmp/css/',
         src: '{,*/}*.css'
+      },
+      fonts: {
+        expand: true,
+        cwd: 'bower_components/components-font-awesome/fonts',
+        dest: '<%= yeoman.app %>/fonts',
+        src: '*'
       }
     },
 
     // Run some tasks in parallel to speed up the build process
     concurrent: {
       server: [
-        'copy:styles'
+        'copy:styles',
+        'copy:fonts'
       ],
       test: [
-        'copy:styles'
+        'copy:styles',
+        'copy:fonts'
       ],
       dist: [
         'copy:styles',
+        'copy:fonts',
         'imagemin',
         'svgmin'
       ]

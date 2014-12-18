@@ -10,6 +10,16 @@
 angular.module('udbApp')
   .factory('SearchResultViewer', function () {
 
+    var SelectionState = {
+      ALL: { 'name': 'all', 'icon': 'fa-check-square' },
+      NONE: { 'name': 'none', 'icon': 'fa-square-o' },
+      SOME: { 'name': 'some', 'icon': 'fa-minus-square' }
+    };
+
+    var identifyItem = function (event) {
+      return event['@id'].split('/').pop();
+    };
+
     /**
      * @class SearchResultViewer
      * @constructor
@@ -21,6 +31,9 @@ angular.module('udbApp')
      * @property {number}     currentPage  - The index of the current page without zeroing
      * @property {boolean}    loading      - A flag to indicate the period between changing of the query and
      *                                       receiving of the results.
+     * @property {object} eventProperties A list of event properties that can be shown complementary
+     * @property {array} eventSpecifics A list of specific event info that can be shown exclusively
+     * @property {SelectionState} selectionState Enum that keeps the state of selected results
      */
     var SearchResultViewer = function (pageSize) {
       this.pageSize = pageSize || 30;
@@ -28,9 +41,45 @@ angular.module('udbApp')
       this.totalItems = 0;
       this.currentPage = 1;
       this.loading = false;
+      this.eventProperties = {
+        description: {name: 'Beschrijving', visible: false},
+        labels: {name: 'Labels', visible: false},
+        image: {name: 'Afbeelding', visible: false}
+      };
+      this.eventSpecifics = [
+        { id: 'input', name: 'Invoer-informatie'},
+        { id: 'price', name: 'Prijs-informatie'},
+        { id: 'translation', name: 'Vertaalstatus'}
+      ];
+      this.activeSpecific = this.eventSpecifics[0];
+      this.selectedIds = [];
+      this.selectionState = SelectionState.NONE;
     };
 
     SearchResultViewer.prototype = {
+      toggleSelection: function () {
+        var state = this.selectionState;
+
+        if( state === SelectionState.SOME || state === SelectionState.ALL) {
+          this.deselectPageItems();
+        } else {
+          this.selectPageItems();
+        }
+      },
+      updateSelectionState: function () {
+        var selectedIds = this.selectedIds,
+            selectedPageItems = _.filter(this.events, function(event) {
+              return _.contains(selectedIds, identifyItem(event));
+            });
+
+        if(selectedPageItems.length === this.pageSize) {
+          this.selectionState = SelectionState.ALL;
+        } else if (selectedPageItems.length > 0 ) {
+          this.selectionState = SelectionState.SOME;
+        } else {
+          this.selectionState = SelectionState.NONE;
+        }
+      },
       toggleSelectId: function (id) {
         var selectedIds = this.selectedIds,
           isSelected = _.contains(selectedIds, id);
@@ -40,20 +89,34 @@ angular.module('udbApp')
         } else {
           selectedIds.push(id);
         }
+
+        this.updateSelectionState();
       },
       deselectAll: function () {
         this.selectedIds = [];
+        this.selectionState = SelectionState.NONE;
       },
-      selectAll: function () {
+      deselectPageItems: function () {
+        var selectedIds = this.selectedIds;
+        _.forEach(this.events, function (event) {
+          var eventId = identifyItem(event);
+          _.remove(selectedIds, function (id) {
+            return id === eventId;
+          });
+        });
+
+        this.selectionState = SelectionState.NONE;
+      },
+      selectPageItems: function () {
         var events = this.events,
           selectedIds = this.selectedIds;
 
         _.each(events, function (event) {
-          var eventId = event['@id'].split('/').pop();
-          selectedIds.push(eventId);
+          selectedIds.push(identifyItem(event));
         });
 
         this.selectedIds = _.uniq(selectedIds);
+        this.selectionState = SelectionState.ALL;
       },
       isIdSelected: function (id) {
         return _.contains(this.selectedIds, id);
@@ -66,6 +129,7 @@ angular.module('udbApp')
         viewer.totalItems = pagedResults.totalItems || 0;
 
         viewer.loading = false;
+        this.updateSelectionState();
       },
       queryChanged: function (query) {
         if(query.length) {
@@ -76,6 +140,20 @@ angular.module('udbApp')
 
         this.currentPage = 1;
         this.selectedIds = [];
+      },
+      activateSpecific: function (specific) {
+        this.activeSpecific = specific;
+      },
+      /**
+       * Checks if at least one of the event properties is visible
+       * @return {boolean}
+       */
+      isShowingProperties: function () {
+        var property = _.find(this.eventProperties, function (property) {
+          return property.visible;
+        });
+
+        return !!property;
       }
     };
 
