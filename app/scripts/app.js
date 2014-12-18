@@ -23,28 +23,6 @@ angular
     'btford.socket-io',
     'xeditable'
   ])
-    .factory('authorizationService', function ($q, $rootScope, uitidAuth, udbApi) {
-      return {
-        isLoggedIn: function () {
-          var deferred = $q.defer();
-
-          var deferredUser = udbApi.getMe();
-          deferredUser.then(
-              function (user) {
-                deferred.resolve();
-              },
-              function () {
-                uitidAuth.login();
-
-                // We are redirecting away from the current page, so no need to
-                // resolve or reject the deferred.
-              }
-          );
-
-          return deferred.promise;
-        }
-      };
-    })
   .config([
     '$routeProvider',
     '$locationProvider',
@@ -60,7 +38,6 @@ angular
       uiSelectConfig,
       appConfig
     ) {
-
       $routeProvider
         .when('/', {
           templateUrl: 'views/main.html',
