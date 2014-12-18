@@ -15,6 +15,6 @@ describe('Directive: udbQueryEditorDaterangepicker', function () {
   it('should make hidden element visible', inject(function ($compile) {
     element = angular.element('<udb-query-editor-daterangepicker></udb-query-editor-daterangepicker>');
     element = $compile(element)(scope);
-    expect(element.text()).toBe('this is the udbQueryEditorDaterangepicker directive');
+    expect(element.text()).not.toBe(null);
   }));
 });
