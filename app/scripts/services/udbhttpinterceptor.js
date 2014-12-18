@@ -21,7 +21,7 @@ angular.module('udbApp')
     return {
       'responseError': function(rejection) {
         var currentPath = $location.path();
-        if (currentPath == '/' || currentPath == '/about') {
+        if (currentPath === '/' || currentPath === '/about') {
           return $q.reject(rejection);
         }
 

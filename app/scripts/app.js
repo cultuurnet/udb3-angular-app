@@ -43,7 +43,7 @@ angular
 
           return deferred.promise;
         }
-      }
+      };
     })
   .config([
     '$routeProvider',
