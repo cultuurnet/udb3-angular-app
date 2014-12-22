@@ -51,13 +51,16 @@
                     </div>
 
                     <div ng-switch-when="date-range">
-                        <udb-query-editor-daterangepicker></udb-query-editor-daterangepicker>
+                        <udb-query-editor-daterangepicker>
+                        </udb-query-editor-daterangepicker>
                     </div>
                 </div>
 
                 <div class="col-sm-1">
                     <button ng-click="qe.removeField($parent.$index, $index)"
-                            class="btn btn-default pull-right" type="button">X</button>
+                            class="btn btn-danger pull-right" type="button">
+                        <i class="fa fa-close"></i>
+                    </button>
                 </div>
             </div>
 

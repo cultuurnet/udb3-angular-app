@@ -34,7 +34,6 @@ angular
           nodes: []
         };
         qe.colorScheme = ['rgb(141,211,199)','rgb(255,255,179)','rgb(190,186,218)','rgb(251,128,114)','rgb(128,177,211)','rgb(253,180,98)','rgb(179,222,105)','rgb(252,205,229)','rgb(217,217,217)','rgb(188,128,189)','rgb(204,235,197)'];
-        qe.dateFormat = 'yyyy-MM-dd';
 
         // Hold options for both term and choice query-field types
         qe.termOptions = _.groupBy(taxonomyTerms, function (term) {
@@ -124,7 +123,14 @@ angular
 
           if(field.fieldType !== fieldType.type) {
             // TODO: Maybe try to do a type conversion?
-            field.term = '';
+            if(fieldType.type === 'date-range') {
+              field.term_min = new Date(); // jshint ignore:line
+              field.term_max = new Date(); // jshint ignore:line
+              field.inclusive = true;
+            } else {
+              field.term = '';
+            }
+
             field.fieldType = fieldType.type;
           }
         };

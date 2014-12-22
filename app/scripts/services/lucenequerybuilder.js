@@ -67,12 +67,19 @@ angular.module('udbApp')
 
       var printTerm = function (node) {
         var term = node.term,
-            isRangeExpression = (typeof node.term === 'undefined');
+            isRangeExpression = (node.term_min || node.term_max); // jshint ignore:line
 
         if(isRangeExpression) {
           var min = node.term_min, // jshint ignore:line
               max = node.term_max, // jshint ignore:line
               inclusive = node.inclusive;
+
+          if(min instanceof Date) {
+            min = min.toISOString().slice(0, 10);
+          }
+          if(max instanceof Date) {
+            max = max.toISOString().slice(0, 10);
+          }
 
           term = min + ' TO ' + max;
 
@@ -286,7 +293,7 @@ angular.module('udbApp')
               }
             }
 
-            // Look up options for choice query-fields
+            // Look up options for choice field-query
             if(fieldType.type === 'choice') {
               var option = _.find(fieldType.options, function (option) {
                 return option === field.term.toUpperCase();
@@ -299,7 +306,7 @@ angular.module('udbApp')
               }
             }
 
-            // Make sure check field-queries are either true or false
+            // Make sure boolean field-query values are either true or false
             if(fieldType.type === 'check') {
               if(_.contains(['TRUE', 'FALSE'], field.term.toUpperCase())) {
                 field.term = field.term.toUpperCase();
@@ -374,13 +381,23 @@ angular.module('udbApp')
      * @return {object} A field object used to render the query editor
      */
     function makeField(node, fieldName) {
-      return {
-        field: fieldName || node.field,
-        term: node.term || undefined,
-        min: node.term_min || undefined,  // jshint ignore:line
-        max: node.term_max || undefined,  // jshint ignore:line
-        fieldType: 'string'
-      };
+      var fieldType = _.find(queryFieldTypes, function (type) {
+            return type.name === node.field;
+          }),
+          field = {
+            field: fieldName || node.field,
+            fieldType: fieldType || 'string'
+          };
+
+      if(node.term_min || node.term_max) { // jshint ignore:line
+        field.term_min = node.term_min || undefined;  // jshint ignore:line
+        field.term_max = node.term_max || undefined;  // jshint ignore:line
+        field.inclusive = node.inclusive || true;
+      } else {
+        field.term = node.term || undefined;
+      }
+
+      return field;
     }
 
   }]);
