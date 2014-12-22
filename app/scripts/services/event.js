@@ -10,6 +10,12 @@
 angular.module('udbApp')
   .factory('UdbEvent', function () {
 
+    var EventPricing = {
+      FREE: 'free',
+      UNKNOWN: 'unknown',
+      PAYED: 'payed'
+    };
+
     function getCategoryLabel (jsonEvent, domain) {
       var label;
       var category = _.find(jsonEvent.terms, function (category) {
@@ -21,6 +27,21 @@ angular.module('udbApp')
       }
 
       return label;
+    }
+
+    function getPricing (jsonEvent) {
+      var pricing = EventPricing.UNKNOWN;
+
+      if (jsonEvent.bookingInfo && jsonEvent.bookingInfo.length > 0) {
+        var price = parseFloat(jsonEvent.bookingInfo[0].price);
+        if(price > 0) {
+          pricing = EventPricing.PAYED;
+        } else {
+          pricing = EventPricing.FREE;
+        }
+      }
+
+      return pricing;
     }
 
     /**
@@ -53,6 +74,7 @@ angular.module('udbApp')
         if (jsonEvent.bookingInfo && jsonEvent.bookingInfo.length > 0) {
           this.price = parseFloat(jsonEvent.bookingInfo[0].price);
         }
+        this.pricing = getPricing(jsonEvent);
         this.publisher = jsonEvent.publisher || '';
         this.created = new Date(jsonEvent.created);
         this.creator = jsonEvent.creator || '';
