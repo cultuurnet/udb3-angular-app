@@ -182,9 +182,9 @@
                           <span class="fa fa-user"></span>&nbsp;
                           <span ng-bind="event.creator"></span>
                       </div>
-                      <div>
+                      <div ng-if="event.organiser">
                           <span class="fa fa-building-o"></span>&nbsp;
-                          <span ng-bind="event.publisher"></span>
+                          <span ng-bind="event.organiser.name"></span>
                       </div>
                   </div>
 
