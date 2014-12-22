@@ -218,11 +218,11 @@
                       <div class="col-sm-12">
                           <div ng-switch="hasActiveTranslation()">
                               <div ng-switch-when="false" class="udb-translation-info">
-                                  Voer een {{activeLanguage}} vertaling in
+                                  Voer een {{ activeLanguage.toUpperCase()+'_ADJECTIVE' | translate }} vertaling in
                               </div>
 
                               <div ng-switch-default class="udb-translation-info">
-                                  Wijzig de {{activeLanguage}} vertaling
+                                  Wijzig de {{ activeLanguage.toUpperCase()+'_ADJECTIVE'  | translate }} vertaling
                               </div>
                           </div>
 

@@ -21,13 +21,15 @@ angular
     'peg',
     'config',
     'btford.socket-io',
-    'xeditable'
+    'xeditable',
+    'pascalprecht.translate'
   ])
   .config([
     '$routeProvider',
     '$locationProvider',
     '$httpProvider',
     '$sceDelegateProvider',
+    '$translateProvider',
     'uiSelectConfig',
     'appConfig',
     function (
@@ -35,6 +37,7 @@ angular
       $locationProvider,
       $httpProvider,
       $sceDelegateProvider,
+      $translateProvider,
       uiSelectConfig,
       appConfig
     ) {
@@ -69,6 +72,15 @@ angular
         'self',
         appConfig.baseUrl + '**'
       ]);
+
+      $translateProvider
+        .translations('nl', {
+          EN_ADJECTIVE: 'Engelse',
+          FR_ADJECTIVE: 'Franse',
+          DE_ADJECTIVE: 'Duitse',
+          NL_ADJECTIVE: 'Nederlandse'
+        })
+        .preferredLanguage('nl');
 
       uiSelectConfig.theme = 'bootstrap';
     }])
