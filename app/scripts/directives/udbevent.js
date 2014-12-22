@@ -96,16 +96,21 @@ angular.module('udbApp')
 
         scope.eventTranslation = false;
         /**
-         * Sets the active translation language
-         *
-         * @TODO: Make sure the the active translation is merged or reset before switching
+         * Sets the provided language as active or toggles it off when already active
+         * 
          * @param lang
          */
-        function setLanguage(lang) {
-          scope.activeLanguage = lang;
-          scope.eventTranslation = jsonLDLangFilter(event, scope.activeLanguage);
+        function toggleLanguage(lang) {
+
+          if(lang === scope.activeLanguage) {
+            scope.stopTranslating();
+          } else {
+            scope.activeLanguage = lang;
+            scope.eventTranslation = jsonLDLangFilter(event, scope.activeLanguage);
+          }
+
         }
-        scope.setLanguage = setLanguage;
+        scope.toggleLanguage = toggleLanguage;
 
         scope.hasPropertyChanged = function (propertyName) {
           var lang = scope.activeLanguage,
