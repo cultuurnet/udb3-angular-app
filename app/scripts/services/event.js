@@ -61,6 +61,7 @@ angular.module('udbApp')
         this.calendarType = jsonEvent.calendarType || '';
         this.startDate = jsonEvent.startDate;
         this.endDate = jsonEvent.endDate;
+        this.url = jsonEvent.sameAs[0];
       },
       /**
        * Tag the event with a label or a list of labels
