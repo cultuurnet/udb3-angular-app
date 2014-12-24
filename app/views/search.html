@@ -201,7 +201,7 @@
                        ng-show="resultViewer.activeSpecific.id === 'translation'">
                       <button type="button" ng-repeat="language in ::languageSelector"
                               ng-class="{active: activeLanguage === language.lang}"
-                              class="btn btn-default" ng-click="setLanguage(language.lang)">
+                              class="btn btn-default" ng-click="toggleLanguage(language.lang)">
                           <span class="fa {{getLanguageTranslationIcon(language.lang)}}"></span>
                           {{language.lang}}
                       </button>
