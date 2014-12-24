@@ -201,7 +201,7 @@
                        ng-show="resultViewer.activeSpecific.id === 'translation'">
                       <button type="button" ng-repeat="language in ::languageSelector"
                               ng-class="{active: activeLanguage === language.lang}"
-                              class="btn btn-default" ng-click="setLanguage(language.lang)">
+                              class="btn btn-default" ng-click="toggleLanguage(language.lang)">
                           <span class="fa {{getLanguageTranslationIcon(language.lang)}}"></span>
                           {{language.lang}}
                       </button>
@@ -284,7 +284,7 @@
                           <div ng-show="resultViewer.eventProperties.labels.visible" class="udb-labels">
                               <span ng-hide="event.labels.length">Dit evenement is nog niet getagd.</span>
                               <ui-select multiple ng-model="event.labels" tagging tagging-label="(label toevoegen)"
-                                         theme="bootstrap" ng-disabled="disabled"
+                                         ng-disabled="disabled" reset-search-input="true" tagging-tokens="ENTER|;"
                                          on-select="labelAdded($item)" on-remove="labelRemoved($item)">
                                   <ui-select-match placeholder="Voeg een label toe...">{{$item}}</ui-select-match>
                                   <ui-select-choices repeat="label in availableLabels">
