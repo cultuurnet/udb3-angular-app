@@ -63,7 +63,7 @@
 <div class="row">
   <div class="col-sm-12 search-results" ng-class="{loading: resultViewer.loading}">
 
-      <div class="rv-controls">
+      <div class="rv-controls" ng-show="resultViewer.totalItems">
           <div class="row">
               <div class="col-xs-12">
                   <ul class="nav nav-pills" role="tablist">
@@ -96,7 +96,9 @@
           </div>
       </div>
 
-    <p ng-hide="resultViewer.totalItems">Geen evenementen gevonden, probeer een andere zoekopdracht.</p>
+    <p class="rv-no-result-notice" ng-hide="resultViewer.totalItems">
+        Geen zoekresultaten gevonden, probeer opnieuw.
+    </p>
 
     <div ng-show="resultViewer.totalItems">
         <div class="rv-item-info">
