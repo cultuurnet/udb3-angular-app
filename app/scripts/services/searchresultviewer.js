@@ -40,7 +40,7 @@ angular.module('udbApp')
       this.events = [];
       this.totalItems = 0;
       this.currentPage = 1;
-      this.loading = false;
+      this.loading = true;
       this.eventProperties = {
         description: {name: 'Beschrijving', visible: false},
         labels: {name: 'Labels', visible: false},
@@ -132,12 +132,7 @@ angular.module('udbApp')
         this.updateSelectionState();
       },
       queryChanged: function (query) {
-        if(query.length) {
-          this.loading = true;
-        } else {
-          this.loading = false;
-        }
-
+        this.loading = true;
         this.currentPage = 1;
         this.selectedIds = [];
       },
