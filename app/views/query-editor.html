@@ -1,5 +1,5 @@
 <div>
-    <div class="field-group">
+    <div class="field-group" ng-class="{'single-group': (qe.hasSingleGroup())}">
         <div class="operator">
             <select ng-options="operator for operator in qe.operators"
                     ng-model="qe.groupedQueryTree.operator" class="form-control"
@@ -71,7 +71,7 @@
         </div>
         <button type="button" class="btn btn-default"
                 ng-click="qe.addGroup()">
-            groep toevoegen
+             {{qe.hasSingleGroup() ? 'geavanceerd zoeken' : 'groep toevoegen'}}
         </button>
         <div class="btn-group pull-right">
             <button type="button" class="btn btn-default"

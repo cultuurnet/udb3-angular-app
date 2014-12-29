@@ -134,6 +134,10 @@ angular
             field.fieldType = fieldType.type;
           }
         };
+
+        qe.hasSingleGroup = function () {
+          return (qe.groupedQueryTree.nodes.length === 1);
+        }
       }
     };
   });
