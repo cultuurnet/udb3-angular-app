@@ -75,10 +75,10 @@ angular.module('udbApp')
               inclusive = node.inclusive;
 
           if(min instanceof Date) {
-            min = min.toISOString().slice(0, 10);
+            min = min.toISOString();
           }
           if(max instanceof Date) {
-            max = max.toISOString().slice(0, 10);
+            max = max.toISOString();
           }
 
           term = min + ' TO ' + max;
