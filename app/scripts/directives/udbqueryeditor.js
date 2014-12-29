@@ -84,7 +84,9 @@ angular
           var root = qe.groupedQueryTree;
           var group = root.nodes[groupIndex];
 
-          group.nodes.splice(fieldIndex, 1);
+          if( qe.canRemoveField() ) {
+            group.nodes.splice(fieldIndex, 1);
+          }
 
           if (group.nodes.length < 2) {
             if(group.nodes.length) {
@@ -93,6 +95,14 @@ angular
               root.nodes.splice(groupIndex, 1);
             }
           }
+        };
+
+        /**
+         * Check if a field can be removed without leaving a single empty group
+         * @return {boolean}
+         */
+        qe.canRemoveField = function () {
+          return !(qe.hasSingleGroup() && (qe.groupedQueryTree.nodes[0].nodes.length === 1));
         };
 
         /**
@@ -137,7 +147,7 @@ angular
 
         qe.hasSingleGroup = function () {
           return (qe.groupedQueryTree.nodes.length === 1);
-        }
+        };
       }
     };
   });

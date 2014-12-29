@@ -236,8 +236,26 @@ angular.module('udbApp')
         operator: queryTree.operator || 'OR'
       };
 
-      this.groupNode(queryTree, groupedFieldTree);
-      this.cleanUpGroupedFieldTree(groupedFieldTree);
+      // If the query tree of an empty search is used, add a default field and group
+      if(!queryTree.left) {
+        var group = {
+          type: 'field',
+          operator: 'OR',
+          nodes: [
+            {
+              field: 'type',
+              term: '',
+              fieldType: 'string'
+            }
+          ]
+        };
+        groupedFieldTree.nodes.push(group);
+      } else {
+        this.groupNode(queryTree, groupedFieldTree);
+        this.cleanUpGroupedFieldTree(groupedFieldTree);
+      }
+
+      console.log(groupedFieldTree);
 
       return groupedFieldTree;
     };
