@@ -49,6 +49,7 @@ angular.module('udbApp')
         };
 
         this.parseQueryString(query);
+        console.log(query);
 
         return query;
       };
@@ -71,7 +72,7 @@ angular.module('udbApp')
           }
         } else {
           // if the term is a phrase surround it with double quotes
-          if(term.indexOf(' ') !== -1) {
+          if(node.quoted || term.indexOf(' ') !== -1) {
             term = '"' + term + '"';
           }
 
