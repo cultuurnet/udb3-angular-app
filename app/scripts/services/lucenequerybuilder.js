@@ -255,8 +255,6 @@ angular.module('udbApp')
         this.cleanUpGroupedFieldTree(groupedFieldTree);
       }
 
-      console.log(groupedFieldTree);
-
       return groupedFieldTree;
     };
 

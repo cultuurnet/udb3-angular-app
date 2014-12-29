@@ -35,6 +35,7 @@ angular.module('udbApp')
       'TITLE' : 'titel',
       'KEYWORDS' : 'label',
       'CITY' : 'gemeente',
+      'ORGANISER_KEYWORDS': 'organiser-tag',
       'ZIPCODE' : 'postcode',
       'COUNTRY' : 'land',
       'PHYSICAL_GIS' : 'geo',
