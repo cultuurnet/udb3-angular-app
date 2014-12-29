@@ -49,11 +49,30 @@ angular.module('udbApp')
           event.translationState = languages;
         }
 
+        scope.hasActiveTranslation = function () {
+          return event && event.translationState[scope.activeLanguage] !== TranslationState.NONE;
+        };
+
+        scope.getLanguageTranslationIcon = function (lang) {
+          var icon = TranslationState.NONE.icon;
+
+          if(event && lang) {
+            icon = event.translationState[lang].icon;
+          }
+
+          return icon;
+        };
+
+        scope.translate = function () {
+          scope.applyPropertyChanges('name');
+          scope.applyPropertyChanges('description');
+        };
+
         scope.activeLanguage = 'nl';
         scope.languageSelector = [
-          {'lang': 'nl'},
           {'lang': 'fr'},
-          {'lang': 'en'}
+          {'lang': 'en'},
+          {'lang': 'de'}
         ];
         scope.availableLabels = eventTagger.recentLabels;
 
@@ -68,16 +87,62 @@ angular.module('udbApp')
             event = eventObject;
             updateTranslationState(event);
             scope.availableLabels = _.union(event.labels, eventTagger.recentLabels);
-            scope.event = jsonLDLangFilter(event, scope.activeLanguage);
+            scope.event = jsonLDLangFilter(event, 'nl');
             scope.fetching = false;
           });
         } else {
           scope.fetching = false;
         }
 
-        scope.setLanguage = function (lang) {
-          scope.activeLanguage = lang;
-          scope.event = jsonLDLangFilter(event, scope.activeLanguage);
+        scope.eventTranslation = false;
+        /**
+         * Sets the provided language as active or toggles it off when already active
+         * 
+         * @param lang
+         */
+        function toggleLanguage(lang) {
+
+          if(lang === scope.activeLanguage) {
+            scope.stopTranslating();
+          } else {
+            scope.activeLanguage = lang;
+            scope.eventTranslation = jsonLDLangFilter(event, scope.activeLanguage);
+          }
+
+        }
+        scope.toggleLanguage = toggleLanguage;
+
+        scope.hasPropertyChanged = function (propertyName) {
+          var lang = scope.activeLanguage,
+              translation = scope.eventTranslation;
+
+          return scope.eventTranslation && event[propertyName][lang] !== translation[propertyName];
+        };
+
+        scope.undoPropertyChanges = function (propertyName) {
+          var lang = scope.activeLanguage,
+              translation = scope.eventTranslation;
+
+          if(translation) {
+            translation[propertyName] = event[propertyName][lang];
+          }
+        };
+
+        scope.applyPropertyChanges = function (propertyName) {
+          var translation = scope.eventTranslation[propertyName],
+              apiProperty;
+
+          // TODO: this is hacky, should decide on consistent name for this property
+          if(propertyName === 'name') {
+            apiProperty = 'title';
+          }
+
+          translateEventProperty(propertyName, translation, apiProperty);
+        };
+
+        scope.stopTranslating = function () {
+          scope.eventTranslation = undefined;
+          scope.activeLanguage = 'nl';
         };
 
         function translateEventProperty (property, translation, apiProperty) {
@@ -85,17 +150,13 @@ angular.module('udbApp')
               udbProperty = apiProperty || property;
 
           if(translation && translation !== event[property][language]) {
-            eventTranslator.translateProperty(event, udbProperty, language, translation);
+            var translationPromise = eventTranslator.translateProperty(event, udbProperty, language, translation);
+
+            translationPromise.then(function () {
+              updateTranslationState(event);
+            });
           }
         }
-
-        scope.updateName = function (value) {
-          translateEventProperty('name', value, 'title');
-        };
-
-        scope.updateDescription = function (value) {
-          translateEventProperty('description', value);
-        };
 
         scope.labelAdded = function (label) {
           eventTagger.tag(event, label);

@@ -38,6 +38,7 @@ a {
 @import "utility.less";
 @import "jumbotron-landing.less";
 @import "result-viewer.less";
+@import "event-translator.less";
 @import "navigation.less";
 @import "footer.less";
 @import "query-editor.less";
@@ -93,18 +94,6 @@ a {
   margin-bottom: 0.5em;
 }
 
-.udb-work-indicator {
-  width: 40px;
-  height: 40px;
-  line-height: 40px;
-  text-align: center;
-  display: inline-block;
-}
-
-.udb-work-indicator.working {
-  animation: rotating 1s linear infinite;
-}
-
 .repeat-animation.ng-enter {
   -webkit-transition: all linear 1s;
   -moz-transition: all linear 1s;
@@ -124,7 +113,7 @@ a {
   width: 240px;
   left: -240px;
   position: fixed;
-  top: 0px;
+  top: 80px;
   bottom: 0px;
   transition: left 0.3s ease;
   overflow-x: hidden;

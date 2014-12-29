@@ -12,7 +12,6 @@ angular.module('udbApp')
       restrict: 'C',
       link: function postLink(scope, element, attrs) {
         scope.working = false;
-        element.text('Q');
 
         $window.setInterval(function () {
           scope.working = jobLogger.hasUnfinishedJobs();
