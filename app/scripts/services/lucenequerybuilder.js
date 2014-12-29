@@ -49,7 +49,6 @@ angular.module('udbApp')
         };
 
         this.parseQueryString(query);
-        console.log(query);
 
         return query;
       };
