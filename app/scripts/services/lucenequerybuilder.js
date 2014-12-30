@@ -227,7 +227,7 @@ angular.module('udbApp')
 
       switch (field.transformer) {
         case '<>':
-          field.field = '-' + field;
+          field.field = '-' + field.field;
           break;
         case '<':
           field.term_min = '*'; // jshint ignore:line

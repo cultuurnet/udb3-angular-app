@@ -63,24 +63,15 @@ describe('Service: LuceneQueryBuilder', function () {
       var query = LuceneQueryBuilder.createQuery(queryString);
       var groupedQueryTree = LuceneQueryBuilder.groupQueryTree(query.queryTree);
 
-      var exampleTree =
-      { operator: 'OR',
-        type: 'root',
-        nodes: [
-          { type: 'field',
-            nodes: [
-              {
-                field: 'battery',
-                term: 'horse',
-                fieldType: 'string'
-              }
-            ],
-            operator: 'OR'
-          }
-        ]
-      };
+      expect(groupedQueryTree.operator).toBe('OR');
+      expect(groupedQueryTree.type).toBe('root');
 
-      expect(groupedQueryTree).toEqual(exampleTree);
+      expect(groupedQueryTree.nodes[0].type).toBe('field');
+      expect(groupedQueryTree.nodes[0].operator).toBe('OR');
+
+      expect(groupedQueryTree.nodes[0].nodes[0].field).toBe('battery');
+      expect(groupedQueryTree.nodes[0].nodes[0].term).toBe('horse');
+      expect(groupedQueryTree.nodes[0].nodes[0].fieldType).toBe('string');
     });
 
     it('Groups query tree fields with different operators', function () {
@@ -88,40 +79,25 @@ describe('Service: LuceneQueryBuilder', function () {
       var query = LuceneQueryBuilder.createQuery(queryString);
       var groupedQueryTree = LuceneQueryBuilder.groupQueryTree(query.queryTree);
 
-      var exampleTree =
-      { operator: 'AND',
-        type: 'root',
-        nodes: [
-          { type: 'field',
-            nodes: [
-              {
-                field: 'battery',
-                term: 'horse',
-                fieldType: 'string'
-              }
-            ],
-            operator: 'AND'
-          },
+      expect(groupedQueryTree.operator).toBe('AND');
+      expect(groupedQueryTree.type).toBe('root');
 
-          { type: 'group',
-            operator: 'OR',
-            nodes: [
-              {
-                field: 'staple',
-                term: 'chair',
-                fieldType: 'string'
-              },
-              {
-                field: 'car',
-                term: 'dinosaur',
-                fieldType: 'string'
-              }
-            ]
-          }
-        ]
-      };
+      expect(groupedQueryTree.nodes[0].type).toBe('field');
 
-      expect(groupedQueryTree).toEqual(exampleTree);
+      expect(groupedQueryTree.nodes[0].nodes[0].field).toBe('battery');
+      expect(groupedQueryTree.nodes[0].nodes[0].term).toBe('horse');
+      expect(groupedQueryTree.nodes[0].nodes[0].fieldType).toBe('string');
+
+      expect(groupedQueryTree.nodes[1].type).toBe('group');
+      expect(groupedQueryTree.nodes[1].operator).toBe('OR');
+
+      expect(groupedQueryTree.nodes[1].nodes[0].field).toBe('staple');
+      expect(groupedQueryTree.nodes[1].nodes[0].term).toBe('chair');
+      expect(groupedQueryTree.nodes[1].nodes[0].fieldType).toBe('string');
+
+      expect(groupedQueryTree.nodes[1].nodes[1].field).toBe('car');
+      expect(groupedQueryTree.nodes[1].nodes[1].term).toBe('dinosaur');
+      expect(groupedQueryTree.nodes[1].nodes[1].fieldType).toBe('string');
     });
 
     it('Groups query tree fields with grouped terms', function () {
@@ -129,34 +105,23 @@ describe('Service: LuceneQueryBuilder', function () {
       var query = LuceneQueryBuilder.createQuery(queryString);
       var groupedQueryTree = LuceneQueryBuilder.groupQueryTree(query.queryTree);
 
-      var exampleTree =
-      { operator: 'OR',
-        type: 'root',
-        nodes: [
-          { type: 'group',
-            nodes: [
-              {
-                field: 'animal',
-                term: 'cat',
-                fieldType: 'string'
-              },
-              {
-                field: 'animal',
-                term: 'dog',
-                fieldType: 'string'
-              },
-              {
-                field: 'animal',
-                term: 'deer',
-                fieldType: 'string'
-              }
-            ],
-            operator: 'OR'
-          }
-        ]
-      };
+      expect(groupedQueryTree.operator).toBe('OR');
+      expect(groupedQueryTree.type).toBe('root');
 
-      expect(groupedQueryTree).toEqual(exampleTree);
+      expect(groupedQueryTree.nodes[0].type).toBe('group');
+      expect(groupedQueryTree.nodes[0].operator).toBe('OR');
+
+      expect(groupedQueryTree.nodes[0].nodes[0].field).toBe('animal');
+      expect(groupedQueryTree.nodes[0].nodes[0].term).toBe('cat');
+      expect(groupedQueryTree.nodes[0].nodes[0].fieldType).toBe('string');
+
+      expect(groupedQueryTree.nodes[0].nodes[1].field).toBe('animal');
+      expect(groupedQueryTree.nodes[0].nodes[1].term).toBe('dog');
+      expect(groupedQueryTree.nodes[0].nodes[1].fieldType).toBe('string');
+
+      expect(groupedQueryTree.nodes[0].nodes[2].field).toBe('animal');
+      expect(groupedQueryTree.nodes[0].nodes[2].term).toBe('deer');
+      expect(groupedQueryTree.nodes[0].nodes[2].fieldType).toBe('string');
     });
   });
 });
