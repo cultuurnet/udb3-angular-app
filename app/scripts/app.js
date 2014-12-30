@@ -32,6 +32,7 @@ angular
     '$translateProvider',
     'uiSelectConfig',
     'appConfig',
+    'queryFieldTranslations',
     function (
       $routeProvider,
       $locationProvider,
@@ -39,7 +40,8 @@ angular
       $sceDelegateProvider,
       $translateProvider,
       uiSelectConfig,
-      appConfig
+      appConfig,
+      queryFieldTranslations
     ) {
       $routeProvider
         .when('/', {
@@ -73,49 +75,16 @@ angular
         appConfig.baseUrl + '**'
       ]);
 
+      var dutchTranslations = {
+        'EN_ADJECTIVE': 'Engelse',
+        'FR_ADJECTIVE': 'Franse',
+        'DE_ADJECTIVE': 'Duitse',
+        'NL_ADJECTIVE': 'Nederlandse'
+      };
+      dutchTranslations = _.merge(dutchTranslations, queryFieldTranslations.nl);
+
       $translateProvider
-        .translations('nl', {
-          'EN_ADJECTIVE': 'Engelse',
-          'FR_ADJECTIVE': 'Franse',
-          'DE_ADJECTIVE': 'Duitse',
-          'NL_ADJECTIVE': 'Nederlandse',
-          'TYPE' : 'type',
-          'CDBID' : 'cdbid',
-          'TITLE' : 'titel',
-          'KEYWORDS' : 'label',
-          'ORGANISER_KEYWORDS': 'organiser-tag',
-          'CITY' : 'gemeente',
-          'ZIPCODE' : 'postcode',
-          'COUNTRY' : 'land',
-          'PHYSICAL_GIS' : 'geo',
-          'CATEGORY_NAME' : 'categorie',
-          'AGEFROM' : 'leeftijd-vanaf',
-          'DETAIL_LANG' : 'vertaling',
-          'PRICE' : 'prijs',
-          'STARTDATE' : 'start-datum',
-          'ENDDATE' : 'eind-datum',
-          'ORGANISER_LABEL' : 'organisatie',
-          'LOCATION_LABEL' : 'locatie',
-          'EXTERNALID' : 'externalid',
-          'LASTUPDATED' : 'laatst-aangepast',
-          'LASTUPDATEDBY' : 'laatst-aangepast-door',
-          'CREATIONDATE' : 'gecreeerd',
-          'CREATEDBY' : 'gecreeerd-door',
-          'PERMANENT' : 'permanent',
-          'DATETYPE' : 'wanneer',
-          'CATEGORY_EVENTTYPE_NAME' : 'event-type',
-          'CATEGORY_THEME_NAME' : 'thema',
-          'CATEGORY_FACILITY_NAME' : 'voorziening',
-          'CATEGORY_TARGETAUDIENCE_NAME' : 'doelgroep',
-          'CATEGORY_FLANDERSREGION_NAME' : 'regio',
-          'CATEGORY_PUBLICSCOPE_NAME' : 'publieksbereik',
-          'LIKE_COUNT' : 'aantal-likes',
-          'RECOMMEND_COUNT' : 'keren-aanbevolen',
-          'ATTEND_COUNT' : 'aantal-ik-ga',
-          'COMMENT_COUNT' : 'aantal-commentaar',
-          'PRIVATE' : 'prive',
-          'AVAILABLEFROM' : 'datum-beschikbaar'
-        })
+        .translations('nl', dutchTranslations)
         .preferredLanguage('nl');
 
       uiSelectConfig.theme = 'bootstrap';

@@ -8,7 +8,7 @@
  * Value in the udbApp.
  */
 angular.module('udbApp')
-  .value('queryFieldTranslations', {
+  .constant('queryFieldTranslations', {
     en: {
       'KEYWORDS' : 'label',
       'PHYSICAL_GIS' : 'geo',
