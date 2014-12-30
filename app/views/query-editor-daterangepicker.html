@@ -1,5 +1,5 @@
 <div>
-    <p class="input-group">
+    <p class="input-group" ng-hide="field.transformer === '<'">
         <input type="text" class="form-control" datepicker-popup="{{drp.dateFormat}}" ng-model="field.term_min"
                is-open="drp.startOpened" ng-required="true" close-text="Close"/>
         <span class="input-group-btn">
@@ -9,9 +9,9 @@
         </span>
     </p>
 
-    tot
+    <span ng-hide="field.transformer === '<' || field.transformer === '>'">tot</span>
 
-    <p class="input-group">
+    <p class="input-group" ng-hide="field.transformer === '>'">
         <input type="text" class="form-control" datepicker-popup="{{drp.dateFormat}}" ng-model="field.term_max"
                is-open="drp.endOpened"
                ng-required="true" close-text="Close"/>

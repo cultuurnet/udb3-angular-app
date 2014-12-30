@@ -21,7 +21,13 @@
                     </select>
                 </div>
 
-                <div class="col-sm-7 field-query-term" ng-switch="field.fieldType">
+                <div class="col-sm-1 field-transformer">
+                    <select ng-options="transformer for transformer in ['=', '<>', '<', '>']"
+                            ng-model="field.transformer" class="form-control">
+                    </select>
+                </div>
+
+                <div class="col-sm-6 field-query-term" ng-switch="field.fieldType">
                     <div ng-switch-when="string">
                         <input  type="text" ng-model="field.term"
                                 class="form-control"/>

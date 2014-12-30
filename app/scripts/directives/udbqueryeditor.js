@@ -64,7 +64,8 @@ angular
           var field = {
             field: 'type',
             term: '',
-            fieldType: 'string'
+            fieldType: 'string',
+            transformer: '='
           };
 
           group.nodes.push(field);

@@ -198,13 +198,16 @@ angular.module('udbApp')
             if(fieldIndex) {
               nodeString += ' ' + node.operator + ' ';
             }
-            nodeString += field.field + ':' + printTerm(field);
+
+            var transformedField = transformField(field);
+            nodeString += transformedField.field + ':' + printTerm(transformedField);
           });
 
           nodeString += ')';
         } else if (node.type === 'field') {
           var field = node.nodes[0];
-          nodeString = field.field + ':' + printTerm(field);
+          var transformedField = transformField(field);
+          nodeString = transformedField.field + ':' + printTerm(transformedField);
         } else {
           console.log('node type not recognized?');
         }
@@ -218,6 +221,24 @@ angular.module('udbApp')
 
       return queryString;
     };
+
+    function transformField (originalField) {
+      var field = _.clone(originalField);
+
+      switch (field.transformer) {
+        case '<>':
+          field.field = '-' + field;
+          break;
+        case '<':
+          field.term_min = '*'; // jshint ignore:line
+          break;
+        case '>':
+          field.term_max = '*'; // jshint ignore:line
+          break;
+      }
+
+      return field;
+    }
 
     /**
      * @description
@@ -245,7 +266,8 @@ angular.module('udbApp')
             {
               field: 'type',
               term: '',
-              fieldType: 'string'
+              fieldType: 'string',
+              transformer: '='
             }
           ]
         };
@@ -402,7 +424,8 @@ angular.module('udbApp')
           }),
           field = {
             field: fieldName || node.field,
-            fieldType: fieldType || 'string'
+            fieldType: fieldType || 'string',
+            transformer: node.prefix === '-' ? '<>' : '='
           };
 
       if(node.term_min || node.term_max) { // jshint ignore:line
