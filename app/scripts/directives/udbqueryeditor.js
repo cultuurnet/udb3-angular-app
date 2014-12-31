@@ -118,7 +118,8 @@ angular
               {
                 field: 'type',
                 term: '',
-                fieldType: 'string'
+                fieldType: 'string',
+                transformer: '='
               }
             ]
           };
