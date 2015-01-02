@@ -201,6 +201,9 @@ module.exports = function (grunt) {
           'overrides': {
             'socket.io-client': {
               'main': 'socket.io.js'
+            },
+            'angular-i18n' : {
+              'main': 'angular-locale_nl-be.js'
             }
           }
         }
