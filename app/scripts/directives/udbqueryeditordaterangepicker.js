@@ -7,7 +7,7 @@
  * # udbQueryEditorDaterangepicker
  */
 angular.module('udbApp')
-  .directive('udbQueryEditorDaterangepicker', function () {
+  .directive('udbQueryEditorDaterangepicker', function ($translate, datepickerPopupConfig) {
     return {
       templateUrl: 'views/query-editor-daterangepicker.html',
       restrict: 'E',
@@ -18,6 +18,14 @@ angular.module('udbApp')
           endOpened: false,
           dateFormat: 'yyyy-MM-dd'
         };
+
+        $translate(['datepicker.CURRENT', 'datepicker.CLEAR', 'datepicker.CLOSE']).then(function (translations) {
+          datepickerPopupConfig.currentText = translations['datepicker.CURRENT'];
+          datepickerPopupConfig.clearText = translations['datepicker.CLEAR'];
+          datepickerPopupConfig.closeText = translations['datepicker.CLOSE'];
+        });
+
+        console.log(dateRangePicker);
 
         dateRangePicker.openStart = function ($event) {
           $event.preventDefault();

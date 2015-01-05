@@ -1,7 +1,7 @@
 <div>
     <p class="input-group" ng-hide="field.transformer === '<'">
         <input type="text" class="form-control" datepicker-popup="{{drp.dateFormat}}" ng-model="field.term_min"
-               is-open="drp.startOpened" ng-required="true" close-text="Close"/>
+               is-open="drp.startOpened" ng-required="true" datepicker-options="drp.options"/>
         <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="drp.openStart($event)">
                 <i class="fa fa-calendar"></i>
@@ -13,8 +13,7 @@
 
     <p class="input-group" ng-hide="field.transformer === '>'">
         <input type="text" class="form-control" datepicker-popup="{{drp.dateFormat}}" ng-model="field.term_max"
-               is-open="drp.endOpened"
-               ng-required="true" close-text="Close"/>
+               is-open="drp.endOpened" ng-required="true" datepicker-options="drp.options"/>
         <span class="input-group-btn">
             <button type="button" class="btn btn-default" ng-click="drp.openEnd($event)">
                 <i class="fa fa-calendar"></i>

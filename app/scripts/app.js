@@ -75,17 +75,24 @@ angular
         appConfig.baseUrl + '**'
       ]);
 
+      // Translation configuration
       var dutchTranslations = {
         'EN_ADJECTIVE': 'Engelse',
         'FR_ADJECTIVE': 'Franse',
         'DE_ADJECTIVE': 'Duitse',
-        'NL_ADJECTIVE': 'Nederlandse'
+        'NL_ADJECTIVE': 'Nederlandse',
+        'datepicker': {
+          'CURRENT': 'Vandaag',
+          'CLEAR': 'Verwijder',
+          'CLOSE': 'Sluiten'
+        }
       };
       dutchTranslations = _.merge(dutchTranslations, queryFieldTranslations.nl);
 
       $translateProvider
         .translations('nl', dutchTranslations)
         .preferredLanguage('nl');
+      // end of translation configuration
 
       uiSelectConfig.theme = 'bootstrap';
     }])
