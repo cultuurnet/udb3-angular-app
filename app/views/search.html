@@ -24,42 +24,6 @@
     </div>
 </script>
 
-<div class="main-search">
-    <form class="form-horizontal" role="form">
-        <div class="form-group" ng-class="{'has-error': queryErrors.length}">
-            <label for="main-search" class="col-sm-1 control-label">
-                Zoeken
-            </label>
-
-            <div class="col-sm-11">
-                <div class="input-group">
-                    <input type="text" name="main-search" value="main-search"
-                           ng-model="searchQuery"
-                           placeholder="schrijf een zoekopdracht" class="main-search-input form-control">
-
-                    <div class="input-group-btn main-search-button">
-                        <button type="submit" class="btn btn-default">
-                            <span class="fa fa-search"></span>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="query-errors col-sm-11 col-sm-offset-1">
-                <span ng-repeat="error in queryErrors" class="help-block">
-                  {{error}}
-                </span>
-            </div>
-
-            <div class="col-sm-11 col-sm-offset-1" ng-show="realQuery">
-                <span class="help-block">
-                  real query: <strong>{{realQuery}}</strong>
-                </span>
-            </div>
-        </div>
-    </form>
-</div>
-
 <div class="row rv-result-viewer">
   <div class="col-sm-12 search-results" ng-class="{loading: resultViewer.loading}">
 
@@ -97,7 +61,7 @@
       </div>
 
     <p class="rv-no-result-notice" ng-show="!resultViewer.loading && resultViewer.totalItems === 0" ng-cloak>
-        Geen zoekresultaten gevonden, probeer opnieuw.
+        Geen evenementen gevonden, probeer een andere zoekopdracht.
     </p>
 
     <div ng-show="resultViewer.totalItems">
@@ -302,6 +266,12 @@
 
       <pagination total-items="resultViewer.totalItems" ng-model="resultViewer.currentPage" items-per-page="resultViewer.pageSize" ng-show="resultViewer.totalItems > 0"
         ng-change="resultViewer.pageChanged()" max-size="10"></pagination>
+
+    <div class="col-sm-12" ng-show="realQuery">
+        <span class="help-block">
+          uitgevoerde query: <strong>{{realQuery}}</strong>
+        </span>
+    </div>
     </div>
   </div>
     <div class="rv-loading-overlay" ng-show="resultViewer.loading">
