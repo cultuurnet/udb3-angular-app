@@ -25,8 +25,6 @@ angular.module('udbApp')
           datepickerPopupConfig.closeText = translations['datepicker.CLOSE'];
         });
 
-        console.log(dateRangePicker);
-
         dateRangePicker.openStart = function ($event) {
           $event.preventDefault();
           $event.stopPropagation();
