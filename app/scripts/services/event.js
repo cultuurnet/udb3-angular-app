@@ -64,11 +64,12 @@ angular.module('udbApp')
         this.labels = _.map(jsonEvent.keywords, function (label) {
           return label;
         });
-        if (jsonEvent.organiser) {
-          this.organiser = {
-            name: jsonEvent.organiser.name,
-            email: jsonEvent.organiser.email[0] || '-',
-            phone: jsonEvent.organiser.phone[0] || '-'
+        if (jsonEvent.organizer) {
+          console.log(jsonEvent.organizer);
+          this.organizer = {
+            name: jsonEvent.organizer.name,
+            email: jsonEvent.organizer.email ? (jsonEvent.organizer.email[0] || '-') : '-',
+            phone: jsonEvent.organizer.phone ? (jsonEvent.organizer.phone[0] || '-') : '-'
           };
         }
         if (jsonEvent.bookingInfo && jsonEvent.bookingInfo.length > 0) {

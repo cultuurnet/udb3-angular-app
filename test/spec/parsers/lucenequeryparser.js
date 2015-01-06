@@ -57,6 +57,7 @@ describe('Service: LuceneQueryParser', function () {
       var results = lucenequeryparser.parse('"fizz buzz"');
 
       expect(results['left']['term']).toBe('fizz buzz');
+      expect(results['left']['quoted']).toBe(true);
     });
   });
 

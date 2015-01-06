@@ -26,30 +26,30 @@ angular.module('udbApp')
        */
       this.findEvents = function (queryString, start) {
         var deferredEvents = $q.defer(),
-            offset = start || 0;
+            offset = start || 0,
+            searchParams = {
+              start: offset
+            };
 
-        if (queryString.length) {
-          var request = $http.get(apiUrl + 'search', {
-            params: {
-              'query': queryString,
-              'start': offset
-            },
-            withCredentials: true,
-            headers: {
-              'Accept': 'application/ld+json'
-            }
-          });
-          request
-              .success(function (data) {
-                deferredEvents.resolve(data);
-              })
-              .error(function () {
-                deferredEvents.reject();
-              });
+        if(queryString.length) {
+          searchParams.query = queryString;
         }
-        else {
-          deferredEvents.resolve({});
-        }
+
+        var request = $http.get(apiUrl + 'search', {
+          params: searchParams,
+          withCredentials: true,
+          headers: {
+            'Accept': 'application/ld+json'
+          }
+        });
+
+        request
+        .success(function (data) {
+          deferredEvents.resolve(data);
+        })
+        .error(function () {
+          deferredEvents.reject();
+        });
 
         return deferredEvents.promise;
       };

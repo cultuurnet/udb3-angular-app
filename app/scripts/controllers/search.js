@@ -8,10 +8,23 @@
  * Controller of the udbApp
  */
 angular.module('udbApp')
-  .controller('SearchCtrl', function ($scope, udbApi, LuceneQueryBuilder, $window, $location, $modal, SearchResultViewer, eventTagger) {
+  .controller('SearchCtrl', function (
+    $scope,
+    udbApi,
+    LuceneQueryBuilder,
+    $window,
+    $location,
+    $modal,
+    SearchResultViewer,
+    eventTagger,
+    searchHelper
+  ) {
     var queryBuilder = LuceneQueryBuilder;
 
-    $scope.searchQuery = '';
+    function getSearchQuery () {
+      return searchHelper.getQuery();
+    }
+
     $scope.resultViewer = new SearchResultViewer();
     $scope.queryErrors = [];
     $scope.realQuery = false;
@@ -26,8 +39,8 @@ angular.module('udbApp')
       }
 
       if(searchParams.query) {
-        var query = String(searchParams.query);
-        $scope.searchQuery = query || '';
+        var queryString = String(searchParams.query) || '';
+        searchHelper.setQueryString(queryString);
       }
     }, true);
 
@@ -67,7 +80,7 @@ angular.module('udbApp')
       // Check if a query string is defined else clear the relevant search parameters.
       if(queryString) {
         $location.search({
-          'query' : $scope.searchQuery,
+          'query' : getSearchQuery().queryString,
           'page' : String($scope.resultViewer.currentPage)
         });
       } else {
@@ -141,9 +154,11 @@ angular.module('udbApp')
     $scope.tagSelection = tagSelection;
     $scope.tagActiveQuery = tagActiveQuery;
 
-    $scope.$watch('searchQuery', function (queryString) {
+    $scope.$watch(function () {
+      var query = getSearchQuery();
+      return query.queryString;
+    }, function (queryString) {
       var query = queryBuilder.createQuery(queryString);
-
       $scope.activeQuery = query;
 
       if(queryBuilder.isValid(query)) {

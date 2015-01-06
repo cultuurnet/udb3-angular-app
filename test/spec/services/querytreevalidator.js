@@ -46,7 +46,6 @@ describe('Service: QueryTreeValidator', function () {
     QueryTreeValidator.validate(queryTree, errors);
 
     expect(errors.length).toBe(0);
-
   });
 
 });
