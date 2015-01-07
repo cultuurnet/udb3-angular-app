@@ -148,7 +148,13 @@ angular.module('udbApp')
               term = printTerm(branch);
 
           if(branch.field !== implicitToken && branch.field !== null) {
-            fieldQuery += (branch.field + ':');
+            var fieldPrefix = '';
+
+            if(_.contains(['!', '+', '-'], branch.transformer)) {
+              fieldPrefix = branch.transformer;
+            }
+
+            fieldQuery += (fieldPrefix + branch.field + ':');
           }
 
           fieldQuery += term;
@@ -226,7 +232,13 @@ angular.module('udbApp')
       var field = _.clone(originalField);
 
       switch (field.transformer) {
-        case '<>':
+        case '!':
+          field.field = '!' + field.field;
+          break;
+        case '+':
+          field.field = '+' + field.field;
+          break;
+        case '-':
           field.field = '-' + field.field;
           break;
         case '<':
@@ -319,13 +331,13 @@ angular.module('udbApp')
             // if no matching taxonomy term is found the query-field should be removed
             if(fieldType.type === 'term') {
               var taxonomyTerm = _.find(taxonomyTerms, function (term) {
-                return term._label.toUpperCase() === field.term.toUpperCase();
+                return term.label.toUpperCase() === field.term.toUpperCase();
               });
 
               if(taxonomyTerm) {
-                var domainFieldName = 'category_' + taxonomyTerm._domain + '_name';
+                var domainFieldName = 'category_' + taxonomyTerm.domain + '_name';
                 field.field = domainFieldName;
-                field.term = taxonomyTerm._label;
+                field.term = taxonomyTerm.label;
               } else {
                 field.invalid = true;
               }
@@ -425,7 +437,7 @@ angular.module('udbApp')
           field = {
             field: fieldName || node.field,
             fieldType: fieldType || 'string',
-            transformer: node.prefix === '-' ? '<>' : '='
+            transformer: node.transformer || '='
           };
 
       if(node.term_min || node.term_max) { // jshint ignore:line

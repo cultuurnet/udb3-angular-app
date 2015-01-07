@@ -141,16 +141,25 @@ field_exp
 
         return range;
     }
-  / fieldname:fieldname node:paren_exp
+  / po:prefix_operator? fieldname:fieldname node:paren_exp
     {
         node['field']= fieldname;
+
+        if(po) {
+            node.transformer = po;
+        }
+
         return node;
     }
-  / fieldname:fieldname? term:term
+  / po:prefix_operator? fieldname:fieldname? term:term
     {
         var fieldexp = {
             'field': (fieldname || '<implicit>')
             };
+
+        if(po) {
+            fieldexp.transformer = po;
+        }
 
         for(var key in term)
             fieldexp[key] = term[key];
@@ -165,7 +174,7 @@ fieldname
     }
 
 unquoted_field
-  = first_character:[^: \t\r\n\f\{\}()+\-"^~\[\]] field:field_char*
+  = first_character:[^: \t\r\n\f\{\}()+\-\!"^~\[\]] field:field_char*
     {
         return first_character + field.join('');
     }
@@ -191,7 +200,7 @@ term
             result['prefix'] = op;
         }
 
-        return result;1
+        return result;
     }
   / op:prefix_operator_exp? term:unquoted_term similarity:fuzzy_modifier? boost:boost_modifier? _*
     {
@@ -306,6 +315,7 @@ prefix_operator_exp
 prefix_operator
   = '+'
   / '-'
+  / '!'
 
 _ "whitespace"
   = [ \t\r\n\f]+

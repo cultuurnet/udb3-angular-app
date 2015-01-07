@@ -85,7 +85,16 @@ angular
           'CURRENT': 'Vandaag',
           'CLEAR': 'Verwijder',
           'CLOSE': 'Sluiten'
-        }
+        },
+        '=': 'is',
+        '+': 'bevat',
+        '!': 'is niet',
+        '-': 'bevat niet',
+        '>': 'is groter dan',
+        '<': 'is kleiner dan',
+        '>_DATE': 'is vroeger dan',
+        '<_DATE': 'is later dan',
+        '=_DATE': 'is'
       };
       dutchTranslations = _.merge(dutchTranslations, queryFieldTranslations.nl);
 
