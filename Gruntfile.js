@@ -364,6 +364,11 @@ module.exports = function (grunt) {
           cwd: 'bower_components/components-font-awesome',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>'
+        },{
+          expand: true,
+          cwd: '<%= yeoman.app %>/css',
+          dest: '.tmp/css/',
+          src: '{,*/}*.css'
         }]
       },
       styles: {
@@ -391,7 +396,6 @@ module.exports = function (grunt) {
         'copy:fonts'
       ],
       dist: [
-        'copy:styles',
         'copy:fonts',
         'imagemin',
         'svgmin'
