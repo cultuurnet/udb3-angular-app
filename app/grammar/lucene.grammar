@@ -161,6 +161,10 @@ field_exp
             fieldexp.transformer = po;
         }
 
+        if(!fieldname && po) {
+            fieldexp.prefix = po;
+        }
+
         for(var key in term)
             fieldexp[key] = term[key];
 
