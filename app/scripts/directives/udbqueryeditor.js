@@ -33,7 +33,7 @@ angular
         var qe = this,
             queryBuilder = LuceneQueryBuilder;
 
-        qe.fields = queryFields;
+        qe.fields = _.difference(queryFields, ['category_name']);
         qe.operators = ['AND', 'OR'];
         qe.groupedQueryTree = {
           operator: 'OR',
