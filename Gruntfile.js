@@ -441,15 +441,19 @@ module.exports = function (grunt) {
         dest: '<%= yeoman.app %>/scripts/config.js'
       },
       dev: {
-        constants:  {
-          appConfig: grunt.file.readJSON('config.json'),
-          taxonomyTerms: getTaxonomyTerms()
+        constants: function() {
+          return {
+            appConfig: grunt.file.readJSON('config.json'),
+            taxonomyTerms: getTaxonomyTerms()
+          };
         }
       },
       dist: {
-        constants: {
-          appConfig: grunt.file.readJSON('config.json'),
-          taxonomyTerms: getTaxonomyTerms()
+        constants: function() {
+          return {
+            appConfig: grunt.file.readJSON('config.json'),
+            taxonomyTerms: getTaxonomyTerms()
+          };
         }
       }
     },
