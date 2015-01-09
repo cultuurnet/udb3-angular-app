@@ -5,16 +5,20 @@
  * @name udbApp.queryFieldTypes
  * @description
  * # queryFieldTypes
- * Query field types, possible types:
- * -string
- * -term
+ * Query field types:
+ * - string
+ * - tokenized-string
+ * - choice
+ * - check
+ * - date-range
+ * - term
  */
 angular.module('udbApp')
   .value('queryFieldTypes', [
     {name: 'type', type: 'choice', options: ['event', 'actor', 'production']},
     {name: 'cdbid', type: 'string'},
     {name: 'title', type: 'string'},
-    {name: 'keywords', type: 'string'},
+    {name: 'keywords', type: 'tokenized-string'},
     {name: 'organiser_keywords', type: 'string'},
     {name: 'city', type: 'string'},
     {name: 'zipcode', type: 'string'},
@@ -28,11 +32,11 @@ angular.module('udbApp')
     {name: 'enddate', type: 'date-range'},
     {name: 'organiser_label', type: 'string'},
     {name: 'location_label', type: 'string'},
-    {name: 'externalid', type: 'string'},
+    {name: 'externalid', type: 'tokenized-string'},
     {name: 'lastupdated', type: 'date-range'},
-    {name: 'lastupdatedby', type: 'string'},
+    {name: 'lastupdatedby', type: 'tokenized-string'},
     {name: 'creationdate', type: 'date-range'},
-    {name: 'createdby', type: 'string'},
+    {name: 'createdby', type: 'tokenized-string'},
     {name: 'permanent', type: 'check'},
     {name: 'datetype', type: 'choice', options: ['today', 'tomorrow', 'thisweekend', 'nextweekend', 'next7days', 'next14days', 'next30days', 'next3months', 'next6months', 'next12months', 'permanent']},
     {name: 'category_eventtype_name', type: 'term'},

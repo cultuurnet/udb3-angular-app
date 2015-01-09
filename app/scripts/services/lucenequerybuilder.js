@@ -235,9 +235,6 @@ angular.module('udbApp')
         case '!':
           field.field = '!' + field.field;
           break;
-        case '+':
-          field.field = '+' + field.field;
-          break;
         case '-':
           field.field = '-' + field.field;
           break;
@@ -362,6 +359,26 @@ angular.module('udbApp')
                 field.term = field.term.toUpperCase();
               } else {
                 field.invalid = true;
+              }
+            }
+
+            if(fieldType.type === 'string') {
+              if(!field.transformer || field.transformer === '=') {
+                field.transformer = '+';
+              }
+
+              if(field.transformer === '!') {
+                field.transformer = '-';
+              }
+            }
+
+            if(fieldType.type === 'tokenized-string') {
+              if(!field.transformer || field.transformer === '+') {
+                field.transformer = '=';
+              }
+
+              if(field.transformer === '-') {
+                field.transformer = '!';
               }
             }
           }

@@ -9,7 +9,8 @@
  */
 angular.module('udbApp')
   .value('fieldTypeTransformers', {
-    'string': ['=', '+', '!', '-'],
+    'string': ['+', '-'],
+    'tokenized-string': ['=', '!'],
     'choice': ['=', '!'],
     'term': ['=', '!'],
     'number': ['=', '<', '>'],

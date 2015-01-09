@@ -46,7 +46,6 @@ angular.module('udbApp')
         scope.$watch(function () {
           return searchHelper.getQuery();
         }, function (query) {
-          console.log(query);
           scope.sb.query = query.queryString;
 
           if(query.errors && query.errors.length) {

@@ -8,7 +8,14 @@
  */
 angular
   .module('udbApp')
-  .directive('udbQueryEditor', function ( queryFields, queryFieldTypes, LuceneQueryBuilder, taxonomyTerms, fieldTypeTransformers) {
+  .directive('udbQueryEditor', function (
+    queryFields,
+    queryFieldTypes,
+    LuceneQueryBuilder,
+    taxonomyTerms,
+    fieldTypeTransformers,
+    searchHelper
+  ) {
     return {
       templateUrl: 'views/query-editor.html',
       restrict: 'E',
@@ -51,7 +58,7 @@ angular
          * Update the search input field with the data from the query editor
          */
         qe.updateQueryString = function () {
-          $scope.searchQuery = queryBuilder.unparseGroupedTree(qe.groupedQueryTree);
+          searchHelper.setQueryString(queryBuilder.unparseGroupedTree(qe.groupedQueryTree));
         };
 
         /**
@@ -143,6 +150,10 @@ angular
               field.inclusive = true;
             } else {
               field.term = '';
+            }
+
+            if(!field.transformer || !_.contains(fieldTypeTransformers[fieldType.type], field.transformer)) {
+              field.transformer = _.first(fieldTypeTransformers[fieldType.type]);
             }
 
             field.fieldType = fieldType.type;
