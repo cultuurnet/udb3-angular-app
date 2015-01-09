@@ -155,6 +155,10 @@ angular
               field.inclusive = undefined;
             }
 
+            if(fieldType.type === 'check') {
+              field.term = 'TRUE';
+            }
+
             if(!field.transformer || !_.contains(fieldTypeTransformers[fieldType.type], field.transformer)) {
               field.transformer = _.first(fieldTypeTransformers[fieldType.type]);
             }
