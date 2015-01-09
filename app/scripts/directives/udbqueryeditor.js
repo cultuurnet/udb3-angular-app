@@ -71,10 +71,10 @@ angular
           var group = root.nodes[groupIndex];
 
           var field = {
-            field: 'type',
+            field: 'title',
             term: '',
             fieldType: 'string',
-            transformer: '='
+            transformer: '+'
           };
 
           group.nodes.push(field);
@@ -125,10 +125,10 @@ angular
             operator: 'OR',
             nodes: [
               {
-                field: 'type',
+                field: 'title',
                 term: '',
                 fieldType: 'string',
-                transformer: '='
+                transformer: '+'
               }
             ]
           };
