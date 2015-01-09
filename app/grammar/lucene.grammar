@@ -189,7 +189,7 @@ field_char
 term
   = op:prefix_operator_exp? term:quoted_term proximity:proximity_modifier? boost:boost_modifier? _*
       {
-        var result = { 'term': term };
+        var result = { 'term': term, 'quoted': true };
 
         if(proximity)
         {

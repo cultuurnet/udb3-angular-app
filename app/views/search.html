@@ -1,46 +1,9 @@
-<div class="main-search">
-    <form class="form-horizontal" role="form">
-        <div class="form-group" ng-class="{'has-error': queryErrors.length}">
-            <label for="main-search" class="col-sm-1 control-label">
-                Zoeken
-            </label>
+<udb-query-editor ng-show="queryEditorShown"></udb-query-editor>
 
-            <div class="col-sm-11">
-                <div class="input-group">
-                    <input type="text" name="main-search" value="main-search"
-                           ng-model="searchQuery"
-                           placeholder="schrijf een zoekopdracht" class="main-search-input form-control">
-
-                    <div class="input-group-btn main-search-button">
-                        <button type="submit" class="btn btn-default"
-                                ng-click="editQuery()">
-                            <i class="fa fa-flask"></i>
-                        </button>
-                    </div>
-                </div>
-            </div>
-
-            <div class="query-errors col-sm-11 col-sm-offset-1">
-                <span ng-repeat="error in queryErrors" class="help-block">
-                  {{error}}
-                </span>
-            </div>
-
-            <div class="col-sm-11 col-sm-offset-1" ng-show="realQuery">
-                <span class="help-block">
-                  real query: <strong>{{realQuery}}</strong>
-                </span>
-            </div>
-        </div>
-    </form>
-
-    <udb-query-editor ng-show="queryEditorShown"></udb-query-editor>
-</div>
-
-<div class="row">
+<div class="row rv-result-viewer">
   <div class="col-sm-12 search-results" ng-class="{loading: resultViewer.loading}">
 
-      <div class="rv-controls">
+      <div class="rv-controls" ng-show="resultViewer.totalItems">
           <div class="row">
               <div class="col-xs-12">
                   <ul class="nav nav-pills" role="tablist">
@@ -73,7 +36,9 @@
           </div>
       </div>
 
-    <p ng-hide="resultViewer.totalItems">Geen evenementen gevonden, probeer een andere zoekopdracht.</p>
+    <p class="rv-no-result-notice" ng-show="!resultViewer.loading && resultViewer.totalItems === 0" ng-cloak>
+        Geen evenementen gevonden, probeer een andere zoekopdracht.
+    </p>
 
     <div ng-show="resultViewer.totalItems">
         <div class="rv-item-info">
@@ -149,7 +114,7 @@
               </div>
 
               <div class="col-sm-3" class="rv-specific-event-info">
-                  <div class="rv-event-info-input udb-organiser"
+                  <div class="rv-event-info-input udb-organizer"
                        ng-show="resultViewer.activeSpecific.id === 'input'">
                       <div>
                           <span class="fa fa-clock-o"></span>&nbsp;
@@ -159,9 +124,9 @@
                           <span class="fa fa-user"></span>&nbsp;
                           <span ng-bind="event.creator"></span>
                       </div>
-                      <div ng-if="event.organiser">
+                      <div class="udb-organizer-name">
                           <span class="fa fa-building-o"></span>&nbsp;
-                          <span ng-bind="event.organiser.name"></span>
+                          <span ng-bind="event.organizer ? event.organizer.name : '-'"></span>
                       </div>
                   </div>
 
@@ -277,6 +242,15 @@
 
       <pagination total-items="resultViewer.totalItems" ng-model="resultViewer.currentPage" items-per-page="resultViewer.pageSize" ng-show="resultViewer.totalItems > 0"
         ng-change="resultViewer.pageChanged()" max-size="10"></pagination>
+
+    <div class="col-sm-12" ng-show="realQuery">
+        <span class="help-block">
+          uitgevoerde query: <strong>{{realQuery}}</strong>
+        </span>
+    </div>
     </div>
   </div>
+    <div class="rv-loading-overlay" ng-show="resultViewer.loading">
+        <i class="fa fa-circle-o-notch fa-spin"></i> Zoeken…
+    </div>
 </div>

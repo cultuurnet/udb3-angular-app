@@ -8,7 +8,7 @@
  * Service in the udbApp.
  */
 angular.module('udbApp')
-  .service('authorizationService', function ($q, $rootScope, uitidAuth, udbApi) {
+  .service('authorizationService', function ($q, uitidAuth, udbApi, $location) {
     this.isLoggedIn = function () {
       var deferred = $q.defer();
 
@@ -26,5 +26,25 @@ angular.module('udbApp')
       );
 
       return deferred.promise;
+    };
+
+    this.redirectIfLoggedIn = function (path) {
+      if (uitidAuth.getUser()) {
+        $location.path(path);
+
+        return true;
+      } else {
+        var userPromise = udbApi.getMe(),
+            deferred = $q.defer();
+
+        userPromise.then(function () {
+          deferred.reject();
+          $location.path(path);
+        }, function () {
+          deferred.resolve(true);
+        });
+
+        return deferred.promise;
+      }
     };
   });

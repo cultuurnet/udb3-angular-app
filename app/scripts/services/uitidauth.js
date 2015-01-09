@@ -19,8 +19,10 @@ angular.module('udbApp')
             withCredentials: true
           });
 
-      $cookieStore.remove('user');
-      $location.path('/');
+      request.then(function () {
+        $cookieStore.remove('user');
+        $location.path('/');
+      });
 
       return request;
     };

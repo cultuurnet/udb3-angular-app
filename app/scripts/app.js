@@ -46,7 +46,12 @@ angular
       $routeProvider
         .when('/', {
           templateUrl: 'views/main.html',
-          controller: 'MainCtrl'
+          controller: 'MainCtrl',
+          resolve: {
+            redirect: function (authorizationService) {
+              return authorizationService.redirectIfLoggedIn('/search');
+            }
+          }
         })
         .when('/about', {
           templateUrl: 'views/about.html',
@@ -57,7 +62,7 @@ angular
           controller: 'SearchCtrl',
           reloadOnSearch: false,
           resolve: {
-            permission: function (authorizationService, $route) {
+            permission: function (authorizationService) {
               return authorizationService.isLoggedIn();
             }
           }
