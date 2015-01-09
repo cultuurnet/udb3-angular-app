@@ -150,6 +150,9 @@ angular
               field.inclusive = true;
             } else {
               field.term = '';
+              field.term_min = undefined; // jshint ignore:line
+              field.term_max = undefined; // jshint ignore:line
+              field.inclusive = undefined;
             }
 
             if(!field.transformer || !_.contains(fieldTypeTransformers[fieldType.type], field.transformer)) {
