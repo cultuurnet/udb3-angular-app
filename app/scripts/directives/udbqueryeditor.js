@@ -73,7 +73,7 @@ angular
           var field = {
             field: 'title',
             term: '',
-            fieldType: 'string',
+            fieldType: 'tokenized-string',
             transformer: '+'
           };
 
@@ -127,7 +127,7 @@ angular
               {
                 field: 'title',
                 term: '',
-                fieldType: 'string',
+                fieldType: 'tokenized-string',
                 transformer: '+'
               }
             ]

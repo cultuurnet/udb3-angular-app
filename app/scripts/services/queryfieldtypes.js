@@ -15,7 +15,6 @@
  */
 angular.module('udbApp')
   .value('queryFieldTypes', [
-    {name: 'type', type: 'choice', options: ['event', 'actor', 'production']},
     {name: 'cdbid', type: 'string'},
     {name: 'title', type: 'tokenized-string'},
     {name: 'keywords', type: 'string'},

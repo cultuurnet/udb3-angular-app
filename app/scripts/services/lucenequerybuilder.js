@@ -273,10 +273,10 @@ angular.module('udbApp')
           operator: 'OR',
           nodes: [
             {
-              field: 'type',
+              field: 'title',
               term: '',
-              fieldType: 'string',
-              transformer: '='
+              fieldType: 'tokenized-string',
+              transformer: '+'
             }
           ]
         };

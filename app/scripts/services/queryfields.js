@@ -9,7 +9,6 @@
  */
 angular.module('udbApp')
   .value('queryFields', [
-    'type',
     'cdbid',
     'title',
     'keywords',
