@@ -16,7 +16,7 @@ angular.module('udbApp')
         var dateRangePicker = {
           startOpened: false,
           endOpened: false,
-          dateFormat: 'yyyy-MM-dd'
+          dateFormat: 'dd/MM/yyyy'
         };
 
         $translate(['datepicker.CURRENT', 'datepicker.CLEAR', 'datepicker.CLOSE']).then(function (translations) {
