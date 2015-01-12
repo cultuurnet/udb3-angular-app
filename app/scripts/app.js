@@ -33,6 +33,7 @@ angular
     'uiSelectConfig',
     'appConfig',
     'queryFieldTranslations',
+    'dutchTranslations',
     function (
       $routeProvider,
       $locationProvider,
@@ -41,7 +42,8 @@ angular
       $translateProvider,
       uiSelectConfig,
       appConfig,
-      queryFieldTranslations
+      queryFieldTranslations,
+      dutchTranslations
     ) {
       $routeProvider
         .when('/', {
@@ -81,30 +83,10 @@ angular
       ]);
 
       // Translation configuration
-      var dutchTranslations = {
-        'EN_ADJECTIVE': 'Engelse',
-        'FR_ADJECTIVE': 'Franse',
-        'DE_ADJECTIVE': 'Duitse',
-        'NL_ADJECTIVE': 'Nederlandse',
-        'datepicker': {
-          'CURRENT': 'Vandaag',
-          'CLEAR': 'Verwijder',
-          'CLOSE': 'Sluiten'
-        },
-        '=': 'is',
-        '+': 'bevat',
-        '!': 'is niet',
-        '-': 'bevat niet',
-        '>': 'is groter dan',
-        '<': 'is kleiner dan',
-        '>_DATE': 'is vroeger dan',
-        '<_DATE': 'is later dan',
-        '=_DATE': 'is'
-      };
-      dutchTranslations = _.merge(dutchTranslations, queryFieldTranslations.nl);
+      var defaultTranslations = _.merge(dutchTranslations, queryFieldTranslations.nl);
 
       $translateProvider
-        .translations('nl', dutchTranslations)
+        .translations('nl', defaultTranslations)
         .preferredLanguage('nl');
       // end of translation configuration
 

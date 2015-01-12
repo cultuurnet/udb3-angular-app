@@ -45,7 +45,7 @@
                     </div>
 
                     <div ng-switch-when="choice">
-                        <select ng-options="option for option in qe.termOptions[field.field]"
+                        <select ng-options="'choice.' + option | translate for option in ::qe.termOptions[field.field]"
                                 ng-model="field.term" class="form-control">
                             <option value="">-- maak een keuze --</option>
                         </select>
