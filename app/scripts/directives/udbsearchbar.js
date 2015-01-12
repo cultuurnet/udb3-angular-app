@@ -61,7 +61,7 @@ angular.module('udbApp')
           var formattedErrors = '';
 
           _.forEach(errors, function (error) {
-            formattedErrors += (error + '<br>');
+            formattedErrors += (error + '\n');
           });
 
           return formattedErrors;
