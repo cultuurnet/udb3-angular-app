@@ -34,6 +34,7 @@ angular
     'appConfig',
     'queryFieldTranslations',
     'dutchTranslations',
+    'datepickerPopupConfig',
     function (
       $routeProvider,
       $locationProvider,
@@ -43,7 +44,8 @@ angular
       uiSelectConfig,
       appConfig,
       queryFieldTranslations,
-      dutchTranslations
+      dutchTranslations,
+      datepickerPopupConfig
     ) {
       $routeProvider
         .when('/', {
@@ -91,6 +93,8 @@ angular
       // end of translation configuration
 
       uiSelectConfig.theme = 'bootstrap';
+
+      datepickerPopupConfig.dateFormat = 'dd/MM/yyyy';
     }])
   .run(function (udbApi, jobLogger, editableOptions) {
     udbApi.getMe();

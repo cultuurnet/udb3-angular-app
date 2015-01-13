@@ -70,8 +70,8 @@ angular.module('udbApp')
             isRangeExpression = (node.term_min || node.term_max); // jshint ignore:line
 
         if(isRangeExpression) {
-          var min = node.term_min, // jshint ignore:line
-              max = node.term_max, // jshint ignore:line
+          var min = node.term_min || '*', // jshint ignore:line
+              max = node.term_max || '*', // jshint ignore:line
               inclusive = node.inclusive;
 
           if(min instanceof Date) {
@@ -205,6 +205,7 @@ angular.module('udbApp')
               nodeString += ' ' + node.operator + ' ';
             }
 
+            cleanUpDateRangeField(field);
             var transformedField = transformField(field);
             nodeString += transformedField.field + ':' + printTerm(transformedField);
           });
@@ -212,6 +213,7 @@ angular.module('udbApp')
           nodeString += ')';
         } else if (node.type === 'field') {
           var field = node.nodes[0];
+          cleanUpDateRangeField(field);
           var transformedField = transformField(field);
           nodeString = transformedField.field + ':' + printTerm(transformedField);
         } else {
@@ -227,6 +229,43 @@ angular.module('udbApp')
 
       return queryString;
     };
+
+    function cleanUpDateRangeField(field) {
+      if(field.transformer === '=' && moment(field.term_min).isValid()) { // jshint ignore:line
+        field.term_min = moment(field.term_min).startOf('day').toDate(); // jshint ignore:line
+        field.term_max = moment(field.term_min).endOf('day').toDate(); // jshint ignore:line
+      }
+
+      if(field.transformer === '><') { // jshint ignore:line
+        if(moment(field.term_min).isValid()) { // jshint ignore:line
+          field.term_min = moment(field.term_min).startOf('day').toDate(); // jshint ignore:line
+        } else {
+          field.term_min = '*'; // jshint ignore:line
+        }
+
+        if(moment(field.term_max).isValid()) { // jshint ignore:line
+          field.term_max = moment(field.term_max).endOf('day').toDate(); // jshint ignore:line
+        } else {
+          field.term_max = '*'; // jshint ignore:line
+        }
+      }
+      
+      if(field.transformer === '<') {
+        if(moment(field.term_max).isValid()) { // jshint ignore:line
+          field.term_max = moment(field.term_max).endOf('day').toDate(); // jshint ignore:line
+        } else {
+          field.term_max = moment().endOf('day').toDate(); // jshint ignore:line
+        }
+      }
+
+      if(field.transformer === '>') {
+        if(moment(field.term_min).isValid()) { // jshint ignore:line
+          field.term_min = moment(field.term_min).startOf('day').toDate(); // jshint ignore:line
+        } else {
+          field.term_min = moment().startOf('day').toDate(); // jshint ignore:line
+        }
+      }
+    }
 
     function transformField (originalField) {
       var field = _.clone(originalField);
@@ -379,6 +418,27 @@ angular.module('udbApp')
 
               if(field.transformer === '-') {
                 field.transformer = '!';
+              }
+            }
+
+            if(fieldType.type === 'date-range') {
+              var startDate = moment(field.term_min), // jshint ignore:line
+                  endDate = moment(field.term_max); // jshint ignore:line
+
+              if(startDate.isValid() && endDate.isValid()) {
+                if(startDate.isSame(endDate, 'day')) {
+                  field.transformer = '=';
+                } else {
+                  field.transformer = '><';
+                }
+              } else {
+                if(!startDate.isValid() && endDate.isValid()) {
+                  field.transformer = '<';
+                }
+
+                if(!endDate.isValid() && startDate.isValid()) {
+                  field.transformer = '>';
+                }
               }
             }
           }

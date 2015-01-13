@@ -15,5 +15,5 @@ angular.module('udbApp')
     'term': ['=', '!'],
     'number': ['=', '<', '>'],
     'check': ['='],
-    'date-range': ['=', '<', '>']
+    'date-range': ['=', '><', '<', '>']
 });
