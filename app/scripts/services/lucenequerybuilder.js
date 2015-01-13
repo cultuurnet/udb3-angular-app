@@ -285,7 +285,11 @@ angular.module('udbApp')
           field.lowerBound = '*'; 
           break;
         case '>':
-          field.upperBound = '*'; 
+          field.upperBound = '*';
+          break;
+        case '=':
+          field.upperBound = undefined;
+          field.lowerBound = undefined;
           break;
       }
 
@@ -422,6 +426,25 @@ angular.module('udbApp')
 
               if(field.transformer === '-') {
                 field.transformer = '!';
+              }
+            }
+
+            // Numbers can be a single or ranged term
+            // The editor only handles ranges that have one of the boundaries set to infinity
+            if(fieldType.type === 'number') {
+              if(field.term) {
+                field.transformer = '=';
+              }else {
+                if(field.upperBound && field.lowerBound === '*') {
+                  field.transformer = '<';
+                } else if(field.lowerBound && field.upperBound === '*') {
+                  field.transformer = '>';
+                } else {
+                  field.transformer = '=';
+                  field.term = field.lowerBound || field.upperBound;
+                  field.lowerBound = undefined;
+                  field.upperBound = undefined;
+                }
               }
             }
 

@@ -65,6 +65,20 @@
                         <udb-query-editor-daterangepicker>
                         </udb-query-editor-daterangepicker>
                     </div>
+
+                    <div ng-switch-when="number" ng-switch="field.transformer">
+                        <div ng-switch-when="=">
+                            <input  type="text" class="form-control" ng-model="field.term"/>
+                        </div>
+
+                        <div ng-switch-when=">">
+                            <input type="text" class="form-control"ng-model="field.lowerBound"/>
+                        </div>
+
+                        <div  ng-switch-when="<">
+                            <input type="text" class="form-control" ng-model="field.upperBound"/>
+                        </div>
+                    </div>
                 </div>
 
                 <div class="col-sm-1">

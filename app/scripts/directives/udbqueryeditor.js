@@ -159,6 +159,10 @@ angular
               field.term = 'TRUE';
             }
 
+            if(fieldType.type === 'number') {
+              field.inclusive = true;
+            }
+
             if(!field.transformer || !_.contains(fieldTypeTransformers[fieldType.type], field.transformer)) {
               field.transformer = _.first(fieldTypeTransformers[fieldType.type]);
             }
