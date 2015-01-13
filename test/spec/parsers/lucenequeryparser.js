@@ -245,8 +245,8 @@ describe('Service: LuceneQueryParser', function () {
       var results = lucenequeryparser.parse('foo:[bar TO baz]');
 
       expect(results['left']['field']).toBe('foo');
-      expect(results['left']['term_min']).toBe('bar');
-      expect(results['left']['term_max']).toBe('baz');
+      expect(results['left']['lowerBound']).toBe('bar');
+      expect(results['left']['upperBound']).toBe('baz');
       expect(results['left']['inclusive']).toBe(true);
     });
 
@@ -254,8 +254,8 @@ describe('Service: LuceneQueryParser', function () {
       var results = lucenequeryparser.parse('foo:{bar TO baz}');
 
       expect(results['left']['field']).toBe('foo');
-      expect(results['left']['term_min']).toBe('bar');
-      expect(results['left']['term_max']).toBe('baz');
+      expect(results['left']['lowerBound']).toBe('bar');
+      expect(results['left']['upperBound']).toBe('baz');
       expect(results['left']['inclusive']).toBe(false);
     });
   });
@@ -412,8 +412,8 @@ describe('Service: LuceneQueryParser', function () {
       var results = lucenequeryparser.parse('mod_date:[20020101 TO 20030101]');
 
       expect(results['left']['field']).toBe('mod_date');
-      expect(results['left']['term_min']).toBe('20020101');
-      expect(results['left']['term_max']).toBe('20030101');
+      expect(results['left']['lowerBound']).toBe('20020101');
+      expect(results['left']['upperBound']).toBe('20030101');
       expect(results['left']['inclusive']).toBe(true);
     });
 
@@ -421,8 +421,8 @@ describe('Service: LuceneQueryParser', function () {
       var results = lucenequeryparser.parse('title:{Aida TO Carmen}');
 
       expect(results['left']['field']).toBe('title');
-      expect(results['left']['term_min']).toBe('Aida');
-      expect(results['left']['term_max']).toBe('Carmen');
+      expect(results['left']['lowerBound']).toBe('Aida');
+      expect(results['left']['upperBound']).toBe('Carmen');
       expect(results['left']['inclusive']).toBe(false);
     });
 

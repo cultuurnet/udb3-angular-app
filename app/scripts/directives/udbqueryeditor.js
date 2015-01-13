@@ -145,13 +145,13 @@ angular
           if(field.fieldType !== fieldType.type) {
             // TODO: Maybe try to do a type conversion?
             if(fieldType.type === 'date-range') {
-              field.term_min = moment().startOf('day').toDate();  // jshint ignore:line
-              field.term_max = moment().endOf('day').toDate(); // jshint ignore:line
+              field.lowerBound = moment().startOf('day').toDate();  
+              field.upperBound = moment().endOf('day').toDate(); 
               field.inclusive = true;
             } else {
               field.term = '';
-              field.term_min = undefined; // jshint ignore:line
-              field.term_max = undefined; // jshint ignore:line
+              field.lowerBound = undefined; 
+              field.upperBound = undefined; 
               field.inclusive = undefined;
             }
 

@@ -47,8 +47,8 @@
  *
  * {
  *     'field': string,         // field name
- *     'term_min': string,      // minimum value (left side) of range
- *     'term_max': string,      // maximum value (right side) of range
+ *     'lowerBound': string,    // minimum value (left side) of range
+ *     'upperBound': string,    // maximum value (right side) of range
  *     'inclusive': boolean     // inclusive ([...]) or exclusive ({...})
  * }
  *
@@ -278,16 +278,16 @@ range_operator_exp
   = '[' term_min:unquoted_term _* 'TO' _+ term_max:unquoted_term ']'
     {
         return {
-            'term_min': term_min,
-            'term_max': term_max,
+            'lowerBound': term_min,
+            'upperBound': term_max,
             'inclusive': true
         };
     }
   / '{' term_min:unquoted_term _* 'TO' _+ term_max:unquoted_term '}'
     {
         return {
-            'term_min': term_min,
-            'term_max': term_max,
+            'lowerBound': term_min,
+            'upperBound': term_max,
             'inclusive': false
         };
     }
