@@ -26,9 +26,10 @@ angular.module('udbApp')
     '-': 'bevat niet',
     '>': 'is groter dan',
     '<': 'is kleiner dan',
-    '>_DATE': 'is vroeger dan',
-    '<_DATE': 'is later dan',
+    '>_DATE': 'is later dan',
+    '<_DATE': 'is vroeger dan',
     '=_DATE': 'is',
+    '><_DATE': 'tussen',
     'choice': {
       'today': 'vandaag',
       'tomorrow': 'morgen',

@@ -20,11 +20,12 @@
                             ng-model="field.field" class="form-control" ng-change="qe.updateFieldType(field)">
                     </select>
                 </div>
-                    <div class="col-sm-3 field-transformer">
-                        <select ng-options="transformer | translate for transformer in qe.transformers[field.field]"
-                                ng-model="field.transformer" class="form-control">
-                        </select>
-                    </div>
+
+                <div class="col-sm-3 field-transformer">
+                    <select ng-options="transformer + (field.fieldType === 'date-range' ? '_DATE' : '') | translate for transformer in qe.transformers[field.field]"
+                            ng-model="field.transformer" class="form-control">
+                    </select>
+                </div>
 
                 <div class="col-sm-4 field-query-term" ng-switch="field.fieldType">
                     <div ng-switch-when="string">
