@@ -205,7 +205,9 @@ angular.module('udbApp')
               nodeString += ' ' + node.operator + ' ';
             }
 
-            cleanUpDateRangeField(field);
+            if(field.fieldType === 'date-range'){
+              cleanUpDateRangeField(field);
+            }
             var transformedField = transformField(field);
             nodeString += transformedField.field + ':' + printTerm(transformedField);
           });
@@ -213,7 +215,9 @@ angular.module('udbApp')
           nodeString += ')';
         } else if (node.type === 'field') {
           var field = node.nodes[0];
-          cleanUpDateRangeField(field);
+          if(field.fieldType === 'date-range'){
+            cleanUpDateRangeField(field);
+          }
           var transformedField = transformField(field);
           nodeString = transformedField.field + ':' + printTerm(transformedField);
         } else {
