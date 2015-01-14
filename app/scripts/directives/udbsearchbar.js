@@ -7,7 +7,7 @@
  * # udbSearchBar
  */
 angular.module('udbApp')
-  .directive('udbSearchBar', function ($route, $timeout, searchHelper) {
+  .directive('udbSearchBar', function ($route, $timeout, searchHelper, $rootScope) {
     return {
       templateUrl: 'views/udb-search-bar.html',
       restrict: 'E',
@@ -18,7 +18,10 @@ angular.module('udbApp')
           isShown: false,
           inputElement: element.find('input')[0],
           hasErrors: false,
-          errors: ''
+          errors: '',
+          editQuery: function () {
+            $rootScope.$emit('editQuery');
+          }
         };
 
         scope.sb = searchBar;
@@ -43,7 +46,6 @@ angular.module('udbApp')
         scope.$watch(function () {
           return searchHelper.getQuery();
         }, function (query) {
-          console.log(query);
           scope.sb.query = query.queryString;
 
           if(query.errors && query.errors.length) {
@@ -59,7 +61,7 @@ angular.module('udbApp')
           var formattedErrors = '';
 
           _.forEach(errors, function (error) {
-            formattedErrors += (error + '<br>');
+            formattedErrors += (error + '\n');
           });
 
           return formattedErrors;

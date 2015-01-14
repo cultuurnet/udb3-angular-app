@@ -9,7 +9,6 @@
  */
 angular.module('udbApp')
   .value('queryFields', [
-    'type',
     'cdbid',
     'title',
     'keywords',
@@ -32,7 +31,6 @@ angular.module('udbApp')
     'creationdate',
     'createdby',
     'permanent',
-    'datetype',
     'category_eventtype_name',
     'category_theme_name',
     'category_facility_name',

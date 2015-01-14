@@ -32,6 +32,9 @@ angular
     '$translateProvider',
     'uiSelectConfig',
     'appConfig',
+    'queryFieldTranslations',
+    'dutchTranslations',
+    'datepickerPopupConfig',
     function (
       $routeProvider,
       $locationProvider,
@@ -39,7 +42,10 @@ angular
       $sceDelegateProvider,
       $translateProvider,
       uiSelectConfig,
-      appConfig
+      appConfig,
+      queryFieldTranslations,
+      dutchTranslations,
+      datepickerPopupConfig
     ) {
       $routeProvider
         .when('/', {
@@ -78,16 +84,17 @@ angular
         appConfig.baseUrl + '**'
       ]);
 
+      // Translation configuration
+      var defaultTranslations = _.merge(dutchTranslations, queryFieldTranslations.nl);
+
       $translateProvider
-        .translations('nl', {
-          EN_ADJECTIVE: 'Engelse',
-          FR_ADJECTIVE: 'Franse',
-          DE_ADJECTIVE: 'Duitse',
-          NL_ADJECTIVE: 'Nederlandse'
-        })
+        .translations('nl', defaultTranslations)
         .preferredLanguage('nl');
+      // end of translation configuration
 
       uiSelectConfig.theme = 'bootstrap';
+
+      datepickerPopupConfig.dateFormat = 'dd/MM/yyyy';
     }])
   .run(function (udbApi, jobLogger, editableOptions) {
     udbApi.getMe();

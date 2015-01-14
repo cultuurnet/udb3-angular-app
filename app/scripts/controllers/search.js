@@ -17,7 +17,8 @@ angular.module('udbApp')
     $modal,
     SearchResultViewer,
     eventTagger,
-    searchHelper
+    searchHelper,
+    $rootScope
   ) {
     var queryBuilder = LuceneQueryBuilder;
 
@@ -29,6 +30,7 @@ angular.module('udbApp')
     $scope.queryErrors = [];
     $scope.realQuery = false;
     $scope.activeQuery = false;
+    $scope.queryEditorShown = false;
 
     $scope.$watch(function () {
       return $location.search();
@@ -107,7 +109,7 @@ angular.module('udbApp')
       }
 
       var modal = $modal.open({
-        templateUrl: 'event-tag-modal.html',
+        templateUrl: 'views/event-tag-modal.html',
         controller: 'EventTagModalCtrl'
       });
 
@@ -137,7 +139,7 @@ angular.module('udbApp')
 
       if(queryBuilder.isValid(query)) {
         var modal = $modal.open({
-          templateUrl: 'event-tag-modal.html',
+          templateUrl: 'views/event-tag-modal.html',
           controller: 'EventTagModalCtrl'
         });
 
@@ -154,11 +156,27 @@ angular.module('udbApp')
     $scope.tagSelection = tagSelection;
     $scope.tagActiveQuery = tagActiveQuery;
 
+    $scope.editQuery = function () {
+      var query = $scope.activeQuery;
+
+      if(query && queryBuilder.isValid(query)) {
+        query.groupedQueryTree = queryBuilder.groupQueryTree(query.queryTree);
+      }
+
+      $scope.queryEditorShown = true;
+    };
+    $rootScope.$on('editQuery',$scope.editQuery);
+
+    $scope.hideQueryEditor = function () {
+      $scope.queryEditorShown = false;
+    };
+
     $scope.$watch(function () {
       var query = getSearchQuery();
       return query.queryString;
     }, function (queryString) {
       var query = queryBuilder.createQuery(queryString);
+
       $scope.activeQuery = query;
 
       if(queryBuilder.isValid(query)) {

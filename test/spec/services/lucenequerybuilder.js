@@ -57,5 +57,71 @@ describe('Service: LuceneQueryBuilder', function () {
     it('Unparses queries with field grouping', function () {
       createAndCompareUnparsedQuery('title:(+return +"pink panther")');
     });
+
+    it('Groups a query tree with a single field and term', function () {
+      var queryString = 'battery:horse';
+      var query = LuceneQueryBuilder.createQuery(queryString);
+      var groupedQueryTree = LuceneQueryBuilder.groupQueryTree(query.queryTree);
+
+      expect(groupedQueryTree.operator).toBe('OR');
+      expect(groupedQueryTree.type).toBe('root');
+
+      expect(groupedQueryTree.nodes[0].type).toBe('field');
+      expect(groupedQueryTree.nodes[0].operator).toBe('OR');
+
+      expect(groupedQueryTree.nodes[0].nodes[0].field).toBe('battery');
+      expect(groupedQueryTree.nodes[0].nodes[0].term).toBe('horse');
+      expect(groupedQueryTree.nodes[0].nodes[0].fieldType).toBe('string');
+    });
+
+    it('Groups query tree fields with different operators', function () {
+      var queryString = 'battery:horse AND staple:chair OR car:dinosaur';
+      var query = LuceneQueryBuilder.createQuery(queryString);
+      var groupedQueryTree = LuceneQueryBuilder.groupQueryTree(query.queryTree);
+
+      expect(groupedQueryTree.operator).toBe('AND');
+      expect(groupedQueryTree.type).toBe('root');
+
+      expect(groupedQueryTree.nodes[0].type).toBe('field');
+
+      expect(groupedQueryTree.nodes[0].nodes[0].field).toBe('battery');
+      expect(groupedQueryTree.nodes[0].nodes[0].term).toBe('horse');
+      expect(groupedQueryTree.nodes[0].nodes[0].fieldType).toBe('string');
+
+      expect(groupedQueryTree.nodes[1].type).toBe('group');
+      expect(groupedQueryTree.nodes[1].operator).toBe('OR');
+
+      expect(groupedQueryTree.nodes[1].nodes[0].field).toBe('staple');
+      expect(groupedQueryTree.nodes[1].nodes[0].term).toBe('chair');
+      expect(groupedQueryTree.nodes[1].nodes[0].fieldType).toBe('string');
+
+      expect(groupedQueryTree.nodes[1].nodes[1].field).toBe('car');
+      expect(groupedQueryTree.nodes[1].nodes[1].term).toBe('dinosaur');
+      expect(groupedQueryTree.nodes[1].nodes[1].fieldType).toBe('string');
+    });
+
+    it('Groups query tree fields with grouped terms', function () {
+      var queryString = 'animal:(cat dog deer)';
+      var query = LuceneQueryBuilder.createQuery(queryString);
+      var groupedQueryTree = LuceneQueryBuilder.groupQueryTree(query.queryTree);
+
+      expect(groupedQueryTree.operator).toBe('OR');
+      expect(groupedQueryTree.type).toBe('root');
+
+      expect(groupedQueryTree.nodes[0].type).toBe('group');
+      expect(groupedQueryTree.nodes[0].operator).toBe('OR');
+
+      expect(groupedQueryTree.nodes[0].nodes[0].field).toBe('animal');
+      expect(groupedQueryTree.nodes[0].nodes[0].term).toBe('cat');
+      expect(groupedQueryTree.nodes[0].nodes[0].fieldType).toBe('string');
+
+      expect(groupedQueryTree.nodes[0].nodes[1].field).toBe('animal');
+      expect(groupedQueryTree.nodes[0].nodes[1].term).toBe('dog');
+      expect(groupedQueryTree.nodes[0].nodes[1].fieldType).toBe('string');
+
+      expect(groupedQueryTree.nodes[0].nodes[2].field).toBe('animal');
+      expect(groupedQueryTree.nodes[0].nodes[2].term).toBe('deer');
+      expect(groupedQueryTree.nodes[0].nodes[2].fieldType).toBe('string');
+    });
   });
 });

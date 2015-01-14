@@ -38,7 +38,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" href="/search">
+                    <a class="navbar-brand" href="/">
                         <img alt="Brand" src="images/udb-logo.png">
                     </a>
                     <i class="udb-work-indicator fa fa-circle-o-notch" ng-click="toggleJobLog()"></i>
@@ -141,6 +141,8 @@
     <script src="bower_components/accounting/accounting.js"></script>
     <script src="bower_components/angular-translate/angular-translate.js"></script>
     <script src="bower_components/angular-ui-select/dist/select.js"></script>
+    <script src="bower_components/angular-i18n/angular-locale_nl-be.js"></script>
+    <script src="bower_components/moment/moment.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -178,6 +180,11 @@
         <script src="scripts/services/authorizationservice.js"></script>
         <script src="scripts/directives/udbsearchbar.js"></script>
         <script src="scripts/services/searchhelper.js"></script>
+        <script src="scripts/directives/udbqueryeditor.js"></script>
+        <script src="scripts/services/queryfieldtypes.js"></script>
+        <script src="scripts/directives/udbqueryeditordaterangepicker.js"></script>
+        <script src="scripts/services/fieldtypetransformers.js"></script>
+        <script src="scripts/services/dutchtranslations.js"></script>
         <!-- endbuild -->
 </body>
 </html>

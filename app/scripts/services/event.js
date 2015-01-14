@@ -65,7 +65,6 @@ angular.module('udbApp')
           return label;
         });
         if (jsonEvent.organizer) {
-          console.log(jsonEvent.organizer);
           this.organizer = {
             name: jsonEvent.organizer.name,
             email: jsonEvent.organizer.email ? (jsonEvent.organizer.email[0] || '-') : '-',

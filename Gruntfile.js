@@ -2,6 +2,7 @@
 'use strict';
 
 var modRewrite = require('connect-modrewrite');
+var xml2js = require('xml2js');
 
 // # Globbing
 // for performance reasons we're only matching one level down:
@@ -22,6 +23,18 @@ module.exports = function (grunt) {
     app: require('./bower.json').appPath || 'app',
     dist: 'dist',
     dev: require('./config_dev.json')
+  };
+
+  var getTaxonomyTerms = function () {
+    var parser = new xml2js.Parser({mergeAttrs: true, explicitArray: false});
+    var xmlBuffer = grunt.file.read('taxonomy-terms.xml');
+    var terms = [];
+    parser.parseString(xmlBuffer, function (err, result) {
+      console.dir(result);
+      terms = result.cdbxml.categorisation.term;
+    });
+
+    return terms;
   };
 
   // Define the configuration for all the tasks
@@ -201,6 +214,9 @@ module.exports = function (grunt) {
           'overrides': {
             'socket.io-client': {
               'main': 'socket.io.js'
+            },
+            'angular-i18n': {
+              'main': 'angular-locale_nl-be.js'
             }
           }
         }
@@ -418,9 +434,9 @@ module.exports = function (grunt) {
         options: {
           wrapper: function (src, parser) {
             return '\'use strict\';\n' +
-            'angular.module(\'peg\', []).factory(\'LuceneQueryParser\', function () {\n' +
-            ' return ' + parser + '\n' +
-            '});';
+              'angular.module(\'peg\', []).factory(\'LuceneQueryParser\', function () {\n' +
+              ' return ' + parser + '\n' +
+              '});';
           }
         }
       }
@@ -432,21 +448,35 @@ module.exports = function (grunt) {
         dest: '<%= yeoman.app %>/scripts/config.js'
       },
       dev: {
-        constants: {
-          appConfig: grunt.file.readJSON('config_dev.json')
+        constants: function() {
+          return {
+            appConfig: grunt.file.readJSON('config.json'),
+            taxonomyTerms: getTaxonomyTerms()
+          };
         }
       },
       dist: {
-        constants: {
-          appConfig: grunt.file.readJSON('config.json')
+        constants: function() {
+          return {
+            appConfig: grunt.file.readJSON('config.json'),
+            taxonomyTerms: getTaxonomyTerms()
+          };
         }
-      },
+      }
+    },
+
+    curl: {
+      'taxonomy-terms': {
+        src: 'http://taxonomy.uitdatabank.be/api/term',
+        dest: 'taxonomy-terms.xml'
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-ng-constant');
   grunt.loadNpmTasks('grunt-peg');
+  grunt.loadNpmTasks('grunt-curl');
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
@@ -486,6 +516,7 @@ module.exports = function (grunt) {
     'clean:dist',
     'wiredep',
     'useminPrepare',
+    'curl:taxonomy-terms',
     'concurrent:dist',
     'ngconstant:dist',
     'peg',
