@@ -37,7 +37,6 @@ angular.module('udbApp')
     {name: 'creationdate', type: 'date-range'},
     {name: 'createdby', type: 'string'},
     {name: 'permanent', type: 'check'},
-    {name: 'datetype', type: 'choice', options: ['today', 'tomorrow', 'thisweekend', 'nextweekend', 'next7days', 'next14days', 'next30days', 'next3months', 'next6months', 'next12months', 'permanent']},
     {name: 'category_eventtype_name', type: 'term'},
     {name: 'category_theme_name', type: 'term'},
     {name: 'category_facility_name', type: 'term'},
