@@ -235,9 +235,9 @@ angular.module('udbApp')
     };
 
     function cleanUpDateRangeField(field) {
-      if(field.transformer === '=' && moment(field.lowerBound).isValid()) { 
+      if(field.transformer === '=' && moment(field.lowerBound).isValid()) {
         field.lowerBound = moment(field.lowerBound).startOf('day').toDate(); 
-        field.upperBound = moment(field.lowerBound).endOf('day').toDate(); 
+        field.upperBound = moment(field.lowerBound).endOf('day').toDate();
       }
 
       if(field.transformer === '><') { 
@@ -288,8 +288,10 @@ angular.module('udbApp')
           field.upperBound = '*';
           break;
         case '=':
-          field.upperBound = undefined;
-          field.lowerBound = undefined;
+          if(field.fieldType !== 'date-range') {
+            field.upperBound = undefined;
+            field.lowerBound = undefined;
+          }
           break;
       }
 
