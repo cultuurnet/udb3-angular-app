@@ -7,13 +7,16 @@
  * # AppCtrl
  * Controller of the udbApp
  */
-angular.module('udbApp')
-  .controller('AppCtrl', function ($scope) {
-    $scope.showJobLog = false;
+angular
+  .module('udbApp')
+  .controller('AppCtrl', AppController);
 
-    function toggleJobLog() {
-      $scope.showJobLog = !$scope.showJobLog;
-    }
+function AppController($scope) {
+  $scope.showJobLog = false;
 
-    $scope.toggleJobLog = toggleJobLog;
-  });
+  function toggleJobLog() {
+    $scope.showJobLog = !$scope.showJobLog;
+  }
+
+  $scope.toggleJobLog = toggleJobLog;
+}

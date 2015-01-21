@@ -2,20 +2,24 @@
 
 /**
  * @ngdoc function
- * @name udbAppApp.controller:MainCtrl
+ * @name udbApp.controller:MainCtrl
  * @description
  * # MainCtrl
- * Controller of the udbAppApp
+ * Controller of the udbApp
  */
-angular.module('udbApp')
-  .controller('MainCtrl', ['$scope', 'uitidAuth', function ($scope, uitidAuth) {
-    $scope.login = function () {
-      uitidAuth.login();
-    };
+angular
+  .module('udbApp')
+  .controller('MainCtrl', MainController);
 
-    $scope.$watch(function () {
-      return uitidAuth.getUser();
-    }, function (user) {
-      $scope.user = user;
-    }, true);
-  }]);
+/** @ngInject */
+function MainController($scope, uitidAuth) {
+  $scope.login = function () {
+    uitidAuth.login();
+  };
+
+  $scope.$watch(function () {
+    return uitidAuth.getUser();
+  }, function (user) {
+    $scope.user = user;
+  }, true);
+}

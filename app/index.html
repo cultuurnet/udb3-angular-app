@@ -10,8 +10,8 @@
 
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
-    <link rel="stylesheet" href="bower_components/angular-xeditable/dist/css/xeditable.css" />
     <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
+    <link rel="stylesheet" href="bower_components/udb3-angular/dist/udb3-angular.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -130,61 +130,29 @@
     <script src="bower_components/angular-resource/angular-resource.js"></script>
     <script src="bower_components/angular-cookies/angular-cookies.js"></script>
     <script src="bower_components/angular-sanitize/angular-sanitize.js"></script>
-    <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-touch/angular-touch.js"></script>
     <script src="bower_components/angular-route/angular-route.js"></script>
-    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
-    <script src="bower_components/lodash/dist/lodash.compat.js"></script>
-    <script src="bower_components/angular-socket-io/socket.js"></script>
-    <script src="bower_components/socket.io-client/socket.io.js"></script>
-    <script src="bower_components/angular-xeditable/dist/js/xeditable.js"></script>
-    <script src="bower_components/accounting/accounting.js"></script>
+    <script src="bower_components/angular-animate/angular-animate.js"></script>
     <script src="bower_components/angular-translate/angular-translate.js"></script>
     <script src="bower_components/angular-ui-select/dist/select.js"></script>
     <script src="bower_components/angular-i18n/angular-locale_nl-be.js"></script>
+    <script src="bower_components/angular-bootstrap/ui-bootstrap-tpls.js"></script>
+    <script src="bower_components/angular-socket-io/socket.js"></script>
+    <script src="bower_components/lodash/dist/lodash.compat.js"></script>
+    <script src="bower_components/socket.io-client/socket.io.js"></script>
     <script src="bower_components/moment/moment.js"></script>
+    <script src="bower_components/accounting/accounting.js"></script>
+    <script src="bower_components/udb3-angular/dist/udb3-angular.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
-        <!-- build:js({.tmp,app}) scripts/scripts.js -->
-        <script src="scripts/app.js"></script>
-        <script src="scripts/config.js"></script>
-        <script src="scripts/controllers/main.js"></script>
-        <script src="scripts/controllers/about.js"></script>
-        <script src="scripts/services/udbapi.js"></script>
-        <script src="scripts/controllers/search.js"></script>
-        <script src="scripts/filters/slice.js"></script>
-        <script src="scripts/directives/udbdebounce.js"></script>
-        <script src="scripts/services/lucenequerybuilder.js"></script>
-        <script src="scripts/services/querytreevalidator.js"></script>
-        <script src="scripts/services/querytreetranslator.js"></script>
-        <script src="scripts/services/queryfieldtranslations.js"></script>
-        <script src="scripts/services/queryfields.js"></script>
-        <script src="scripts/parsers/lucenequeryparser.js"></script>
-        <script src="scripts/services/udbhttpinterceptor.js"></script>
-        <script src="scripts/controllers/header.js"></script>
-        <script src="scripts/services/uitidauth.js"></script>
-        <script src="scripts/directives/udbevent.js"></script>
-        <script src="scripts/services/searchresultviewer.js"></script>
-        <script src="scripts/services/udbsocket.js"></script>
-        <script src="scripts/services/joblogger.js"></script>
-        <script src="scripts/directives/udbworkindicator.js"></script>
-        <script src="scripts/directives/udbjoblog.js"></script>
-        <script src="scripts/controllers/app.js"></script>
-        <script src="scripts/controllers/eventtagmodal.js"></script>
-        <script src="scripts/services/eventtagger.js"></script>
-        <script src="scripts/filters/jsonldlang.js"></script>
-        <script src="scripts/services/eventtranslator.js"></script>
-        <script src="scripts/services/event.js"></script>
-        <script src="scripts/filters/currency.js"></script>
-        <script src="scripts/services/authorizationservice.js"></script>
-        <script src="scripts/directives/udbsearchbar.js"></script>
-        <script src="scripts/services/searchhelper.js"></script>
-        <script src="scripts/directives/udbqueryeditor.js"></script>
-        <script src="scripts/services/queryfieldtypes.js"></script>
-        <script src="scripts/directives/udbqueryeditordaterangepicker.js"></script>
-        <script src="scripts/services/fieldtypetransformers.js"></script>
-        <script src="scripts/services/dutchtranslations.js"></script>
-        <!-- endbuild -->
+    <!-- build:js({.tmp,app}) scripts/scripts.js -->
+    <script src="scripts/app.js"></script>
+    <script src="scripts/config.js"></script>
+    <script src="scripts/controllers/main.js"></script>
+    <script src="scripts/controllers/header.js"></script>
+    <script src="scripts/controllers/app.js"></script>
+    <script src="scripts/services/udbhttpinterceptor.js"></script>
+    <!-- endbuild -->
 </body>
 </html>

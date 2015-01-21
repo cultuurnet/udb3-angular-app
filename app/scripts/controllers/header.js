@@ -5,18 +5,20 @@
  * @name udbApp.controller:HeaderCtrl
  * @description
  * # HeaderCtrl
- * Controller of the udbApp
+ * udbApp controller
  */
-angular.module('udbApp')
-  .controller('HeaderCtrl', ['uitidAuth', '$scope','$cookieStore', '$route', function (uitidAuth, $scope, $cookieStore, $route) {
+angular
+  .module('udbApp')
+  .controller('HeaderCtrl', HeaderController);
 
-    $scope.login = uitidAuth.login;
-    $scope.logout = uitidAuth.logout;
+/** @ngInject */
+function HeaderController(uitidAuth, $scope) {
+  $scope.login = uitidAuth.login;
+  $scope.logout = uitidAuth.logout;
 
-    $scope.$watch(function () {
-      return uitidAuth.getUser();
-    }, function (user) {
-      $scope.user = user;
-    }, true);
-
-  }]);
+  $scope.$watch(function () {
+    return uitidAuth.getUser();
+  }, function (user) {
+    $scope.user = user;
+  }, true);
+}

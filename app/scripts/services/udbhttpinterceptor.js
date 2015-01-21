@@ -7,35 +7,39 @@
  * # udbHttpInterceptor
  * Factory in the udbApp.
  */
-angular.module('udbApp')
-  .factory('udbHttpInterceptor', function ($q, $location, $window, appConfig) {
+angular
+  .module('udbApp')
+  .factory('udbHttpInterceptor', httpInterceptor);
 
-    var login = function () {
-      var currentLocation = $location.absUrl(),
-        authUrl = appConfig.authUrl;
+/** @ngInject */
+function httpInterceptor($q, $location, $window, appConfig) {
 
-      authUrl += '?destination=' + currentLocation;
-      $window.location.href = authUrl;
-    };
+  var login = function () {
+    var currentLocation = $location.absUrl(),
+      authUrl = appConfig.authUrl;
 
-    return {
-      'responseError': function(rejection) {
-        var currentPath = $location.path();
-        if (currentPath === '/' || currentPath === '/about') {
-          return $q.reject(rejection);
-        }
+    authUrl += '?destination=' + currentLocation;
+    $window.location.href = authUrl;
+  };
 
-        // Check if the request got rejected because of authorization and redirect
-        if (rejection.status === 401) {
-          login();
-        }
-
-        // Maybe the user is
-        if (rejection.status === 403) {
-          login();
-        }
-
+  return {
+    'responseError': function (rejection) {
+      var currentPath = $location.path();
+      if (currentPath === '/' || currentPath === '/about') {
         return $q.reject(rejection);
       }
-    };
-  });
+
+      // Check if the request got rejected because of authorization and redirect
+      if (rejection.status === 401) {
+        login();
+      }
+
+      // Maybe the user is
+      if (rejection.status === 403) {
+        login();
+      }
+
+      return $q.reject(rejection);
+    }
+  };
+}

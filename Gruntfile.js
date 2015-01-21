@@ -430,22 +430,6 @@ module.exports = function (grunt) {
       }
     },
 
-    peg: {
-      options: { trackLineAndColumn: true },
-      lucene : {
-        src: '<%= yeoman.app %>/grammar/lucene.grammar',
-        dest: '<%= yeoman.app %>/scripts/parsers/lucenequeryparser.js',
-        options: {
-          wrapper: function (src, parser) {
-            return '\'use strict\';\n' +
-              'angular.module(\'peg\', []).factory(\'LuceneQueryParser\', function () {\n' +
-              ' return ' + parser + '\n' +
-              '});';
-          }
-        }
-      }
-    },
-
     ngconstant: {
       options: {
         name: 'config',
@@ -454,33 +438,22 @@ module.exports = function (grunt) {
       dev: {
         constants: function() {
           return {
-            appConfig: grunt.file.readJSON('config.json'),
-            taxonomyTerms: getTaxonomyTerms()
+            appConfig: grunt.file.readJSON('config.json')
           };
         }
       },
       dist: {
         constants: function() {
           return {
-            appConfig: grunt.file.readJSON('config.json'),
-            taxonomyTerms: getTaxonomyTerms()
+            appConfig: grunt.file.readJSON('config.json')
           };
         }
-      }
-    },
-
-    curl: {
-      'taxonomy-terms': {
-        src: 'http://taxonomy.uitdatabank.be/api/term',
-        dest: 'taxonomy-terms.xml'
       }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-ng-constant');
-  grunt.loadNpmTasks('grunt-peg');
-  grunt.loadNpmTasks('grunt-curl');
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
@@ -492,7 +465,6 @@ module.exports = function (grunt) {
       'wiredep',
       'concurrent:server',
       'ngconstant:dev',
-      'peg',
       'less',
       'autoprefixer',
       'connect:livereload',
@@ -509,7 +481,6 @@ module.exports = function (grunt) {
     'clean:server',
     'concurrent:test',
     'ngconstant:dev',
-    'peg',
     'less',
     'autoprefixer',
     'connect:test',
@@ -520,10 +491,8 @@ module.exports = function (grunt) {
     'clean:dist',
     'wiredep',
     'useminPrepare',
-    'curl:taxonomy-terms',
     'concurrent:dist',
     'ngconstant:dist',
-    'peg',
     'less',
     'autoprefixer',
     'concat',
