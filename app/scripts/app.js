@@ -36,7 +36,7 @@ function udbAppConfig($routeProvider, $locationProvider, $httpProvider, $sceDele
     .when('/', {
       templateUrl: 'views/main.html',
       controller: 'MainCtrl',
-      resolve: {
+      resolve: { /* @ngInject */
         redirect: function (authorizationService) {
           return authorizationService.redirectIfLoggedIn('/search');
         }
@@ -50,7 +50,7 @@ function udbAppConfig($routeProvider, $locationProvider, $httpProvider, $sceDele
       templateUrl: 'templates/search.html',
       controller: 'Search',
       reloadOnSearch: false,
-      resolve: {
+      resolve: { /* @ngInject */
         permission: function (authorizationService) {
           return authorizationService.isLoggedIn();
         }
