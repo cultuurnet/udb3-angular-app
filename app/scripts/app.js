@@ -56,6 +56,15 @@ function udbAppConfig($routeProvider, $locationProvider, $httpProvider, $sceDele
         }
       }
     })
+    .when('/event/:eventId', {
+      templateUrl: 'templates/event-detail.html',
+      controller: 'EventDetailController',
+      resolve: { /* @ngInject */
+        permission: function (authorizationService) {
+          return authorizationService.isLoggedIn();
+        }
+      }
+    })
     .otherwise({
       redirectTo: '/'
     });
