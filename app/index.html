@@ -11,7 +11,7 @@
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
-    <link rel="stylesheet" href="bower_components/udb3-angular/dist/udb3-angular.css" />
+    <link rel="stylesheet" href="bower_components/animate.css/animate.css" />
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -81,18 +81,7 @@
       </div>
     </div>
 
-    <div class="udb-job-log" ng-class="{'shown': showJobLog}">
-        <div class="row">
-            <div class="col-sm-12">
-                <p class="lead">Taken</p>
-                <p ng-hide="hasJobs()">Er zijn geen nieuwe taken.</p>
-            </div>
-
-            <div ng-repeat="job in jobs" class="col-sm-12 repeat-animation">
-                <udb-job></udb-job>
-            </div>
-        </div>
-    </div>
+    <udb-job-log></udb-job-log>
 
     <!-- Google Analytics: change UA-XXXXX-X to be your site's ID
     <script>
