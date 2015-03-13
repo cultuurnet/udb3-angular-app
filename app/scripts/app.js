@@ -59,8 +59,11 @@ function udbAppConfig($routeProvider, $locationProvider, $httpProvider, $sceDele
     .when('/event/:eventId', {
       templateUrl: 'templates/event-detail.html',
       controller: 'EventDetailController',
-      resolve: { /* @ngInject */
-        permission: function (authorizationService) {
+      resolve: {
+        eventId: /* @ngInject */ ['$route', function ($route) {
+          return $route.current.params.eventId;
+        }],
+        permission: /* @ngInject */ function (authorizationService) {
           return authorizationService.isLoggedIn();
         }
       }
