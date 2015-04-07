@@ -25,18 +25,6 @@ module.exports = function (grunt) {
     dev: require('./config_dev.json')
   };
 
-  var getTaxonomyTerms = function () {
-    var parser = new xml2js.Parser({mergeAttrs: true, explicitArray: false});
-    var xmlBuffer = grunt.file.read('taxonomy-terms.xml');
-    var terms = [];
-    parser.parseString(xmlBuffer, function (err, result) {
-      console.dir(result);
-      terms = result.cdbxml.categorisation.term;
-    });
-
-    return terms;
-  };
-
   // Define the configuration for all the tasks
   grunt.initConfig({
 
