@@ -431,8 +431,16 @@ module.exports = function (grunt) {
       },
       dist: {
         constants: function() {
+          var config = {};
+
+          if (grunt.file.exists('config.json')) {
+            config = grunt.file.readJSON('config.json');
+          } else {
+            config = grunt.file.readJSON('config.json.dist')
+          }
+
           return {
-            appConfig: grunt.file.readJSON('config.json.dist')
+            appConfig: config
           };
         }
       }
