@@ -432,7 +432,7 @@ module.exports = function (grunt) {
       dist: {
         constants: function() {
           return {
-            appConfig: grunt.file.readJSON('config.json')
+            appConfig: grunt.file.readJSON('config.json.dist')
           };
         }
       }
