@@ -436,7 +436,7 @@ module.exports = function (grunt) {
           if (grunt.file.exists('config.json')) {
             config = grunt.file.readJSON('config.json');
           } else {
-            config = grunt.file.readJSON('config.json.dist')
+            config = grunt.file.readJSON('config.json.dist');
           }
 
           return {
