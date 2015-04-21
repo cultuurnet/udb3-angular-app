@@ -11,6 +11,7 @@ angular
   .module('udbApp')
   .controller('AppCtrl', AppController);
 
+/** @ngInject */
 function AppController($scope) {
   $scope.showJobLog = false;
 

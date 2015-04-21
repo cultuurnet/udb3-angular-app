@@ -4,6 +4,7 @@
  * @ngdoc overview
  * @name udbApp
  * @description
+ * @ngInject
  * # udbApp
  *
  * Main module of the application.
@@ -29,8 +30,17 @@ angular
   });
 
 /** @ngInject */
-function udbAppConfig($routeProvider, $locationProvider, $httpProvider, $sceDelegateProvider, $translateProvider,
-                      uiSelectConfig, appConfig, queryFieldTranslations, dutchTranslations) {
+function udbAppConfig(
+  $routeProvider,
+  $locationProvider,
+  $httpProvider,
+  $sceDelegateProvider,
+  $translateProvider,
+  uiSelectConfig,
+  appConfig,
+  queryFieldTranslations,
+  dutchTranslations
+) {
   $routeProvider
     .when('/', {
       templateUrl: 'views/main.html',
