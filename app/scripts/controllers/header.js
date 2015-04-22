@@ -11,7 +11,7 @@ angular
   .module('udbApp')
   .controller('HeaderCtrl', HeaderController);
 
-/** @ngInject */
+/* @ngInject */
 function HeaderController(uitidAuth, $scope) {
   $scope.login = uitidAuth.login;
   $scope.logout = uitidAuth.logout;
@@ -22,3 +22,4 @@ function HeaderController(uitidAuth, $scope) {
     $scope.user = user;
   }, true);
 }
+HeaderController.$inject = ["uitidAuth", "$scope"];

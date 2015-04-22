@@ -24,21 +24,31 @@ angular
     'pascalprecht.translate'
   ])
   .config(udbAppConfig)
-  .run(function (udbApi) {
+  /* @ngInject */
+  .run(["udbApi", function (udbApi) {
     udbApi.getMe();
-  });
+  }]);
 
-/** @ngInject */
-function udbAppConfig($routeProvider, $locationProvider, $httpProvider, $sceDelegateProvider, $translateProvider,
-                      uiSelectConfig, appConfig, queryFieldTranslations, dutchTranslations) {
+/* @ngInject */
+function udbAppConfig(
+  $routeProvider,
+  $locationProvider,
+  $httpProvider,
+  $sceDelegateProvider,
+  $translateProvider,
+  uiSelectConfig,
+  appConfig,
+  queryFieldTranslations,
+  dutchTranslations
+) {
   $routeProvider
     .when('/', {
       templateUrl: 'views/main.html',
       controller: 'MainCtrl',
       resolve: { /* @ngInject */
-        redirect: function (authorizationService) {
+        redirect: ["authorizationService", function (authorizationService) {
           return authorizationService.redirectIfLoggedIn('/search');
-        }
+        }]
       }
     })
     .when('/about', {
@@ -50,21 +60,21 @@ function udbAppConfig($routeProvider, $locationProvider, $httpProvider, $sceDele
       controller: 'Search',
       reloadOnSearch: false,
       resolve: { /* @ngInject */
-        permission: function (authorizationService) {
+        permission: ["authorizationService", function (authorizationService) {
           return authorizationService.isLoggedIn();
-        }
+        }]
       }
     })
     .when('/event/:eventId', {
       templateUrl: 'templates/event-detail.html',
       controller: 'EventDetailController',
       resolve: {
-        eventId: /* @ngInject */ ['$route', function ($route) {
+        eventId: /* @ngInject */ ["$route", function ($route) {
           return $route.current.params.eventId;
         }],
-        permission: /* @ngInject */ function (authorizationService) {
+        permission: /* @ngInject */ ["authorizationService", function (authorizationService) {
           return authorizationService.isLoggedIn();
-        }
+        }]
       }
     })
     .otherwise({
@@ -90,3 +100,4 @@ function udbAppConfig($routeProvider, $locationProvider, $httpProvider, $sceDele
 
   uiSelectConfig.theme = 'bootstrap';
 }
+udbAppConfig.$inject = ["$routeProvider", "$locationProvider", "$httpProvider", "$sceDelegateProvider", "$translateProvider", "uiSelectConfig", "appConfig", "queryFieldTranslations", "dutchTranslations"];

@@ -11,6 +11,7 @@ angular
   .module('udbApp')
   .controller('AppCtrl', AppController);
 
+/* @ngInject */
 function AppController($scope) {
   $scope.showJobLog = false;
 
@@ -20,3 +21,4 @@ function AppController($scope) {
 
   $scope.toggleJobLog = toggleJobLog;
 }
+AppController.$inject = ["$scope"];
