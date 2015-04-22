@@ -11,7 +11,7 @@ angular
   .module('udbApp')
   .controller('MainCtrl', MainController);
 
-/** @ngInject */
+/* @ngInject */
 function MainController($scope, uitidAuth) {
   $scope.login = function () {
     uitidAuth.login();
@@ -23,3 +23,4 @@ function MainController($scope, uitidAuth) {
     $scope.user = user;
   }, true);
 }
+MainController.$inject = ["$scope", "uitidAuth"];

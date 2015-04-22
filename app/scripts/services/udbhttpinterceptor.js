@@ -11,7 +11,7 @@ angular
   .module('udbApp')
   .factory('udbHttpInterceptor', httpInterceptor);
 
-/** @ngInject */
+/* @ngInject */
 function httpInterceptor($q, $location, $window, appConfig) {
 
   var login = function () {
@@ -43,3 +43,4 @@ function httpInterceptor($q, $location, $window, appConfig) {
     }
   };
 }
+httpInterceptor.$inject = ["$q", "$location", "$window", "appConfig"];
