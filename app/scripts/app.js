@@ -77,6 +77,15 @@ function udbAppConfig(
         }]
       }
     })
+    .when('/saved-searches', {
+      templateUrl: 'templates/saved-searches-list.html',
+      controller: 'SavedSearchesListController',
+      resolve: {
+        permission: /* @ngInject */ ["authorizationService", function (authorizationService) {
+          return authorizationService.isLoggedIn();
+        }]
+      }
+    })
     .otherwise({
       redirectTo: '/'
     });
