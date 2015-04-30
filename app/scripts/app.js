@@ -47,7 +47,7 @@ function udbAppConfig(
       templateUrl: 'views/main.html',
       controller: 'MainCtrl',
       resolve: { /* @ngInject */
-        redirect: ["authorizationService", function (authorizationService) {
+        redirect: ['authorizationService', function (authorizationService) {
           return authorizationService.redirectIfLoggedIn('/search');
         }]
       }
@@ -61,7 +61,7 @@ function udbAppConfig(
       controller: 'Search',
       reloadOnSearch: false,
       resolve: { /* @ngInject */
-        permission: ["authorizationService", function (authorizationService) {
+        permission: ['authorizationService', function (authorizationService) {
           return authorizationService.isLoggedIn();
         }]
       }
@@ -70,10 +70,10 @@ function udbAppConfig(
       templateUrl: 'templates/event-detail.html',
       controller: 'EventDetailController',
       resolve: {
-        eventId: /* @ngInject */ ["$route", function ($route) {
+        eventId: /* @ngInject */ ['$route', function ($route) {
           return $route.current.params.eventId;
         }],
-        permission: /* @ngInject */ ["authorizationService", function (authorizationService) {
+        permission: /* @ngInject */ ['authorizationService', function (authorizationService) {
           return authorizationService.isLoggedIn();
         }]
       }
@@ -101,4 +101,4 @@ function udbAppConfig(
 
   uiSelectConfig.theme = 'bootstrap';
 }
-udbAppConfig.$inject = ["$routeProvider", "$locationProvider", "$httpProvider", "$sceDelegateProvider", "$translateProvider", "uiSelectConfig", "appConfig", "queryFieldTranslations", "dutchTranslations"];
+udbAppConfig.$inject = ['$routeProvider', '$locationProvider', '$httpProvider', '$sceDelegateProvider', '$translateProvider', 'uiSelectConfig', 'appConfig', 'queryFieldTranslations', 'dutchTranslations'];

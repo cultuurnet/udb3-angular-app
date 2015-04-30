@@ -335,7 +335,8 @@ module.exports = function (grunt) {
           cwd: 'app/scripts',
           src: ['{,*/}*.js'],
           dest: 'app/scripts'
-        }]
+        }],
+        singleQuotes: true
       }
     },
 

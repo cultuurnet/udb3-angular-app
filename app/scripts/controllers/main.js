@@ -23,4 +23,4 @@ function MainController($scope, uitidAuth) {
     $scope.user = user;
   }, true);
 }
-MainController.$inject = ["$scope", "uitidAuth"];
+MainController.$inject = ['$scope', 'uitidAuth'];
