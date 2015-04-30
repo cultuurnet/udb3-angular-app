@@ -21,12 +21,13 @@ angular
     'peg',
     'config',
     'btford.socket-io',
-    'pascalprecht.translate'
+    'pascalprecht.translate',
   ])
   .config(udbAppConfig)
   /* @ngInject */
-  .run(["udbApi", function (udbApi) {
+  .run(['udbApi', 'amMoment', function (udbApi, amMoment) {
     udbApi.getMe();
+    amMoment.changeLocale('nl');
   }]);
 
 /* @ngInject */
