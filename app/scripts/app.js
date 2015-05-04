@@ -82,7 +82,7 @@ function udbAppConfig(
       templateUrl: 'templates/saved-searches-list.html',
       controller: 'SavedSearchesListController',
       resolve: {
-        permission: /* @ngInject */ ["authorizationService", function (authorizationService) {
+        permission: /* @ngInject */ ['authorizationService', function (authorizationService) {
           return authorizationService.isLoggedIn();
         }]
       }
