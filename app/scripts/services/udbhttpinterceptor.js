@@ -43,4 +43,4 @@ function httpInterceptor($q, $location, $window, appConfig) {
     }
   };
 }
-httpInterceptor.$inject = ["$q", "$location", "$window", "appConfig"];
+httpInterceptor.$inject = ['$q', '$location', '$window', 'appConfig'];

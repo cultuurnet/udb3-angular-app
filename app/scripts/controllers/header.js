@@ -22,4 +22,4 @@ function HeaderController(uitidAuth, $scope) {
     $scope.user = user;
   }, true);
 }
-HeaderController.$inject = ["uitidAuth", "$scope"];
+HeaderController.$inject = ['uitidAuth', '$scope'];

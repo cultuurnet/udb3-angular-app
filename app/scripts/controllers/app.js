@@ -21,4 +21,4 @@ function AppController($scope) {
 
   $scope.toggleJobLog = toggleJobLog;
 }
-AppController.$inject = ["$scope"];
+AppController.$inject = ['$scope'];

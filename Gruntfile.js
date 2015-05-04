@@ -209,6 +209,12 @@ module.exports = function (grunt) {
             },
             'angular-i18n': {
               'main': 'angular-locale_nl-be.js'
+            },
+            'moment': {
+              'main': [
+                'moment.js',
+                'locale/nl.js'
+              ]
             }
           }
         }
@@ -329,7 +335,8 @@ module.exports = function (grunt) {
           cwd: 'app/scripts',
           src: ['{,*/}*.js'],
           dest: 'app/scripts'
-        }]
+        }],
+        singleQuotes: true
       }
     },
 
