@@ -25,9 +25,21 @@ angular
   ])
   .config(udbAppConfig)
   /* @ngInject */
-  .run(['udbApi', 'amMoment', function (udbApi, amMoment) {
-    udbApi.getMe();
-    amMoment.changeLocale('nl');
+  .run([
+    'udbApi',
+    'amMoment',
+    '$rootScope',
+    'searchHelper',
+    '$location',
+    function (udbApi, amMoment, $rootScope, searchHelper, $location) {
+      udbApi.getMe();
+      amMoment.changeLocale('nl');
+
+      $rootScope.$watch(function () {
+        return searchHelper.getQuery();
+      }, function () {
+        $location.path('/search');
+      });
   }]);
 
 /* @ngInject */
@@ -40,7 +52,10 @@ function udbAppConfig(
   uiSelectConfig,
   appConfig,
   queryFieldTranslations,
-  dutchTranslations
+  dutchTranslations,
+  $rootScope,
+  searchHelper,
+  $location
 ) {
   $routeProvider
     .when('/', {
@@ -110,4 +125,14 @@ function udbAppConfig(
 
   uiSelectConfig.theme = 'bootstrap';
 }
-udbAppConfig.$inject = ['$routeProvider', '$locationProvider', '$httpProvider', '$sceDelegateProvider', '$translateProvider', 'uiSelectConfig', 'appConfig', 'queryFieldTranslations', 'dutchTranslations'];
+udbAppConfig.$inject = [
+  '$routeProvider',
+  '$locationProvider',
+  '$httpProvider',
+  '$sceDelegateProvider',
+  '$translateProvider',
+  'uiSelectConfig',
+  'appConfig',
+  'queryFieldTranslations',
+  'dutchTranslations'
+];
