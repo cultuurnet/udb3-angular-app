@@ -29,15 +29,12 @@ angular
     'udbApi',
     'amMoment',
     '$rootScope',
-    'searchHelper',
     '$location',
-    function (udbApi, amMoment, $rootScope, searchHelper, $location) {
+    function (udbApi, amMoment, $rootScope, $location) {
       udbApi.getMe();
       amMoment.changeLocale('nl');
 
-      $rootScope.$watch(function () {
-        return searchHelper.getQuery();
-      }, function () {
+      $rootScope.$on('searchSubmitted', function () {
         $location.path('/search');
       });
   }]);
