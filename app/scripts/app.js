@@ -99,6 +99,15 @@ function udbAppConfig(
         }]
       }
     })
+    .when('/event', {
+      templateUrl: 'templates/event-form.html',
+      controller: 'EventFormCtrl',
+      resolve: {
+        eventId: function () { return null },
+        placeId: function () { return null },
+        offerType: function() { return 'event' }
+      }
+    })
     .otherwise({
       redirectTo: '/'
     });
