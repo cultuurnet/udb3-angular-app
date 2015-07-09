@@ -101,7 +101,7 @@ function udbAppConfig(
     })
     .when('/event', {
       templateUrl: 'templates/event-form.html',
-      controller: 'EventFormCtrl',
+      controller: 'EventFormController',
       resolve: {
         eventId: function () { return null },
         placeId: function () { return null },
