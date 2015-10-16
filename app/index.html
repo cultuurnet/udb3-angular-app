@@ -51,11 +51,11 @@
                 <udb-search-bar ng-show="user"></udb-search-bar>
 
                 <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-                    <ul class="nav navbar-nav navbar-right" ng-hide="user">
+                <div class="collapse navbar-collapse">
+                    <ul class="nav navbar-nav navbar-right" ng-hide="user" ng-cloak>
                         <li ng-hide="user"><a ng-click="login()" ng-href="#">Aanmelden</a></li>
                     </ul>
-                    <ul class="nav navbar-nav navbar-right" ng-show="user">
+                    <ul class="nav navbar-nav navbar-right" ng-show="user" ng-cloak>
                         <li class="dropdown">
                             <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
                                 <span class="udb-user" ng-bind="user.nick"></span>
