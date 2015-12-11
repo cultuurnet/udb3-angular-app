@@ -103,9 +103,20 @@ function udbAppConfig(
       templateUrl: 'templates/event-form.html',
       controller: 'EventFormController',
       resolve: {
-        eventId: function () { return null },
-        placeId: function () { return null },
-        offerType: function() { return 'event' }
+        eventId: function () { return null; },
+        placeId: function () { return null; },
+        offerType: function() { return 'event'; }
+      }
+    })
+    .when('/event/:eventId/edit', {
+      templateUrl: 'templates/event-form.html',
+      controller: 'EventFormController',
+      resolve: {
+        eventId: /* @ngInject */ ['$route', function ($route) {
+          return $route.current.params.eventId;
+        }],
+        placeId: function () { return null; },
+        offerType: function() { return 'event'; }
       }
     })
     .otherwise({
