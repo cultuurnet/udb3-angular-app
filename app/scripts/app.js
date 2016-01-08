@@ -90,6 +90,18 @@ function udbAppConfig(
         }]
       }
     })
+    .when('/place/:placeId', {
+      templateUrl: 'templates/place-detail.html',
+      controller: 'PlaceDetailController',
+      resolve: {
+        placeId: /* @ngInject */ ['$route', function ($route) {
+          return $route.current.params.placeId;
+        }],
+        permission: /* @ngInject */ ['authorizationService', function (authorizationService) {
+          return authorizationService.isLoggedIn();
+        }]
+      }
+    })
     .when('/saved-searches', {
       templateUrl: 'templates/saved-searches-list.html',
       controller: 'SavedSearchesListController',
