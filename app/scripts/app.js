@@ -102,6 +102,17 @@ function udbAppConfig(
         }]
       }
     })
+    .when('/place/:placeId/edit', {
+      templateUrl: 'templates/event-form.html',
+      controller: 'EventFormController',
+      resolve: {
+        placeId: /* @ngInject */ ['$route', function ($route) {
+          return $route.current.params.placeId;
+        }],
+        eventId: function () { return null; },
+        offerType: function() { return 'place'; }
+      }
+    })
     .when('/saved-searches', {
       templateUrl: 'templates/saved-searches-list.html',
       controller: 'SavedSearchesListController',
