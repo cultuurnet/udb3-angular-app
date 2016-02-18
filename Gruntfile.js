@@ -3,6 +3,7 @@
 
 var modRewrite = require('connect-modrewrite');
 var xml2js = require('xml2js');
+var jsonminify = require('jsonminify');
 
 // # Globbing
 // for performance reasons we're only matching one level down:
@@ -432,7 +433,7 @@ module.exports = function (grunt) {
       dev: {
         constants: function() {
           return {
-            appConfig: grunt.file.readJSON('config.json')
+            appConfig: JSON.parse(JSON.minify(grunt.file.read('config.json')))
           };
         }
       },
@@ -441,9 +442,9 @@ module.exports = function (grunt) {
           var config = {};
 
           if (grunt.file.exists('config.json')) {
-            config = grunt.file.readJSON('config.json');
+            config = JSON.parse(JSON.minify(grunt.file.read('config.json')));
           } else {
-            config = grunt.file.readJSON('config.json.dist');
+            config = JSON.parse(JSON.minify(grunt.file.read('config.json.dist')));
           }
 
           return {

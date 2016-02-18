@@ -2,5 +2,10 @@
   "baseUrl": "http://culudb-silex.dev:8080/",
   "baseApiUrl": "http://culudb-silex.dev:8080/api/1.0/",
   "authUrl": "http://culudb-silex.dev:8080/culturefeed/oauth/connect",
-  "socketUrl": "http://culudb-websocket-server.dev:3000/"
+  "socketUrl": "http://culudb-websocket-server.dev:3000/",
+  "media": {
+    // This limit is passed directly to ngf-max-size attribute of ng-file-upload
+    // e.g.: "10KB" or "10MB" or "10GB"
+    "fileSizeLimit": "1MB"
+  }
 }
