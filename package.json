@@ -1,7 +1,9 @@
 {
   "name": "udb3-angular-app",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "jsonminify": "^0.2.3"
+  },
   "devDependencies": {
     "connect-modrewrite": "^0.7.9",
     "grunt": "^0.4.1",
