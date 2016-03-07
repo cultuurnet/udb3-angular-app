@@ -21,7 +21,8 @@ angular
     'peg',
     'config',
     'btford.socket-io',
-    'pascalprecht.translate',
+    'btford.markdown',
+    'pascalprecht.translate'
   ])
   .config(udbAppConfig)
   /* @ngInject */
@@ -141,6 +142,12 @@ function udbAppConfig(
         placeId: function () { return null; },
         offerType: function() { return 'event'; }
       }
+    })
+    .when('/copyright', {
+      template: '<div btf-markdown ng-include="\'docs/copyright.md\'"></div>'
+    })
+    .when('/user-agreement', {
+      template: '<div btf-markdown ng-include="\'docs/user-agreement.md\'"></div>'
     })
     .otherwise({
       redirectTo: '/'
