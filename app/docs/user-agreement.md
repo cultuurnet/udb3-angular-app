@@ -11,18 +11,23 @@ d. Site: https://uitdatabank.be
 
 ## 1. Privacybeleid van de Beheerder
 
-1.1.1. De verwerking van de persoonsgegevens met betrekking tot het Inschrijvingssysteem zijn onderworpen aan de wet van 8 december 1992 tot bescherming van de persoonlijke levenssfeer (ten opzichte van de verwerking van persoonsgegevens).
+#### 1.1.1.
+De verwerking van de persoonsgegevens met betrekking tot het Inschrijvingssysteem zijn onderworpen aan de wet van 8 december 1992 tot bescherming van de persoonlijke levenssfeer (ten opzichte van de verwerking van persoonsgegevens).
 
-1.1.2. Deze Privacyverklaring hoort samen met de andere Gebruiksvoorwaarden en geeft gedetailleerde informatie over de manier waarop we uw persoonsgegevens verwerken bij een bezoek aan de Site.
+#### 1.1.2.
+Deze Privacyverklaring hoort samen met de andere Gebruiksvoorwaarden en geeft gedetailleerde informatie over de manier waarop we uw persoonsgegevens verwerken bij een bezoek aan de Site.
 
-1.1.3. Wie gebruik maakt van de Site, aanvaardt de bepalingen van deze privacyverklaring. Als u niet akkoord gaat met een of meerdere bepalingen, vragen wij u vriendelijk de Site te verlaten en contact met ons op te nemen via het E-mailadres om uw bezorgdheden te bespreken.
+#### 1.1.3.
+Wie gebruik maakt van de Site, aanvaardt de bepalingen van deze privacyverklaring. Als u niet akkoord gaat met een of meerdere bepalingen, vragen wij u vriendelijk de Site te verlaten en contact met ons op te nemen via het E-mailadres om uw bezorgdheden te bespreken.
 
 ### 1.2. Wat doen wij met uw informatie?
 Bij algemeen gebruik van onze website houden wij een beperkt aantal bezoekersdata bij (zie punt 1.3.1) met het oog op een optimale dienstverlening. In geen geval worden data doorgegeven aan derden.
 
 ### 1.3. Wanneer verwerken of gebruiken wij welke persoonsgegevens?
 
-1.3.1. De volgende gegevens worden bij uw bezoek aan onze website opgeslagen:
+#### 1.3.1.
+De volgende gegevens worden bij uw bezoek aan onze website opgeslagen:
+
 - uw IP-adres
 - de zoekmachine of andere website langs waar u terecht kwam bij de Site
 - de pagina's die u op onze Site bezoekt
@@ -31,30 +36,38 @@ Bij algemeen gebruik van onze website houden wij een beperkt aantal bezoekersdat
 - alle informatie die u ons vrijwillig verstrekt
 - basisinformatie over uw browser en uw besturingssysteem
 
-1.3.2. Indien u zich registreert voor onze nieuwsbrief worden ook verschillende persoonsgegevens opgevraagd (zoals e-mailadres, voornaam, naam en provincie). Wij hebben deze informatie nodig om u gepersonaliseerde informatie te sturen. Uitschrijven is steeds mogelijk volgens de eenvoudige instructies die vermeld staan in de nieuwsbrieven.
+#### 1.3.2.
+Indien u zich registreert voor onze nieuwsbrief worden ook verschillende persoonsgegevens opgevraagd (zoals e-mailadres, voornaam, naam en provincie). Wij hebben deze informatie nodig om u gepersonaliseerde informatie te sturen. Uitschrijven is steeds mogelijk volgens de eenvoudige instructies die vermeld staan in de nieuwsbrieven.
 
-1.3.3. Bij de uitbouw van onze dienstverlening werken wij samen met onderaannemers (bijvoorbeeld hosting providers voor de Site). Deze bedrijven zijn gevestigd binnen de Europese Economische Ruimte en zijn er contractueel toe verbonden het privacybeleid van de Beheerder strikt te respecteren. Zij handelen enkel op instructie van de Beheerder en nemen de nodige maatregelen om persoonsgegevens adequaat te beschermen.
+#### 1.3.3.
+Bij de uitbouw van onze dienstverlening werken wij samen met onderaannemers (bijvoorbeeld hosting providers voor de Site). Deze bedrijven zijn gevestigd binnen de Europese Economische Ruimte en zijn er contractueel toe verbonden het privacybeleid van de Beheerder strikt te respecteren. Zij handelen enkel op instructie van de Beheerder en nemen de nodige maatregelen om persoonsgegevens adequaat te beschermen.
 
 ### 1.4. Kan ik me verzetten tegen het opslaan van mijn gegevens?
 
-1.4.1. U heeft het recht om kosteloos informatie te vragen over de verwerking van uw persoonsgegevens. Op grond van de Privacywet heeft u eveneens het recht om deze persoonsgegevens te laten wijzigen indien ze onjuist zijn. Daarnaast kunt u uw persoonsgegevens laten verwijderen of het gebruik ervan verbieden indien ze onvolledig of niet ter zake dienend zijn.
+#### 1.4.1.
+U heeft het recht om kosteloos informatie te vragen over de verwerking van uw persoonsgegevens. Op grond van de Privacywet heeft u eveneens het recht om deze persoonsgegevens te laten wijzigen indien ze onjuist zijn. Daarnaast kunt u uw persoonsgegevens laten verwijderen of het gebruik ervan verbieden indien ze onvolledig of niet ter zake dienend zijn.
 
-1.4.2. Om deze rechten uit te oefenen, kunt u ons altijd contacteren via het E-mailadres.
+#### 1.4.2.
+Om deze rechten uit te oefenen, kunt u ons altijd contacteren via het E-mailadres.
 
 ### 1.5. Wat zijn cookies en hoe worden ze gebruikt?
 Op onze website maken wij gebruik van zogenaamde cookies. Een cookie is een kleine file die door de website-eigenaar naar de harde schijf van de website-bezoeker wordt gestuurd en daar wordt opgeslagen. Hiermee wordt het adres van de bezochte site vastgelegd samen met enkele gegevens over het bezoek die ons toelaten om een aantal anonieme statistieken bij te houden. Voor verdere informatie omtrent het gebruik van cookies, verwijzen wij graag naar onze Cookieverklaring (zie Punt 4).
 
 ### 1.6. Links naar andere websites
 
-1.6.1. Verschillende pagina's van de Site bevatten links naar andere websites. De in dit document opgenomen richtlijnen over gegevensbescherming gelden enkel voor de Site. Wij raden u aan de bepalingen over gegevensbescherming op de andere sites te bekijken.
+#### 1.6.1.
+Verschillende pagina's van de Site bevatten links naar andere websites. De in dit document opgenomen richtlijnen over gegevensbescherming gelden enkel voor de Site. Wij raden u aan de bepalingen over gegevensbescherming op de andere sites te bekijken.
 
-1.6.2. Wij zijn niet verantwoordelijk voor de inhoud van de websites waarnaar u via links op onze website wordt doorverwezen.
+#### 1.6.2.
+Wij zijn niet verantwoordelijk voor de inhoud van de websites waarnaar u via links op onze website wordt doorverwezen.
 
 ### 1.7. Wijzigingen
 
-1.7.1. De Beheerder behoudt zich steeds het recht voor om deze Privacyverklaring te wijzigen. Gelieve daarom zelf regelmatig de laatste versie van dit document te raadplegen. Bent u het oneens met een wijziging in de Privacyverklaring, dan heeft u steeds de mogelijkheid om uw account stop te zetten.
+#### 1.7.1.
+De Beheerder behoudt zich steeds het recht voor om deze Privacyverklaring te wijzigen. Gelieve daarom zelf regelmatig de laatste versie van dit document te raadplegen. Bent u het oneens met een wijziging in de Privacyverklaring, dan heeft u steeds de mogelijkheid om uw account stop te zetten.
 
-1.7.2. Deze Privacyverklaring werd het laatst gewijzigd en herzien op 30/03/2015.
+#### 1.7.2.
+Deze Privacyverklaring werd het laatst gewijzigd en herzien op 30/03/2015.
 
 ### 1.8. Heeft u nog andere vragen?
 Mocht u nog andere vragen hebben over het gebruik en de verwerking van uw persoonsgegevens, dan kan u zich wenden tot onze verantwoordelijke voor gegevensbescherming via het E-mailadres.
@@ -104,11 +117,14 @@ De Beheerder behoudt zich het recht voor op elk ogenblik deze gebruikersovereenk
 
 ### 4.1. Algemeen
 
-4.1.1. Deze Cookieverklaring is van toepassing op de Site
+#### 4.1.1.
+Deze Cookieverklaring is van toepassing op de Site
 
-4.1.2. Dit document legt uit welke “cookies” worden gebruikt op de website. Komt u voor het eerst op deze Site, dan verschijnt een kort statement met een toets waarmee u kunt aangeven of u cookies al dan niet accepteert. Klikt u de toets “Ik ga akkoord” aan, dan aanvaardt u het gebruik van cookies zoals hieronder in detail beschreven. Indien u niet akkoord kan gaan met onze Cookieverklaring, vragen wij u onze website niet langer te gebruiken.
+#### 4.1.2.
+Dit document legt uit welke “cookies” worden gebruikt op de website. Komt u voor het eerst op deze Site, dan verschijnt een kort statement met een toets waarmee u kunt aangeven of u cookies al dan niet accepteert. Klikt u de toets “Ik ga akkoord” aan, dan aanvaardt u het gebruik van cookies zoals hieronder in detail beschreven. Indien u niet akkoord kan gaan met onze Cookieverklaring, vragen wij u onze website niet langer te gebruiken.
 
-4.1.3. Deze Cookieverklaring maakt onderdeel uit van een ruimer beleid van de Beheerder inzake Gebruiksvoorwaarden en Privacy.
+#### 4.1.3.
+Deze Cookieverklaring maakt onderdeel uit van een ruimer beleid van de Beheerder inzake Gebruiksvoorwaarden en Privacy.
 
 ### 4.2. Wat zijn cookies?
 Cookies zijn kleine informatiebestanden die door de server van een website via de browser tijdelijk of permanent op uw computer of toestel worden opgeslagen. De cookies bevatten een unieke code die toelaat om uw browser te herkennen tijdens uw bezoek aan die website (dit is een 'session' cookie) of ook tijdens latere bezoeken (dit is een 'permanent' cookie). Dankzij cookies kunnen we het gebruik van de website vereenvoudigen, vervolledigen en personaliseren.
