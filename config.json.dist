@@ -9,5 +9,6 @@
     "fileSizeLimit": "1MB",
     "userAgreementUrl": "http://localhost:9999/user-agreement",
     "copyrightUrl": "http://localhost:9999/copyright"
-  }
+  },
+  "gaTagManager": ""
 }
