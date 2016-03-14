@@ -16,7 +16,7 @@ function AppController($scope, appConfig, $window) {
   $scope.showJobLog = false;
 
   // Load Google Tag Manager only when the key is not empty
-  if(appConfig.gaTagManager) {
+  if(appConfig.gaTagManager.containerId) {
     angular.element(document).ready(function () {
       (function (w, d, s, l, i) {
         w[l] = w[l] || []; w[l].push({ 'gtm.start': new Date().getTime(), event: 'gtm.js' });
@@ -26,7 +26,7 @@ function AppController($scope, appConfig, $window) {
         j.async = true;
         j.src = '//www.googletagmanager.com/gtm.js?id=' + i + dl;
         f.parentNode.insertBefore(j, f);
-      })($window, document, 'script', 'tm', appConfig.gaTagManager);
+      })($window, document, 'script', 'tm', appConfig.gaTagManager.containerId);
     });
   }
 
