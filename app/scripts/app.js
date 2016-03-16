@@ -18,6 +18,7 @@ angular
     'ui.bootstrap',
     'ui.select',
     'udb.core',
+    'udbApp.ga-tag-manager',
     'peg',
     'config',
     'btford.socket-io',
