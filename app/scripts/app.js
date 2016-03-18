@@ -70,6 +70,16 @@ function udbAppConfig(
       templateUrl: 'views/about.html',
       controller: 'AboutCtrl'
     })
+    .when('/dashboard', {
+      templateUrl: 'templates/dashboard.html',
+      controller: 'DashboardController',
+      controllerAs: 'dash',
+      resolve: { /* @ngInject */
+        permission: ['authorizationService', function (authorizationService) {
+          return authorizationService.isLoggedIn();
+        }]
+      }
+    })
     .when('/search', {
       templateUrl: 'templates/search.html',
       controller: 'Search',
