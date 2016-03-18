@@ -62,7 +62,7 @@ function udbAppConfig(
       controller: 'MainCtrl',
       resolve: { /* @ngInject */
         redirect: ['authorizationService', function (authorizationService) {
-          return authorizationService.redirectIfLoggedIn('/search');
+          return authorizationService.redirectIfLoggedIn('/dashboard');
         }]
       }
     })
