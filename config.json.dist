@@ -12,5 +12,9 @@
   },
   "gaTagManager": {
     "containerId": ""
+  },
+  "calendarHighlight": {
+    "date": "",
+    "extraClass": ""
   }
 }
