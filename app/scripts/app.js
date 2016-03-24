@@ -131,7 +131,8 @@ function udbAppConfig(
         eventId: function () { return null; },
         placeId: function () { return null; },
         offerType: function() { return 'event'; }
-      }
+      },
+      excludeFooter: true
     })
     .when('/event/:eventId/edit', {
       templateUrl: 'templates/event-form.html',

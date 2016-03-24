@@ -74,7 +74,7 @@
 
       <div ng-view=""></div>
 
-      <div class="footer row">
+      <div class="footer row" ng-cloak ng-if="!excludeFooter">
           <div class="col-sm-3">
               <img class="pull-left" src="images/cultuurnet-logo.png" alt="logo CultuurNet"/>
           </div>

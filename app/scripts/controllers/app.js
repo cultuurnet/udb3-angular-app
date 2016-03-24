@@ -14,6 +14,11 @@ angular
 /* @ngInject */
 function AppController($scope, appConfig, $window, $document) {
   $scope.showJobLog = false;
+  $scope.excludeFooter = false;
+
+  $scope.$on('$routeChangeSuccess', function(event, current) {
+    $scope.excludeFooter = current.$$route.excludeFooter;
+  });
 
   function toggleJobLog() {
     $scope.showJobLog = !$scope.showJobLog;
