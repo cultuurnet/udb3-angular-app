@@ -113,7 +113,8 @@ function udbAppConfig(
         }],
         eventId: function () { return null; },
         offerType: function() { return 'place'; }
-      }
+      },
+      excludeFooter: true
     })
     .when('/saved-searches', {
       templateUrl: 'templates/saved-searches-list.html',
@@ -131,7 +132,8 @@ function udbAppConfig(
         eventId: function () { return null; },
         placeId: function () { return null; },
         offerType: function() { return 'event'; }
-      }
+      },
+      excludeFooter: true
     })
     .when('/event/:eventId/edit', {
       templateUrl: 'templates/event-form.html',
@@ -142,7 +144,8 @@ function udbAppConfig(
         }],
         placeId: function () { return null; },
         offerType: function() { return 'event'; }
-      }
+      },
+      excludeFooter: true
     })
     .when('/copyright', {
       template: '<div btf-markdown ng-include="\'docs/copyright.md\'"></div>'
