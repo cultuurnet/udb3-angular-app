@@ -28,7 +28,7 @@
   </head>
   <body ng-app="udbApp" ng-controller="AppCtrl" ng-class="{'overlay-static-elements': showJobLog}" ng-strict-di>
     <!--[if lt IE 7]>
-      <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+    <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
 
     <!-- Google Tag Manager code is loaded with angular (see AppCtrl) -->
@@ -72,19 +72,21 @@
             </div><!-- /.container-fluid -->
         </nav>
 
-      <div ng-view=""></div>
+        <div ng-view=""></div>
 
-      <div class="footer row" ng-cloak ng-if="!excludeFooter">
-          <div class="col-sm-3">
-              <img class="pull-left" src="images/cultuurnet-logo.png" alt="logo CultuurNet"/>
-          </div>
-          <div class="col-sm-6">
-              <p class="contact-info">Heb je vragen of feedback? <a href="mailto:vragen@uitdatabank.be">vragen@uitdatabank.be</a> 02 551 07 30</p>
-          </div>
-          <div class="col-sm-3">
-              <img class="pull-right" src="images/vlaanderen-logo.png" alt="logo Vlaanderen"/>
-          </div>
-      </div>
+        <div class="footer">
+            <div class="row" ng-cloak ng-if="!excludeFooter">
+                <div class="col-sm-3">
+                    <img class="pull-left" src="images/cultuurnet-logo.png" alt="logo CultuurNet"/>
+                </div>
+                <div class="col-sm-6">
+                    <p class="contact-info">Heb je vragen of feedback? <a href="mailto:vragen@uitdatabank.be">vragen@uitdatabank.be</a> 02 551 07 30</p>
+                </div>
+                <div class="col-sm-3">
+                    <img class="pull-right" src="images/vlaanderen-logo.png" alt="logo Vlaanderen"/>
+                </div>
+            </div>
+        </div>
     </div>
 
     <udb-job-log></udb-job-log>
