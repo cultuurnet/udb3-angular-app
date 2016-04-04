@@ -62,13 +62,23 @@ function udbAppConfig(
       controller: 'MainCtrl',
       resolve: { /* @ngInject */
         redirect: ['authorizationService', function (authorizationService) {
-          return authorizationService.redirectIfLoggedIn('/search');
+          return authorizationService.redirectIfLoggedIn('/dashboard');
         }]
       }
     })
     .when('/about', {
       templateUrl: 'views/about.html',
       controller: 'AboutCtrl'
+    })
+    .when('/dashboard', {
+      templateUrl: 'templates/dashboard.html',
+      controller: 'DashboardController',
+      controllerAs: 'dash',
+      resolve: { /* @ngInject */
+        permission: ['authorizationService', function (authorizationService) {
+          return authorizationService.isLoggedIn();
+        }]
+      }
     })
     .when('/search', {
       templateUrl: 'templates/search.html',
