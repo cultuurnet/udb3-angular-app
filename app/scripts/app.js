@@ -18,6 +18,7 @@ angular
     'ui.bootstrap',
     'ui.select',
     'udb.core',
+    'udb.router',
     'udbApp.ga-tag-manager',
     'peg',
     'config',
@@ -56,6 +57,12 @@ function udbAppConfig(
   searchHelper,
   $location
 ) {
+
+  locateOfferByIdParam.$inject = ['$route', 'offerLocator'];
+  function locateOfferByIdParam($route, offerLocator){
+    return offerLocator.get($route.current.params.id);
+  }
+
   $routeProvider
     .when('/', {
       templateUrl: 'views/main.html',
@@ -90,37 +97,31 @@ function udbAppConfig(
         }]
       }
     })
-    .when('/event/:eventId', {
+    .when('/event/:id', {
       templateUrl: 'templates/event-detail.html',
       controller: 'EventDetailController',
       resolve: {
-        eventId: /* @ngInject */ ['$route', function ($route) {
-          return $route.current.params.eventId;
-        }],
+        eventId: locateOfferByIdParam,
         permission: /* @ngInject */ ['authorizationService', function (authorizationService) {
           return authorizationService.isLoggedIn();
         }]
       }
     })
-    .when('/place/:placeId', {
+    .when('/place/:id', {
       templateUrl: 'templates/place-detail.html',
       controller: 'PlaceDetailController',
       resolve: {
-        placeId: /* @ngInject */ ['$route', function ($route) {
-          return $route.current.params.placeId;
-        }],
+        placeId: locateOfferByIdParam,
         permission: /* @ngInject */ ['authorizationService', function (authorizationService) {
           return authorizationService.isLoggedIn();
         }]
       }
     })
-    .when('/place/:placeId/edit', {
+    .when('/place/:id/edit', {
       templateUrl: 'templates/event-form.html',
       controller: 'EventFormController',
       resolve: {
-        placeId: /* @ngInject */ ['$route', function ($route) {
-          return $route.current.params.placeId;
-        }],
+        placeId: locateOfferByIdParam,
         eventId: function () { return null; },
         offerType: function() { return 'place'; }
       },
@@ -145,13 +146,11 @@ function udbAppConfig(
       },
       excludeFooter: true
     })
-    .when('/event/:eventId/edit', {
+    .when('/event/:id/edit', {
       templateUrl: 'templates/event-form.html',
       controller: 'EventFormController',
       resolve: {
-        eventId: /* @ngInject */ ['$route', function ($route) {
-          return $route.current.params.eventId;
-        }],
+        eventId: locateOfferByIdParam,
         placeId: function () { return null; },
         offerType: function() { return 'event'; }
       },

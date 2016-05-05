@@ -2,26 +2,25 @@
   "name": "udb-angular-app",
   "version": "0.0.0",
   "dependencies": {
-    "angular": "~1.4.0",
+    "angular": "~1.5.5",
     "json3": "~3.3.1",
     "es5-shim": "~3.1.0",
-    "bootstrap": "~3.2.0",
-    "angular-resource": "~1.4.0",
-    "angular-cookies": "~1.4.0",
-    "angular-sanitize": "~1.4.0",
-    "angular-touch": "~1.4.0",
-    "angular-route": "~1.4.0",
-    "udb3-angular": "cultuurnet/udb3-angular#master",
+    "bootstrap": "~3.3.6",
+    "angular-resource": "~1.5.5",
+    "angular-cookies": "~1.5.5",
+    "angular-sanitize": "~1.5.5",
+    "angular-touch": "~1.5.5",
+    "angular-route": "~1.5.5",
+    "udb3-angular": "cultuurnet/udb3-angular#feature/III-891",
     "angular-markdown-directive": "^0.3.1"
   },
   "devDependencies": {
-    "angular-mocks": "~1.4.0",
-    "angular-scenario": "~1.4.0"
+    "angular-mocks": "~1.5.5",
+    "angular-scenario": "~1.5.5"
   },
   "appPath": "app",
   "resolutions": {
-    "bootstrap": "~3.3.1",
-    "angular": "~1.4.0"
+    "angular": "~1.5.5"
   },
   "overrides": {
     "codemirror": {
