@@ -32,12 +32,27 @@ angular
     'amMoment',
     '$rootScope',
     '$location',
-    function (udbApi, amMoment, $rootScope, $location) {
-      udbApi.getMe();
+    'uitidAuth',
+    function (udbApi, amMoment, $rootScope, $location, uitidAuth) {
+
+      if(uitidAuth.getToken()) {
+        udbApi.getMe();
+      }
       amMoment.changeLocale('nl');
 
       $rootScope.$on('searchSubmitted', function () {
         $location.path('/search');
+      });
+
+      $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl, newState, oldState) {
+        var tokenIndex = newUrl.indexOf('jwt=');
+
+        if(tokenIndex > 0) {
+          var token = newUrl.substring(tokenIndex + 4);
+          if(token !== uitidAuth.getToken()) {
+            uitidAuth.setToken(token);
+          }
+        }
       });
   }]);
 
@@ -51,10 +66,7 @@ function udbAppConfig(
   uiSelectConfig,
   appConfig,
   queryFieldTranslations,
-  dutchTranslations,
-  $rootScope,
-  searchHelper,
-  $location
+  dutchTranslations
 ) {
   $routeProvider
     .when('/', {
