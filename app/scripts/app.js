@@ -47,9 +47,17 @@ angular
 
       $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl, newState, oldState) {
         var tokenIndex = newUrl.indexOf('jwt=');
+        var tokenLength = newUrl.indexOf('&', tokenIndex);
 
         if(tokenIndex > 0) {
-          var token = newUrl.substring(tokenIndex + 4);
+          var token;
+          if(tokenLength >= 0) {
+            token = newUrl.substring(tokenIndex + 4, tokenLength);
+          }
+          else {
+            token = newUrl.substring(tokenIndex + 4);
+          }
+
           if(token !== uitidAuth.getToken()) {
             uitidAuth.setToken(token);
           }
