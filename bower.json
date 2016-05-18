@@ -11,7 +11,7 @@
     "angular-sanitize": "~1.5.5",
     "angular-touch": "~1.5.5",
     "angular-route": "~1.5.5",
-    "udb3-angular": "cultuurnet/udb3-angular#feature/III-891",
+    "udb3-angular": "cultuurnet/udb3-angular#master",
     "angular-markdown-directive": "^0.3.1"
   },
   "devDependencies": {
