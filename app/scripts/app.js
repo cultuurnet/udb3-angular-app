@@ -13,7 +13,7 @@ angular
     'ngCookies',
     'ngResource',
     //'ngRoute',
-    'ngNewRouter',
+    'ngComponentRouter',
     'ngSanitize',
     'ngTouch',
     'ui.bootstrap',
@@ -30,37 +30,49 @@ angular
   .config(udbAppConfig)
   .value('$routerRootComponent', 'udbApp')
   .component('udbApp', {
-    template: '<main></main>'
-  })
-  .component('header', {
-    controller: 'HeaderCtrl'
-  })
-  .component('main', {
-    controller: 'MainCtrl',
-    templateUrl: 'views/main.html',
-    resolve: { /* @ngInject */
-      redirect: ['authorizationService', function (authorizationService) {
-        return authorizationService.redirectIfLoggedIn('/dashboard');
-      }]
-    },
+    template:'<ng-outlet></ng-outlet>',
     $routeConfig: [
+      {
+        path: '/',
+        name: 'Main',
+        component: 'udbWelcome'
+      },
       {
         path: '/dashboard',
         name: 'Dashboard',
-        component: 'dashboard',
-        templateUrl: 'templates/dashboard.html'
+        component: 'udbDashboard'
       },
       {
         path: '/search',
         name: 'Search',
-        component: 'search',
-        resolve: { /* @ngInject */
-          permission: ['authorizationService', function (authorizationService) {
-            return authorizationService.isLoggedIn();
-          }]
-        }
+        component: 'udbSearch'
+      },
+      {
+        path: '/event/:id',
+        name: 'EventDetail',
+        component: 'eventDetailComponent'
+      },
+      {
+        path: '/copyright',
+        name: 'Copyright',
+        component: 'udbCopyright'
+      },
+      {
+        path: '/user-agreement',
+        name: 'UserAgreement',
+        component: 'udbUserAgreement'
       }
     ]
+  })
+  .component('udbWelcome', {
+    controller: 'MainCtrl',
+    templateUrl: 'views/main.html'
+  })
+  .component('udbCopyright', {
+    template: '<div btf-markdown ng-include="\'docs/copyright.md\'"></div>'
+  })
+  .component('udbUserAgreement', {
+    template: '<div btf-markdown ng-include="\'docs/user-agreement.md\'"></div>'
   })
   /* @ngInject */
   .run([
@@ -119,49 +131,6 @@ function udbAppConfig(
   }
 
   /*$routeProvider
-    .when('/', {
-      templateUrl: 'views/main.html',
-      controller: 'MainCtrl',
-      resolve: { /* @ngInject */
-  /*      redirect: ['authorizationService', function (authorizationService) {
-          return authorizationService.redirectIfLoggedIn('/dashboard');
-        }]
-      }
-    })
-    .when('/about', {
-      templateUrl: 'views/about.html',
-      controller: 'AboutCtrl'
-    })
-    .when('/dashboard', {
-      templateUrl: 'templates/dashboard.html',
-      controller: 'DashboardController',
-      controllerAs: 'dash',
-      resolve: { /* @ngInject */
-  /*      permission: ['authorizationService', function (authorizationService) {
-          return authorizationService.isLoggedIn();
-        }]
-      }
-    })
-    .when('/search', {
-      templateUrl: 'templates/search.html',
-      controller: 'Search',
-      reloadOnSearch: false,
-      resolve: { /* @ngInject */
-  /*     permission: ['authorizationService', function (authorizationService) {
-          return authorizationService.isLoggedIn();
-        }]
-      }
-    })
-    .when('/event/:id', {
-      templateUrl: 'templates/event-detail.html',
-      controller: 'EventDetailController',
-      resolve: {
-        eventId: locateOfferByIdParam,
-        permission: /* @ngInject */ /*['authorizationService', function (authorizationService) {
-          return authorizationService.isLoggedIn();
-        }]
-      }
-    })
     .when('/place/:id', {
       templateUrl: 'templates/place-detail.html',
       controller: 'PlaceDetailController',
@@ -210,12 +179,6 @@ function udbAppConfig(
         offerType: function() { return 'event'; }
       },
       excludeFooter: true
-    })
-    .when('/copyright', {
-      template: '<div btf-markdown ng-include="\'docs/copyright.md\'"></div>'
-    })
-    .when('/user-agreement', {
-      template: '<div btf-markdown ng-include="\'docs/user-agreement.md\'"></div>'
     })
     .otherwise({
       redirectTo: '/'
