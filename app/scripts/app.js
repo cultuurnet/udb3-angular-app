@@ -12,7 +12,8 @@ angular
   .module('udbApp', [
     'ngCookies',
     'ngResource',
-    'ngRoute',
+    //'ngRoute',
+    'ngNewRouter',
     'ngSanitize',
     'ngTouch',
     'ui.bootstrap',
@@ -27,6 +28,40 @@ angular
     'pascalprecht.translate'
   ])
   .config(udbAppConfig)
+  .value('$routerRootComponent', 'udbApp')
+  .component('udbApp', {
+    template: '<main></main>'
+  })
+  .component('header', {
+    controller: 'HeaderCtrl'
+  })
+  .component('main', {
+    controller: 'MainCtrl',
+    templateUrl: 'views/main.html',
+    resolve: { /* @ngInject */
+      redirect: ['authorizationService', function (authorizationService) {
+        return authorizationService.redirectIfLoggedIn('/dashboard');
+      }]
+    },
+    $routeConfig: [
+      {
+        path: '/dashboard',
+        name: 'Dashboard',
+        component: 'dashboard',
+        templateUrl: 'templates/dashboard.html'
+      },
+      {
+        path: '/search',
+        name: 'Search',
+        component: 'search',
+        resolve: { /* @ngInject */
+          permission: ['authorizationService', function (authorizationService) {
+            return authorizationService.isLoggedIn();
+          }]
+        }
+      }
+    ]
+  })
   /* @ngInject */
   .run([
     'udbApi',
@@ -67,7 +102,7 @@ angular
 
 /* @ngInject */
 function udbAppConfig(
-  $routeProvider,
+  //$routeProvider,
   $locationProvider,
   $httpProvider,
   $sceDelegateProvider,
@@ -83,12 +118,12 @@ function udbAppConfig(
     return offerLocator.get($route.current.params.id);
   }
 
-  $routeProvider
+  /*$routeProvider
     .when('/', {
       templateUrl: 'views/main.html',
       controller: 'MainCtrl',
       resolve: { /* @ngInject */
-        redirect: ['authorizationService', function (authorizationService) {
+  /*      redirect: ['authorizationService', function (authorizationService) {
           return authorizationService.redirectIfLoggedIn('/dashboard');
         }]
       }
@@ -102,7 +137,7 @@ function udbAppConfig(
       controller: 'DashboardController',
       controllerAs: 'dash',
       resolve: { /* @ngInject */
-        permission: ['authorizationService', function (authorizationService) {
+  /*      permission: ['authorizationService', function (authorizationService) {
           return authorizationService.isLoggedIn();
         }]
       }
@@ -112,7 +147,7 @@ function udbAppConfig(
       controller: 'Search',
       reloadOnSearch: false,
       resolve: { /* @ngInject */
-        permission: ['authorizationService', function (authorizationService) {
+  /*     permission: ['authorizationService', function (authorizationService) {
           return authorizationService.isLoggedIn();
         }]
       }
@@ -122,7 +157,7 @@ function udbAppConfig(
       controller: 'EventDetailController',
       resolve: {
         eventId: locateOfferByIdParam,
-        permission: /* @ngInject */ ['authorizationService', function (authorizationService) {
+        permission: /* @ngInject */ /*['authorizationService', function (authorizationService) {
           return authorizationService.isLoggedIn();
         }]
       }
@@ -132,7 +167,7 @@ function udbAppConfig(
       controller: 'PlaceDetailController',
       resolve: {
         placeId: locateOfferByIdParam,
-        permission: /* @ngInject */ ['authorizationService', function (authorizationService) {
+        permission: /* @ngInject */ /*['authorizationService', function (authorizationService) {
           return authorizationService.isLoggedIn();
         }]
       }
@@ -151,7 +186,7 @@ function udbAppConfig(
       templateUrl: 'templates/saved-searches-list.html',
       controller: 'SavedSearchesListController',
       resolve: {
-        permission: /* @ngInject */ ['authorizationService', function (authorizationService) {
+        permission: /* @ngInject */ /*['authorizationService', function (authorizationService) {
           return authorizationService.isLoggedIn();
         }]
       }
@@ -184,7 +219,7 @@ function udbAppConfig(
     })
     .otherwise({
       redirectTo: '/'
-    });
+    });*/
 
   $locationProvider.html5Mode(true);
 
@@ -206,7 +241,7 @@ function udbAppConfig(
   uiSelectConfig.theme = 'bootstrap';
 }
 udbAppConfig.$inject = [
-  '$routeProvider',
+  //'$routeProvider',
   '$locationProvider',
   '$httpProvider',
   '$sceDelegateProvider',
