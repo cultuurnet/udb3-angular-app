@@ -61,6 +61,11 @@ angular
         path: '/user-agreement',
         name: 'UserAgreement',
         component: 'udbUserAgreement'
+      },
+      {
+        path: '/saved-searches',
+        name: 'SavedSearches',
+        component: 'udbSavedSearches'
       }
     ]
   })
@@ -73,6 +78,10 @@ angular
   })
   .component('udbUserAgreement', {
     template: '<div btf-markdown ng-include="\'docs/user-agreement.md\'"></div>'
+  })
+  .component('udbSavedSearches', {
+    templateUrl: 'templates/saved-searches-list.html',
+    controller: 'SavedSearchesListController'
   })
   /* @ngInject */
   .run([
@@ -150,15 +159,6 @@ function udbAppConfig(
         offerType: function() { return 'place'; }
       },
       excludeFooter: true
-    })
-    .when('/saved-searches', {
-      templateUrl: 'templates/saved-searches-list.html',
-      controller: 'SavedSearchesListController',
-      resolve: {
-        permission: /* @ngInject */ /*['authorizationService', function (authorizationService) {
-          return authorizationService.isLoggedIn();
-        }]
-      }
     })
     .when('/event', {
       templateUrl: 'templates/event-form.html',
