@@ -154,11 +154,6 @@ function udbAppConfig(
   dutchTranslations
 ) {
 
-  locateOfferByIdParam.$inject = ['$route', 'offerLocator'];
-  function locateOfferByIdParam($route, offerLocator){
-    return offerLocator.get($route.current.params.id);
-  }
-
   $locationProvider.html5Mode(true);
 
   $httpProvider.interceptors.push('udbHttpInterceptor');
