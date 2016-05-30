@@ -7,14 +7,16 @@ angular
     controller: EventDetailComponent
   });
 
-function EventDetailComponent($controller, $scope, offerLocator, $q) {
+function EventDetailComponent($controller, $scope, offerLocator, $q, authorizationService) {
   var deferredEventLocation = $q.defer();
 
   angular.extend(this, $controller('EventDetailController', {
     $scope: $scope,
     eventId: deferredEventLocation.promise
   }));
-  
+
+  this.$routerCanActive = authorizationService.isLoggedIn();
+
   this.$routerOnActivate = function(next, previous) {
     var id = next.params.id;
     return offerLocator.get(id).then(function(eventLocation) {
@@ -22,4 +24,4 @@ function EventDetailComponent($controller, $scope, offerLocator, $q) {
     });
   };
 }
-EventDetailComponent.$inject = ['$controller', '$scope', 'offerLocator', '$q'];
+EventDetailComponent.$inject = ['$controller', '$scope', 'offerLocator', '$q', 'authorizationService'];

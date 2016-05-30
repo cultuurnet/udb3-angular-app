@@ -7,13 +7,15 @@ angular
     controller: OfferEditorComponent
   });
 
-function OfferEditorComponent($controller, $scope, offerLocator, $q) {
+function OfferEditorComponent($controller, $scope, offerLocator, $q, authorizationService) {
   var deferredEventLocation = $q.defer();
 
   angular.extend(this, $controller('EventFormController', {
     $scope: $scope,
     eventId: deferredEventLocation.promise
   }));
+
+  this.$routerCanActive = authorizationService.isLoggedIn();
 
   this.$routerOnActivate = function(next, previous) {
     var id = next.params.id;
@@ -30,4 +32,4 @@ function OfferEditorComponent($controller, $scope, offerLocator, $q) {
   };
 
 }
-OfferEditorComponent.$inject = ['$controller', '$scope', 'offerLocator', '$q'];
+OfferEditorComponent.$inject = ['$controller', '$scope', 'offerLocator', '$q', 'authorizationService'];

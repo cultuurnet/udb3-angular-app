@@ -28,19 +28,19 @@ angular
     'pascalprecht.translate'
   ])
   .config(udbAppConfig)
-  .value('$routerRootComponent', 'udbApp')
   .component('udbApp', {
-    template:'<ng-outlet></ng-outlet>',
+    controller: 'AppCtrl',
     $routeConfig: [
       {
         path: '/',
         name: 'Main',
-        component: 'udbWelcome'
+        component: 'udbWelcome',
+        useAsDefault: true
       },
       {
         path: '/dashboard',
         name: 'Dashboard',
-        component: 'udbDashboard'
+        component: 'dashboardComponent'
       },
       {
         path: '/search',
@@ -96,8 +96,15 @@ angular
   })
   .component('udbSavedSearches', {
     templateUrl: 'templates/saved-searches-list.html',
-    controller: 'SavedSearchesListController'
+    controller: 'SavedSearchesListController',
+    $canActivate: isAuthorized
+  }).component('dashboardComponent', {
+    templateUrl: 'templates/dashboard.html',
+    controller: 'DashboardController',
+    controllerAs: 'dash',
+    $canActivate: isAuthorized
   })
+  .value('$routerRootComponent', 'udbApp')
   /* @ngInject */
   .run([
     'udbApi',
@@ -160,9 +167,6 @@ function udbAppConfig(
       controller: 'PlaceDetailController',
       resolve: {
         placeId: locateOfferByIdParam,
-        permission: /* @ngInject */ /*['authorizationService', function (authorizationService) {
-          return authorizationService.isLoggedIn();
-        }]
       }
     })
     .otherwise({
@@ -199,3 +203,8 @@ udbAppConfig.$inject = [
   'queryFieldTranslations',
   'dutchTranslations'
 ];
+
+function isAuthorized(authorizationService) {
+  return authorizationService.isLoggedIn();
+}
+isAuthorized.$inject = ['authorizationService'];
