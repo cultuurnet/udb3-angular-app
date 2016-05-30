@@ -85,7 +85,8 @@ angular
   })
   .component('udbWelcome', {
     controller: 'MainCtrl',
-    templateUrl: 'views/main.html'
+    templateUrl: 'views/main.html',
+    $canActivate: isAuthorizedAndRedirect('dashboard')
   })
   .component('udbCopyright', {
     template: '<div btf-markdown ng-include="\'docs/copyright.md\'"></div>'
@@ -187,4 +188,15 @@ udbAppConfig.$inject = [
 function isAuthorized(authorizationService) {
   return authorizationService.isLoggedIn();
 }
+
+function isAuthorizedAndRedirect(path) {
+  function executerIsAuthorizedAndRedirect(authorizationService) {
+    authorizationService.redirectIfLoggedIn(path);
+    return true;
+  }
+  executerIsAuthorizedAndRedirect.$inject = ['authorizationService'];
+
+  return executerIsAuthorizedAndRedirect;
+}
+
 isAuthorized.$inject = ['authorizationService'];
