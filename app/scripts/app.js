@@ -66,6 +66,21 @@ angular
         path: '/saved-searches',
         name: 'SavedSearches',
         component: 'udbSavedSearches'
+      },
+      {
+        path: '/event',
+        name: 'CreateOffer',
+        component: 'offerEditorComponent'
+      },
+      {
+        path: '/event/:id/edit',
+        name: 'EditEvent',
+        component: 'offerEditorComponent'
+      },
+      {
+        path: '/place/:id/edit',
+        name: 'EditPlace',
+        component: 'offerEditorComponent'
       }
     ]
   })
@@ -149,36 +164,6 @@ function udbAppConfig(
           return authorizationService.isLoggedIn();
         }]
       }
-    })
-    .when('/place/:id/edit', {
-      templateUrl: 'templates/event-form.html',
-      controller: 'EventFormController',
-      resolve: {
-        placeId: locateOfferByIdParam,
-        eventId: function () { return null; },
-        offerType: function() { return 'place'; }
-      },
-      excludeFooter: true
-    })
-    .when('/event', {
-      templateUrl: 'templates/event-form.html',
-      controller: 'EventFormController',
-      resolve: {
-        eventId: function () { return null; },
-        placeId: function () { return null; },
-        offerType: function() { return 'event'; }
-      },
-      excludeFooter: true
-    })
-    .when('/event/:id/edit', {
-      templateUrl: 'templates/event-form.html',
-      controller: 'EventFormController',
-      resolve: {
-        eventId: locateOfferByIdParam,
-        placeId: function () { return null; },
-        offerType: function() { return 'event'; }
-      },
-      excludeFooter: true
     })
     .otherwise({
       redirectTo: '/'

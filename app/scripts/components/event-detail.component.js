@@ -17,7 +17,6 @@ function EventDetailComponent($controller, $scope, offerLocator, $q) {
   
   this.$routerOnActivate = function(next, previous) {
     var id = next.params.id;
-    console.log(id);
     return offerLocator.get(id).then(function(eventLocation) {
       deferredEventLocation.resolve(eventLocation);
     });
