@@ -12,7 +12,6 @@ angular
   .module('udbApp', [
     'ngCookies',
     'ngResource',
-    //'ngRoute',
     'ngComponentRouter',
     'ngSanitize',
     'ngTouch',
