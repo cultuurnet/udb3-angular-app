@@ -144,7 +144,6 @@ angular
 
 /* @ngInject */
 function udbAppConfig(
-  //$routeProvider,
   $locationProvider,
   $httpProvider,
   $sceDelegateProvider,
@@ -159,18 +158,6 @@ function udbAppConfig(
   function locateOfferByIdParam($route, offerLocator){
     return offerLocator.get($route.current.params.id);
   }
-
-  /*$routeProvider
-    .when('/place/:id', {
-      templateUrl: 'templates/place-detail.html',
-      controller: 'PlaceDetailController',
-      resolve: {
-        placeId: locateOfferByIdParam,
-      }
-    })
-    .otherwise({
-      redirectTo: '/'
-    });*/
 
   $locationProvider.html5Mode(true);
 
@@ -192,7 +179,6 @@ function udbAppConfig(
   uiSelectConfig.theme = 'bootstrap';
 }
 udbAppConfig.$inject = [
-  //'$routeProvider',
   '$locationProvider',
   '$httpProvider',
   '$sceDelegateProvider',
