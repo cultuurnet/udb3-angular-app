@@ -86,7 +86,7 @@ angular
   .component('udbWelcome', {
     controller: 'MainCtrl',
     templateUrl: 'views/main.html',
-    $canActivate: isAuthorizedAndRedirect('dashboard')
+    $canActivate: redirectIfLoggedIn('dashboard')
   })
   .component('udbCopyright', {
     template: '<div btf-markdown ng-include="\'docs/copyright.md\'"></div>'
@@ -121,25 +121,6 @@ angular
 
       $rootScope.$on('searchSubmitted', function () {
         $location.path('/search');
-      });
-
-      $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl, newState, oldState) {
-        var tokenIndex = newUrl.indexOf('jwt=');
-        var tokenLength = newUrl.indexOf('&', tokenIndex);
-
-        if(tokenIndex > 0) {
-          var token;
-          if(tokenLength >= 0) {
-            token = newUrl.substring(tokenIndex + 4, tokenLength);
-          }
-          else {
-            token = newUrl.substring(tokenIndex + 4);
-          }
-
-          if(token !== uitidAuth.getToken()) {
-            uitidAuth.setToken(token);
-          }
-        }
       });
   }]);
 
@@ -189,14 +170,13 @@ function isAuthorized(authorizationService) {
   return authorizationService.isLoggedIn();
 }
 
-function isAuthorizedAndRedirect(path) {
-  function executerIsAuthorizedAndRedirect(authorizationService) {
-    authorizationService.redirectIfLoggedIn(path);
-    return true;
+function redirectIfLoggedIn(path) {
+  function promiseAccess(authorizationService) {
+    return authorizationService.redirectIfLoggedIn(path);
   }
-  executerIsAuthorizedAndRedirect.$inject = ['authorizationService'];
+  promiseAccess.$inject = ['authorizationService'];
 
-  return executerIsAuthorizedAndRedirect;
+  return promiseAccess;
 }
 
 isAuthorized.$inject = ['authorizationService'];
