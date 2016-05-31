@@ -52,6 +52,11 @@ angular
         component: 'eventDetailComponent'
       },
       {
+        path: '/place/:id',
+        name: 'PlaceDetail',
+        component: 'placeDetailComponent'
+      },
+      {
         path: '/copyright',
         name: 'Copyright',
         component: 'udbCopyright'

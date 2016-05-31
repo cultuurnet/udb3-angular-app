@@ -41,7 +41,6 @@ function AppController($scope, $location, uitidAuth) {
         token = url.substring(tokenIndex + 4);
       }
 
-      console.log(token);
       if (token !== uitidAuth.getToken()) {
         uitidAuth.setToken(token);
       }
