@@ -85,6 +85,11 @@ angular
         path: '/place/:id/edit',
         name: 'EditPlace',
         component: 'offerEditorComponent'
+      },
+      {
+        path: '/manage/...',
+        name: 'Manage',
+        component: 'manageComponent'
       }
     ]
   })
