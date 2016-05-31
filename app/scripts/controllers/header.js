@@ -2,24 +2,27 @@
 
 /**
  * @ngdoc function
- * @name udbApp.controller:HeaderCtrl
+ * @name udbApp.controller:HeaderController
  * @description
- * # HeaderCtrl
+ * # HeaderController
  * udbApp controller
  */
 angular
   .module('udbApp')
-  .controller('HeaderCtrl', HeaderController);
+  .controller('HeaderController', HeaderController);
 
 /* @ngInject */
-function HeaderController(uitidAuth, $scope) {
-  $scope.login = uitidAuth.login;
-  $scope.logout = uitidAuth.logout;
+function HeaderController(uitidAuth, $scope, jobLogger) {
+  var controller = this;
+
+  controller.login = uitidAuth.login;
+  controller.logout = uitidAuth.logout;
+  controller.toggleJobLog = jobLogger.toggleJobLog;
 
   $scope.$watch(function () {
     return uitidAuth.getUser();
   }, function (user) {
-    $scope.user = user;
+    controller.user = user;
   }, true);
 }
-HeaderController.$inject = ['uitidAuth', '$scope'];
+HeaderController.$inject = ['uitidAuth', '$scope', 'jobLogger'];
