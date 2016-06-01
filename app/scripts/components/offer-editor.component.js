@@ -12,7 +12,7 @@ function OfferEditorComponent($controller, $scope, offerLocator, $q, authorizati
 
   angular.extend(this, $controller('EventFormController', {
     $scope: $scope,
-    eventId: deferredEventLocation.promise
+    offerId: deferredEventLocation.promise
   }));
 
   this.$routerCanActive = authorizationService.isLoggedIn();
@@ -28,7 +28,7 @@ function OfferEditorComponent($controller, $scope, offerLocator, $q, authorizati
       deferredEventLocation.reject();
     }
 
-    return $q.resolve('The eventId has been promised, move on!');
+    return $q.resolve('The offer id has been promised, move on!');
   };
 
 }
