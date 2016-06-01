@@ -29,6 +29,42 @@ angular
   .config(udbAppConfig)
   .component('udbApp', {
     controller: 'AppCtrl',
+    controllerAs: 'app',
+    $routeConfig: [
+      {
+        path: '/...',
+        name: 'FooterTemplate',
+        component: 'footerTemplate'
+      },
+      {
+        path: '/event',
+        name: 'CreateOffer',
+        component: 'offerEditorComponent'
+      },
+      {
+        path: '/event/:id/edit',
+        name: 'EditEvent',
+        component: 'offerEditorComponent'
+      },
+      {
+        path: '/place/:id/edit',
+        name: 'EditPlace',
+        component: 'offerEditorComponent'
+      },
+      {
+        path: '/manage/...',
+        name: 'Manage',
+        component: 'manageComponent'
+      }
+    ]
+  })
+  .component('udbWelcome', {
+    controller: 'MainCtrl',
+    templateUrl: 'views/main.html',
+    $canActivate: redirectIfLoggedIn('dashboard')
+  })
+  .component('footerTemplate', {
+    templateUrl: 'views/footer-template.html',
     $routeConfig: [
       {
         path: '/',
@@ -70,33 +106,8 @@ angular
         path: '/saved-searches',
         name: 'SavedSearches',
         component: 'udbSavedSearches'
-      },
-      {
-        path: '/event',
-        name: 'CreateOffer',
-        component: 'offerEditorComponent'
-      },
-      {
-        path: '/event/:id/edit',
-        name: 'EditEvent',
-        component: 'offerEditorComponent'
-      },
-      {
-        path: '/place/:id/edit',
-        name: 'EditPlace',
-        component: 'offerEditorComponent'
-      },
-      {
-        path: '/manage/...',
-        name: 'Manage',
-        component: 'manageComponent'
       }
     ]
-  })
-  .component('udbWelcome', {
-    controller: 'MainCtrl',
-    templateUrl: 'views/main.html',
-    $canActivate: redirectIfLoggedIn('dashboard')
   })
   .component('udbCopyright', {
     template: '<div btf-markdown ng-include="\'docs/copyright.md\'"></div>'
