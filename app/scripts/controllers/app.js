@@ -12,18 +12,19 @@ angular
   .controller('AppCtrl', AppController);
 
 /* @ngInject */
-function AppController($scope, appConfig, $window, $document) {
-  $scope.showJobLog = false;
-  $scope.excludeFooter = false;
+function AppController($location, uitidAuth) {
+  var controller = this;
 
-  $scope.$on('$routeChangeSuccess', function(event, current) {
-    $scope.excludeFooter = current.$$route.excludeFooter;
-  });
+  function parseJwtToken () {
+    var queryParameters = $location.search();
+    var jwt = queryParameters.jwt;
 
-  function toggleJobLog() {
-    $scope.showJobLog = !$scope.showJobLog;
+    if (jwt && jwt !== uitidAuth.getToken()) {
+      uitidAuth.setToken(jwt);
+      $location.search('jwt', null);
+    }
   }
 
-  $scope.toggleJobLog = toggleJobLog;
+  controller.$onInit = parseJwtToken;
 }
-AppController.$inject = ['$scope', 'appConfig', '$window', '$document'];
+AppController.$inject = ['$location', 'uitidAuth'];

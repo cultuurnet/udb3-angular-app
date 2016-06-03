@@ -12,7 +12,7 @@ angular
   .module('udbApp', [
     'ngCookies',
     'ngResource',
-    'ngRoute',
+    'ngComponentRouter',
     'ngSanitize',
     'ngTouch',
     'ui.bootstrap',
@@ -27,6 +27,100 @@ angular
     'pascalprecht.translate'
   ])
   .config(udbAppConfig)
+  .component('udbApp', {
+    controller: 'AppCtrl',
+    controllerAs: 'app',
+    $routeConfig: [
+      {
+        path: '/...',
+        name: 'FooterTemplate',
+        component: 'footerTemplate'
+      },
+      {
+        path: '/event',
+        name: 'CreateOffer',
+        component: 'offerEditorComponent'
+      },
+      {
+        path: '/event/:id/edit',
+        name: 'EditEvent',
+        component: 'offerEditorComponent'
+      },
+      {
+        path: '/place/:id/edit',
+        name: 'EditPlace',
+        component: 'offerEditorComponent'
+      }
+    ]
+  })
+  .component('udbWelcome', {
+    controller: 'MainCtrl',
+    templateUrl: 'views/main.html',
+    $canActivate: redirectIfLoggedIn('dashboard')
+  })
+  .component('footerTemplate', {
+    templateUrl: 'views/footer-template.html',
+    $routeConfig: [
+      {
+        path: '/',
+        name: 'Main',
+        component: 'udbWelcome',
+        useAsDefault: true
+      },
+      {
+        path: '/dashboard',
+        name: 'Dashboard',
+        component: 'dashboardComponent'
+      },
+      {
+        path: '/search',
+        name: 'Search',
+        component: 'udbSearch'
+      },
+      {
+        path: '/event/:id',
+        name: 'EventDetail',
+        component: 'eventDetailComponent'
+      },
+      {
+        path: '/place/:id',
+        name: 'PlaceDetail',
+        component: 'placeDetailComponent'
+      },
+      {
+        path: '/copyright',
+        name: 'Copyright',
+        component: 'udbCopyright'
+      },
+      {
+        path: '/user-agreement',
+        name: 'UserAgreement',
+        component: 'udbUserAgreement'
+      },
+      {
+        path: '/saved-searches',
+        name: 'SavedSearches',
+        component: 'udbSavedSearches'
+      }
+    ]
+  })
+  .component('udbCopyright', {
+    template: '<div btf-markdown ng-include="\'docs/copyright.md\'"></div>'
+  })
+  .component('udbUserAgreement', {
+    template: '<div btf-markdown ng-include="\'docs/user-agreement.md\'"></div>'
+  })
+  .component('udbSavedSearches', {
+    templateUrl: 'templates/saved-searches-list.html',
+    controller: 'SavedSearchesListController',
+    $canActivate: isAuthorized
+  }).component('dashboardComponent', {
+    templateUrl: 'templates/dashboard.html',
+    controller: 'DashboardController',
+    controllerAs: 'dash',
+    $canActivate: isAuthorized
+  })
+  .value('$routerRootComponent', 'udbApp')
   /* @ngInject */
   .run([
     'udbApi',
@@ -44,30 +138,10 @@ angular
       $rootScope.$on('searchSubmitted', function () {
         $location.path('/search');
       });
-
-      $rootScope.$on('$locationChangeStart', function(event, newUrl, oldUrl, newState, oldState) {
-        var tokenIndex = newUrl.indexOf('jwt=');
-        var tokenLength = newUrl.indexOf('&', tokenIndex);
-
-        if(tokenIndex > 0) {
-          var token;
-          if(tokenLength >= 0) {
-            token = newUrl.substring(tokenIndex + 4, tokenLength);
-          }
-          else {
-            token = newUrl.substring(tokenIndex + 4);
-          }
-
-          if(token !== uitidAuth.getToken()) {
-            uitidAuth.setToken(token);
-          }
-        }
-      });
   }]);
 
 /* @ngInject */
 function udbAppConfig(
-  $routeProvider,
   $locationProvider,
   $httpProvider,
   $sceDelegateProvider,
@@ -77,114 +151,6 @@ function udbAppConfig(
   queryFieldTranslations,
   dutchTranslations
 ) {
-
-  locateOfferByIdParam.$inject = ['$route', 'offerLocator'];
-  function locateOfferByIdParam($route, offerLocator){
-    return offerLocator.get($route.current.params.id);
-  }
-
-  $routeProvider
-    .when('/', {
-      templateUrl: 'views/main.html',
-      controller: 'MainCtrl',
-      resolve: { /* @ngInject */
-        redirect: ['authorizationService', function (authorizationService) {
-          return authorizationService.redirectIfLoggedIn('/dashboard');
-        }]
-      }
-    })
-    .when('/about', {
-      templateUrl: 'views/about.html',
-      controller: 'AboutCtrl'
-    })
-    .when('/dashboard', {
-      templateUrl: 'templates/dashboard.html',
-      controller: 'DashboardController',
-      controllerAs: 'dash',
-      resolve: { /* @ngInject */
-        permission: ['authorizationService', function (authorizationService) {
-          return authorizationService.isLoggedIn();
-        }]
-      }
-    })
-    .when('/search', {
-      templateUrl: 'templates/search.html',
-      controller: 'Search',
-      reloadOnSearch: false,
-      resolve: { /* @ngInject */
-        permission: ['authorizationService', function (authorizationService) {
-          return authorizationService.isLoggedIn();
-        }]
-      }
-    })
-    .when('/event/:id', {
-      templateUrl: 'templates/event-detail.html',
-      controller: 'EventDetailController',
-      resolve: {
-        eventId: locateOfferByIdParam,
-        permission: /* @ngInject */ ['authorizationService', function (authorizationService) {
-          return authorizationService.isLoggedIn();
-        }]
-      }
-    })
-    .when('/place/:id', {
-      templateUrl: 'templates/place-detail.html',
-      controller: 'PlaceDetailController',
-      resolve: {
-        placeId: locateOfferByIdParam,
-        permission: /* @ngInject */ ['authorizationService', function (authorizationService) {
-          return authorizationService.isLoggedIn();
-        }]
-      }
-    })
-    .when('/place/:id/edit', {
-      templateUrl: 'templates/event-form.html',
-      controller: 'EventFormController',
-      resolve: {
-        placeId: locateOfferByIdParam,
-        eventId: function () { return null; },
-        offerType: function() { return 'place'; }
-      },
-      excludeFooter: true
-    })
-    .when('/saved-searches', {
-      templateUrl: 'templates/saved-searches-list.html',
-      controller: 'SavedSearchesListController',
-      resolve: {
-        permission: /* @ngInject */ ['authorizationService', function (authorizationService) {
-          return authorizationService.isLoggedIn();
-        }]
-      }
-    })
-    .when('/event', {
-      templateUrl: 'templates/event-form.html',
-      controller: 'EventFormController',
-      resolve: {
-        eventId: function () { return null; },
-        placeId: function () { return null; },
-        offerType: function() { return 'event'; }
-      },
-      excludeFooter: true
-    })
-    .when('/event/:id/edit', {
-      templateUrl: 'templates/event-form.html',
-      controller: 'EventFormController',
-      resolve: {
-        eventId: locateOfferByIdParam,
-        placeId: function () { return null; },
-        offerType: function() { return 'event'; }
-      },
-      excludeFooter: true
-    })
-    .when('/copyright', {
-      template: '<div btf-markdown ng-include="\'docs/copyright.md\'"></div>'
-    })
-    .when('/user-agreement', {
-      template: '<div btf-markdown ng-include="\'docs/user-agreement.md\'"></div>'
-    })
-    .otherwise({
-      redirectTo: '/'
-    });
 
   $locationProvider.html5Mode(true);
 
@@ -206,7 +172,6 @@ function udbAppConfig(
   uiSelectConfig.theme = 'bootstrap';
 }
 udbAppConfig.$inject = [
-  '$routeProvider',
   '$locationProvider',
   '$httpProvider',
   '$sceDelegateProvider',
@@ -216,3 +181,18 @@ udbAppConfig.$inject = [
   'queryFieldTranslations',
   'dutchTranslations'
 ];
+
+function isAuthorized(authorizationService) {
+  return authorizationService.isLoggedIn();
+}
+
+function redirectIfLoggedIn(path) {
+  function promiseAccess(authorizationService) {
+    return authorizationService.redirectIfLoggedIn(path);
+  }
+  promiseAccess.$inject = ['authorizationService'];
+
+  return promiseAccess;
+}
+
+isAuthorized.$inject = ['authorizationService'];
