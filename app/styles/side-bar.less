@@ -7,13 +7,60 @@
 
   .sidebar-wrapper {
     top: 24px;
+    z-index: 1029;
 
     .person-data {
       bottom: 0;
 
       li.notifications {
-        padding: 0px 0px 10px 0px;
+        padding: 0px 0px 20px 0px;
       }
     }
+  }
+}
+
+@media (max-width: @screen-xs-max) {
+  .udb-job-log.shown {
+    right: 0px;
+    left: inherit;
+    top: inherit;
+    transition: under 0.3s ease;
+  }
+
+  .udb-job-log-overlay {
+    left: 0px;
+  }
+}
+
+@media (min-width: @screen-sm-min) {
+  .udb-job-log.shown {
+    left: 36%;
+    top: 174px;
+  }
+
+  .udb-job-log-overlay {
+    left: 36%;
+  }
+}
+
+@media (min-width: @screen-md-min) {
+  .udb-job-log.shown {
+    left: 28%;
+    top: 174px;
+  }
+
+  .udb-job-log-overlay {
+    left: 28%;
+  }
+}
+
+@media (min-width: @screen-lg-min) {
+  .udb-job-log.shown {
+    left: 27%;
+    top: 81px;
+  }
+
+  .udb-job-log-overlay {
+    left: 27%;
   }
 }
