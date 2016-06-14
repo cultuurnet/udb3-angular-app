@@ -1,24 +1,35 @@
-<hr />
-<ul class="list-group">
-    <li class="list-group-item"><i class="fa fa-home"></i> <a href="/">Home</a></li>
-    <li class="list-group-item"><i class="fa fa-plus-circle"></i> <a href="/event">Invoeren</a></li>
-    <li class="list-group-item"><i class="fa fa-search"></i> <a href="/search">Zoeken</a></li>
-</ul>
-
-<hr />
-
-<span ng-show="sbc.userHasManagementPermission">
-    <h5>BEHEER</h5>
+<div class="sidebar-wrapper">
     <ul class="list-group">
-        <li class="list-group-item"><i class="fa fa-users"></i> <a href="/manage/users/list">Gebruikers</a></li>
-        <li class="list-group-item"><i class="fa fa-tag"></i> <a href="/manage/labels/overview">Labels</a></li>
-        <li class="list-group-item"><i class="fa fa-slideshare"></i> <a href="#">Organisaties</a></li>
+        <li class="list-group-item"><i class="fa fa-home"></i> <a href="/">Home</a></li>
+        <li class="list-group-item"><i class="fa fa-plus-circle"></i> <a href="/event">Invoeren</a></li>
+        <li class="list-group-item"><i class="fa fa-search"></i> <a href="/search">Zoeken</a></li>
     </ul>
-</span>
 
-<hr />
+    <hr />
 
-<ul class="list-group" ng-show="sbc.user" ng-cloak>
-    <li><i class="fa fa-bell"></i> <a href="#" ng-click="sbc.toggleJobLog()">Meldingen</a></li>
-    <li>{{ sbc.user.nick }}<br /><a href="#" ng-click="sbc.logout()">Afmelden</a></li>
-</ul>
+    <span ng-show="sbc.userHasManagementPermission">
+        <h5>BEHEER</h5>
+        <ul class="list-group">
+            <li class="list-group-item"><i class="fa fa-users"></i> <a href="/manage/users/list">Gebruikers</a></li>
+            <li class="list-group-item"><i class="fa fa-tag"></i> <a href="/manage/labels/overview">Labels</a></li>
+            <li class="list-group-item"><i class="fa fa-slideshare"></i> <a href="#">Organisaties</a></li>
+        </ul>
+    </span>
+
+    <hr />
+
+    <ul class="person-data list-unstyled" ng-show="sbc.user" ng-cloak>
+        <li class="notifications"><i class="fa fa-bell"></i> <a href="#" ng-click="sbc.toggleJobLog()">Meldingen</a><span class="label label-danger pull-right">{{ sbc.jobs }}</span></li>
+        <li>
+            <div class="media">
+                <div class="media-left">
+                    <img class="media-object" width="50" height="50" src="https://s-media-cache-ak0.pinimg.com/736x/b8/58/ae/b858ae4d36755997794e727f0f07a53e.jpg">
+                </div>
+                <div class="media-body">
+                    {{ sbc.user.nick }}<br />
+                    <a href="#" ng-click="sbc.logout()">Afmelden</a>
+                </div>
+            </div>
+        </li>
+    </ul>
+</div>
