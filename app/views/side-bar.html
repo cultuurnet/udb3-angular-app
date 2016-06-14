@@ -1,0 +1,24 @@
+<hr />
+<ul class="list-group">
+    <li class="list-group-item"><i class="fa fa-home"></i> <a href="/">Home</a></li>
+    <li class="list-group-item"><i class="fa fa-plus-circle"></i> <a href="/event">Invoeren</a></li>
+    <li class="list-group-item"><i class="fa fa-search"></i> <a href="/search">Zoeken</a></li>
+</ul>
+
+<hr />
+
+<span ng-show="sbc.userHasManagementPermission">
+    <h5>BEHEER</h5>
+    <ul class="list-group">
+        <li class="list-group-item"><i class="fa fa-users"></i> <a href="/manage/users/list">Gebruikers</a></li>
+        <li class="list-group-item"><i class="fa fa-tag"></i> <a href="/manage/labels/overview">Labels</a></li>
+        <li class="list-group-item"><i class="fa fa-slideshare"></i> <a href="#">Organisaties</a></li>
+    </ul>
+</span>
+
+<hr />
+
+<ul class="list-group" ng-show="sbc.user" ng-cloak>
+    <li><i class="fa fa-bell"></i> <a href="#" ng-click="sbc.toggleJobLog()">Meldingen</a></li>
+    <li>{{ sbc.user.nick }}<br /><a href="#" ng-click="sbc.logout()">Afmelden</a></li>
+</ul>
