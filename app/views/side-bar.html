@@ -1,8 +1,8 @@
 <div class="sidebar-wrapper">
     <ul class="list-group">
-        <li class="list-group-item"><i class="fa fa-home"></i> <a href="/">Home</a></li>
-        <li class="list-group-item"><i class="fa fa-plus-circle"></i> <a href="/event">Invoeren</a></li>
-        <li class="list-group-item"><i class="fa fa-search"></i> <a href="/search">Zoeken</a></li>
+        <li class="list-group-item"><i class="fa fa-home"></i> <a ng-link="['Main']">Home</a></li>
+        <li class="list-group-item"><i class="fa fa-plus-circle"></i> <a ng-link="['CreateOffer']">Invoeren</a></li>
+        <li class="list-group-item"><i class="fa fa-search"></i> <a ng-link="['Search']">Zoeken</a></li>
     </ul>
 
     <hr />
@@ -10,10 +10,10 @@
     <span ng-show="sbc.userHasManagementPermission">
         <h5><small>BEHEER</small></h5>
         <ul class="list-group">
-            <li class="list-group-item"><i class="fa fa-users"></i> <a href="/manage/users/list">Gebruikers</a></li>
-            <li class="list-group-item"><i class="fa fa-tag"></i> <a href="/manage/roles/list">Rollen</a></li>
-            <li class="list-group-item"><i class="fa fa-tag"></i> <a href="/manage/labels/overview">Labels</a></li>
-            <li class="list-group-item"><i class="fa fa-slideshare"></i> <a href="#">Organisaties</a></li>
+            <li class="list-group-item"><i class="fa fa-users"></i> <a ng-link="['UsersList']">Gebruikers</a></li>
+            <li class="list-group-item"><i class="fa fa-tag"></i> <a ng-link="['RolesList']">Rollen</a></li>
+            <li class="list-group-item"><i class="fa fa-tag"></i> <a ng-link="['LabelsList']">Labels</a></li>
+            <li class="list-group-item"><i class="fa fa-slideshare"></i> <a ng-link="#">Organisaties</a></li>
         </ul>
     </span>
 
