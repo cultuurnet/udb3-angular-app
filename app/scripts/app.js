@@ -19,6 +19,7 @@ angular
     'ui.select',
     'udb.core',
     'udb.router',
+    'udb.management',
     'udbApp.ga-tag-manager',
     'peg',
     'config',
@@ -50,6 +51,11 @@ angular
         path: '/place/:id/edit',
         name: 'EditPlace',
         component: 'offerEditorComponent'
+      },
+      {
+        path:'/manage/...',
+        name: 'Management',
+        component: 'udbManagement'
       }
     ]
   })
