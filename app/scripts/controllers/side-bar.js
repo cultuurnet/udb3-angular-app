@@ -23,6 +23,10 @@ function sideBarController(uitidAuth, $scope, jobLogger) {
   // TODO: create logic for management permission when user service is ready.
   controller.userHasManagementPermission = true;
 
+  $scope.login = function () {
+    uitidAuth.login();
+  };
+
   $scope.$watch(function () {
     return uitidAuth.getUser();
   }, function (user) {
