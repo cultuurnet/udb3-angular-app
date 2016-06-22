@@ -20,7 +20,7 @@
     <hr />
 
     <ul class="person-data list-unstyled" ng-show="sbc.user" ng-cloak>
-        <li class="notifications"><i class="fa fa-bell"></i> <a href="#" ng-click="sbc.toggleJobLog()">Meldingen</a><span class="label label-danger pull-right">{{ sbc.jobs }}</span></li>
+        <li class="notifications"><i class="fa fa-bell"></i> <a href="#" ng-click="sbc.toggleJobLog()">Meldingen</a><span class="label label-danger pull-right" ng-if="sbc.getFailedJobs().length">!</span></li>
         <li>
             <div class="media">
                 <div class="media-left">
