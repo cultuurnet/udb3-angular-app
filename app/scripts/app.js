@@ -33,8 +33,8 @@ angular
     $routeConfig: [
       {
         path: '/...',
-        name: 'FooterTemplate',
-        component: 'footerTemplate'
+        name: 'SplitView',
+        component: 'splitView'
       },
       {
         path: '/event',
@@ -50,6 +50,16 @@ angular
         path: '/place/:id/edit',
         name: 'EditPlace',
         component: 'offerEditorComponent'
+      }
+    ]
+  })
+  .component('splitView', {
+    templateUrl: 'views/split-view.html',
+    $routeConfig: [
+      {
+        path: '/...',
+        name: 'FooterTemplate',
+        component: 'footerTemplate'
       }
     ]
   })

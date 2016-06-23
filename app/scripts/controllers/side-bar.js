@@ -2,9 +2,9 @@
 
 /**
  * @ngdoc function
- * @name udbApp.controller:HeaderController
+ * @name udbApp.controller:sideBarController
  * @description
- * # HeaderController
+ * # sideBarController
  * udbApp controller
  */
 angular
