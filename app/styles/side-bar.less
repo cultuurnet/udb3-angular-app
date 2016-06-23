@@ -1,18 +1,50 @@
-#sidebar {
-  margin-top: 24px;
+@sidebar-width: 230px;
+
+#app-content {
+  margin-left: @sidebar-width;
+}
+#app-sidebar {
+  width: @sidebar-width;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  color: #eee;
+  z-index: 9999;
 
   hr {
-    border-color: #ddd;
+    border-color: #900d09;
     margin-top: 12px;
     margin-bottom: 12px;
   }
 
   .sidebar-wrapper {
-    top: 24px;
-    z-index: 1029;
+    padding: 15px;
+    ul {
+      li {
+        padding: 5px 0px;
+      }
+    }
+
+    h5 small {
+      color: #eee;
+    }
+
+    a {
+      color: #eee;
+    }
+
+    a:hover {
+      color: #ccc;
+      text-decoration: none;
+    }
 
     .person-data {
+      position: absolute;
+      right: 0;
       bottom: 0;
+      left: 0;
+      padding: 0px 15px;
 
       li.notifications {
         padding: 0px 0px 20px 0px;
@@ -36,33 +68,10 @@
 
 @media (min-width: @screen-sm-min) {
   .udb-job-log.shown {
-    left: 36%;
-    top: 174px;
+    left: @sidebar-width;
   }
 
   .udb-job-log-overlay {
-    left: 36%;
-  }
-}
-
-@media (min-width: @screen-md-min) {
-  .udb-job-log.shown {
-    left: 28%;
-    top: 174px;
-  }
-
-  .udb-job-log-overlay {
-    left: 28%;
-  }
-}
-
-@media (min-width: @screen-lg-min) {
-  .udb-job-log.shown {
-    left: 27%;
-    top: 81px;
-  }
-
-  .udb-job-log-overlay {
-    left: 27%;
+    left: @sidebar-width;
   }
 }

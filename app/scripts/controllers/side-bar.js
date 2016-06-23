@@ -18,7 +18,7 @@ function sideBarController(uitidAuth, $scope, jobLogger) {
   controller.login = uitidAuth.login;
   controller.logout = uitidAuth.logout;
   controller.toggleJobLog = jobLogger.toggleJobLog;
-  controller.jobs = jobLogger.getQueuedJobs.length;
+  controller.getFailedJobs = jobLogger.getFailedJobs;
 
   // TODO: create logic for management permission when user service is ready.
   controller.userHasManagementPermission = true;
