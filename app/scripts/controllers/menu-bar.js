@@ -2,17 +2,17 @@
 
 /**
  * @ngdoc function
- * @name udbApp.controller:sideBarController
+ * @name udbApp.controller:menuBarController
  * @description
- * # sideBarController
+ * # menuBarController
  * udbApp controller
  */
 angular
   .module('udbApp')
-  .controller('sideBarController', sideBarController);
+  .controller('menuBarController', menuBarController);
 
 /* @ngInject */
-function sideBarController(uitidAuth, $scope, jobLogger) {
+function menuBarController(uitidAuth, $scope, jobLogger) {
   var controller = this;
 
   controller.login = uitidAuth.login;
@@ -33,4 +33,4 @@ function sideBarController(uitidAuth, $scope, jobLogger) {
     controller.user = user;
   }, true);
 }
-sideBarController.$inject = ['uitidAuth', '$scope', 'jobLogger'];
+menuBarController.$inject = ['uitidAuth', '$scope', 'jobLogger'];

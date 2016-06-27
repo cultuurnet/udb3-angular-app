@@ -1,7 +1,7 @@
 <div class="sidebar-wrapper">
     <udb-job-logo></udb-job-logo>
     <hr />
-    <div class="sidebar-loggedin" ng-show="sbc.user" ng-cloak>
+    <div class="sidebar-loggedin" ng-show="mbc.user" ng-cloak>
         <ul class="list-unstyled">
             <li><i class="fa fa-home"></i> <a ng-link="['Main']">Home</a></li>
             <li><i class="fa fa-plus-circle"></i> <a ng-link="['CreateOffer']">Invoeren</a></li>
@@ -9,7 +9,7 @@
         </ul>
         <hr />
 
-        <span ng-show="sbc.userHasManagementPermission">
+        <span ng-show="mbc.userHasManagementPermission">
             <h5><small>BEHEER</small></h5>
             <ul class="list-unstyled">
                 <li><i class="fa fa-users"></i> <a ng-link="['UsersList']">Gebruikers</a></li>
@@ -22,7 +22,7 @@
         <div class="person-data">
             <hr />
             <ul class="list-unstyled">
-                <li class="notifications"><i class="fa fa-bell"></i> <a href="#" ng-click="sbc.toggleJobLog()">Meldingen</a><span class="badge pull-right" ng-if="sbc.getFailedJobs().length">!</span></li>
+                <li class="notifications"><i class="fa fa-bell"></i> <a href="#" ng-click="mbc.toggleJobLog()">Meldingen</a><span class="badge pull-right" ng-if="mbc.getFailedJobs().length">!</span></li>
                 <li>
                     <div class="media">
                         <div class="media-left">
@@ -30,8 +30,8 @@
                             <img class="media-object" width="50" height="50" src="https://s-media-cache-ak0.pinimg.com/736x/b8/58/ae/b858ae4d36755997794e727f0f07a53e.jpg">
                         </div>
                         <div class="media-body">
-                            {{ sbc.user.nick }}<br />
-                            <i class="fa fa-sign-out" aria-hidden="true"></i> <a href="#" ng-click="sbc.logout()" class="small">Afmelden</a>
+                            {{ mbc.user.nick }}<br />
+                            <i class="fa fa-sign-out" aria-hidden="true"></i> <a href="#" ng-click="mbc.logout()" class="small">Afmelden</a>
                         </div>
                     </div>
                 </li>
