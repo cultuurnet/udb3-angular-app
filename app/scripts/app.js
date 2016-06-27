@@ -53,16 +53,6 @@ angular
       }
     ]
   })
-  .component('splitView', {
-    templateUrl: 'views/split-view.html',
-    $routeConfig: [
-      {
-        path: '/...',
-        name: 'FooterTemplate',
-        component: 'footerTemplate'
-      }
-    ]
-  })
   .component('udbWelcome', {
     controller: 'MainCtrl',
     templateUrl: 'views/main.html',
