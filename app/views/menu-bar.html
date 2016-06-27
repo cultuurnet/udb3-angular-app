@@ -1,17 +1,28 @@
-<div class="sidebar-wrapper">
-    <udb-job-logo></udb-job-logo>
-    <hr />
-    <div class="sidebar-loggedin" ng-show="mbc.user" ng-cloak>
-        <ul class="list-unstyled">
-            <li><i class="fa fa-home"></i> <a ng-link="['Main']">Home</a></li>
-            <li><i class="fa fa-plus-circle"></i> <a ng-link="['CreateOffer']">Invoeren</a></li>
-            <li><i class="fa fa-search"></i> <a ng-link="['Search']">Zoeken</a></li>
-        </ul>
-        <hr />
+<div class="sidebar-wrapper" role="navigation">
+
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#udb-navbar-collapse" aria-expanded="false">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <udb-job-logo></udb-job-logo>
+    </div>
+
+    <div id="udb-navbar-collapse" class="sidebar-loggedin collapse">
+        <span ng-show="mbc.user" ng-cloak>
+            <ul class="nav navbar-nav list-unstyled">
+                <li><i class="fa fa-home"></i> <a ng-link="['Main']">Home</a></li>
+                <li><i class="fa fa-plus-circle"></i> <a ng-link="['CreateOffer']">Invoeren</a></li>
+                <li><i class="fa fa-search"></i> <a ng-link="['Search']">Zoeken</a></li>
+            </ul>
+        </span>
 
         <span ng-show="mbc.userHasManagementPermission">
+            <hr />
             <h5><small>BEHEER</small></h5>
-            <ul class="list-unstyled">
+            <ul class="nav navbar-nav list-unstyled">
                 <li><i class="fa fa-users"></i> <a ng-link="['UsersList']">Gebruikers</a></li>
                 <li><i class="fa fa-tag"></i> <a ng-link="['RolesList']">Rollen</a></li>
                 <li><i class="fa fa-tag"></i> <a ng-link="['LabelsList']">Labels</a></li>
@@ -21,7 +32,7 @@
 
         <div class="person-data">
             <hr />
-            <ul class="list-unstyled">
+            <ul class="nav navbar-nav list-unstyled">
                 <li class="notifications"><i class="fa fa-bell"></i> <a href="#" ng-click="mbc.toggleJobLog()">Meldingen</a><span class="badge pull-right" ng-if="mbc.getFailedJobs().length">!</span></li>
                 <li>
                     <div class="media">

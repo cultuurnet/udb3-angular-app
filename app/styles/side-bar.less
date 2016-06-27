@@ -1,17 +1,7 @@
 @sidebar-width: 230px;
+@mobile-menu-height: 75px;
 
-#app-content {
-  margin-left: @sidebar-width;
-}
 #app-sidebar {
-  width: @sidebar-width;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  position: fixed;
-  color: #eee;
-  z-index: 9999;
-
   hr {
     border-color: #900d09;
     margin-top: 12px;
@@ -19,7 +9,6 @@
   }
 
   .sidebar-wrapper {
-    padding: 15px;
     ul {
       li {
         padding: 5px 0px;
@@ -32,24 +21,97 @@
 
     a {
       color: #eee;
+      display: inline-block;
     }
 
     a:hover {
       color: #ccc;
       text-decoration: none;
     }
+  }
+}
 
-    .person-data {
-      position: absolute;
-      right: 0;
-      bottom: 0;
-      left: 0;
-      padding: 0px 15px;
+@media (min-width: @screen-sm-min) {
+  #app-content {
+    margin-left: @sidebar-width;
+  }
 
-      li.notifications {
-        padding: 0px 0px 20px 0px;
+  #app-sidebar {
+    width: @sidebar-width;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    color: #eee;
+    z-index: 9999;
+
+    .sidebar-wrapper {
+      padding: 15px;
+
+      .navbar-nav {
+        float: inherit;
+
+        li {
+          float: inherit;
+
+          a {
+            padding-top: 10px;
+            padding-bottom: 10px;
+          }
+        }
+      }
+
+      .person-data {
+        position: absolute;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        padding: 0px 15px;
+
+        li.notifications {
+          padding: 0px 0px 20px 0px;
+        }
       }
     }
+
+    .collapse {
+      display: block;
+    }
+  }
+}
+
+@media (max-width: @screen-xs-max) {
+  #app-sidebar {
+    width: 100%;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    position: fixed;
+    color: #eee;
+    height: @mobile-menu-height;
+    z-index: 9999;
+
+    #udb-navbar-collapse {
+      margin-top: -19px;
+      background: #c0120c;
+      padding: 15px;
+    }
+
+    .navbar-header {
+      padding: 15px;
+    }
+
+    .navbar-toggle {
+      margin-top: 8px;
+    }
+
+    li.notifications {
+      display: none;
+    }
+  }
+
+  #app-content {
+    margin-top: @mobile-menu-height;
   }
 }
 
