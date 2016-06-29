@@ -13,9 +13,9 @@
     <div id="udb-navbar-collapse" class="sidebar-loggedin collapse">
         <span ng-show="mbc.user" ng-cloak>
             <ul class="nav navbar-nav list-unstyled">
-                <li><i class="fa fa-home"></i> <a ng-link="['Main']">Home</a></li>
+                <li><i class="fa fa-home"></i> <a href="/dashboard">Home</a></li>
                 <li><i class="fa fa-plus-circle"></i> <a ng-link="['CreateOffer']">Invoeren</a></li>
-                <li><i class="fa fa-search"></i> <a ng-link="['Search']">Zoeken</a></li>
+                <li><i class="fa fa-search"></i> <a href="/search">Zoeken</a></li>
             </ul>
         </span>
 
@@ -23,10 +23,10 @@
             <hr />
             <h5><small>BEHEER</small></h5>
             <ul class="nav navbar-nav list-unstyled">
-                <li><i class="fa fa-users"></i> <a ng-link="['UsersList']">Gebruikers</a></li>
-                <li><i class="fa fa-tag"></i> <a ng-link="['RolesList']">Rollen</a></li>
-                <li><i class="fa fa-tag"></i> <a ng-link="['LabelsList']">Labels</a></li>
-                <li><i class="fa fa-slideshare"></i> <a ng-link="#">Organisaties</a></li>
+                <li><i class="fa fa-users"></i> <a href="/mangage/users">Gebruikers</a></li>
+                <li><i class="fa fa-tag"></i> <a href="/mangage/roles">Rollen</a></li>
+                <li><i class="fa fa-tag"></i> <a href="/mangage/labels">Labels</a></li>
+                <li><i class="fa fa-slideshare"></i> <a href="#">Organisaties</a></li>
             </ul>
         </span>
 
