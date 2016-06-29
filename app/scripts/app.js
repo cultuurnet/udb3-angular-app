@@ -75,7 +75,7 @@ angular
       {
         path: '/search',
         name: 'Search',
-        component: 'udbSearch'
+        component: 'searchComponent'
       },
       {
         path: '/event/:id',
