@@ -44,6 +44,22 @@
     <udb-job-log></udb-job-log>
   </udb-app>
 
+  <script type="text/javascript">
+    try {
+        new URL('http://uitdatabank.be');
+    } catch (e) {
+        function URL (uri) {
+            this.uri = uri;
+        }
+
+        URL.prototype = {
+            toString: function () {
+                return this.uri;
+            }
+        }
+    }
+  </script>
+
     <!-- build:js(.) scripts/oldieshim.js -->
     <!--[if lt IE 9]>
     <script src="bower_components/es5-shim/es5-shim.js"></script>
