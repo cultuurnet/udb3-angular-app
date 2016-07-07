@@ -164,7 +164,29 @@ function udbAppConfig(
       url: '/saved-searches',
       templateUrl: 'templates/saved-searches-list.html',
       controller: 'SavedSearchesListController',
-    });
+    })
+    // manage stuff
+    .state('split.manageLabels', {
+      url: '/manage/labels/overview',
+      controller: 'LabelsListController',
+      controllerAs: 'llc',
+      templateUrl: 'templates/labels-list.html'
+    })
+    .state('split.manageLabelsCreate', {
+      url: '/manage/labels/create',
+      templateUrl: 'templates/label-creator.html',
+      controller: 'LabelCreatorController',
+      controllerAs: 'creator',
+    })
+    .state('split.manageLabelsEdit', {
+      url: '/manage/labels/:id',
+      templateUrl: 'templates/label-editor.html',
+      controller: 'LabelEditorController',
+      controllerAs: 'editor'
+    })
+    .state('split.manageUsers', {})
+    .state('split.manageRoles', {})
+    .state('split.manageOrganisations', {});
 }
 udbAppConfig.$inject = [
   '$locationProvider',
