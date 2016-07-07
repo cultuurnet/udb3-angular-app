@@ -152,6 +152,19 @@ function udbAppConfig(
       controller: 'offerEditorUIController',
       templateUrl: 'templates/event-form.html'
     })
+    .state('useragreement', {
+      url: '/user-agreement',
+      template: '<div btf-markdown ng-include="\'docs/user-agreement.md\'"></div>'
+    })
+    .state('copyright', {
+      url: '/copyright',
+      template: '<div btf-markdown ng-include="\'docs/copyright.md\'"></div>'
+    })
+    .state('split.savedsearches', {
+      url: '/saved-searches',
+      templateUrl: 'templates/saved-searches-list.html',
+      controller: 'SavedSearchesListController',
+    });
 }
 udbAppConfig.$inject = [
   '$locationProvider',
