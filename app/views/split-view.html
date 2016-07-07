@@ -2,8 +2,8 @@
     <udb-menubar></udb-menubar>
 </div>
 <div id="app-content" class="container-fluid" ng-if="svc.user != undefined">
-    <ng-outlet></ng-outlet>
+    <div ui-view></div>
 </div>
 <div class="container-fluid" ng-if="svc.user == undefined">
-    <ng-outlet></ng-outlet>
+    <div ui-view></div>
 </div>

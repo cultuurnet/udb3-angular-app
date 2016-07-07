@@ -27,7 +27,7 @@
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,300,400,700,600' rel='stylesheet' type='text/css'>
     <base href="/">
   </head>
-  <body ng-app="udbApp" ng-strict-di>
+  <body ng-app="udbApp" ng-controller="AppCtrl" ng-strict-di>
   <udb-app class="overlay-static-elements">
     <!--[if lt IE 7]>
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
@@ -36,7 +36,7 @@
     <!-- Google Tag Manager code is loaded with angular (see AppCtrl) -->
 
     <!-- Add your site or application content here -->
-    <ng-outlet></ng-outlet>
+    <div ui-view></div>
 
     <udb-job-log></udb-job-log>
   </udb-app>
@@ -81,8 +81,7 @@
     <script src="bower_components/udb3-angular/dist/udb3-angular.js"></script>
     <script src="bower_components/showdown/src/showdown.js"></script>
     <script src="bower_components/angular-markdown-directive/markdown.js"></script>
-    <script src="bower_components/angular-component-router/angular_1_router.js"></script>
-    <script src="bower_components/angular-component-router/ng_route_shim.js"></script>
+    <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
@@ -95,15 +94,12 @@
     <script src="scripts/controllers/split-view.js"></script>
     <script src="scripts/controllers/menu-bar.js"></script>
     <script src="scripts/controllers/app.js"></script>
+    <script src="scripts/controllers/place-detail-ui.js"></script>
+    <script src="scripts/controllers/event-detail-ui.js"></script>
+    <script src="scripts/controllers/offer-editor-ui.js"></script>
     <script src="scripts/services/udbhttpinterceptor.js"></script>
-    <script src="scripts/components/event-detail.component.js"></script>
-    <script src="scripts/components/place-detail.component.js"></script>
-    <script src="scripts/components/offer-editor.component.js"></script>
-    <script src="scripts/components/split-view.component.js"></script>
-    <script src="scripts/components/header.component.js"></script>
     <script src="scripts/components/footer.component.js"></script>
     <script src="scripts/components/menu-bar.component.js"></script>
-    <script src="scripts/components/search.component.js"></script>
     <!-- endbuild -->
 </body>
 </html>
