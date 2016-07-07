@@ -44,8 +44,15 @@ angular
         toParams,
         fromState,
         fromParams) {
+          if(toState.name === 'main') {
           // redirect to welcome page when arriving on main page when logged in
-          if(toState.name === 'main' && !authorizationService.redirectIfLoggedIn('/dashboard')) {
+            if(!authorizationService.redirectIfLoggedIn('/dashboard')) {
+              event.preventDefault();
+              return false;
+            }
+          }
+          // secure all pages except home
+          else if(!authorizationService.isLoggedIn()) {
             event.preventDefault();
             return false;
           }
@@ -158,18 +165,3 @@ udbAppConfig.$inject = [
   '$stateProvider',
   '$urlRouterProvider'
 ];
-
-function isAuthorized(authorizationService) {
-  return authorizationService.isLoggedIn();
-}
-
-function redirectIfLoggedIn(path) {
-  function promiseAccess(authorizationService) {
-    return authorizationService.redirectIfLoggedIn(path);
-  }
-  promiseAccess.$inject = ['authorizationService'];
-
-  return promiseAccess;
-}
-
-isAuthorized.$inject = ['authorizationService'];
