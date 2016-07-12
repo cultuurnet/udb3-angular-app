@@ -124,8 +124,7 @@ function udbAppConfig(
     })
     .state('split.footer.search', {
       url: '/search',
-      templateUrl: 'templates/search.html',
-      controller: 'Search'
+      templateUrl: 'views/search.html'
     })
     .state('split.footer.place', {
       url: '/place/:id',
