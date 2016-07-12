@@ -15,7 +15,7 @@ angular
 function placeDetailUIController($controller, $scope, offerLocator, $q, authorizationService, $stateParams) {
   var deferredPlaceLocation = $q.defer();
 
-  angular.extend(this, $controller('PlaceDetailController', {
+  angular.extend(this, $controller('PlaceDetailController', { // jshint ignore:line
     $scope: $scope,
     placeId: deferredPlaceLocation.promise
   }));

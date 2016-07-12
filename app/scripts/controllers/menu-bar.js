@@ -13,7 +13,7 @@ angular
 
 /* @ngInject */
 function menuBarController(uitidAuth, $scope, jobLogger) {
-  var controller = this;
+  var controller = this; // jshint ignore:line
 
   controller.login = uitidAuth.login;
   controller.logout = uitidAuth.logout;
