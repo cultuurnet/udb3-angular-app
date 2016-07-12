@@ -1,4 +1,5 @@
 @sidebar-width: 230px;
+@sidebar-mobile-width: 75px;
 @mobile-menu-height: 75px;
 
 #app-sidebar {
@@ -28,6 +29,24 @@
       color: #ccc;
       text-decoration: none;
     }
+  }
+}
+
+#app-content {
+  margin-left: @sidebar-mobile-width;
+}
+
+#app-sidebar {
+  width: @sidebar-mobile-width;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  color: #eee;
+  z-index: 1039;
+
+  .sidebar-wrapper {
+    padding: 10px;
   }
 }
 
@@ -81,51 +100,20 @@
 }
 
 @media (max-width: @screen-xs-max) {
-  #app-sidebar {
-    width: 100%;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    position: fixed;
-    color: #eee;
-    height: @mobile-menu-height;
-    z-index: 9999;
-
-    #udb-navbar-collapse {
-      margin-top: -19px;
-      background: #c0120c;
-      padding: 15px;
-      width: 100%;
-    }
-
-    .navbar-header {
-      padding: 15px;
-    }
-
-    .navbar-toggle {
-      margin-top: 8px;
-    }
-
-    li.notifications {
-      display: none;
-    }
+  .menu-text {
+    display: none;
   }
 
-  #app-content {
-    margin-top: @mobile-menu-height;
+  .fa {
+    font-size: 22px;
   }
-}
 
-@media (max-width: @screen-xs-max) {
   .udb-job-log.shown {
-    right: 0px;
-    left: inherit;
-    top: inherit;
-    transition: under 0.3s ease;
+    left: @sidebar-mobile-width;
   }
 
   .udb-job-log-overlay {
-    left: 0px;
+    left: @sidebar-mobile-width;
   }
 }
 
