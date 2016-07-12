@@ -25,9 +25,11 @@
             <hr />
             <ul class="list-unstyled">
                 <li class="notifications">
-                    <a href="#" ng-click="mbc.toggleJobLog()"><i class="fa fa-bell"></i> <span class="menu-text">Meldingen</span></a>
+                    <a href="#" ng-click="mbc.toggleJobLog()">
+                        <udb-job-logo></udb-job-logo>
+                        <span class="menu-text">Meldingen</span>
+                    </a>
                     <span class="badge pull-right" ng-if="mbc.getFailedJobs().length">!</span>
-                    <udb-job-logo></udb-job-logo>
                 </li>
                 <li class="hidden-xs">
                     <div class="media">
