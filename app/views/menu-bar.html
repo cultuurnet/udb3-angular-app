@@ -1,4 +1,5 @@
 <div class="sidebar-wrapper" role="navigation">
+    <udb-logo></udb-logo>
 
     <div id="udb-navbar-collapse" class="sidebar-loggedin">
         <span ng-show="mbc.user" ng-cloak>
@@ -23,7 +24,11 @@
         <div class="person-data">
             <hr />
             <ul class="nav navbar-nav list-unstyled">
-                <li class="notifications"><a href="#" ng-click="mbc.toggleJobLog()"><i class="fa fa-bell"></i> <span class="menu-text">Meldingen</span></a><span class="badge pull-right" ng-if="mbc.getFailedJobs().length">!</span></li>
+                <li class="notifications">
+                    <a href="#" ng-click="mbc.toggleJobLog()"><i class="fa fa-bell"></i> <span class="menu-text">Meldingen</span></a>
+                    <span class="badge pull-right" ng-if="mbc.getFailedJobs().length">!</span>
+                    <udb-job-logo></udb-job-logo>
+                </li>
                 <li>
                     <div class="media">
                         <div class="media-left">
