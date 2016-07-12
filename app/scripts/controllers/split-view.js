@@ -13,7 +13,7 @@ angular
 
 /* @ngInject */
 function splitViewController(uitidAuth, $scope) {
-  var controller = this;
+  var controller = this; // jshint ignore:line
 
   $scope.$watch(function () {
     return uitidAuth.getUser();

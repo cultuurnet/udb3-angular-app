@@ -15,7 +15,7 @@ angular
 function eventDetailUIController($controller, $scope, offerLocator, $q, authorizationService, $stateParams) {
   var deferredEventLocation = $q.defer();
 
-  angular.extend(this, $controller('EventDetailController', {
+  angular.extend(this, $controller('EventDetailController', { // jshint ignore:line
     $scope: $scope,
     eventId: deferredEventLocation.promise
   }));
