@@ -1,8 +1,17 @@
 @sidebar-width: 230px;
-@sidebar-mobile-width: 75px;
+@sidebar-mobile-width: 65px;
 @mobile-menu-height: 75px;
 
 #app-sidebar {
+  width: @sidebar-mobile-width;
+  height: 100%;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  position: fixed;
+  color: #eee;
+  z-index: 1039;
+
   hr {
     border-color: #900d09;
     margin-top: 12px;
@@ -10,9 +19,15 @@
   }
 
   .sidebar-wrapper {
+    padding: 9px;
+
+    .fa {
+      font-size: 22px;
+    }
+
     ul {
       li {
-        padding: 5px 0px;
+        padding: 15px 11px;
       }
     }
 
@@ -29,25 +44,19 @@
       color: #ccc;
       text-decoration: none;
     }
+
+    .person-data {
+      .profile-pic {
+        position: absolute;
+        bottom: 0;
+        margin-bottom: 5px;
+      }
+    }
   }
 }
 
 #app-content {
   margin-left: @sidebar-mobile-width;
-}
-
-#app-sidebar {
-  width: @sidebar-mobile-width;
-  top: 0;
-  bottom: 0;
-  left: 0;
-  position: fixed;
-  color: #eee;
-  z-index: 1039;
-
-  .sidebar-wrapper {
-    padding: 10px;
-  }
 }
 
 @media (min-width: @screen-sm-min) {
@@ -67,15 +76,21 @@
     .sidebar-wrapper {
       padding: 15px;
 
-      .navbar-nav {
+      ul {
         float: inherit;
 
         li {
           float: inherit;
+          padding: 15px 0px;
 
           a {
-            padding-top: 10px;
-            padding-bottom: 10px;
+            padding-top: 5px;
+            padding-bottom: 5px;
+            padding-left: 0px;
+
+            .menu-text {
+              margin-left: 7px;
+            }
           }
         }
       }
@@ -100,12 +115,15 @@
 }
 
 @media (max-width: @screen-xs-max) {
-  .menu-text {
-    display: none;
-  }
 
-  .fa {
-    font-size: 22px;
+  .sidebar-wrapper {
+    .menu-text {
+      display: none;
+    }
+
+    h5 {
+      text-align: center;
+    }
   }
 
   .udb-job-log.shown {
