@@ -12,7 +12,7 @@ angular
   .module('udbApp', [
     'ngCookies',
     'ngResource',
-    'ngComponentRouter',
+    'ui.router',
     'ngSanitize',
     'ngTouch',
     'ui.bootstrap',
@@ -28,105 +28,6 @@ angular
     'pascalprecht.translate'
   ])
   .config(udbAppConfig)
-  .component('udbApp', {
-    controller: 'AppCtrl',
-    controllerAs: 'app',
-    $routeConfig: [
-      {
-        path: '/...',
-        name: 'FooterTemplate',
-        component: 'footerTemplate'
-      },
-      {
-        path: '/event',
-        name: 'CreateOffer',
-        component: 'offerEditorComponent'
-      },
-      {
-        path: '/event/:id/edit',
-        name: 'EditEvent',
-        component: 'offerEditorComponent'
-      },
-      {
-        path: '/place/:id/edit',
-        name: 'EditPlace',
-        component: 'offerEditorComponent'
-      },
-      {
-        path:'/manage/...',
-        name: 'Management',
-        component: 'udbManagement'
-      }
-    ]
-  })
-  .component('udbWelcome', {
-    controller: 'MainCtrl',
-    templateUrl: 'views/main.html',
-    $canActivate: redirectIfLoggedIn('dashboard')
-  })
-  .component('footerTemplate', {
-    templateUrl: 'views/footer-template.html',
-    $routeConfig: [
-      {
-        path: '/',
-        name: 'Main',
-        component: 'udbWelcome',
-        useAsDefault: true
-      },
-      {
-        path: '/dashboard',
-        name: 'Dashboard',
-        component: 'dashboardComponent'
-      },
-      {
-        path: '/search',
-        name: 'Search',
-        component: 'udbSearch'
-      },
-      {
-        path: '/event/:id',
-        name: 'EventDetail',
-        component: 'eventDetailComponent'
-      },
-      {
-        path: '/place/:id',
-        name: 'PlaceDetail',
-        component: 'placeDetailComponent'
-      },
-      {
-        path: '/copyright',
-        name: 'Copyright',
-        component: 'udbCopyright'
-      },
-      {
-        path: '/user-agreement',
-        name: 'UserAgreement',
-        component: 'udbUserAgreement'
-      },
-      {
-        path: '/saved-searches',
-        name: 'SavedSearches',
-        component: 'udbSavedSearches'
-      }
-    ]
-  })
-  .component('udbCopyright', {
-    template: '<div btf-markdown ng-include="\'docs/copyright.md\'"></div>'
-  })
-  .component('udbUserAgreement', {
-    template: '<div btf-markdown ng-include="\'docs/user-agreement.md\'"></div>'
-  })
-  .component('udbSavedSearches', {
-    templateUrl: 'templates/saved-searches-list.html',
-    controller: 'SavedSearchesListController',
-    $canActivate: isAuthorized
-  }).component('dashboardComponent', {
-    templateUrl: 'templates/dashboard.html',
-    controller: 'DashboardController',
-    controllerAs: 'dash',
-    $canActivate: isAuthorized
-  })
-  .value('$routerRootComponent', 'udbApp')
   /* @ngInject */
   .run([
     'udbApi',
@@ -134,11 +35,35 @@ angular
     '$rootScope',
     '$location',
     'uitidAuth',
-    function (udbApi, amMoment, $rootScope, $location, uitidAuth) {
+    'authorizationService',
+    function (udbApi, amMoment, $rootScope, $location, uitidAuth, authorizationService) {
 
-      if(uitidAuth.getToken()) {
+      $rootScope.$on('$stateChangeStart', function (
+        event,
+        toState,
+        toParams,
+        fromState,
+        fromParams) {
+          if(toState.name === 'main') {
+          // redirect to welcome page when arriving on main page when logged in
+            if(!authorizationService.redirectIfLoggedIn('/dashboard')) {
+              event.preventDefault();
+              return false;
+            }
+          }
+          // secure all pages except home
+          else if(!authorizationService.isLoggedIn()) {
+            event.preventDefault();
+            return false;
+          }
+      });
+
+      $rootScope.$watch(function () {
+        return uitidAuth.getToken();
+      }, function (token) {
         udbApi.getMe();
-      }
+      });
+
       amMoment.changeLocale('nl');
 
       $rootScope.$on('searchSubmitted', function () {
@@ -155,7 +80,9 @@ function udbAppConfig(
   uiSelectConfig,
   appConfig,
   queryFieldTranslations,
-  dutchTranslations
+  dutchTranslations,
+  $stateProvider,
+  $urlRouterProvider
 ) {
 
   $locationProvider.html5Mode(true);
@@ -176,6 +103,89 @@ function udbAppConfig(
   // end of translation configuration
 
   uiSelectConfig.theme = 'bootstrap';
+
+  $stateProvider
+    .state('main', {
+      url: '/',
+      templateUrl: 'views/main.html',
+      controller: 'MainCtrl'
+    })
+    .state('split', {
+      templateUrl: 'views/split-view.html',
+      controller: 'splitViewController',
+      controllerAs: 'svc',
+    })
+    .state('split.footer', {
+      templateUrl: 'views/footer-template.html'
+    })
+    .state('split.footer.dashboard', {
+      url: '/dashboard',
+      template: '<udb-dashboard>'
+    })
+    .state('split.footer.search', {
+      url: '/search',
+      templateUrl: 'views/search.html'
+    })
+    .state('split.footer.place', {
+      url: '/place/:id',
+      templateUrl: 'templates/place-detail.html',
+      controller: 'placeDetailUIController'
+    })
+    .state('split.footer.event', {
+      url: '/event/:id',
+      templateUrl: 'templates/event-detail.html',
+      controller: 'eventDetailUIController'
+    })
+    .state('split.offer', {
+      url: '/event',
+      controller: 'offerEditorUIController',
+      templateUrl: 'templates/event-form.html'
+    })
+    .state('split.eventEdit', {
+      url: '/event/:id/edit',
+      controller: 'offerEditorUIController',
+      templateUrl: 'templates/event-form.html'
+    })
+    .state('split.placeEdit', {
+      url: '/place/:id/edit',
+      controller: 'offerEditorUIController',
+      templateUrl: 'templates/event-form.html'
+    })
+    .state('useragreement', {
+      url: '/user-agreement',
+      template: '<div btf-markdown ng-include="\'docs/user-agreement.md\'"></div>'
+    })
+    .state('copyright', {
+      url: '/copyright',
+      template: '<div btf-markdown ng-include="\'docs/copyright.md\'"></div>'
+    })
+    .state('split.savedsearches', {
+      url: '/saved-searches',
+      templateUrl: 'templates/saved-searches-list.html',
+      controller: 'SavedSearchesListController',
+    })
+    // manage stuff
+    .state('split.manageLabels', {
+      url: '/manage/labels/overview',
+      controller: 'LabelsListController',
+      controllerAs: 'llc',
+      templateUrl: 'templates/labels-list.html'
+    })
+    .state('split.manageLabelsCreate', {
+      url: '/manage/labels/create',
+      templateUrl: 'templates/label-creator.html',
+      controller: 'LabelCreatorController',
+      controllerAs: 'creator',
+    })
+    .state('split.manageLabelsEdit', {
+      url: '/manage/labels/:id',
+      templateUrl: 'templates/label-editor.html',
+      controller: 'LabelEditorController',
+      controllerAs: 'editor'
+    })
+    .state('split.manageUsers', {})
+    .state('split.manageRoles', {})
+    .state('split.manageOrganisations', {});
 }
 udbAppConfig.$inject = [
   '$locationProvider',
@@ -185,20 +195,7 @@ udbAppConfig.$inject = [
   'uiSelectConfig',
   'appConfig',
   'queryFieldTranslations',
-  'dutchTranslations'
+  'dutchTranslations',
+  '$stateProvider',
+  '$urlRouterProvider'
 ];
-
-function isAuthorized(authorizationService) {
-  return authorizationService.isLoggedIn();
-}
-
-function redirectIfLoggedIn(path) {
-  function promiseAccess(authorizationService) {
-    return authorizationService.redirectIfLoggedIn(path);
-  }
-  promiseAccess.$inject = ['authorizationService'];
-
-  return promiseAccess;
-}
-
-isAuthorized.$inject = ['authorizationService'];

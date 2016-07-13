@@ -16,8 +16,6 @@ function HeaderController(uitidAuth, $scope, jobLogger) {
   var controller = this;
 
   controller.login = uitidAuth.login;
-  controller.logout = uitidAuth.logout;
-  controller.toggleJobLog = jobLogger.toggleJobLog;
 
   $scope.$watch(function () {
     return uitidAuth.getUser();
