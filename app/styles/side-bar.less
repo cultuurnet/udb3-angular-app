@@ -20,14 +20,16 @@
 
   .sidebar-wrapper {
     padding: 9px;
+    height: 100%;
+    width: 100%;
 
     .fa {
-      font-size: 22px;
+      font-size: 24px;
     }
 
     ul {
       li {
-        padding: 15px 11px;
+        padding: 10px;
       }
     }
 
@@ -54,9 +56,6 @@
 
     .person-data {
       .profile-pic {
-        position: absolute;
-        bottom: 0;
-        margin-bottom: 5px;
 
         ul.dropdown-menu {
           left: 100%;
@@ -139,6 +138,15 @@
 @media (max-width: @screen-xs-max) {
 
   .sidebar-wrapper {
+    udb-logo {
+      display:none;
+    }
+
+    ul {
+      li {
+        text-align: center;
+      }
+    }
     .menu-text {
       display: none;
     }
