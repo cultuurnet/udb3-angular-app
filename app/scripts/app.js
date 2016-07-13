@@ -164,7 +164,8 @@ function udbAppConfig(
       templateUrl: 'templates/saved-searches-list.html',
       controller: 'SavedSearchesListController',
     })
-    // manage stuff
+    // Manage stuff
+    // Labels
     .state('split.manageLabels', {
       url: '/manage/labels/overview',
       controller: 'LabelsListController',
@@ -175,7 +176,7 @@ function udbAppConfig(
       url: '/manage/labels/create',
       templateUrl: 'templates/label-creator.html',
       controller: 'LabelCreatorController',
-      controllerAs: 'creator',
+      controllerAs: 'creator'
     })
     .state('split.manageLabelsEdit', {
       url: '/manage/labels/:id',
@@ -183,8 +184,19 @@ function udbAppConfig(
       controller: 'LabelEditorController',
       controllerAs: 'editor'
     })
+
+    // Roles
+    .state('split.manageRoles', {
+      url: '/manage/roles/overview',
+      controller: 'RolesListController',
+      controllerAs: 'rlc',
+      templateUrl: 'templates/roles-list.html'
+    })
+
+    // Users
     .state('split.manageUsers', {})
-    .state('split.manageRoles', {})
+
+    // Organisations
     .state('split.manageOrganisations', {});
 }
 udbAppConfig.$inject = [
