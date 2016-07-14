@@ -192,6 +192,12 @@ function udbAppConfig(
       controllerAs: 'rlc',
       templateUrl: 'templates/roles-list.html'
     })
+    .state('split.manageRolesCreate', {
+      url: '/manage/roles/create',
+      templateUrl: 'templates/role-creator.html',
+      controller: 'RoleCreatorController',
+      controllerAs: 'creator'
+    })
 
     // Users
     .state('split.manageUsers', {})
