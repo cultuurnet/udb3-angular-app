@@ -16,5 +16,6 @@
   "calendarHighlight": {
     "date": "",
     "extraClass": ""
-  }
+  },
+  "toggleAddOffer": false
 }
