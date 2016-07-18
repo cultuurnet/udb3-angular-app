@@ -198,6 +198,12 @@ function udbAppConfig(
       controller: 'RoleCreatorController',
       controllerAs: 'creator'
     })
+    .state('split.manageRolesEdit', {
+      url: '/manage/roles/:id',
+      templateUrl: 'templates/role-editor.html',
+      controller: 'RoleEditorController',
+      controllerAs: 'editor'
+    })
 
     // Users
     .state('split.manageUsers', {})
