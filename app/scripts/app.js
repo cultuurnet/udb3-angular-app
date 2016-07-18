@@ -35,29 +35,13 @@ angular
     '$rootScope',
     '$location',
     'uitidAuth',
-    'authorizationService',
-    function (udbApi, amMoment, $rootScope, $location, uitidAuth, authorizationService) {
-
-      $rootScope.$on('$stateChangeStart', function (
-        event,
-        toState,
-        toParams,
-        fromState,
-        fromParams) {
-          if(toState.name === 'main') {
-          // redirect to welcome page when arriving on main page when logged in
-            if(!authorizationService.redirectIfLoggedIn('/dashboard')) {
-              event.preventDefault();
-              return false;
-            }
-          }
-          // secure all pages except home
-          else if(!authorizationService.isLoggedIn()) {
-            event.preventDefault();
-            return false;
-          }
-      });
-
+    function (
+      udbApi,
+      amMoment,
+      $rootScope,
+      $location,
+      uitidAuth
+    ) {
       $rootScope.$watch(function () {
         return uitidAuth.getToken();
       }, function (token) {
@@ -108,12 +92,25 @@ function udbAppConfig(
     .state('main', {
       url: '/',
       templateUrl: 'views/main.html',
-      controller: 'MainCtrl'
+      controller: 'MainCtrl',
+      resolve: {
+        redirectDash: function (authorizationService) {
+          return authorizationService
+            .redirectIfLoggedIn('/dashboard');
+        }
+      }
     })
     .state('split', {
       templateUrl: 'views/split-view.html',
       controller: 'splitViewController',
       controllerAs: 'svc',
+      resolve: {
+        isLoggedIn: function (authorizationService) {
+          // everybody needs to be logged in split child templates
+          return authorizationService
+            .isLoggedIn();
+        }
+      }
     })
     .state('split.footer', {
       templateUrl: 'views/footer-template.html'
@@ -166,26 +163,71 @@ function udbAppConfig(
     })
     // manage stuff
     .state('split.manageLabels', {
+      template: '<div ui-view></div>',
+      resolve: {
+        isAuthorized: function (authorizationService, authorization, $state, $q) {
+          return authorizationService
+            .hasPermission(authorization.manageLabels)
+            .then(function (hasPermission) {
+              return hasPermission ? $q.resolve(true) : $state.go('split.footer.dashboard');
+            });
+        }
+      }
+    })
+    .state('split.manageLabels.list', {
       url: '/manage/labels/overview',
       controller: 'LabelsListController',
       controllerAs: 'llc',
-      templateUrl: 'templates/labels-list.html'
+      templateUrl: 'templates/labels-list.html',
     })
-    .state('split.manageLabelsCreate', {
+    .state('split.manageLabels.create', {
       url: '/manage/labels/create',
       templateUrl: 'templates/label-creator.html',
       controller: 'LabelCreatorController',
-      controllerAs: 'creator',
+      controllerAs: 'creator'
     })
-    .state('split.manageLabelsEdit', {
+    .state('split.manageLabels.edit', {
       url: '/manage/labels/:id',
       templateUrl: 'templates/label-editor.html',
       controller: 'LabelEditorController',
       controllerAs: 'editor'
     })
-    .state('split.manageUsers', {})
-    .state('split.manageRoles', {})
-    .state('split.manageOrganisations', {});
+    .state('split.manageUsers', {
+      template: '<div ui-view></div>',
+      resolve: {
+        isAuthorized: function (authorizationService, authorization, $state, $q) {
+          return authorizationService
+            .hasPermission(authorization.manageUsers)
+            .then(function (hasPermission) {
+              return hasPermission ? $q.resolve(true) : $state.go('split.footer.dashboard');
+            });
+        }
+      }
+    })
+    .state('split.manageRoles', {
+      template: '<div ui-view></div>',
+      resolve: {
+        isAuthorized: function (authorizationService, authorization, $state, $q) {
+          return authorizationService
+            .hasPermission(authorization.manageUsers)
+            .then(function (hasPermission) {
+              return hasPermission ? $q.resolve(true) : $state.go('split.footer.dashboard');
+            });
+        }
+      }
+    })
+    .state('split.manageOrganisations', {
+      template: '<div ui-view></div>',
+      resolve: {
+        isAuthorized: function (authorizationService, authorization, $state, $q) {
+          return authorizationService
+            .hasPermission(authorization.manageOrganisations)
+            .then(function (hasPermission) {
+              return hasPermission ? $q.resolve(true) : $state.go('split.footer.dashboard');
+            });
+        }
+      }
+    });
 }
 udbAppConfig.$inject = [
   '$locationProvider',
