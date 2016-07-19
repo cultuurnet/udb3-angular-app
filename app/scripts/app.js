@@ -161,7 +161,8 @@ function udbAppConfig(
       templateUrl: 'templates/saved-searches-list.html',
       controller: 'SavedSearchesListController',
     })
-    // manage stuff
+    // Manage stuff
+    // Labels
     .state('split.manageLabels', {
       template: '<div ui-view></div>',
       resolve: {
@@ -192,18 +193,7 @@ function udbAppConfig(
       controller: 'LabelEditorController',
       controllerAs: 'editor'
     })
-    .state('split.manageUsers', {
-      template: '<div ui-view></div>',
-      resolve: {
-        isAuthorized: function (authorizationService, authorization, $state, $q) {
-          return authorizationService
-            .hasPermission(authorization.manageUsers)
-            .then(function (hasPermission) {
-              return hasPermission ? $q.resolve(true) : $state.go('split.footer.dashboard');
-            });
-        }
-      }
-    })
+    // Roles
     .state('split.manageRoles', {
       template: '<div ui-view></div>',
       resolve: {
@@ -216,6 +206,40 @@ function udbAppConfig(
         }
       }
     })
+    .state('split.manageRoles.list', {
+      url: '/manage/roles/overview',
+      controller: 'RolesListController',
+      controllerAs: 'rlc',
+      templateUrl: 'templates/roles-list.html'
+    })
+    .state('split.manageRoles.create', {
+      url: '/manage/roles/create',
+      templateUrl: 'templates/role-creator.html',
+      controller: 'RoleCreatorController',
+      controllerAs: 'creator'
+    })
+    .state('split.manageRoles.edit', {
+      url: '/manage/roles/:id',
+      templateUrl: 'templates/role-editor.html',
+      controller: 'RoleEditorController',
+      controllerAs: 'editor'
+    })
+
+    // Users
+    .state('split.manageUsers', {
+      template: '<div ui-view></div>',
+      resolve: {
+        isAuthorized: function (authorizationService, authorization, $state, $q) {
+          return authorizationService
+            .hasPermission(authorization.manageUsers)
+            .then(function (hasPermission) {
+              return hasPermission ? $q.resolve(true) : $state.go('split.footer.dashboard');
+            });
+        }
+      }
+    })
+
+    // Organisations
     .state('split.manageOrganisations', {
       template: '<div ui-view></div>',
       resolve: {
