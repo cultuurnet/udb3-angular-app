@@ -9,5 +9,5 @@ try {
         toString: function () {
             return this.uri;
         }
-    }
+    };
 }
