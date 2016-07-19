@@ -4,9 +4,9 @@
     <div id="udb-navbar-collapse" class="sidebar-loggedin">
         <span ng-show="mbc.user" ng-cloak>
             <ul class="list-unstyled">
-                <li><a ui-sref="split.footer.dashboard"><i class="fa fa-home"></i> <span class="menu-text">Home</span></a></li>
-                <li><a ui-sref="split.offer"><i class="fa fa-plus-circle"></i> <span class="menu-text">Invoeren</span></a></li>
-                <li><a ui-sref="split.footer.search"><i class="fa fa-search"></i> <span class="menu-text">Zoeken</span></a></li>
+                <li><a ui-sref="split.footer.dashboard" ui-sref-opts="{reload:true}"><i class="fa fa-home"></i> <span class="menu-text">Home</span></a></li>
+                <li><a ui-sref="split.offer" ui-sref-opts="{reload:true}"><i class="fa fa-plus-circle"></i> <span class="menu-text">Invoeren</span></a></li>
+                <li><a ui-sref="split.footer.search" ui-sref-opts="{reload:true}"><i class="fa fa-search"></i> <span class="menu-text">Zoeken</span></a></li>
             </ul>
         </span>
 
@@ -14,10 +14,10 @@
             <hr />
             <h5><small>BEHEER</small></h5>
             <ul class="list-unstyled">
-                <li><a ui-sref="split.manageUsers"><i class="fa fa-user"></i> <span class="menu-text">Gebruikers</span></a></li>
-                <li><a ui-sref="split.manageRoles"><i class="fa fa-users"></i> <span class="menu-text">Rollen</span></a></li>
-                <li><a ui-sref="split.manageLabels"><i class="fa fa-tag"></i> <span class="menu-text">Labels</span></a></li>
-                <li><a ui-sref="split.manageOrganisations"><i class="fa fa-slideshare"></i> <span class="menu-text">Organisaties</span></a></li>
+                <li ng-show="mbc.canManageUsers"><a ui-sref="split.manageUsers" ui-sref-opts="{reload:true}"><i class="fa fa-user"></i> <span class="menu-text">Gebruikers</span></a></li>
+                <li ng-show="mbc.canManageUsers"><a ui-sref="split.manageRoles.list" ui-sref-opts="{reload:true}"><i class="fa fa-users"></i> <span class="menu-text">Rollen</span></a></li>
+                <li ng-show="mbc.canManageLabels"><a ui-sref="split.manageLabels.list" ui-sref-opts="{reload:true}"><i class="fa fa-tag"></i> <span class="menu-text">Labels</span></a></li>
+                <li ng-show="mbc.canManageOrganizers"><a ui-sref="split.manageOrganisations" ui-sref-opts="{reload:true}"><i class="fa fa-slideshare"></i> <span class="menu-text">Organisaties</span></a></li>
             </ul>
         </span>
 

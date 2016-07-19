@@ -12,7 +12,7 @@ angular
   .controller('menuBarController', menuBarController);
 
 /* @ngInject */
-function menuBarController(uitidAuth, $scope, jobLogger) {
+function menuBarController(uitidAuth, $scope, jobLogger, authorizationService, authorization) {
   var controller = this; // jshint ignore:line
 
   controller.login = uitidAuth.login;
@@ -20,8 +20,11 @@ function menuBarController(uitidAuth, $scope, jobLogger) {
   controller.toggleJobLog = jobLogger.toggleJobLog;
   controller.getFailedJobs = jobLogger.getFailedJobs;
 
-  // TODO: create logic for management permission when user service is ready.
-  controller.userHasManagementPermission = true;
+  controller.canManageUsers = false;
+  controller.canManageLabels = false;
+  controller.canManageOrganizers = false;
+
+  controller.userHasManagementPermission = false;
 
   $scope.login = function () {
     uitidAuth.login();
@@ -31,6 +34,35 @@ function menuBarController(uitidAuth, $scope, jobLogger) {
     return uitidAuth.getUser();
   }, function (user) {
     controller.user = user;
+
+    // look for permissions
+    authorizationService
+      .hasPermission(authorization.manageLabels)
+      .then(function (hasPermission) {
+        if(hasPermission) {
+          controller.canManageLabels = true;
+          controller.userHasManagementPermission = true;
+        }
+      });
+
+    authorizationService
+      .hasPermission(authorization.manageUsers)
+      .then(function (hasPermission) {
+        if(hasPermission) {
+          controller.canManageUsers = true;
+          controller.userHasManagementPermission = true;
+        }
+      });
+
+    authorizationService
+      .hasPermission(authorization.manageOrganisations)
+      .then(function (hasPermission) {
+        if(hasPermission) {
+          controller.canManageOrganizers = true;
+          controller.userHasManagementPermission = true;
+        }
+      });
+
   }, true);
 }
-menuBarController.$inject = ['uitidAuth', '$scope', 'jobLogger'];
+menuBarController.$inject = ['uitidAuth', '$scope', 'jobLogger', 'authorizationService', 'authorization'];
