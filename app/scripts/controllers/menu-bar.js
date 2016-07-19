@@ -12,13 +12,20 @@ angular
   .controller('menuBarController', menuBarController);
 
 /* @ngInject */
-function menuBarController(uitidAuth, $scope, jobLogger, authorizationService, authorization) {
+function menuBarController(uitidAuth, $scope, jobLogger, authorizationService, authorization, appConfig) {
   var controller = this; // jshint ignore:line
 
   controller.login = uitidAuth.login;
   controller.logout = uitidAuth.logout;
   controller.toggleJobLog = jobLogger.toggleJobLog;
   controller.getFailedJobs = jobLogger.getFailedJobs;
+
+  if (typeof(appConfig.toggleAddOffer) !== 'undefined') {
+    controller.toggleAddOffer = appConfig.toggleAddOffer;
+  }
+  else {
+    controller.toggleAddOffer = true;
+  }
 
   controller.canManageUsers = false;
   controller.canManageLabels = false;
@@ -65,4 +72,4 @@ function menuBarController(uitidAuth, $scope, jobLogger, authorizationService, a
 
   }, true);
 }
-menuBarController.$inject = ['uitidAuth', '$scope', 'jobLogger', 'authorizationService', 'authorization'];
+menuBarController.$inject = ['uitidAuth', '$scope', 'jobLogger', 'authorizationService', 'authorization', 'appConfig'];

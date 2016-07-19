@@ -5,7 +5,7 @@
         <span ng-show="mbc.user" ng-cloak>
             <ul class="list-unstyled">
                 <li><a ui-sref="split.footer.dashboard" ui-sref-opts="{reload:true}"><i class="fa fa-home"></i> <span class="menu-text">Home</span></a></li>
-                <li><a ui-sref="split.offer" ui-sref-opts="{reload:true}"><i class="fa fa-plus-circle"></i> <span class="menu-text">Invoeren</span></a></li>
+                <li ng-if="mbc.toggleAddOffer"><a ui-sref="split.offer" ui-sref-opts="{reload:true}"><i class="fa fa-plus-circle"></i> <span class="menu-text">Invoeren</span></a></li>
                 <li><a ui-sref="split.footer.search" ui-sref-opts="{reload:true}"><i class="fa fa-search"></i> <span class="menu-text">Zoeken</span></a></li>
             </ul>
         </span>
