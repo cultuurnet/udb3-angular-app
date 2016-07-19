@@ -94,10 +94,11 @@ function udbAppConfig(
       templateUrl: 'views/main.html',
       controller: 'MainCtrl',
       resolve: {
-        redirectDash: function (authorizationService) {
+        /* @ngInject */
+        redirectDash: ["authorizationService", function (authorizationService) {
           return authorizationService
             .redirectIfLoggedIn('/dashboard');
-        }
+        }]
       }
     })
     .state('split', {
@@ -105,11 +106,12 @@ function udbAppConfig(
       controller: 'splitViewController',
       controllerAs: 'svc',
       resolve: {
-        isLoggedIn: function (authorizationService) {
+        /* @ngInject */
+        isLoggedIn: ["authorizationService", function (authorizationService) {
           // everybody needs to be logged in split child templates
           return authorizationService
             .isLoggedIn();
-        }
+        }]
       }
     })
     .state('split.footer', {
@@ -166,13 +168,14 @@ function udbAppConfig(
     .state('split.manageLabels', {
       template: '<div ui-view></div>',
       resolve: {
-        isAuthorized: function (authorizationService, authorization, $state, $q) {
+        /* @ngInject */
+        isAuthorized: ["authorizationService", "authorization", "$state", "$q", function (authorizationService, authorization, $state, $q) {
           return authorizationService
             .hasPermission(authorization.manageLabels)
             .then(function (hasPermission) {
               return hasPermission ? $q.resolve(true) : $state.go('split.footer.dashboard');
             });
-        }
+        }]
       }
     })
     .state('split.manageLabels.list', {
@@ -197,13 +200,14 @@ function udbAppConfig(
     .state('split.manageRoles', {
       template: '<div ui-view></div>',
       resolve: {
-        isAuthorized: function (authorizationService, authorization, $state, $q) {
+        /* @ngInject */
+        isAuthorized: ["authorizationService", "authorization", "$state", "$q", function (authorizationService, authorization, $state, $q) {
           return authorizationService
             .hasPermission(authorization.manageUsers)
             .then(function (hasPermission) {
               return hasPermission ? $q.resolve(true) : $state.go('split.footer.dashboard');
             });
-        }
+        }]
       }
     })
     .state('split.manageRoles.list', {
@@ -229,13 +233,14 @@ function udbAppConfig(
     .state('split.manageUsers', {
       template: '<div ui-view></div>',
       resolve: {
-        isAuthorized: function (authorizationService, authorization, $state, $q) {
+        /* @ngInject */
+        isAuthorized: ["authorizationService", "authorization", "$state", "$q", function (authorizationService, authorization, $state, $q) {
           return authorizationService
             .hasPermission(authorization.manageUsers)
             .then(function (hasPermission) {
               return hasPermission ? $q.resolve(true) : $state.go('split.footer.dashboard');
             });
-        }
+        }]
       }
     })
 
@@ -243,13 +248,14 @@ function udbAppConfig(
     .state('split.manageOrganisations', {
       template: '<div ui-view></div>',
       resolve: {
-        isAuthorized: function (authorizationService, authorization, $state, $q) {
+        /* @ngInject */
+        isAuthorized: ["authorizationService", "authorization", "$state", "$q", function (authorizationService, authorization, $state, $q) {
           return authorizationService
             .hasPermission(authorization.manageOrganisations)
             .then(function (hasPermission) {
               return hasPermission ? $q.resolve(true) : $state.go('split.footer.dashboard');
             });
-        }
+        }]
       }
     });
 }
