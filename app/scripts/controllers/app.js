@@ -21,6 +21,7 @@ function AppController($location, uitidAuth) {
 
     if (jwt && jwt !== uitidAuth.getToken()) {
       uitidAuth.setToken(jwt);
+      $location.search('jwt', null);
     }
   }
 
