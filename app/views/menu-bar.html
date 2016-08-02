@@ -1,31 +1,31 @@
 <div class="sidebar-wrapper" role="navigation">
-    <udb-logo></udb-logo>
+
+    <a class="udb-logo" ui-sref="split.footer.dashboard" ui-sref-opts="{reload:true}"></a>
 
     <div id="udb-navbar-collapse" class="sidebar-loggedin">
         <span ng-show="mbc.user" ng-cloak>
-            <ul class="list-unstyled">
+            <ul>
                 <li><a ui-sref="split.footer.dashboard" ui-sref-opts="{reload:true}"><i class="fa fa-home"></i> <span class="menu-text">Home</span></a></li>
                 <li ng-if="mbc.toggleAddOffer"><a ui-sref="split.offer" ui-sref-opts="{reload:true}"><i class="fa fa-plus-circle"></i> <span class="menu-text">Invoeren</span></a></li>
                 <li><a ui-sref="split.footer.search" ui-sref-opts="{reload:true}"><i class="fa fa-search"></i> <span class="menu-text">Zoeken</span></a></li>
             </ul>
         </span>
 
-        <span ng-show="mbc.userHasManagementPermission">
-            <hr />
-            <h5><small>BEHEER</small></h5>
-            <ul class="list-unstyled">
-                <li ng-show="mbc.canManageUsers"><a ui-sref="split.manageUsers" ui-sref-opts="{reload:true}"><i class="fa fa-user"></i> <span class="menu-text">Gebruikers</span></a></li>
-                <li ng-show="mbc.canManageUsers"><a ui-sref="split.manageRoles.list" ui-sref-opts="{reload:true}"><i class="fa fa-users"></i> <span class="menu-text">Rollen</span></a></li>
-                <li ng-show="mbc.canManageLabels"><a ui-sref="split.manageLabels.list" ui-sref-opts="{reload:true}"><i class="fa fa-tag"></i> <span class="menu-text">Labels</span></a></li>
-                <li ng-show="mbc.canManageOrganizers"><a ui-sref="split.manageOrganisations" ui-sref-opts="{reload:true}"><i class="fa fa-slideshare"></i> <span class="menu-text">Organisaties</span></a></li>
-            </ul>
-        </span>
+        <div class="management-block" ng-show="mbc.userHasManagementPermission">
+          <p class="menu-title">Beheer</p>
+          <ul>
+            <li ng-show="mbc.canManageUsers"><a ui-sref="split.manageUsers" ui-sref-opts="{reload:true}"><i class="fa fa-user"></i> <span class="menu-text">Gebruikers</span></a></li>
+            <li ng-show="mbc.canManageUsers"><a ui-sref="split.manageRoles.list" ui-sref-opts="{reload:true}"><i class="fa fa-users"></i> <span class="menu-text">Rollen</span></a></li>
+            <li ng-show="mbc.canManageLabels"><a ui-sref="split.manageLabels.list" ui-sref-opts="{reload:true}"><i class="fa fa-tag"></i> <span class="menu-text">Labels</span></a></li>
+            <li ng-show="mbc.canManageOrganizers"><a ui-sref="split.manageOrganisations" ui-sref-opts="{reload:true}"><i class="fa fa-slideshare"></i> <span class="menu-text">Organisaties</span></a></li>
+          </ul>
+        </div>
 
         <div class="person-data">
-            <hr />
-            <ul class="list-unstyled">
+            <ul>
                 <li class="notifications">
                     <a href="#" ng-click="mbc.toggleJobLog()">
+                        <i class="fa fa-bell"></i>
                         <udb-job-logo></udb-job-logo>
                         <span class="menu-text">Meldingen</span>
                     </a>
@@ -38,8 +38,8 @@
                             <img class="media-object" width="50" height="50" src="http://sibyltech.com/wp-content/uploads/2015/01/Empty.jpg">
                         </div>
                         <div class="media-body">
-                            {{ mbc.user.nick }}<br />
-                            <i class="fa fa-sign-out" aria-hidden="true"></i> <a href="#" ng-click="mbc.logout()" class="small">Afmelden</a>
+                            <span class="nick">{{ mbc.user.nick }}</span><br />
+                            <a href="#" ng-click="mbc.logout()" class="small"><i class="fa fa-sign-out" aria-hidden="true"></i> Afmelden</a>
                         </div>
                     </div>
                 </li>
