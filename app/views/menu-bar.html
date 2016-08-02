@@ -14,7 +14,7 @@
         <div class="management-block" ng-show="mbc.userHasManagementPermission">
           <p class="menu-title">Beheer</p>
           <ul>
-            <li ng-show="mbc.canManageUsers"><a ui-sref="split.manageUsers" ui-sref-opts="{reload:true}"><i class="fa fa-user"></i> <span class="menu-text">Gebruikers</span></a></li>
+            <li ng-show="mbc.canManageUsers"><a ui-sref="split.manageUsers.list" ui-sref-opts="{reload:true}"><i class="fa fa-user"></i> <span class="menu-text">Gebruikers</span></a></li>
             <li ng-show="mbc.canManageUsers"><a ui-sref="split.manageRoles.list" ui-sref-opts="{reload:true}"><i class="fa fa-users"></i> <span class="menu-text">Rollen</span></a></li>
             <li ng-show="mbc.canManageLabels"><a ui-sref="split.manageLabels.list" ui-sref-opts="{reload:true}"><i class="fa fa-tag"></i> <span class="menu-text">Labels</span></a></li>
             <li ng-show="mbc.canManageOrganizers"><a ui-sref="split.manageOrganisations" ui-sref-opts="{reload:true}"><i class="fa fa-slideshare"></i> <span class="menu-text">Organisaties</span></a></li>

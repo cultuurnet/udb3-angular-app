@@ -243,6 +243,24 @@ function udbAppConfig(
         }]
       }
     })
+    .state('split.manageUsers.list', {
+      url: '/manage/users/overview',
+      controller: 'UsersListController',
+      controllerAs: 'rlc',
+      templateUrl: 'templates/users-list.html'
+    })
+    .state('split.manageUsers.create', {
+      url: '/manage/users/create',
+      templateUrl: 'templates/user-creator.html',
+      controller: 'UserCreatorController',
+      controllerAs: 'creator'
+    })
+    .state('split.manageUsers.edit', {
+      url: '/manage/users/:id',
+      templateUrl: 'templates/user-editor.html',
+      controller: 'UserEditorController',
+      controllerAs: 'editor'
+    })
 
     // Organisations
     .state('split.manageOrganisations', {
