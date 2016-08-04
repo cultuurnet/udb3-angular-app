@@ -1,176 +1,231 @@
-@sidebar-width: 230px;
+@sidebar-min-height: 450px;
 @sidebar-mobile-width: 65px;
-@mobile-menu-height: 75px;
+@sidebar-width: 230px;
+@sidebar-background-color: @brand-primary-dark;
+@sidebar-mobile-padding: 2px;
+@sidebar-padding: 5px;
+
+.udb-logo {
+  background-image: url(../images/udb-logo-mobile.svg);
+  background-repeat: no-repeat;
+  background-size: contain;
+  background-position: center center;
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 10px auto;
+
+  @media (min-width: @screen-sm-min) {
+    background-image: url(../images/udb-logo.svg);
+    width: 100%;
+    height: 40px;
+  }
+
+}
 
 #app-sidebar {
+  background-color: @sidebar-background-color;
   width: @sidebar-mobile-width;
-  height: 100%;
   top: 0;
   bottom: 0;
   left: 0;
-  position: fixed;
+  position: absolute;
   color: #eee;
   z-index: 1039;
 
-  hr {
-    border-color: #900d09;
-    margin-top: 12px;
-    margin-bottom: 12px;
+  // visual trick to fake that absolute positioned sidebar sticks to the bottom of the screen
+  &:after {
+    content: " ";
+    position: fixed;
+    background-color: @sidebar-background-color;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    width: @sidebar-mobile-width;
+    z-index: -1;
   }
-
-  .sidebar-wrapper {
-    padding: 9px;
-    height: 100%;
-    width: 100%;
-
-    .fa {
-      font-size: 24px;
-    }
-
-    ul {
-      li {
-        padding: 10px;
-      }
-    }
-
-    h5 small {
-      color: #eee;
-    }
-
-    a {
-      color: #eee;
-      display: inline-block;
-    }
-
-    a:hover {
-      color: #ccc;
-      text-decoration: none;
-    }
-
-    udb-job-logo {
-      width: 32px;
-      display: inline-block;
-      margin-bottom: -20px;
-      float: left;
-    }
-
-    .person-data {
-      .profile-pic {
-
-        ul.dropdown-menu {
-          left: 100%;
-          right: auto;
-          bottom: 0;
-          margin-bottom: 0px;
-
-          li {
-            padding: 5px;
-
-            a {
-              color: #333;
-            }
-          }
-        }
-      }
-    }
-  }
-}
-
-#app-content {
-  margin-left: @sidebar-mobile-width;
 }
 
 @media (min-width: @screen-sm-min) {
-  #app-content {
-    margin-left: @sidebar-width;
-  }
-
   #app-sidebar {
     width: @sidebar-width;
-    top: 0;
-    bottom: 0;
-    left: 0;
-    position: fixed;
-    color: #eee;
-    z-index: 1039;
+  }
+}
 
-    .sidebar-wrapper {
-      padding: 15px;
+@media (min-height: @sidebar-min-height) {
+  #app-sidebar {
+    position: fixed;
+  }
+
+  .person-data {
+    position: absolute;
+    right: @sidebar-mobile-padding;
+    bottom: @sidebar-mobile-padding;
+    left: @sidebar-mobile-padding;
+
+    @media (min-width: @screen-sm-min) {
+      right: @sidebar-padding;
+      bottom: @sidebar-padding;
+      left: @sidebar-padding;
+    }
+  }
+}
+
+.sidebar-wrapper {
+
+  padding: @sidebar-mobile-padding;
+  height: 100%;
+  width: 100%;
+
+  .fa {
+    color: lighten(@sidebar-background-color, 60%);
+    font-size: 15px;
+  }
+
+  ul {
+    .list-unstyled();
+    margin-bottom: 0;
+  }
+
+  li a {
+    color: @white;
+    display: inline-block;
+    width: 100%;
+    padding: 3px;
+  }
+
+  li a:hover {
+    background-color: darken(@sidebar-background-color, 10%);
+    text-decoration: none;
+  }
+
+  udb-job-logo {
+    width: 15px;
+    display: inline-block;
+    float: left;
+  }
+
+  #indicator {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 40px;
+    overflow: hidden;
+  }
+
+  .notifications {
+    border-bottom: 1px solid darken(@sidebar-background-color, 10%);
+    margin-bottom: 10px;
+  }
+
+  .person-data {
+    @sidebar-padding: @sidebar-mobile-padding;
+
+    .profile-pic {
+
+      img {
+        margin: 0 auto;
+      }
+
+      ul.dropdown-menu {
+        background-color: @sidebar-background-color;
+        left: 100%;
+        right: auto;
+        bottom: 0;
+        margin-bottom: 0px;
+      }
+    }
+  }
+}
+
+@media (min-width: @screen-sm-min) {
+  .sidebar-wrapper {
+    padding: @sidebar-padding;
 
       ul {
         float: inherit;
 
         li {
-          float: inherit;
-          padding: 15px 0px;
 
           a {
-            padding-top: 5px;
-            padding-bottom: 5px;
-            padding-left: 0px;
+            padding: @sidebar-padding @sidebar-padding @sidebar-padding 30px;
+            position: relative;
 
-            .menu-text {
-              margin-left: 7px;
+            .fa {
+              position: absolute;
+              left: 5px;
+              top: 10px;
             }
           }
         }
       }
 
-      .person-data {
-        position: absolute;
-        right: 0;
-        bottom: 0;
-        left: 0;
-        padding: 0px 15px;
-
-        li.notifications {
-          padding: 0px 0px 20px 0px;
-        }
-      }
     }
 
     .collapse {
       display: block;
     }
+}
+
+#app-content {
+  margin-left: @sidebar-mobile-width;
+
+  @media (min-width: @screen-sm-min) {
+    margin-left: @sidebar-width;
   }
 }
 
-@media (max-width: @screen-xs-max) {
+.sidebar-wrapper {
+  ul {
+    li {
+      text-align: center;
 
-  .sidebar-wrapper {
-    udb-logo {
-      display:none;
-    }
-
-    ul {
-      li {
-        text-align: center;
+      @media (min-width: @screen-sm-min) {
+        text-align: left;
       }
     }
-    .menu-text {
-      display: none;
-    }
-
-    h5 {
-      text-align: center;
-    }
   }
+  .menu-text {
+    text-align: center;
+    font-size: 9px;
+    display: block;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
 
-  .udb-job-log.shown {
-    left: @sidebar-mobile-width;
-  }
-
-  .udb-job-log-overlay {
-    left: @sidebar-mobile-width;
+    @media (min-width: @screen-sm-min) {
+      text-align: left;
+      font-size: 15px;
+    }
   }
 }
 
-@media (min-width: @screen-sm-min) {
-  .udb-job-log.shown {
-    left: @sidebar-width;
-  }
+.udb-job-log.shown {
+  left: @sidebar-mobile-width;
 
-  .udb-job-log-overlay {
+  @media (min-width: @screen-sm-min) {
     left: @sidebar-width;
   }
+}
+
+.udb-job-log-overlay {
+  left: @sidebar-mobile-width;
+
+  @media (min-width: @screen-sm-min) {
+    left: @sidebar-width;
+  }
+}
+
+.management-block {
+  margin-top: 10px;
+  border-top: 1px solid darken(@sidebar-background-color, 10%);
+}
+
+.menu-title {
+  font-size: small;
+  font-weight: normal;
+  text-transform: uppercase;
+  display: block;
+  margin: 5px 0;
+  opacity: 0.5;
 }
