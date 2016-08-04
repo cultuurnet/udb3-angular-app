@@ -12,7 +12,7 @@ angular
   .controller('AppCtrl', AppController);
 
 /* @ngInject */
-function AppController($location, uitidAuth) {
+function AppController($location, uitidAuth, udbApi) {
   var controller = this;
 
   function parseJwtToken () {
@@ -22,9 +22,11 @@ function AppController($location, uitidAuth) {
     if (jwt && jwt !== uitidAuth.getToken()) {
       uitidAuth.setToken(jwt);
       $location.search('jwt', null);
+      udbApi.getMe();
+      // TODO: Emit event here that user was logged in, and also when logged out
     }
   }
 
   controller.$onInit = parseJwtToken;
 }
-AppController.$inject = ['$location', 'uitidAuth'];
+AppController.$inject = ['$location', 'uitidAuth', 'udbApi'];

@@ -42,12 +42,6 @@ angular
       $location,
       uitidAuth
     ) {
-      $rootScope.$watch(function () {
-        return uitidAuth.getToken();
-      }, function (token) {
-        udbApi.getMe();
-      });
-
       amMoment.changeLocale('nl');
 
       $rootScope.$on('searchSubmitted', function () {
