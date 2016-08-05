@@ -89,7 +89,7 @@ function udbAppConfig(
       controller: 'MainCtrl',
       resolve: {
         /* @ngInject */
-        redirectDash: ["authorizationService", function (authorizationService) {
+        redirectDash: ['authorizationService', function (authorizationService) {
           return authorizationService
             .redirectIfLoggedIn('/dashboard');
         }]
@@ -101,7 +101,7 @@ function udbAppConfig(
       controllerAs: 'svc',
       resolve: {
         /* @ngInject */
-        isLoggedIn: ["authorizationService", function (authorizationService) {
+        isLoggedIn: ['authorizationService', function (authorizationService) {
           // everybody needs to be logged in split child templates
           return authorizationService
             .isLoggedIn();
@@ -163,7 +163,7 @@ function udbAppConfig(
       template: '<div ui-view></div>',
       resolve: {
         /* @ngInject */
-        isAuthorized: ["authorizationService", "authorization", "$state", "$q", function (authorizationService, authorization, $state, $q) {
+        isAuthorized: ['authorizationService', 'authorization', '$state', '$q', function (authorizationService, authorization, $state, $q) {
           return authorizationService
             .hasPermission(authorization.manageLabels)
             .then(function (hasPermission) {
@@ -176,7 +176,7 @@ function udbAppConfig(
       url: '/manage/labels/overview',
       controller: 'LabelsListController',
       controllerAs: 'llc',
-      templateUrl: 'templates/labels-list.html',
+      templateUrl: 'templates/labels-list.html'
     })
     .state('split.manageLabels.create', {
       url: '/manage/labels/create',
@@ -195,7 +195,7 @@ function udbAppConfig(
       template: '<div ui-view></div>',
       resolve: {
         /* @ngInject */
-        isAuthorized: ["authorizationService", "authorization", "$state", "$q", function (authorizationService, authorization, $state, $q) {
+        isAuthorized: ['authorizationService', 'authorization', '$state', '$q', function (authorizationService, authorization, $state, $q) {
           return authorizationService
             .hasPermission(authorization.manageUsers)
             .then(function (hasPermission) {
@@ -228,7 +228,7 @@ function udbAppConfig(
       template: '<div ui-view></div>',
       resolve: {
         /* @ngInject */
-        isAuthorized: ["authorizationService", "authorization", "$state", "$q", function (authorizationService, authorization, $state, $q) {
+        isAuthorized: ['authorizationService', 'authorization', '$state', '$q', function (authorizationService, authorization, $state, $q) {
           return authorizationService
             .hasPermission(authorization.manageUsers)
             .then(function (hasPermission) {
@@ -243,7 +243,7 @@ function udbAppConfig(
       template: '<div ui-view></div>',
       resolve: {
         /* @ngInject */
-        isAuthorized: ["authorizationService", "authorization", "$state", "$q", function (authorizationService, authorization, $state, $q) {
+        isAuthorized: ['authorizationService', 'authorization', '$state', '$q', function (authorizationService, authorization, $state, $q) {
           return authorizationService
             .hasPermission(authorization.manageOrganisations)
             .then(function (hasPermission) {
