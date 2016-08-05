@@ -212,14 +212,14 @@ function udbAppConfig(
     })
     .state('split.manageRoles.create', {
       url: '/manage/roles/create',
-      templateUrl: 'templates/role-creator.html',
-      controller: 'RoleCreatorController',
-      controllerAs: 'creator'
+      templateUrl: 'templates/role-form.html',
+      controller: 'RoleFormController',
+      controllerAs: 'editor'
     })
     .state('split.manageRoles.edit', {
       url: '/manage/roles/:id',
-      templateUrl: 'templates/role-editor.html',
-      controller: 'RoleEditorController',
+      templateUrl: 'templates/role-form.html',
+      controller: 'RoleFormController',
       controllerAs: 'editor'
     })
 
