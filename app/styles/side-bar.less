@@ -1,7 +1,7 @@
 @sidebar-min-height: 450px;
 @sidebar-mobile-width: 65px;
 @sidebar-width: 230px;
-@sidebar-background-color: @brand-primary;
+@sidebar-background-color: @brand-primary-dark;
 @sidebar-mobile-padding: 2px;
 @sidebar-padding: 5px;
 
@@ -78,7 +78,7 @@
   width: 100%;
 
   .fa {
-    color: lighten(@sidebar-background-color, 30%);
+    color: lighten(@sidebar-background-color, 60%);
     font-size: 15px;
   }
 
@@ -110,10 +110,11 @@
     right: 0;
     top: 0;
     width: 40px;
+    overflow: hidden;
   }
 
   .notifications {
-    border-bottom: 1px solid lighten(@sidebar-background-color, 10%);
+    border-bottom: 1px solid darken(@sidebar-background-color, 10%);
     margin-bottom: 10px;
   }
 
@@ -217,7 +218,7 @@
 
 .management-block {
   margin-top: 10px;
-  border-top: 1px solid lighten(@sidebar-background-color, 10%);
+  border-top: 1px solid darken(@sidebar-background-color, 10%);
 }
 
 .menu-title {

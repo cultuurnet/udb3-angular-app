@@ -42,12 +42,6 @@ angular
       $location,
       uitidAuth
     ) {
-      $rootScope.$watch(function () {
-        return uitidAuth.getToken();
-      }, function (token) {
-        udbApi.getMe();
-      });
-
       amMoment.changeLocale('nl');
 
       $rootScope.$on('searchSubmitted', function () {
@@ -182,7 +176,7 @@ function udbAppConfig(
       url: '/manage/labels/overview',
       controller: 'LabelsListController',
       controllerAs: 'llc',
-      templateUrl: 'templates/labels-list.html',
+      templateUrl: 'templates/labels-list.html'
     })
     .state('split.manageLabels.create', {
       url: '/manage/labels/create',
@@ -218,14 +212,14 @@ function udbAppConfig(
     })
     .state('split.manageRoles.create', {
       url: '/manage/roles/create',
-      templateUrl: 'templates/role-creator.html',
-      controller: 'RoleCreatorController',
-      controllerAs: 'creator'
+      templateUrl: 'templates/role-form.html',
+      controller: 'RoleFormController',
+      controllerAs: 'editor'
     })
     .state('split.manageRoles.edit', {
       url: '/manage/roles/:id',
-      templateUrl: 'templates/role-editor.html',
-      controller: 'RoleEditorController',
+      templateUrl: 'templates/role-form.html',
+      controller: 'RoleFormController',
       controllerAs: 'editor'
     })
 

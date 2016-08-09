@@ -18,7 +18,6 @@ function menuBarController(uitidAuth, $scope, jobLogger, authorizationService, a
   controller.login = uitidAuth.login;
   controller.logout = uitidAuth.logout;
   controller.toggleJobLog = jobLogger.toggleJobLog;
-  controller.getFailedJobs = jobLogger.getFailedJobs;
 
   if (typeof(appConfig.toggleAddOffer) !== 'undefined') {
     controller.toggleAddOffer = appConfig.toggleAddOffer;
