@@ -240,7 +240,7 @@ function udbAppConfig(
     .state('split.manageUsers.list', {
       url: '/manage/users/overview',
       controller: 'UsersListController',
-      controllerAs: 'rlc',
+      controllerAs: 'ulc',
       templateUrl: 'templates/users-list.html'
     })
     .state('split.manageUsers.create', {
