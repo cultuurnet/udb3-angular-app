@@ -1,13 +1,14 @@
 try {
-    new URL('http://uitdatabank.be');
+  new URL('http://uitdatabank.be');
 } catch (e) {
-    URL = function (uri) {
-        this.uri = uri;
-    };
 
-    URL.prototype = {
-        toString: function () {
-            return this.uri;
-        }
-    };
+  URL = function (uri) { // jshint ignore:line
+    this.uri = uri;
+  };
+
+  URL.prototype = {
+    toString: function () {
+      return this.uri;
+    }
+  };
 }
