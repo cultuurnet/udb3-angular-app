@@ -74,6 +74,19 @@ function udbAppConfig(
 
   // Translation configuration
   var defaultTranslations = _.merge(dutchTranslations, queryFieldTranslations.nl);
+  var splitView = {
+    templateUrl: 'views/split-view.html',
+    controller: 'splitViewController',
+    controllerAs: 'svc',
+    resolve: {
+      /* @ngInject */
+      isLoggedIn: ['authorizationService', function (authorizationService) {
+        // everybody needs to be logged in split child templates
+        return authorizationService
+          .isLoggedIn();
+      }]
+    }
+  };
 
   $translateProvider
     .translations('nl', defaultTranslations)
@@ -95,19 +108,7 @@ function udbAppConfig(
         }]
       }
     })
-    .state('split', {
-      templateUrl: 'views/split-view.html',
-      controller: 'splitViewController',
-      controllerAs: 'svc',
-      resolve: {
-        /* @ngInject */
-        isLoggedIn: ['authorizationService', function (authorizationService) {
-          // everybody needs to be logged in split child templates
-          return authorizationService
-            .isLoggedIn();
-        }]
-      }
-    })
+    .state('split', angular.copy(splitView))
     .state('split.footer', {
       templateUrl: 'views/footer-template.html'
     })
@@ -224,7 +225,8 @@ function udbAppConfig(
     })
 
     // Users
-    .state('split.manageUsers', {
+    .state('management', angular.copy(splitView))
+    .state('management.users', {
       template: '<div ui-view></div>',
       resolve: {
         /* @ngInject */
@@ -237,19 +239,13 @@ function udbAppConfig(
         }]
       }
     })
-    .state('split.manageUsers.list', {
+    .state('management.users.list', {
       url: '/manage/users/overview',
       controller: 'UsersListController',
       controllerAs: 'ulc',
       templateUrl: 'templates/users-list.html'
     })
-    .state('split.manageUsers.create', {
-      url: '/manage/users/create',
-      templateUrl: 'templates/user-creator.html',
-      controller: 'UserCreatorController',
-      controllerAs: 'creator'
-    })
-    .state('split.manageUsers.edit', {
+    .state('management.users.edit', {
       url: '/manage/users/:id',
       templateUrl: 'templates/user-editor.html',
       controller: 'UserEditorController',
