@@ -118,7 +118,19 @@ function udbAppConfig(
     })
     .state('split.footer.search', {
       url: '/search',
-      templateUrl: 'views/search.html'
+      templateUrl: 'views/search.html',
+      onEnter: ['searchHelper', '$location', '$timeout', function (searchHelper, $location, $timeout) {
+        function setQueryFromSearchParams() {
+          var searchParams = $location.search();
+          var query = searchParams.query ? searchParams.query : '';
+          searchHelper.setQueryString(query, true);
+        }
+
+        // the last event fired by ui-router is $viewContentLoading
+        // this happens before components in the view have loaded
+        // to make sure the all controllers are initialized we have to use a timeout
+        $timeout(setQueryFromSearchParams, 0);
+      }]
     })
     .state('split.footer.place', {
       url: '/place/:id',
