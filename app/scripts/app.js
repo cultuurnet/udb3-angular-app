@@ -283,7 +283,9 @@ function udbAppConfig(
     })
     .state('management.moderation.list', {
       url:'/manage/moderation/overview',
-      templateUrl:'templates/moderation-list.html'
+      templateUrl:'templates/moderation-list.html',
+      controller: 'ModerationListController',
+      controllerAs: 'moderator'
     });
 }
 udbAppConfig.$inject = [
