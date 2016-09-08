@@ -3,6 +3,7 @@
 </div>
 <div id="app-content" class="container-fluid" ng-if="svc.user != undefined">
     <div ui-view></div>
+    <a ng-click="openFeedback()" class="feedback">Feedback</a>
 </div>
 <div class="container-fluid" ng-if="svc.user == undefined">
     <div ui-view></div>
