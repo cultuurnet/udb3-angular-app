@@ -14,7 +14,10 @@
         <div class="management-block" ng-show="mbc.userHasManagementPermission">
           <p class="menu-title">Beheer</p>
           <ul>
-            <li><a ui-sref="management.moderation.list" ui-sref-opts="{reload:true}"><i class="fa fa-flag"></i> <span class="menu-text">Valideren</span></a></li>
+            <li><a ui-sref="management.moderation.list" ui-sref-opts="{reload:true}"><i class="fa fa-flag"></i> <span class="menu-text">
+                Valideren
+                <span class="badge" class="pull-right" ng-show="mbc.moderationCount" ng-bind="mbc.moderationCount"></span>
+            </span> </a></li>
             <li ng-show="mbc.canManageUsers"><a ui-sref="management.users.list" ui-sref-opts="{reload:true}"><i class="fa fa-user"></i> <span class="menu-text">Gebruikers</span></a></li>
             <li ng-show="mbc.canManageUsers"><a ui-sref="split.manageRoles.list" ui-sref-opts="{reload:true}"><i class="fa fa-users"></i> <span class="menu-text">Rollen</span></a></li>
             <li ng-show="mbc.canManageLabels"><a ui-sref="split.manageLabels.list" ui-sref-opts="{reload:true}"><i class="fa fa-tag"></i> <span class="menu-text">Labels</span></a></li>
