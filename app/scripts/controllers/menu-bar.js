@@ -16,11 +16,8 @@ function menuBarController(
   uitidAuth,
   $scope,
   jobLogger,
-  authorizationService,
-  RolePermission,
   appConfig,
-  ModerationManager,
-  $q
+  managementListItems
 ) {
   var controller = this; // jshint ignore:line
 
@@ -45,85 +42,29 @@ function menuBarController(
     uitidAuth.login();
   };
 
-  function filterModeratorRoles(roles) {
-    // only show roles with moderator permission
-    var myRoles = _.filter(roles, function(role) {
-      var canModerate = _.filter(role.permissions, function(permission) {
-        return permission === RolePermission.AANBOD_MODEREREN;
-      });
-      return canModerate.length > 0 ? true : false;
-    });
-
-    return $q.resolve(myRoles);
+  /**
+   *
+   * @param {ManagementListItem[]} listItems
+   */
+  function showManagementListItems(listItems) {
+    controller.managementListItems = listItems;
   }
 
-  function getModerationCount(roles) {
-    var query = '';
-
-    _.forEach(roles, function(value) {
-      query += (query?' OR ':'') + value.constraint;
-    });
-    query = '(' + query + ')';
-
-    ModerationManager
-      .find(query, 10, 0)
-      .then(function(searchResult) {
-        controller.moderationCount = searchResult.totalItems;
-      });
-  }
-
-  function checkMenuRights() {
-    // look for permissions
-    authorizationService
-      .hasPermission(RolePermission.LABELS_BEHEREN)
-      .then(function (hasPermission) {
-        if(hasPermission) {
-          controller.canManageLabels = true;
-          controller.userHasManagementPermission = true;
-        }
-      });
-
-    authorizationService
-      .hasPermission(RolePermission.GEBRUIKERS_BEHEREN)
-      .then(function (hasPermission) {
-        if(hasPermission) {
-          controller.canManageUsers = true;
-          controller.userHasManagementPermission = true;
-        }
-      });
-
-    authorizationService
-      .hasPermission(RolePermission.ORGANISATIES_BEHEREN)
-      .then(function (hasPermission) {
-        if(hasPermission) {
-          controller.canManageOrganizers = true;
-          controller.userHasManagementPermission = true;
-        }
-      });
-  };
-
-  $scope.$watch(function () {
+  var userListener = $scope.$watch(function () {
     return uitidAuth.getUser();
   }, function (user) {
     controller.user = user;
+    managementListItems
+      .then(showManagementListItems);
 
-    checkMenuRights();
-
-    // get the number of items to moderate
-    ModerationManager
-      .getMyRoles()
-      .then(filterModeratorRoles)
-      .then(getModerationCount);
-
+    // call the userListener callback to remove the watcher once the user is loaded
+    userListener();
   }, true);
 }
 menuBarController.$inject = [
   'uitidAuth',
   '$scope',
   'jobLogger',
-  'authorizationService',
-  'RolePermission',
   'appConfig',
-  'ModerationManager',
-  '$q'
+  'managementListItems'
 ];
