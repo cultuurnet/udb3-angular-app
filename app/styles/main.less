@@ -1,13 +1,9 @@
-.brand {
-  display: none;
-}
-
 @hero-lighten--soft: tint(@brand-primary, 10%);
 @hero-lighten--med: tint(@brand-primary, 30%);
 @hero-lighten--hard: tint(@brand-primary, 50%);
 
-#theater,
-#art {
+.icon--theater,
+.icon--art {
   fill: @hero-lighten--hard;
 }
 
@@ -19,8 +15,8 @@
   stroke: @hero-lighten--hard;
 }
 
-#guitar,
-#tennis {
+.icon--guitar,
+.icon--tennis {
   fill: @hero-lighten--med;
 }
 
@@ -29,7 +25,7 @@
   stroke: @hero-lighten--med;
 }
 
-#movie {
+.icon--movie {
   fill: @hero-lighten--soft;
 }
 
@@ -37,12 +33,12 @@
   stroke: @hero-lighten--soft;
 }
 
-#uit,
-#databank {
+.logo--uit,
+.logo--databank {
   fill: #FFF;
 }
 
-#public--back {
+.public--back {
   fill: @hero-lighten--soft;
 }
 
@@ -50,7 +46,7 @@
   stroke: @hero-lighten--soft;
 }
 
-#public--mid {
+.public--mid {
   fill: @hero-lighten--med;
 }
 
@@ -58,15 +54,13 @@
   stroke: @hero-lighten--med;
 }
 
-#public--front {
+.public--front {
   fill: @hero-lighten--hard;
 }
 
 .line--public--front {
   stroke: @hero-lighten--hard;
 }
-
-
 
 .hero {
   background-color: darken(@brand-primary,10%);
@@ -88,20 +82,126 @@
     max-width: 100%;
   }
 
-  .line {
-    stroke-dasharray: 800;
-    stroke-dashoffset: 800;
-    animation-name: draw;
-    animation-duration: 8s;
-    animation-fill-mode: forwards; // Stay on the last frame
-   // animation-iteration-count: 1; // Run only once
-    animation-timing-function: linear;
-  }
+}
+
+.line--left {
+  animation-name: draw;
+  animation-duration: 2s;
+  animation-fill-mode: forwards; // Stay on the last frame
+  -webkit-animation-delay: 0.2s; /* Chrome, Safari, Opera */
+  animation-delay: 0.2s;
+  animation-timing-function: linear;
+}
+
+.line--art {
+  stroke-dasharray: 107;
+  stroke-dashoffset: -107;
+}
+
+.line--guitar {
+  stroke-dasharray: 121;
+  stroke-dashoffset: 121;
+}
+
+.line--theater {
+  stroke-dasharray: 136;
+  stroke-dashoffset: 136;
+}
+
+.line--tennis {
+  stroke-dasharray: 252;
+  stroke-dashoffset: 252;
+}
+
+.line--movie {
+  stroke-dasharray: 235;
+  stroke-dashoffset: 235;
+}
+
+.line--right {
+  animation-name: draw;
+  animation-duration: 2s;
+  animation-fill-mode: forwards; // Stay on the last frame
+  -webkit-animation-delay: 0.2s; /* Chrome, Safari, Opera */
+  animation-delay: 2.6s;
+  animation-timing-function: linear;
+}
+
+.line--public--front,
+.line--public--back,
+.line--public--mid {
+  stroke-dasharray: 120;
+  stroke-dashoffset: 120;
 }
 
 @keyframes draw {
   to {
     stroke-dashoffset: 0;
+  }
+}
+
+.logo--uit {
+  transform-origin: 50% 50%;
+  animation-name: logo-animate;
+  animation-duration: .6s;
+  animation-delay: 2.2s;
+  animation-fill-mode: both;
+}
+
+.logo--databank {
+  transform-origin: 50% 50%;
+  animation-name: logo-animate;
+  animation-duration: .6s;
+  animation-delay: 2.6s;
+  animation-fill-mode: both;
+}
+
+@keyframes logo-animate {
+  0% {
+    transform: scale(1);
+    animation-timing-function: cubic-bezier(0.3, 0.1, 0.9, 0.5)
+  }
+  10% {
+    transform: scale(.8);
+    animation-timing-function: cubic-bezier(0.1, 0.4, 0.2, 1)
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.public--front,
+.public--mid,
+.public--back {
+  transform-origin: 50% 50%;
+  animation-name: public-animate;
+  animation-duration: .6s;
+  animation-fill-mode: both;
+}
+
+.public--front {
+  animation-delay: 3.8s;
+}
+
+.public--mid {
+  animation-delay: 4s;
+}
+
+.public--back {
+  animation-delay: 4.4s;
+}
+
+@keyframes public-animate {
+  0% {
+    transform: scale(1);
+    animation-timing-function: cubic-bezier(0.3, 0.1, 0.9, 0.5)
+  }
+  10% {
+    transform: scale(.8);
+    animation-timing-function: cubic-bezier(0.1, 0.4, 0.2, 1)
+  }
+  100% {
+    transform: scale(1);
   }
 }
 
@@ -148,4 +248,8 @@
 .mission {
   margin-top: 30px;
   margin-bottom: 0;
+}
+
+.brand {
+  display: none;
 }
