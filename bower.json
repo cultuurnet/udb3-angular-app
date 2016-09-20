@@ -13,7 +13,8 @@
     "udb3-angular": "cultuurnet/udb3-angular",
     "angular-markdown-directive": "^0.3.1",
     "angular-ui-router": "^0.3.1",
-    "es6-shim": "^0.35.1"
+    "es6-shim": "^0.35.1",
+    "ngMeta": "^0.3.9"
   },
   "devDependencies": {
     "angular-mocks": "~1.5.5",

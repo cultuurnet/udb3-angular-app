@@ -25,7 +25,8 @@ angular
     'config',
     'btford.socket-io',
     'btford.markdown',
-    'pascalprecht.translate'
+    'pascalprecht.translate',
+    'ngMeta'
   ])
   .config(udbAppConfig)
   /* @ngInject */
@@ -35,18 +36,22 @@ angular
     '$rootScope',
     '$location',
     'uitidAuth',
+    'ngMeta',
     function (
       udbApi,
       amMoment,
       $rootScope,
       $location,
-      uitidAuth
+      uitidAuth,
+      ngMeta
     ) {
       amMoment.changeLocale('nl');
 
       $rootScope.$on('searchSubmitted', function () {
         $location.path('/search');
       });
+
+      ngMeta.init();
   }]);
 
 /* @ngInject */
@@ -60,7 +65,8 @@ function udbAppConfig(
   queryFieldTranslations,
   dutchTranslations,
   $stateProvider,
-  $urlRouterProvider
+  $urlRouterProvider,
+  ngMetaProvider
 ) {
 
   $locationProvider.html5Mode(true);
@@ -95,6 +101,10 @@ function udbAppConfig(
 
   uiSelectConfig.theme = 'bootstrap';
 
+  ngMetaProvider.useTitleSuffix(true);
+  ngMetaProvider.setDefaultTitle('UiTdatabank');
+  ngMetaProvider.setDefaultTitleSuffix('');
+
   $stateProvider
     .state('main', {
       url: '/',
@@ -106,6 +116,11 @@ function udbAppConfig(
           return authorizationService
             .redirectIfLoggedIn('/dashboard');
         }]
+      },
+      meta: {
+        'title': 'UiTdatabank',
+        'description': 'Organiseer je een activiteit? Voeg gratis je activiteiten toe en bereik een groter publiek',
+        'titleSuffix': ' | Voeg gratis je activiteiten toe'
       }
     })
     .state('split', angular.copy(splitView))
@@ -114,7 +129,10 @@ function udbAppConfig(
     })
     .state('split.footer.dashboard', {
       url: '/dashboard',
-      template: '<udb-dashboard>'
+      template: '<udb-dashboard>',
+      meta: {
+        'titleSuffix': ' | Dashboard'
+      }
     })
     .state('split.footer.search', {
       url: '/search',
@@ -130,7 +148,10 @@ function udbAppConfig(
         // this happens before components in the view have loaded
         // to make sure the all controllers are initialized we have to use a timeout
         $timeout(setQueryFromSearchParams, 0);
-      }]
+      }],
+      meta: {
+        'titleSuffix': ' | Zoeken'
+      }
     })
     .state('split.footer.place', {
       url: '/place/:id',
@@ -140,22 +161,34 @@ function udbAppConfig(
     .state('split.footer.event', {
       url: '/event/:id',
       templateUrl: 'templates/event-detail.html',
-      controller: 'eventDetailUIController'
+      controller: 'eventDetailUIController',
+      meta: {
+        'titleSuffix': ' | Voorbeeld'
+      }
     })
     .state('split.offer', {
       url: '/event',
       controller: 'offerEditorUIController',
-      templateUrl: 'templates/event-form.html'
+      templateUrl: 'templates/event-form.html',
+      meta: {
+        'titleSuffix': ' | Toevoegen'
+      }
     })
     .state('split.eventEdit', {
       url: '/event/:id/edit',
       controller: 'offerEditorUIController',
-      templateUrl: 'templates/event-form.html'
+      templateUrl: 'templates/event-form.html',
+      meta: {
+        'titleSuffix': ' | Evenement bewerken'
+      }
     })
     .state('split.placeEdit', {
       url: '/place/:id/edit',
       controller: 'offerEditorUIController',
-      templateUrl: 'templates/event-form.html'
+      templateUrl: 'templates/event-form.html',
+      meta: {
+        'titleSuffix': ' | Plaats bewerken'
+      }
     })
     .state('useragreement', {
       url: '/user-agreement',
@@ -169,6 +202,9 @@ function udbAppConfig(
       url: '/saved-searches',
       templateUrl: 'templates/saved-searches-list.html',
       controller: 'SavedSearchesListController',
+      meta: {
+        'titleSuffix': ' | Bewaarde zoekopdrachten'
+      }
     })
     // Manage stuff
     // Labels
@@ -189,19 +225,28 @@ function udbAppConfig(
       url: '/manage/labels/overview',
       controller: 'LabelsListController',
       controllerAs: 'llc',
-      templateUrl: 'templates/labels-list.html'
+      templateUrl: 'templates/labels-list.html',
+      meta: {
+        'titleSuffix': ' | Labels'
+      }
     })
     .state('split.manageLabels.create', {
       url: '/manage/labels/create',
       templateUrl: 'templates/label-creator.html',
       controller: 'LabelCreatorController',
-      controllerAs: 'creator'
+      controllerAs: 'creator',
+      meta: {
+        'titleSuffix': ' | Label toevoegen'
+      }
     })
     .state('split.manageLabels.edit', {
       url: '/manage/labels/:id',
       templateUrl: 'templates/label-editor.html',
       controller: 'LabelEditorController',
-      controllerAs: 'editor'
+      controllerAs: 'editor',
+      meta: {
+        'titleSuffix': ' | Label wijzigen'
+      }
     })
     // Roles
     .state('split.manageRoles', {
@@ -221,19 +266,28 @@ function udbAppConfig(
       url: '/manage/roles/overview',
       controller: 'RolesListController',
       controllerAs: 'rlc',
-      templateUrl: 'templates/roles-list.html'
+      templateUrl: 'templates/roles-list.html',
+      meta: {
+        'titleSuffix': ' | Rollen'
+      }
     })
     .state('split.manageRoles.create', {
       url: '/manage/roles/create',
       templateUrl: 'templates/role-form.html',
       controller: 'RoleFormController',
-      controllerAs: 'editor'
+      controllerAs: 'editor',
+      meta: {
+        'titleSuffix': ' | Rol toevoegen'
+      }
     })
     .state('split.manageRoles.edit', {
       url: '/manage/roles/:id',
       templateUrl: 'templates/role-form.html',
       controller: 'RoleFormController',
-      controllerAs: 'editor'
+      controllerAs: 'editor',
+      meta: {
+        'titleSuffix': ' | Rol bewerken'
+      }
     })
 
     // Users
@@ -249,19 +303,28 @@ function udbAppConfig(
               return hasPermission ? $q.resolve(true) : $state.go('split.footer.dashboard');
             });
         }]
+      },
+      meta: {
+        'titleSuffix': ' | Gebruikers'
       }
     })
     .state('management.users.list', {
       url: '/manage/users/overview',
       controller: 'UsersListController',
       controllerAs: 'ulc',
-      templateUrl: 'templates/users-list.html'
+      templateUrl: 'templates/users-list.html',
+      meta: {
+        'titleSuffix': ' | Gebruikers'
+      }
     })
     .state('management.users.edit', {
       url: '/manage/users/:id',
       templateUrl: 'templates/user-editor.html',
       controller: 'UserEditorController',
-      controllerAs: 'editor'
+      controllerAs: 'editor',
+      meta: {
+        'titleSuffix': ' | Gebruiker bewerken'
+      }
     })
 
     // Organisations
@@ -276,6 +339,9 @@ function udbAppConfig(
               return hasPermission ? $q.resolve(true) : $state.go('split.footer.dashboard');
             });
         }]
+      },
+      meta: {
+        'titleSuffix': ' | Organisaties'
       }
     });
 }
@@ -289,5 +355,6 @@ udbAppConfig.$inject = [
   'queryFieldTranslations',
   'dutchTranslations',
   '$stateProvider',
-  '$urlRouterProvider'
+  '$urlRouterProvider',
+  'ngMetaProvider'
 ];
