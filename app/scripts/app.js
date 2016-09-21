@@ -35,6 +35,7 @@ angular
     'amMoment',
     '$rootScope',
     '$location',
+    '$window',
     'uitidAuth',
     'ngMeta',
     function (
@@ -42,16 +43,29 @@ angular
       amMoment,
       $rootScope,
       $location,
+      $window,
       uitidAuth,
       ngMeta
     ) {
       amMoment.changeLocale('nl');
 
+      ngMeta.init();
+
       $rootScope.$on('searchSubmitted', function () {
         $location.path('/search');
       });
 
-      ngMeta.init();
+       // track pageview on state change
+      $rootScope.$on('$stateChangeSuccess', function (event) {
+        if ($window.tm) {
+          $window.tm.push({
+            'event': 'VirtualPageview',
+            'pagePath' : $location.path(),
+            'pageTitle': event.targetScope.ngMeta.title
+          });
+        }
+      });
+
   }]);
 
 /* @ngInject */
@@ -303,9 +317,6 @@ function udbAppConfig(
               return hasPermission ? $q.resolve(true) : $state.go('split.footer.dashboard');
             });
         }]
-      },
-      meta: {
-        'titleSuffix': ' | Gebruikers'
       }
     })
     .state('management.users.list', {
