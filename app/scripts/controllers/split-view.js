@@ -12,7 +12,7 @@ angular
   .controller('splitViewController', splitViewController);
 
 /* @ngInject */
-function splitViewController(uitidAuth, $scope, ZendeskWidget) {
+function splitViewController(uitidAuth, $scope) {
   var controller = this; // jshint ignore:line
 
   $scope.$watch(function () {
@@ -20,14 +20,5 @@ function splitViewController(uitidAuth, $scope, ZendeskWidget) {
   }, function (user) {
     controller.user = user;
   }, true);
-
-  $scope.openFeedback = function () {
-    ZendeskWidget.identify({
-      name: controller.user.nick,
-      email: controller.user.mbox,
-      externalId: controller.user.id
-    });
-    ZendeskWidget.activate({hideOnClose:true});
-  };
 }
-splitViewController.$inject = ['uitidAuth', '$scope', 'ZendeskWidget'];
+splitViewController.$inject = ['uitidAuth', '$scope'];
