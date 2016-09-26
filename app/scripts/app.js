@@ -277,6 +277,15 @@ function udbAppConfig(
             });
         }]
       }
+    })
+    .state('management.moderation', {
+      template:'<div ui-view></div>'
+    })
+    .state('management.moderation.list', {
+      url:'/manage/moderation/overview',
+      templateUrl:'templates/moderation-list.html',
+      controller: 'ModerationListController',
+      controllerAs: 'moderator'
     });
 }
 udbAppConfig.$inject = [
