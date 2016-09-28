@@ -359,10 +359,13 @@ function udbAppConfig(
       template:'<div ui-view></div>'
     })
     .state('management.moderation.list', {
-      url:'/manage/moderation/overview',
-      templateUrl:'templates/moderation-list.html',
+      url: '/manage/moderation/overview',
+      templateUrl: 'templates/moderation-list.html',
       controller: 'ModerationListController',
-      controllerAs: 'moderator'
+      controllerAs: 'moderator',
+      meta: {
+        'titleSuffix': ' | Valideren'
+      }
     });
 }
 udbAppConfig.$inject = [
