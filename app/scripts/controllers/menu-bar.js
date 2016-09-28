@@ -12,7 +12,13 @@ angular
   .controller('menuBarController', menuBarController);
 
 /* @ngInject */
-function menuBarController(uitidAuth, $scope, jobLogger, authorizationService, authorization, appConfig) {
+function menuBarController(
+  uitidAuth,
+  $scope,
+  jobLogger,
+  appConfig,
+  managementListItems
+) {
   var controller = this; // jshint ignore:line
 
   controller.login = uitidAuth.login;
@@ -36,39 +42,29 @@ function menuBarController(uitidAuth, $scope, jobLogger, authorizationService, a
     uitidAuth.login();
   };
 
-  $scope.$watch(function () {
+  /**
+   *
+   * @param {ManagementListItem[]} listItems
+   */
+  function showManagementListItems(listItems) {
+    controller.managementListItems = listItems;
+  }
+
+  var userListener = $scope.$watch(function () {
     return uitidAuth.getUser();
   }, function (user) {
     controller.user = user;
+    managementListItems
+      .then(showManagementListItems);
 
-    // look for permissions
-    authorizationService
-      .hasPermission(authorization.manageLabels)
-      .then(function (hasPermission) {
-        if(hasPermission) {
-          controller.canManageLabels = true;
-          controller.userHasManagementPermission = true;
-        }
-      });
-
-    authorizationService
-      .hasPermission(authorization.manageUsers)
-      .then(function (hasPermission) {
-        if(hasPermission) {
-          controller.canManageUsers = true;
-          controller.userHasManagementPermission = true;
-        }
-      });
-
-    authorizationService
-      .hasPermission(authorization.manageOrganisations)
-      .then(function (hasPermission) {
-        if(hasPermission) {
-          controller.canManageOrganizers = true;
-          controller.userHasManagementPermission = true;
-        }
-      });
-
+    // call the userListener callback to remove the watcher once the user is loaded
+    userListener();
   }, true);
 }
-menuBarController.$inject = ['uitidAuth', '$scope', 'jobLogger', 'authorizationService', 'authorization', 'appConfig'];
+menuBarController.$inject = [
+  'uitidAuth',
+  '$scope',
+  'jobLogger',
+  'appConfig',
+  'managementListItems'
+];
