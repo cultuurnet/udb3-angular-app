@@ -115,9 +115,12 @@ function udbAppConfig(
 
   uiSelectConfig.theme = 'bootstrap';
 
-  ngMetaProvider.useTitleSuffix(true);
-  ngMetaProvider.setDefaultTitle('UiTdatabank');
-  ngMetaProvider.setDefaultTitleSuffix('');
+  ngMetaProvider
+    .useTitleSuffix(true)
+    .setDefaultTitle('UiTdatabank')
+    .setDefaultTitleSuffix(' | Voeg gratis je activiteiten toe')
+    .setDefaultTag('description', 'Organiseer je een activiteit? Voeg gratis je activiteiten toe en bereik een groter publiek')
+    .setDefaultTag('googleSiteVerification', _.get(appConfig, 'gaTagManager.googleSiteVerification'));
 
   $stateProvider
     .state('main', {
@@ -130,11 +133,6 @@ function udbAppConfig(
           return authorizationService
             .redirectIfLoggedIn('/dashboard');
         }]
-      },
-      meta: {
-        'title': 'UiTdatabank',
-        'description': 'Organiseer je een activiteit? Voeg gratis je activiteiten toe en bereik een groter publiek',
-        'titleSuffix': ' | Voeg gratis je activiteiten toe'
       }
     })
     .state('split', angular.copy(splitView))
