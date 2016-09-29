@@ -168,7 +168,10 @@ function udbAppConfig(
     .state('split.footer.place', {
       url: '/place/:id',
       templateUrl: 'templates/place-detail.html',
-      controller: 'placeDetailUIController'
+      controller: 'placeDetailUIController',
+      meta: {
+        'tittleSuffix': ' | Voorbeeld'
+      }
     })
     .state('split.footer.event', {
       url: '/event/:id',
@@ -204,11 +207,17 @@ function udbAppConfig(
     })
     .state('useragreement', {
       url: '/user-agreement',
-      template: '<div btf-markdown ng-include="\'docs/user-agreement.md\'"></div>'
+      template: '<div btf-markdown ng-include="\'docs/user-agreement.md\'"></div>',
+      meta: {
+        'titleSuffix': ' | Gebruikersovereenkomst'
+      }
     })
     .state('copyright', {
       url: '/copyright',
-      template: '<div btf-markdown ng-include="\'docs/copyright.md\'"></div>'
+      template: '<div btf-markdown ng-include="\'docs/copyright.md\'"></div>',
+      meta: {
+        'titleSuffix': ' | Auteursrecht'
+      }
     })
     .state('split.savedsearches', {
       url: '/saved-searches',
