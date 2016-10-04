@@ -17,5 +17,8 @@
     "date": "",
     "extraClass": ""
   },
-  "toggleAddOffer": false
+  "toggleAddOffer": false,
+  "zendesk": {
+    "accountUrl": ""
+  }
 }

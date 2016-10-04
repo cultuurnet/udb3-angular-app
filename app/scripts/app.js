@@ -21,12 +21,12 @@ angular
     'udb.router',
     'udb.management',
     'udbApp.ga-tag-manager',
+    'udbApp.zendesk',
     'peg',
     'config',
     'btford.socket-io',
     'btford.markdown',
-    'pascalprecht.translate',
-    'zendeskWidget'
+    'pascalprecht.translate'
   ])
   .config(udbAppConfig)
   /* @ngInject */
@@ -61,8 +61,7 @@ function udbAppConfig(
   queryFieldTranslations,
   dutchTranslations,
   $stateProvider,
-  $urlRouterProvider,
-  ZendeskWidgetProvider
+  $urlRouterProvider
 ) {
 
   $locationProvider.html5Mode(true);
@@ -280,13 +279,6 @@ function udbAppConfig(
         }]
       }
     });
-  ZendeskWidgetProvider.init({
-    accountUrl: 'cultuurnet.zendesk.com',
-    beforePageLoad: function(zE) {
-      zE.hide();
-      zE.setLocale('nl');
-    }
-  });
 }
 
 udbAppConfig.$inject = [
@@ -299,6 +291,5 @@ udbAppConfig.$inject = [
   'queryFieldTranslations',
   'dutchTranslations',
   '$stateProvider',
-  '$urlRouterProvider',
-  'ZendeskWidgetProvider'
+  '$urlRouterProvider'
 ];
