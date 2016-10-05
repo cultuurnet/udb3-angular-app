@@ -11,7 +11,8 @@
     "copyrightUrl": "http://localhost:9999/copyright"
   },
   "gaTagManager": {
-    "containerId": ""
+    "containerId": "",
+    "googleSiteVerification": ""
   },
   "calendarHighlight": {
     "date": "",
