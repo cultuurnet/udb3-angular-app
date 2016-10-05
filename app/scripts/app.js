@@ -363,13 +363,13 @@ function udbAppConfig(
         'titleSuffix': ' | Organisaties'
       }
     })
-    .state('split.manageOrganisations.create', {
-      url: '/manage/organisations/create',
-      templateUrl: 'templates/organizer-form.html',
-      controller: 'OrganizerFormController',
-      controllerAs: 'ofc',
+    .state('management.manageOrganisations.detail', {
+      url: '/manage/organisations/:id',
+      templateUrl: 'templates/organizer-detail.html',
+      controller: 'OrganizerDetailController',
+      controllerAs: 'odc',
       meta: {
-        'titleSuffix': ' | Organisatie toevoegen'
+        'titleSuffix': ' | Organisatie detail'
       }
     })
     .state('management.moderation', {
