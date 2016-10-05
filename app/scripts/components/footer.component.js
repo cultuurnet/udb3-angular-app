@@ -3,5 +3,7 @@
 angular
   .module('udbApp')
   .component('udbFooter', {
-    templateUrl: 'views/footer.html'
+    templateUrl: 'views/footer.html',
+    controller: 'footerController',
+    controllerAs: 'footer'
   });

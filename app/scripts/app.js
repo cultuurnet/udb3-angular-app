@@ -21,6 +21,7 @@ angular
     'udb.router',
     'udb.management',
     'udbApp.ga-tag-manager',
+    'udbApp.zendesk',
     'peg',
     'config',
     'btford.socket-io',
@@ -375,6 +376,7 @@ function udbAppConfig(
       }
     });
 }
+
 udbAppConfig.$inject = [
   '$locationProvider',
   '$httpProvider',
