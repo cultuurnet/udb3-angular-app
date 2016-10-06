@@ -171,7 +171,7 @@ function udbAppConfig(
       templateUrl: 'templates/place-detail.html',
       controller: 'placeDetailUIController',
       meta: {
-        'tittleSuffix': ' | Voorbeeld'
+        'titleSuffix': ' | Voorbeeld'
       }
     })
     .state('split.footer.event', {
