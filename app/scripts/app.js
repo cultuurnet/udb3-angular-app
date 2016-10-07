@@ -347,7 +347,7 @@ function udbAppConfig(
     })
 
     // Organisations
-    .state('split.manageOrganisations', {
+    .state('management.organizers', {
       template: '<div ui-view></div>',
       resolve: {
         /* @ngInject */
@@ -363,7 +363,7 @@ function udbAppConfig(
         'titleSuffix': ' | Organisaties'
       }
     })
-    .state('management.manageOrganisations.detail', {
+    .state('management.organizers.detail', {
       url: '/manage/organisations/:id',
       templateUrl: 'templates/organizer-detail.html',
       controller: 'OrganizerDetailController',
