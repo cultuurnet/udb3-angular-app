@@ -1,18 +1,17 @@
 <!doctype html>
-<html class="no-js">
+<html class="no-js" ng-app="udbApp" ng-strict-di>
   <head>
     <meta charset="utf-8">
-    <title></title>
-    <meta name="description" content="">
+    <title ng-bind="ngMeta.title"></title>
+    <meta name="description" ng-attr-content="{{::ngMeta.description}}" />
+    <meta name="google-site-verification" ng-attr-content="{{::ngMeta.googleSiteVerification}}" />
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <base href="/">
-    <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
 
     <!-- build:css(.) styles/vendor.css -->
     <!-- bower:css -->
     <link rel="stylesheet" href="bower_components/angular-ui-select/dist/select.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap-datepicker/css/datepicker.css" />
-    <link rel="stylesheet" href="bower_components/bootstrap-datepicker/css/datepicker3.css" />
+    <link rel="stylesheet" href="bower_components/bootstrap-datepicker/dist/css/bootstrap-datepicker.css" />
     <link rel="stylesheet" href="bower_components/bootstrap-multiselect/dist/css/bootstrap-multiselect.css" />
     <link rel="stylesheet" href="bower_components/animate.css/animate.css" />
     <link rel="stylesheet" href="bower_components/codemirror/lib/codemirror.css" />
@@ -27,15 +26,11 @@
     <link href='//fonts.googleapis.com/css?family=Open+Sans:400italic,600italic,700italic,300,400,700,600' rel='stylesheet' type='text/css'>
     <base href="/">
   </head>
-  <body ng-app="udbApp" ng-controller="AppCtrl" ng-strict-di>
+  <body>
   <udb-app class="overlay-static-elements">
     <!--[if lt IE 7]>
     <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
     <![endif]-->
-
-    <!-- Google Tag Manager code is loaded with angular (see AppCtrl) -->
-
-    <!-- Add your site or application content here -->
     <div ui-view></div>
 
     <udb-job-log></udb-job-log>
@@ -81,23 +76,27 @@
     <script src="bower_components/rx-angular/dist/rx.angular.js"></script>
     <script src="bower_components/angular-ui-router/release/angular-ui-router.js"></script>
     <script src="bower_components/ng-focus-if/focusIf.js"></script>
+    <script src="bower_components/angular-scroll/angular-scroll.js"></script>
     <script src="bower_components/udb3-angular/dist/udb3-angular.js"></script>
     <script src="bower_components/showdown/src/showdown.js"></script>
     <script src="bower_components/angular-markdown-directive/markdown.js"></script>
     <script src="bower_components/es6-shim/es6-shim.js"></script>
+    <script src="bower_components/angular-zendesk-widget/dist/angular-zendesk-widget.js"></script>
+    <script src="bower_components/ngMeta/dist/ngMeta.js"></script>
     <!-- endbower -->
     <!-- endbuild -->
 
     <!-- build:js({.tmp,app}) scripts/scripts.js -->
     <script src="scripts/url-shim.js"></script>
     <script src="scripts/ga-tag-manager/ga-tag-manager.module.js"></script>
+    <script src="scripts/zendesk/zendesk.module.js"></script>
     <script src="scripts/app.js"></script>
     <script src="scripts/config.js"></script>
     <script src="scripts/controllers/main.js"></script>
     <script src="scripts/controllers/header.js"></script>
     <script src="scripts/controllers/split-view.js"></script>
+    <script src="scripts/controllers/footer.js"></script>
     <script src="scripts/controllers/menu-bar.js"></script>
-    <script src="scripts/controllers/app.js"></script>
     <script src="scripts/controllers/place-detail-ui.js"></script>
     <script src="scripts/controllers/event-detail-ui.js"></script>
     <script src="scripts/controllers/offer-editor-ui.js"></script>
