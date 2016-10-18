@@ -175,7 +175,26 @@ function udbAppConfig(
       }
     })
     .state('split.footer.event', {
-      url: '/event/:id',
+      template:'<div ui-view></div>'
+    })
+    .state('split.footer.event.published', {
+      url: '/event/:id/published',
+      templateUrl: 'templates/event-detail.html',
+      controller: 'eventDetailUIController',
+      meta: {
+        'titleSuffix': ' | Gepubliceerd'
+      }
+    })
+    .state('split.footer.event.saved', {
+      url: '/event/:id/saved',
+      templateUrl: 'templates/event-detail.html',
+      controller: 'eventDetailUIController',
+      meta: {
+        'titleSuffix': ' | Bewaard'
+      }
+    })
+    .state('split.footer.event.preview', {
+      url: '/event/:id/preview',
       templateUrl: 'templates/event-detail.html',
       controller: 'eventDetailUIController',
       meta: {
