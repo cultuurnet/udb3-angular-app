@@ -123,6 +123,23 @@ function udbAppConfig(
     .setDefaultTag('description', 'Organiseer je een activiteit? Voeg gratis je activiteiten toe en bereik een groter publiek')
     .setDefaultTag('googleSiteVerification', _.get(appConfig, 'gaTagManager.googleSiteVerification'));
 
+  var placeDetail = {
+    url: '/place/:id',
+    templateUrl: 'templates/place-detail.html',
+    controller: 'placeDetailUIController',
+    meta: {
+      'titleSuffix': ' | Voorbeeld'
+    }
+  };
+  var eventDetail = {
+    url: '/event/:id',
+    templateUrl: 'templates/event-detail.html',
+    controller: 'eventDetailUIController',
+    meta: {
+      'titleSuffix': ' | Voorbeeld'
+    }
+  };
+
   $stateProvider
     .state('main', {
       url: '/',
@@ -166,22 +183,46 @@ function udbAppConfig(
         'titleSuffix': ' | Zoeken'
       }
     })
-    .state('split.footer.place', {
-      url: '/place/:id',
-      templateUrl: 'templates/place-detail.html',
-      controller: 'placeDetailUIController',
+
+    .state('split.footer.place', placeDetail)
+    .state('split.footer.place-published', _.merge(_.clone(placeDetail), {
+      url: '/place/:id/published',
+      meta: {
+        titleSuffix: ' | Gepubliceerd'
+      }
+    }))
+    .state('split.footer.place-saved', _.merge(_.clone(placeDetail), {
+      url: '/place/:id/saved',
+      meta: {
+        'titleSuffix': ' | Bewaard'
+      }
+    }))
+    .state('split.footer.place-preview', _.merge(_.clone(placeDetail), {
+      url: '/place/:id/preview',
       meta: {
         'titleSuffix': ' | Voorbeeld'
       }
-    })
-    .state('split.footer.event', {
-      url: '/event/:id',
-      templateUrl: 'templates/event-detail.html',
-      controller: 'eventDetailUIController',
+    }))
+    .state('split.footer.event', eventDetail)
+    .state('split.footer.event-published', _.merge(_.clone(eventDetail), {
+      url: '/event/:id/published',
+      meta: {
+        'titleSuffix': ' | Gepubliceerd'
+      }
+    }))
+    .state('split.footer.event-saved', _.merge(_.clone(eventDetail), {
+      url: '/event/:id/saved',
+      meta: {
+        'titleSuffix': ' | Bewaard'
+      }
+    }))
+    .state('split.footer.event-preview', _.merge(_.clone(eventDetail), {
+      url: '/event/:id/preview',
       meta: {
         'titleSuffix': ' | Voorbeeld'
       }
-    })
+    }))
+
     .state('split.offer', {
       url: '/event',
       controller: 'offerEditorUIController',
