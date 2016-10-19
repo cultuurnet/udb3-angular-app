@@ -1,33 +1,86 @@
-<div class="container-fluid">
-    <div class="jumbotron jumbotron-landing">
-        <p class="lead">Geniet nu al van de nieuwe functionaliteit van de toekomstige versie van UiTdatabank.</p>
-        <div class="row countdown">
-            <div class="col-sm-6 launch-counter">
-                <img src="images/launch-counter.png" alt="launch counter"/>
-            </div>
-            <div class="col-sm-6 launch-features">
-                <p class="countdown-phase">nu</p>
-                <ul>
-                    <li>snel activiteiten zoeken</li>
-                    <li>meerdere activiteiten labelen</li>
-                </ul>
+<div class="hero">
+  <div class="container">
+    <udb-homepage-splash></udb-homepage-splash>
+    <h1 class="brand">UiTdatabank</h1>
+    <p class="lead">
+      Organiseer je een activiteit? <br/>
+      <span class="muted">Voeg gratis je activiteiten toe en bereik een groter publiek</span>
+    </p>
+  </div>
+</div>
 
-                <p class="countdown-phase">straks</p>
-                <ul>
-                    <li>exporteren</li>
-                    <li>invoeren</li>
-                </ul>
-            </div>
-        </div>
+<div class="start">
+  <div class="container-fluid">
+    <p class="text-center"><a ng-hide="user" class="btn btn-lg btn-primary" ng-href="#" ng-click="login()">
+      Start hier</a>
+    </p>
+    <a ng-show="user" class="btn btn-lg btn-danger" ui-sref="split.footer.search">Zoeken</a>
+    <p class="text-muted text-center">
+      Eerste keer? Maak een <a href="https://www.uitid.be/uitid/rest/auth/register">nieuwe account</a> aan
+    </p>
+  </div>
+</div>
 
-        <div class="btn-block">
-            <a ng-hide="user" class="btn btn-lg btn-danger" ng-href="#" ng-click="login()">Aanmelden</a>
-            <a ng-show="user" class="btn btn-lg btn-danger" ui-sref="split.search" >Zoeken</a>
-        </div>
-
-        <p class="udb2-info">
-            <strong>Wil je een activiteit invoeren?</strong><br/>
-            <a href="http://www.uitdatabank.be/">Terug naar de huidige UiTdatabank</a>
+<div class="more">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4">
+        <blockquote class="quoted-number">
+          <p class="accent">170.000</p>
+          <h2>activiteiten per jaar</h2>
+        </blockquote>
+        <p class="info">
+          Een uitstap, sportactiviteit, kaartavond, kermis of cursus? Een concert, tentoonstelling of film?
+          UiTdatabank staat open voor de meest uiteenlopende vrijetijdsactiviteiten.
         </p>
+      </div>
+      <div class="col-sm-4">
+        <blockquote class="quoted-number">
+          <p class="accent">500</p>
+          <h2>verschillende kanalen</h2>
+        </blockquote>
+        <p class="info">
+          UiTdatabank levert informatie aan meer dan <a href="http://www.cultuurnet.be/nl/publicatiekanalen">500 agenda's</a>,
+          waaronder UiTinvlaanderen, websites van steden en gemeenten, thema-agenda’s, gedrukte bladen en mobiele apps.
+          Ook jouw activiteit kan verschijnen op vele agenda's.
+        </p>
+      </div>
+      <div class="col-sm-4">
+        <blockquote class="quoted-number">
+          <p class="accent">25.000</p>
+          <h2>organisatoren</h2>
+        </blockquote>
+        <p class="info">
+          Jaarlijks promoten 25.000 organisatoren hun activiteiten via UiTdatabank.
+          In totaal bereiken ze daarmee jaarlijks meer dan 3 miljoen mensen.
+          Voeg net als andere organisatoren je activiteit snel en eenvoudig toe.
+        </p>
+      </div>
     </div>
+    <div class="row">
+      <div class="col-sm-12">
+        <p class="text-center lead mission">Zo geef je meer mensen meer goesting in jouw activiteit.</p>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="footer">
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-6">
+        <ul class="footer-links">
+          <li><a href="mailto:vragen@uitdatabank.be" class="footer-link">Contacteer ons</a></li>
+          <li><a href="http://www.cultuurnet.be/nl/project/uitdatabank" class="footer-link">Over UiTdatabank</a></li>
+          <li><a href="http://www.cultuurnet.be/nl/gebruikersovereenkomst-uitdatabank" class="footer-link">Gebruiksvoorwaarden</a></li>
+          <li><a href="http://documentatie.uitdatabank.be" class="footer-link">Voor ontwikkelaars</a></li>
+        </ul>
+      </div>
+
+      <div class="col-sm-6">
+        <p class="footer-by">Een product van <a href="http://www.cultuurnet.be" class="footer-link">CultuurNet&nbsp;Vlaanderen</a></p>
+        <img src="images/vlaanderen-logo.png" class="logo-flanders-full">
+      </div>
+    </div>
+  </div>
 </div>

@@ -1,0 +1,255 @@
+@hero-lighten--soft: tint(@brand-primary, 10%);
+@hero-lighten--med: tint(@brand-primary, 30%);
+@hero-lighten--hard: tint(@brand-primary, 50%);
+
+.icon--theater,
+.icon--art {
+  fill: @hero-lighten--hard;
+}
+
+.line--theater {
+  stroke: @hero-lighten--hard;
+}
+
+.line--art {
+  stroke: @hero-lighten--hard;
+}
+
+.icon--guitar,
+.icon--tennis {
+  fill: @hero-lighten--med;
+}
+
+.line--guitar,
+.line--tennis {
+  stroke: @hero-lighten--med;
+}
+
+.icon--movie {
+  fill: @hero-lighten--soft;
+}
+
+.line--movie {
+  stroke: @hero-lighten--soft;
+}
+
+.logo--uit,
+.logo--databank {
+  fill: #FFF;
+}
+
+.public--back {
+  fill: @hero-lighten--soft;
+}
+
+.line--public--back {
+  stroke: @hero-lighten--soft;
+}
+
+.public--mid {
+  fill: @hero-lighten--med;
+}
+
+.line--public--mid {
+  stroke: @hero-lighten--med;
+}
+
+.public--front {
+  fill: @hero-lighten--hard;
+}
+
+.line--public--front {
+  stroke: @hero-lighten--hard;
+}
+
+.hero {
+  background-color: darken(@brand-primary,10%);
+  text-align: center;
+  -webkit-font-smoothing: antialiased;
+
+  .lead {
+    color: #FFF;
+    font-size: 3rem;
+  }
+
+  .lead .muted {
+    color: #FFF;
+    display: block;
+    font-size: .8em;
+  }
+
+  svg {
+    max-width: 100%;
+  }
+
+}
+
+.line--left {
+  animation-name: draw;
+  animation-duration: 2s;
+  animation-fill-mode: forwards; // Stay on the last frame
+  -webkit-animation-delay: 0.2s; /* Chrome, Safari, Opera */
+  animation-delay: 0.2s;
+  animation-timing-function: linear;
+}
+
+.line--art {
+  stroke-dasharray: 107;
+  stroke-dashoffset: -107;
+}
+
+.line--guitar {
+  stroke-dasharray: 121;
+  stroke-dashoffset: 121;
+}
+
+.line--theater {
+  stroke-dasharray: 136;
+  stroke-dashoffset: 136;
+}
+
+.line--tennis {
+  stroke-dasharray: 252;
+  stroke-dashoffset: 252;
+}
+
+.line--movie {
+  stroke-dasharray: 235;
+  stroke-dashoffset: 235;
+}
+
+.line--right {
+  animation-name: draw;
+  animation-duration: 2s;
+  animation-fill-mode: forwards; // Stay on the last frame
+  -webkit-animation-delay: 0.2s; /* Chrome, Safari, Opera */
+  animation-delay: 2.6s;
+  animation-timing-function: linear;
+}
+
+.line--public--front,
+.line--public--back,
+.line--public--mid {
+  stroke-dasharray: 120;
+  stroke-dashoffset: 120;
+}
+
+@keyframes draw {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.logo--uit {
+  transform-origin: 50% 50%;
+  animation-name: logo-animate;
+  animation-duration: .6s;
+  animation-delay: 2.2s;
+  animation-fill-mode: both;
+}
+
+.logo--databank {
+  transform-origin: 50% 50%;
+  animation-name: logo-animate;
+  animation-duration: .6s;
+  animation-delay: 2.6s;
+  animation-fill-mode: both;
+}
+
+@keyframes logo-animate {
+  0% {
+    transform: scale(1);
+    animation-timing-function: cubic-bezier(0.3, 0.1, 0.9, 0.5)
+  }
+  10% {
+    transform: scale(.8);
+    animation-timing-function: cubic-bezier(0.1, 0.4, 0.2, 1)
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.public--front,
+.public--mid,
+.public--back {
+  transform-origin: 50% 50%;
+  animation-name: public-animate;
+  animation-duration: .6s;
+  animation-fill-mode: both;
+}
+
+.public--front {
+  animation-delay: 3679ms;
+}
+
+.public--mid {
+  animation-delay: 4038ms
+}
+
+.public--back {
+  animation-delay: 4512ms;
+}
+
+@keyframes public-animate {
+  0% {
+    transform: scale(1);
+    animation-timing-function: cubic-bezier(0.3, 0.1, 0.9, 0.5)
+  }
+  10% {
+    transform: scale(.8);
+    animation-timing-function: cubic-bezier(0.1, 0.4, 0.2, 1)
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+
+.more {
+  padding: 60px 0;
+
+  .info {
+    margin: 1em 0;
+  }
+}
+
+.start {
+  padding: 30px 0 10px 0;
+  background-color: #FFF;
+
+  .btn-default {
+    background-color: @brand-primary;
+    color: #FFF;
+  }
+
+}
+
+.quoted-number {
+  margin: 0 0 30px 0;
+  padding: 0;
+  border-left: 0px;
+  text-align: center;
+
+  .accent {
+    margin: 0;
+    font-size: 6rem;
+    font-weight: 300;
+    color: #424448;
+    line-height: 1;
+  }
+
+  h2 {
+    font-weight: 400;
+    margin-top: 0;
+    color: #424448;
+  }
+}
+
+.mission {
+  margin-top: 30px;
+  margin-bottom: 0;
+}
+
+.brand {
+  display: none;
+}
