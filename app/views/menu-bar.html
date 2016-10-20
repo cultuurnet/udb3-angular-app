@@ -18,8 +18,8 @@
                     <a ui-sref="{{::listItem.sref}}" ui-sref-opts="{reload:true}">
                         <i class="fa" ng-class="::listItem.icon"></i>
                         <span class="menu-text">
-                            <span ng-bind="::listItem.name"></span>
-                            <span class="badge pull-right" ng-show="listItem.notificationCount" ng-bind="listItem.notificationCount"></span>
+                            <span ng-bind="::listItem.name" class="menu-text-label"></span>
+                            <span class="badge menu-text-badge" ng-show="listItem.notificationCount" ng-bind="listItem.notificationCount"></span>
                         </span>
                     </a>
                 </li>
