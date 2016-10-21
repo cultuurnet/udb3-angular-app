@@ -6,7 +6,7 @@
   "media": {
     // This limit is passed directly to ngf-max-size attribute of ng-file-upload
     // e.g.: "10KB" or "10MB" or "10GB"
-    "fileSizeLimit": "1MB",
+    "fileSizeLimit": "5MB",
     "userAgreementUrl": "http://localhost:9999/user-agreement",
     "copyrightUrl": "http://localhost:9999/copyright"
   },
