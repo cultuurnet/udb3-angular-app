@@ -424,6 +424,16 @@ function udbAppConfig(
       meta: {
         'titleSuffix': ' | Valideren'
       }
+    })
+
+    // Migration
+    .state('migration', angular.copy(splitView))
+    .state('migration.event', {
+      template: '<div ui-view></div>',
+      url: '/event/:id/migrate',
+      meta: {
+        'titleSuffix': ' | Evenement migreren'
+      }
     });
 }
 
