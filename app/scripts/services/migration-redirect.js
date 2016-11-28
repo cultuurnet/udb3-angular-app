@@ -23,7 +23,7 @@ function MigrationRedirect($state, offerLocator, udbApi, eventMigration) {
       if (requiredMigrationSteps.length) {
         uiEvent.preventDefault();
         toParams.location = '✗';
-        $state.transitionTo('migration.event', toParams);
+        $state.transitionTo('migration.event', toParams, {location: 'replace'});
       }
     }
 
