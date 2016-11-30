@@ -20,6 +20,7 @@ angular
     'udb.core',
     'udb.router',
     'udb.management',
+    'udb.migration',
     'udbApp.ga-tag-manager',
     'udbApp.zendesk',
     'peg',
@@ -39,6 +40,7 @@ angular
     '$window',
     'uitidAuth',
     'ngMeta',
+    'migrationRedirect',
     function (
       udbApi,
       amMoment,
@@ -46,7 +48,8 @@ angular
       $location,
       $window,
       uitidAuth,
-      ngMeta
+      ngMeta,
+      migrationRedirect
     ) {
       amMoment.changeLocale('nl');
 
@@ -55,6 +58,9 @@ angular
       $rootScope.$on('searchSubmitted', function () {
         $location.path('/search');
       });
+
+      $rootScope
+        .$on('$stateChangeStart', migrationRedirect.migrateEventBeforeEdit);
 
        // track pageview on state change
       $rootScope.$on('$stateChangeSuccess', function (event) {
@@ -423,6 +429,17 @@ function udbAppConfig(
       controllerAs: 'moderator',
       meta: {
         'titleSuffix': ' | Valideren'
+      }
+    })
+
+    // Migration
+    .state('migration', angular.copy(splitView))
+    .state('migration.event', {
+      templateUrl: 'templates/event-migration.html',
+      controller: 'offerEditorUIController',
+      url: '/event/:id/migrate?location',
+      meta: {
+        'titleSuffix': ' | Evenement migreren'
       }
     });
 }
