@@ -2,6 +2,7 @@
   "baseUrl": "http://culudb-silex.dev:8080/",
   "baseApiUrl": "http://culudb-silex.dev:8080/api/1.0/",
   "authUrl" : "http://udb-jwtprovider.dev/culturefeed/oauth/",
+  "uitpasUrl" : "http://udb-uitpas.dev/",
   "socketUrl": "http://culudb-websocket-server.dev:3000/",
   "media": {
     // This limit is passed directly to ngf-max-size attribute of ng-file-upload
