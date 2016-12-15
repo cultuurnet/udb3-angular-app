@@ -13,7 +13,7 @@ angular
 function MigrationRedirect($state, offerLocator, udbApi, eventMigration) {
   var service = this;
 
-  service.migrateEventBeforeEdit = function(uiEvent, toState, toParams, fromState, fromParams){
+  service.migrateEventBeforeEdit = function(uiEvent, toState, toParams){
     var eventId = toParams.id;
 
     /**
@@ -22,7 +22,7 @@ function MigrationRedirect($state, offerLocator, udbApi, eventMigration) {
     function redirectIfMigrationIsNeeded(requiredMigrationSteps) {
       if (requiredMigrationSteps.length) {
         uiEvent.preventDefault();
-        toParams.location = '✗';
+        toParams.location = 'true';
         $state.transitionTo('migration.event', toParams, {location: 'replace'});
       }
     }
