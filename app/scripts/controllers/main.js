@@ -17,6 +17,10 @@ function MainController($scope, uitidAuth) {
     uitidAuth.login();
   };
 
+  $scope.register = function () {
+    uitidAuth.register();
+  };
+
   $scope.$watch(function () {
     return uitidAuth.getUser();
   }, function (user) {

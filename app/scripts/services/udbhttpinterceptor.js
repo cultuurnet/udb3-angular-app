@@ -16,7 +16,7 @@ function httpInterceptor($q, $location, $window, appConfig) {
 
   var login = function () {
     var currentLocation = $location.absUrl(),
-      authUrl = appConfig.authUrl;
+      authUrl = appConfig.authUrl + 'connect';
 
     authUrl += '?destination=' + currentLocation;
     $window.location.href = authUrl;
