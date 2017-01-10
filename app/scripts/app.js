@@ -21,6 +21,7 @@ angular
     'udb.router',
     'udb.management',
     'udb.migration',
+    'udb.duplication',
     'udbApp.ga-tag-manager',
     'udbApp.zendesk',
     'peg',
@@ -440,6 +441,17 @@ function udbAppConfig(
       url: '/event/:id/migrate?location',
       meta: {
         'titleSuffix': ' | Evenement migreren'
+      }
+    })
+
+    // Duplication
+    .state('duplication', angular.copy(splitView))
+    .state('duplication.event', {
+      templateUrl: 'templates/event-duplication.html',
+      controller: 'offerEditorUIController',
+      url: '/event/:id/duplicate',
+      meta: {
+        'titleSuffix': ' | Evenement dupliceren'
       }
     });
 }
