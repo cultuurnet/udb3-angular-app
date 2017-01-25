@@ -14,11 +14,6 @@ angular
 /* @ngInject */
 function splitViewController(uitidAuth, $scope) {
   var controller = this; // jshint ignore:line
-
-  $scope.$watch(function () {
-    return uitidAuth.getUser();
-  }, function (user) {
-    controller.user = user;
-  }, true);
+  controller.user = uitidAuth.getUser();
 }
 splitViewController.$inject = ['uitidAuth', '$scope'];
