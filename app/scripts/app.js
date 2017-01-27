@@ -61,7 +61,7 @@ angular
       });
 
       $rootScope
-        .$on('$stateChangeStart', migrationRedirect.migrateEventBeforeEdit);
+        .$on('$stateChangeStart', migrationRedirect.migrateEventBeforeState);
 
        // track pageview on state change
       $rootScope.$on('$stateChangeSuccess', function (event) {
@@ -441,6 +441,9 @@ function udbAppConfig(
       url: '/event/:id/migrate?location',
       meta: {
         'titleSuffix': ' | Evenement migreren'
+      },
+      params: {
+        destination: null
       }
     })
 
