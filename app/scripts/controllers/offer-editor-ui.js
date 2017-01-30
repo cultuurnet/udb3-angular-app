@@ -12,23 +12,12 @@ angular
   .controller('offerEditorUIController', OfferEditorUIController);
 
 /* @ngInject */
-function OfferEditorUIController($controller, $scope, offerLocator, $q, authorizationService, $stateParams) {
-  var deferredEventLocation = $q.defer();
+function OfferEditorUIController($controller, $scope, offerLocator, $q, $stateParams) {
+  var offerCdbid = $stateParams.id;
 
   angular.extend(this, $controller('EventFormController', {
     $scope: $scope,
-    offerId: deferredEventLocation.promise
+    offerId: offerCdbid ? offerLocator.get(offerCdbid) : $q.reject()
   }));
-
-  var id = $stateParams.id;
-
-  if(id) {
-    offerLocator.get(id).then(function(eventLocation) {
-      deferredEventLocation.resolve(eventLocation);
-    });
-  } else {
-    deferredEventLocation.reject();
-  }
-
 }
-OfferEditorUIController.$inject = ['$controller', '$scope', 'offerLocator', '$q', 'authorizationService', '$stateParams'];
+OfferEditorUIController.$inject = ['$controller', '$scope', 'offerLocator', '$q', '$stateParams'];

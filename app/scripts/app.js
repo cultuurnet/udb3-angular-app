@@ -21,6 +21,7 @@ angular
     'udb.router',
     'udb.management',
     'udb.migration',
+    'udb.duplication',
     'udbApp.ga-tag-manager',
     'udbApp.zendesk',
     'peg',
@@ -60,7 +61,7 @@ angular
       });
 
       $rootScope
-        .$on('$stateChangeStart', migrationRedirect.migrateEventBeforeEdit);
+        .$on('$stateChangeStart', migrationRedirect.migrateEventBeforeState);
 
        // track pageview on state change
       $rootScope.$on('$stateChangeSuccess', function (event) {
@@ -440,6 +441,20 @@ function udbAppConfig(
       url: '/event/:id/migrate?location',
       meta: {
         'titleSuffix': ' | Evenement migreren'
+      },
+      params: {
+        destination: null
+      }
+    })
+
+    // Duplication
+    .state('duplication', angular.copy(splitView))
+    .state('duplication.event', {
+      templateUrl: 'templates/event-duplication.html',
+      controller: 'offerEditorUIController',
+      url: '/event/:id/duplicate',
+      meta: {
+        'titleSuffix': ' | Evenement dupliceren'
       }
     });
 }
