@@ -10,5 +10,6 @@ app/fonts/FontAwesome.otf
 app/fonts/fontawesome-webfont*
 npm-debug.log
 config*.json
+!config.dist.json
 taxonomy-terms.xml
 uitpas-labels.json

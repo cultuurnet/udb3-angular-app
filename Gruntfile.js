@@ -450,7 +450,7 @@ module.exports = function (grunt) {
           if (grunt.file.exists('config.json')) {
             constants.appConfig = JSON.parse(JSON.minify(grunt.file.read('config.json')));
           } else {
-            constants.appConfig = JSON.parse(JSON.minify(grunt.file.read('config.json.dist')));
+            constants.appConfig = JSON.parse(JSON.minify(grunt.file.read('config.dist.json')));
           }
 
           if (grunt.file.exists('uitpas-labels.json')) {
@@ -471,7 +471,8 @@ module.exports = function (grunt) {
   });
 
   function getUitpasLabelsLocation() {
-    var uitpasUrl = require('./config.json').uitpasUrl;
+    var configPath = grunt.file.exists('config.json') ? './config.json' : './config.dist.json';
+    var uitpasUrl = require(configPath).uitpasUrl;
 
     return uitpasUrl ? uitpasUrl + 'labels' : 'https://uitpas.uitdatabank.be/labels';
   }
