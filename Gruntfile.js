@@ -443,30 +443,38 @@ module.exports = function (grunt) {
         name: 'config',
         dest: '<%= yeoman.app %>/scripts/config.js'
       },
-      dev: {
+      all: {
         constants: function() {
-          return {
-            appConfig: JSON.parse(JSON.minify(grunt.file.read('config.json')))
-          };
-        }
-      },
-      dist: {
-        constants: function() {
-          var config = {};
+          var constants = {};
 
           if (grunt.file.exists('config.json')) {
-            config = JSON.parse(JSON.minify(grunt.file.read('config.json')));
+            constants.appConfig = JSON.parse(JSON.minify(grunt.file.read('config.json')));
           } else {
-            config = JSON.parse(JSON.minify(grunt.file.read('config.json.dist')));
+            constants.appConfig = JSON.parse(JSON.minify(grunt.file.read('config.json.dist')));
           }
 
-          return {
-            appConfig: config
-          };
+          if (grunt.file.exists('uitpas-labels.json')) {
+            constants.UitpasLabels = JSON.parse(JSON.minify(grunt.file.read('uitpas-labels.json')));
+          }
+
+          return constants;
         }
+      }
+    },
+
+    curl: {
+      'uitpas-labels': {
+        src: getUitpasLabelsLocation(),
+        dest: 'uitpas-labels.json'
       }
     }
   });
+
+  function getUitpasLabelsLocation() {
+    var uitpasUrl = require('./config.json').uitpasUrl;
+
+    return uitpasUrl ? uitpasUrl + 'labels' : 'https://uitpas.uitdatabank.be/labels';
+  }
 
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-ng-constant');
@@ -480,7 +488,8 @@ module.exports = function (grunt) {
       'clean:server',
       'wiredep',
       'concurrent:server',
-      'ngconstant:dev',
+      'curl:uitpas-labels',
+      'ngconstant:all',
       'less',
       'autoprefixer',
       'connect:livereload',
@@ -496,7 +505,8 @@ module.exports = function (grunt) {
   grunt.registerTask('test', [
     'clean:server',
     'concurrent:test',
-    'ngconstant:dev',
+    'curl:uitpas-labels',
+    'ngconstant:all',
     'less',
     'autoprefixer',
     'connect:test',
@@ -508,7 +518,8 @@ module.exports = function (grunt) {
     'wiredep',
     'useminPrepare',
     'concurrent:dist',
-    'ngconstant:dist',
+    'curl:uitpas-labels',
+    'ngconstant:all',
     'less',
     'autoprefixer',
     'concat',
