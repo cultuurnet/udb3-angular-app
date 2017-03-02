@@ -3,7 +3,7 @@
   "baseApiUrl": "http://culudb-silex.dev:8080/api/1.0/",
   "baseSearchUrl": "http://udb-search.dev/",
   "authUrl" : "http://udb-jwtprovider.dev/culturefeed/oauth/",
-  "uitpasUrl" : "http://udb-uitpas.dev/",
+  "uitpasUrl" : "https://uitpas.uitdatabank.be/",
   "socketUrl": "http://culudb-websocket-server.dev:3000/",
   "cultuurkuurUrl": "http://dev.cultuurkuur.be/",
   "media": {
