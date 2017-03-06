@@ -22,7 +22,7 @@
     "extraClass": ""
   },
   "toggleAddOffer": false,
-  "disableVariations": true
+  "disableVariations": true,
   "zendesk": {
     "accountUrl": ""
   }
