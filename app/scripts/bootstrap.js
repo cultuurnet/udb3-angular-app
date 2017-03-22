@@ -8,19 +8,19 @@ deferredBootstrapper.bootstrap({
     {
       module: 'udb.uitpas',
       resolve: {
-        'UitpasLabels': [
-          '$http', 'appConfig', 'DefaultUitpasLabels', '$q',
-          function ($http, appConfig, DefaultUitpasLabels, $q) {
+        'ExternalUitpasLabels': [
+          '$http', 'appConfig', '$q',
+          function ($http, appConfig, $q) {
             var uitpasUrl = _.get(appConfig, 'uitpasUrl');
 
             if (!uitpasUrl) {
-              return $q.resolve(DefaultUitpasLabels);
+              return $q.resolve(undefined);
             }
 
             return $http
               .get(uitpasUrl + 'labels')
               .catch(function () {
-                return $q.resolve(DefaultUitpasLabels);
+                return $q.resolve(undefined);
               });
           }
         ]
