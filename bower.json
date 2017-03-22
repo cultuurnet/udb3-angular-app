@@ -15,7 +15,8 @@
     "angular-ui-router": "^0.3.1",
     "es6-shim": "^0.35.1",
     "angular-zendesk-widget": "^0.1.0",
-    "ngMeta": "^0.3.9"
+    "ngMeta": "^0.3.9",
+    "angular-deferred-bootstrap": "^0.1.9"
   },
   "devDependencies": {
     "angular-mocks": "~1.5.5",
