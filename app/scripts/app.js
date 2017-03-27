@@ -420,6 +420,17 @@ function udbAppConfig(
         'titleSuffix': ' | Organisatie detail'
       }
     })
+    .state('management.organizers.search', {
+      url: '/manage/organizations',
+      templateUrl: 'templates/organization-search.html',
+      controller: 'OrganizationSearchController',
+      controllerAs: '$ctrl',
+      meta: {
+        'titleSuffix': ' | Organisaties'
+      }
+    })
+
+    // Moderation
     .state('management.moderation', {
       template:'<div ui-view></div>'
     })

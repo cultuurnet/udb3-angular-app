@@ -7,6 +7,6 @@ try {
 
     this.toString = function() {
       return this.uri;
-    }
+    };
   };
 }
