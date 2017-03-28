@@ -4,10 +4,8 @@ try {
 
   URL = function (uri) { // jshint ignore:line
     this.uri = uri;
-  };
 
-  URL.prototype = {
-    toString: function () {
+    this.toString = function() {
       return this.uri;
     }
   };
