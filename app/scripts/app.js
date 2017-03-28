@@ -441,7 +441,7 @@ function udbAppConfig(
       onEnter: ['$state', '$uibModal', 'organization', function($state, $uibModal, organization) {
         $uibModal
           .open({
-            templateUrl: "templates/organization-delete.modal.html",
+            templateUrl: 'templates/organization-delete.modal.html',
             resolve: {
               organization: function() { return organization; }
             },
@@ -455,6 +455,32 @@ function udbAppConfig(
       }],
       meta: {
         'titleSuffix': ' | Organisatie verwijderen'
+      }
+    })
+    .state('management.organizers.search.create', {
+      onEnter: ['$state', '$uibModal', function($state, $uibModal) {
+        $uibModal
+          .open({
+            templateUrl: 'templates/event-form-organizer-modal.html',
+            controller: 'EventFormOrganizerModalController',
+            resolve: {
+              organizerName: function () {
+                return '';
+              }
+            }
+          })
+          .result
+          .then(
+            function(organization) {
+              $state.go('management.organizers.detail', {id: organization.id});
+            },
+            function () {
+              $state.go('^');
+            }
+          );
+      }],
+      meta: {
+        'titleSuffix': ' | Organisatie invoeren'
       }
     })
 
