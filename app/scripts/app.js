@@ -87,9 +87,11 @@ function udbAppConfig(
   queryFieldTranslations,
   dutchTranslations,
   $stateProvider,
-  $urlRouterProvider,
+  UitpasLabelsProvider,
+  ExternalUitpasLabels,
   ngMetaProvider
 ) {
+  UitpasLabelsProvider.useLabels(ExternalUitpasLabels);
 
   $locationProvider.html5Mode(true);
 
@@ -469,6 +471,7 @@ udbAppConfig.$inject = [
   'queryFieldTranslations',
   'dutchTranslations',
   '$stateProvider',
-  '$urlRouterProvider',
+  'UitpasLabelsProvider',
+  'ExternalUitpasLabels',
   'ngMetaProvider'
 ];
