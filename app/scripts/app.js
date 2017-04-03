@@ -422,6 +422,71 @@ function udbAppConfig(
         'titleSuffix': ' | Organisatie detail'
       }
     })
+    .state('management.organizers.search', {
+      url: '/manage/organizations',
+      templateUrl: 'templates/organization-search.html',
+      controller: 'OrganizationSearchController',
+      controllerAs: '$ctrl',
+      meta: {
+        'titleSuffix': ' | Organisaties'
+      }
+    })
+    .state('management.organizers.search.delete', {
+      params: {
+        id: null
+      },
+      resolve: {
+        organization: ['$stateParams', 'OrganizerManager', function($stateParams, OrganizerManager) {
+          return OrganizerManager.get($stateParams.id);
+        }]
+      },
+      onEnter: ['$state', '$uibModal', 'organization', function($state, $uibModal, organization) {
+        $uibModal
+          .open({
+            templateUrl: 'templates/organization-delete.modal.html',
+            resolve: {
+              organization: function() { return organization; }
+            },
+            controller: 'OrganizationDeleteModalController',
+            controllerAs: 'odc'
+          })
+          .result
+          .finally(function() {
+            $state.go('^');
+          });
+      }],
+      meta: {
+        'titleSuffix': ' | Organisatie verwijderen'
+      }
+    })
+    .state('management.organizers.search.create', {
+      onEnter: ['$state', '$uibModal', function($state, $uibModal) {
+        $uibModal
+          .open({
+            templateUrl: 'templates/event-form-organizer-modal.html',
+            controller: 'EventFormOrganizerModalController',
+            resolve: {
+              organizerName: function () {
+                return '';
+              }
+            }
+          })
+          .result
+          .then(
+            function(organization) {
+              $state.go('management.organizers.detail', {id: organization.id});
+            },
+            function () {
+              $state.go('^');
+            }
+          );
+      }],
+      meta: {
+        'titleSuffix': ' | Organisatie invoeren'
+      }
+    })
+
+    // Moderation
     .state('management.moderation', {
       template:'<div ui-view></div>'
     })
