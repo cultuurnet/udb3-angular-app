@@ -422,6 +422,15 @@ function udbAppConfig(
         'titleSuffix': ' | Organisatie detail'
       }
     })
+    .state('management.organizers.edit', {
+      url: '/manage/organisations/:id/edit',
+      templateUrl: 'templates/organizer-edit.html',
+      controller: 'OrganizerEditController',
+      controllerAs: 'oec',
+      meta: {
+        'titleSuffix': ' | Organisatie edit'
+      }
+    })
     .state('management.organizers.search', {
       url: '/manage/organizations',
       templateUrl: 'templates/organization-search.html',
