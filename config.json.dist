@@ -25,7 +25,7 @@
   "disableVariations": true,
   "zendesk": {
     "accountUrl": ""
-  }
+  },
   "offerEditor": {
     "ignoreDuplicates": true
   }
