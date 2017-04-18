@@ -26,4 +26,7 @@
   "zendesk": {
     "accountUrl": ""
   }
+  "offerEditor": {
+    "ignoreDuplicates": true
+  }
 }
