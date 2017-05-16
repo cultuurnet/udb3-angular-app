@@ -27,6 +27,8 @@
     "accountUrl": ""
   },
   "offerEditor": {
-    "ignoreDuplicates": true
+    "disableAudience": false,
+    "ignoreDuplicates": true,
+    "defaultPublicationDate": ""
   }
 }
