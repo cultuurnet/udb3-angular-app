@@ -29,7 +29,8 @@ angular
     'btford.socket-io',
     'btford.markdown',
     'pascalprecht.translate',
-    'ngMeta'
+    'ngMeta',
+    'ngMessages'
   ])
   .config(udbAppConfig)
   /* @ngInject */
