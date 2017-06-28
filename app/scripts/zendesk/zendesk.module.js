@@ -26,10 +26,12 @@ function configureZendeskWidget(ZendeskWidgetProvider, appConfig) {
 identifyUser.$inject = ['ZendeskWidget', '$rootScope'];
 function identifyUser(ZendeskWidget, $rootScope) {
   $rootScope.$on('userLoggedIn', function (event, userInfo) {
-    ZendeskWidget.identify({
-      name: userInfo.nick,
-      email: userInfo.mbox,
-      externalId: userInfo.id
-    });
+    if (typeof userInfo.mbox !== 'undefined') {
+      ZendeskWidget.identify({
+        name: userInfo.nick || '',
+        email: userInfo.mbox || '',
+        externalId: userInfo.id || ''
+      });
+    }
   });
 }
