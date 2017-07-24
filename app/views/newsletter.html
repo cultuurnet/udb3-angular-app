@@ -1,8 +1,24 @@
+<!--
 <div class="row">
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
         <input type="email" name="" ng-model="vm.email" id="input" class="form-control" value="" required="required" pattern="" title="">
     </div>
     <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6">
         <button ng-click="vm.submit()" type="button" class="btn btn-default">Submit</button>
+    </div>
+</div>-->
+<div class="udb-newsletter" style="width: 100%;background-color: #FFF;margin-bottom: 0px;padding: 15px;">
+    <div class="row">
+        <div class="col-sm-8"><strong style="margin: 0; font-size: 18px; margin-bottom: 10px; display: block; line-height: 1">Praktische invoertips in je mailbox</strong>
+            <p style="margin: 0; line-height: 1.35 ">Schrijf je in op onze nieuwsbrief en ontvang maandelijks praktische tips voor het invoeren van jouw activiteiten in de UiTdatabank!</p>
+            <div class="row">
+                <div class="col-xs-6"><label for="mail-newsletter" style="font-weight: normal; font-size: 15px">E-mail</label></div>
+            </div>
+            <div class="row">
+                <div class="col-xs-8"><input type="email" class="form-control" id="mail-newsletter" ng-model="vm.email"> </div>
+                <div class="col-xs-4"><a type="submit" ng-click="vm.submit()" class="btn btn-primary btn-block newsletter-submit">Inschrijven</a></div>
+            </div>
+        </div>
+        <div class="col-sm-4"><img src="https://udb-media.imgix.net/f36a584d-410d-4e98-9eae-d11508dfda05.png" class="img-responsive center-block"></div>
     </div>
 </div>
