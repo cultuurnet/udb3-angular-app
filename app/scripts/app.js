@@ -89,7 +89,8 @@ function udbAppConfig(
   $stateProvider,
   UitpasLabelsProvider,
   ExternalUitpasLabels,
-  ngMetaProvider
+  ngMetaProvider,
+  $provide
 ) {
   UitpasLabelsProvider.useLabels(ExternalUitpasLabels);
 
@@ -124,6 +125,21 @@ function udbAppConfig(
   // end of translation configuration
 
   uiSelectConfig.theme = 'bootstrap';
+
+  var gaExportDecorator = function($delegate) {
+    var result = $delegate.getGAInfo();
+    console.log($delegate);
+    console.log(JSON.stringify(result));
+    console.log(result.toString());
+    result.always(function() {
+        var info = $delegate.gaInfo;
+        var dataLayer = window.tm = window.tm || [];
+        dataLayer.push(info);
+        console.log("Finished data-transfer");
+    })
+  }
+
+  $provide.decorator("eventExportGALogger", ['$delegate',gaExportDecorator]);
 
   ngMetaProvider
     .useTitleSuffix(true)
@@ -547,5 +563,6 @@ udbAppConfig.$inject = [
   '$stateProvider',
   'UitpasLabelsProvider',
   'ExternalUitpasLabels',
-  'ngMetaProvider'
+  'ngMetaProvider',
+  '$provide'
 ];
