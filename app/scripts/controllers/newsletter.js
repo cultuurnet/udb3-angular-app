@@ -13,7 +13,7 @@ angular
   .controller('NewsLetterController', NewsLetterController);
 
 /* @ngInject */
-function NewsLetterController($scope,appConfig,$http) {
+function NewsLetterController($scope,appConfig,$http,$cookies) {
 
   var vm = this;
   vm.publicKey = _.get(appConfig, 'newsLetterManager.public');
@@ -23,6 +23,7 @@ function NewsLetterController($scope,appConfig,$http) {
   vm.submit = submit;
   vm.showThanks = false;
   vm.showError = false;
+  vm.hideNewsLetter = $cookies.get('hideNewsLetter');
 
   function submit() {
     vm.showError = false;
@@ -39,6 +40,7 @@ function NewsLetterController($scope,appConfig,$http) {
      crossDomain: true
     }).then(function successCallback(response) {
      vm.showThanks = true;
+     $cookies.put('hideNewsLetter',true);
      console.log(response);
     }, function errorCallback(response) {
      console.log(response);
@@ -51,4 +53,4 @@ function NewsLetterController($scope,appConfig,$http) {
   }
 
 }
-NewsLetterController.$inject = ['$scope','appConfig','$http'];
+NewsLetterController.$inject = ['$scope','appConfig','$http','$cookies'];
