@@ -16,14 +16,16 @@ angular
 function NewsLetterController($scope,appConfig,$http) {
 
   var vm = this;
-
   vm.publicKey = _.get(appConfig, 'newsLetterManager.public');
   vm.privateKey = _.get(appConfig, 'newsLetterManager.private');
   vm.url = _.get(appConfig, 'newsLetterManager.url');
   vm.email = '';
   vm.submit = submit;
+  vm.showThanks = false;
+  vm.showError = false;
 
   function submit() {
+    vm.showError = false;
     if (vm.email && vm.email !=='') {
      var form = new FormData();
      form.append("Email", vm.email);
@@ -36,10 +38,14 @@ function NewsLetterController($scope,appConfig,$http) {
      },
      crossDomain: true
     }).then(function successCallback(response) {
+     vm.showThanks = true;
      console.log(response);
     }, function errorCallback(response) {
      console.log(response);
+      vm.showError= true;
     });
+    } else {
+      vm.showError= true;
     }
 
   }
