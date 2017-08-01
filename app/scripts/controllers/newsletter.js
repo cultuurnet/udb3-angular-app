@@ -22,7 +22,7 @@ function NewsLetterController($scope,appConfig,$http,$cookies) {
   vm.submit = submit;
   vm.showThanks = false;
   vm.showError = false;
-  vm.hideNewsLetter = $cookies.get('hideNewsLetter');
+  vm.hideNewsLetter = $cookies.get('hideNewsLetter') || (! vm.url || ! vm.list);
 
   function submit() {
     vm.showError = false;
