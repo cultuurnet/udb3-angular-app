@@ -17,7 +17,8 @@ function menuBarController(
   $scope,
   jobLogger,
   appConfig,
-  managementListItems
+  managementListItems,
+  gaExportManager
 ) {
   var controller = this; // jshint ignore:line
 
@@ -46,25 +47,10 @@ function menuBarController(
   $scope.$watch(function () {
     return jobLogger.getStartedExportJobs();
   }, function (jobs) {
-    if (_.get(appConfig, 'gaTagManager.containerId')) {
-      if (jobs.length) {
-          controller.startedJobs = jobs;
-      } else {
-          var dataLayer = window.tm = window.tm || [];
-          angular.forEach(controller.startedJobs,function(job) {
-            if (job.details) {
-                var gaObject = {
-                    event : 'GAEvent',
-                    eventCategory : 'export',
-                    eventAction : job.details.format,
-                    eventLabel : job.details.brand + ';' + job.details.user + ';' + job.details.queryString
-                };
-                dataLayer.push(gaObject);
-            }
-      });
-          controller.startedJobs = jobs;
+    if (!jobs.length) {
+        gaExportManager.exportJob(controller.startedJobs);
       }
-    }
+    controller.startedJobs = jobs;
   }, true);
 
   /**
@@ -91,5 +77,6 @@ menuBarController.$inject = [
   '$scope',
   'jobLogger',
   'appConfig',
-  'managementListItems'
+  'managementListItems',
+  'gaExportManager'
 ];
