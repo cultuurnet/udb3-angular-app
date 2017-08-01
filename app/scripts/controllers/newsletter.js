@@ -35,9 +35,7 @@ function NewsLetterController($scope,appConfig,$http,$cookies) {
     }).then(function successCallback(response) {
      vm.showThanks = true;
      $cookies.put('hideNewsLetter',true);
-     console.log(response);
     }, function errorCallback(response) {
-     console.log(response);
       vm.showError= true;
     });
     } else {
