@@ -52,8 +52,14 @@ function menuBarController(
       } else {
           var dataLayer = window.tm = window.tm || [];
           angular.forEach(controller.startedJobs,function(job) {
-            if (job.gaObject) {
-                dataLayer.push(job.gaObject);
+            if (job.details) {
+                var gaObject = {
+                    event : 'GAEvent',
+                    eventCategory : 'export',
+                    eventAction : job.details.format,
+                    eventLabel : job.details.brand + ';' + job.details.user + ';' + job.details.queryString
+                };
+                dataLayer.push(gaObject);
             }
       });
           controller.startedJobs = jobs;
