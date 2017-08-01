@@ -24,6 +24,7 @@ function menuBarController(
   controller.login = uitidAuth.login;
   controller.logout = uitidAuth.logout;
   controller.toggleJobLog = jobLogger.toggleJobLog;
+  controller.startedJobs = [];
 
   if (typeof(appConfig.toggleAddOffer) !== 'undefined') {
     controller.toggleAddOffer = appConfig.toggleAddOffer;
@@ -41,6 +42,24 @@ function menuBarController(
   $scope.login = function () {
     uitidAuth.login();
   };
+
+  $scope.$watch(function () {
+    return jobLogger.getStartedExportJobs();
+  }, function (jobs) {
+    if (_.get(appConfig, 'gaTagManager.containerId')) {
+      if (jobs.length) {
+          controller.startedJobs = jobs;
+      } else {
+          var dataLayer = window.tm = window.tm || [];
+          angular.forEach(controller.startedJobs,function(job) {
+            if (job.gaObject) {
+                dataLayer.push(job.gaObject);
+            }
+      });
+          controller.startedJobs = jobs;
+      }
+    }
+  }, true);
 
   /**
    *
