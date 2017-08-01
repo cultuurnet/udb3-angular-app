@@ -30,5 +30,9 @@
     "disableAudience": false,
     "ignoreDuplicates": true,
     "defaultPublicationDate": ""
+  },
+  "newsLetterManager": {
+    "url": "http://localhost/mail-microservice/web",
+    "list": "1766017"
   }
 }

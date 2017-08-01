@@ -16,9 +16,8 @@ angular
 function NewsLetterController($scope,appConfig,$http,$cookies) {
 
   var vm = this;
-  vm.publicKey = _.get(appConfig, 'newsLetterManager.public');
-  vm.privateKey = _.get(appConfig, 'newsLetterManager.private');
   vm.url = _.get(appConfig, 'newsLetterManager.url');
+  vm.list = _.get(appConfig, 'newsLetterManager.list');
   vm.email = '';
   vm.submit = submit;
   vm.showThanks = false;
@@ -29,15 +28,10 @@ function NewsLetterController($scope,appConfig,$http,$cookies) {
     vm.showError = false;
     if (vm.email && vm.email !=='') {
      var form = new FormData();
-     form.append("Email", vm.email);
-     form.append("Action", "addforce");
+     form.append('Email', vm.email);
      $http({
-     method: 'POST',
-     url: vm.url,
-     headers: {
-         Authorization : 'Basic:' + btoa(vm.publicKey+':'+vm.privateKey)
-     },
-     crossDomain: true
+     method: 'GET',
+     url: vm.url + '/' + vm.email + '/' + vm.list
     }).then(function successCallback(response) {
      vm.showThanks = true;
      $cookies.put('hideNewsLetter',true);
