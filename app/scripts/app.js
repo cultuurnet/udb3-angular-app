@@ -89,7 +89,8 @@ function udbAppConfig(
   $stateProvider,
   UitpasLabelsProvider,
   ExternalUitpasLabels,
-  ngMetaProvider
+  ngMetaProvider,
+  $provide
 ) {
   UitpasLabelsProvider.useLabels(ExternalUitpasLabels);
 
@@ -547,5 +548,6 @@ udbAppConfig.$inject = [
   '$stateProvider',
   'UitpasLabelsProvider',
   'ExternalUitpasLabels',
-  'ngMetaProvider'
+  'ngMetaProvider',
+  '$provide'
 ];

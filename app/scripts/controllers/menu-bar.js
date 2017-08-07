@@ -17,13 +17,15 @@ function menuBarController(
   $scope,
   jobLogger,
   appConfig,
-  managementListItems
+  managementListItems,
+  gaExportManager
 ) {
   var controller = this; // jshint ignore:line
 
   controller.login = uitidAuth.login;
   controller.logout = uitidAuth.logout;
   controller.toggleJobLog = jobLogger.toggleJobLog;
+  controller.startedJobs = [];
 
   if (typeof(appConfig.toggleAddOffer) !== 'undefined') {
     controller.toggleAddOffer = appConfig.toggleAddOffer;
@@ -41,6 +43,15 @@ function menuBarController(
   $scope.login = function () {
     uitidAuth.login();
   };
+
+  $scope.$watch(function () {
+    return jobLogger.getStartedExportJobs();
+  }, function (jobs) {
+    if (!jobs.length) {
+        gaExportManager.exportJob(controller.startedJobs);
+      }
+    controller.startedJobs = jobs;
+  }, true);
 
   /**
    *
@@ -66,5 +77,6 @@ menuBarController.$inject = [
   '$scope',
   'jobLogger',
   'appConfig',
-  'managementListItems'
+  'managementListItems',
+  'gaExportManager'
 ];
