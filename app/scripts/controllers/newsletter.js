@@ -30,14 +30,17 @@ function NewsLetterController($scope,appConfig,$http,$cookies) {
      var form = new FormData();
      form.append('Email', vm.email);
      $http({
-     method: 'GET',
-     url: vm.url + '/' + vm.email + '/' + vm.list
-    }).then(function successCallback(response) {
-     vm.showThanks = true;
-     $cookies.put('hideNewsLetter',true);
-    }, function errorCallback(response) {
-      vm.showError= true;
-    });
+       method: 'PUT',
+       headers: {
+         "Content-Type": "text/html"
+       },
+       url: vm.url + '/' + vm.email + '/' + vm.list
+     }).then(function successCallback(response) {
+       vm.showThanks = true;
+       $cookies.put('hideNewsLetter',true);
+     }, function errorCallback(response) {
+        vm.showError= true;
+     });
     } else {
       vm.showError= true;
     }
