@@ -9,8 +9,7 @@
  */
 angular
   .module('udbApp.zendesk', ['udbApp', 'config', 'zendeskWidget'])
-  .config(configureZendeskWidget)
-  .run(identifyUser);
+  .config(configureZendeskWidget);
 
 configureZendeskWidget.$inject = ['ZendeskWidgetProvider', 'appConfig'];
 function configureZendeskWidget(ZendeskWidgetProvider, appConfig) {
@@ -23,13 +22,4 @@ function configureZendeskWidget(ZendeskWidgetProvider, appConfig) {
   });
 }
 
-identifyUser.$inject = ['ZendeskWidget', '$rootScope'];
-function identifyUser(ZendeskWidget, $rootScope) {
-  $rootScope.$on('userLoggedIn', function (event, userInfo) {
-    ZendeskWidget.identify({
-      name: userInfo.nick,
-      email: userInfo.mbox,
-      externalId: userInfo.id
-    });
-  });
-}
+
