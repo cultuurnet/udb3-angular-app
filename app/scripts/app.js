@@ -122,6 +122,8 @@ function udbAppConfig(
   $translateProvider
     .translations('nl', defaultTranslations)
     .preferredLanguage('nl');
+
+  $translateProvider.useSanitizeValueStrategy('sanitize');
   // end of translation configuration
 
   uiSelectConfig.theme = 'bootstrap';
