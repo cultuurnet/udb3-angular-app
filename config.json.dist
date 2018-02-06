@@ -21,10 +21,18 @@
   },
   "calendarHighlight": {
     "date": "",
+    "startTime": "",
+    "endTime": "",
     "extraClass": ""
   },
-  "toggleAddOffer": false,
+  "addOffer": {
+    "toggleAddOffer": true,
+    // This message can be used when the toggleAddOffer is false.
+    "replaceMessage": "De inschrijvingsperiode is afgesloten sinds 21 juli.<br>Heb je nog vragen in verband met je inschrijving?<br>Stel ze gerust! Contacteer info@monumentendag.be",
+    "embargoDate": "2017-07-21 23:59:59"
+  },
   "disableVariations": true,
+  "toggleHidePriceInfo": true,
   "zendesk": {
     "accountUrl": ""
   },
