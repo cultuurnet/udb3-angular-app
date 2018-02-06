@@ -27,12 +27,12 @@
   },
   "addOffer": {
     "toggleAddOffer": true,
-    // This message can be used when the toggleAddOffer is false.
-    "replaceMessage": "De inschrijvingsperiode is afgesloten sinds 21 juli.<br>Heb je nog vragen in verband met je inschrijving?<br>Stel ze gerust! Contacteer info@monumentendag.be",
+    // This message can be used when the toggleAddOffer is false or the embargoDate has expired.
+    "replaceMessage": "De inschrijvingsperiode is afgesloten sinds 21 juli. Heb je nog vragen in verband met je inschrijving? Stel ze gerust! Contacteer <a href=\"mailto:info@monumentendag.be\">info@monumentendag.be</a>",
     "embargoDate": "2017-07-21 23:59:59"
   },
   "disableVariations": true,
-  "toggleHidePriceInfo": true,
+  "toggleHidePriceInfo": false,
   "zendesk": {
     "accountUrl": ""
   },
