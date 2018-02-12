@@ -25,11 +25,6 @@
     "endTime": "",
     "extraClass": ""
   },
-  // This setting can be used when the app is used for gathering events that happen on a specific date. For example Open Monumenten Dag.
-  "eventOnSingleDay": {
-    "toggle": false,
-    "date": ""
-  },
   "addOffer": {
     "toggleAddOffer": true,
     // This message can be used when the toggleAddOffer is false or the embargoDate has expired.
