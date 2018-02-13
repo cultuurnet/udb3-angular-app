@@ -21,9 +21,16 @@
   },
   "calendarHighlight": {
     "date": "",
+    "startTime": "",
+    "endTime": "",
     "extraClass": ""
   },
-  "toggleAddOffer": false,
+  "addOffer": {
+    "toggle": true,
+    "expirationDate": "2018-07-21 23:59:59",
+    // This message can be used when the toggle of addOffer is false or the expirationDate has expired.
+    "expirationMessage": ""
+  },
   "disableVariations": true,
   "zendesk": {
     "accountUrl": ""
@@ -31,6 +38,8 @@
   "offerEditor": {
     "disableAudience": false,
     "ignoreDuplicates": true,
+    "disablePriceInfo": false,
+    // The defaultPublicationDate option accords to the availableFrom in the json-ld.
     "defaultPublicationDate": ""
   },
   "newsLetterManager": {
