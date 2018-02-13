@@ -38,8 +38,8 @@
   "offerEditor": {
     "disableAudience": false,
     "ignoreDuplicates": true,
-    // The disablePriceInfo option accords to the availableFrom in the json-ld.
     "disablePriceInfo": false,
+    // The defaultPublicationDate option accords to the availableFrom in the json-ld.
     "defaultPublicationDate": ""
   },
   "newsLetterManager": {
