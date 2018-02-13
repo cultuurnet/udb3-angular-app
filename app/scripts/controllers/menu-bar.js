@@ -27,8 +27,25 @@ function menuBarController(
   controller.toggleJobLog = jobLogger.toggleJobLog;
   controller.startedJobs = [];
 
-  if (typeof(appConfig.toggleAddOffer) !== 'undefined') {
-    controller.toggleAddOffer = appConfig.toggleAddOffer;
+  if (typeof(appConfig.addOffer) !== 'undefined') {
+    if (typeof(appConfig.addOffer.toggle) !== 'undefined') {
+      controller.toggleAddOffer = appConfig.addOffer.toggle;
+
+      if (appConfig.addOffer.toggle) {
+        if (typeof(appConfig.addOffer.expirationDate) !== 'undefined' ||
+          appConfig.addOffer.expirationDate !== '') {
+          if (moment().isAfter(moment(appConfig.addOffer.expirationDate))) {
+            controller.toggleAddOffer = false;
+          }
+          else {
+            controller.toggleAddOffer = true;
+          }
+        }
+      }
+    }
+    else {
+      controller.toggleAddOffer = true;
+    }
   }
   else {
     controller.toggleAddOffer = true;
