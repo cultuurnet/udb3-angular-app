@@ -384,6 +384,11 @@ module.exports = function (grunt) {
           src: ['*']
         }, {
           expand: true,
+          cwd: 'bower_components/udb3-angular/images/form-calendar',
+          dest: '<%= yeoman.dist %>/images/form-calendar',
+          src: ['*']
+        }, {
+          expand: true,
           cwd: 'bower_components/bootstrap/dist',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>'
