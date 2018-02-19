@@ -45,5 +45,6 @@
   "newsLetterManager": {
     "url": "http://localhost/mail-microservice/web",
     "list": "1766017"
-  }
+  },
+  "publicationRulesLink": ""
 }
