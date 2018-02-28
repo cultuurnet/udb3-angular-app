@@ -13,10 +13,10 @@ angular
 
 /* @ngInject */
 function MainController($scope, uitidAuth, $translate) {
-  var language = $translate.use();
+  $scope.language = $translate.use();
 
   $scope.login = function () {
-    uitidAuth.login(language);
+    uitidAuth.login($scope.language);
   };
 
   $scope.register = function () {

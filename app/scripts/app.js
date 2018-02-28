@@ -127,6 +127,7 @@ function udbAppConfig(
   $translateProvider
     .translations('nl', dutchTranslationsCollection)
     .preferredLanguage('nl')
+    .storageKey('udb-language')
     .useCookieStorage();
   // end of translation configuration
 
