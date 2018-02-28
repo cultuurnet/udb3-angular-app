@@ -24,6 +24,7 @@ angular
     'udb.duplication',
     'udbApp.ga-tag-manager',
     'udbApp.zendesk',
+    'udbApp.translate',
     'peg',
     'config',
     'btford.socket-io',
@@ -76,6 +77,8 @@ angular
 
   }]);
 
+  angular.module('udbApp.translate', []);
+
 /* @ngInject */
 function udbAppConfig(
   $locationProvider,
@@ -85,11 +88,12 @@ function udbAppConfig(
   uiSelectConfig,
   appConfig,
   queryFieldTranslations,
-  dutchTranslations,
   $stateProvider,
   UitpasLabelsProvider,
   ExternalUitpasLabels,
   ngMetaProvider,
+  udbDutchTranslations,
+  udbAppDutchTranslations,
   $provide
 ) {
   UitpasLabelsProvider.useLabels(ExternalUitpasLabels);
@@ -104,7 +108,8 @@ function udbAppConfig(
   ]);
 
   // Translation configuration
-  var defaultTranslations = _.merge(dutchTranslations, queryFieldTranslations.nl);
+  var dutchTranslationsCollection = _.merge(udbDutchTranslations, udbAppDutchTranslations, queryFieldTranslations.nl);
+
   var splitView = {
     templateUrl: 'views/split-view.html',
     controller: 'splitViewController',
@@ -120,8 +125,9 @@ function udbAppConfig(
   };
 
   $translateProvider
-    .translations('nl', defaultTranslations)
-    .preferredLanguage('nl');
+    .translations('nl', dutchTranslationsCollection)
+    .preferredLanguage('nl')
+    .useCookieStorage();
   // end of translation configuration
 
   uiSelectConfig.theme = 'bootstrap';
@@ -544,10 +550,11 @@ udbAppConfig.$inject = [
   'uiSelectConfig',
   'appConfig',
   'queryFieldTranslations',
-  'dutchTranslations',
   '$stateProvider',
   'UitpasLabelsProvider',
   'ExternalUitpasLabels',
   'ngMetaProvider',
-  '$provide'
+  '$provide',
+  'udbDutchTranslations',
+  'udbAppDutchTranslations'
 ];

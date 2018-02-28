@@ -12,13 +12,14 @@ angular
   .factory('udbHttpInterceptor', httpInterceptor);
 
 /* @ngInject */
-function httpInterceptor($q, $location, $window, appConfig) {
+function httpInterceptor($q, $location, $window, appConfig, $translate) {
+  var language = $translate.use();
 
   var login = function () {
     var currentLocation = $location.absUrl(),
       authUrl = appConfig.authUrl + 'connect';
 
-    authUrl += '?destination=' + currentLocation;
+    authUrl += '?destination=' + currentLocation + '&lang=' + language;
     $window.location.href = authUrl;
   };
 
@@ -43,4 +44,4 @@ function httpInterceptor($q, $location, $window, appConfig) {
     }
   };
 }
-httpInterceptor.$inject = ['$q', '$location', '$window', 'appConfig'];
+httpInterceptor.$inject = ['$q', '$location', '$window', 'appConfig', '$translate'];
