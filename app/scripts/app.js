@@ -94,6 +94,8 @@ function udbAppConfig(
   ngMetaProvider,
   udbDutchTranslations,
   udbAppDutchTranslations,
+  udbFrenchTranslations,
+  udbAppFrenchTranslations,
   $provide
 ) {
   UitpasLabelsProvider.useLabels(ExternalUitpasLabels);
@@ -109,6 +111,7 @@ function udbAppConfig(
 
   // Translation configuration
   var dutchTranslationsCollection = _.merge(udbDutchTranslations, udbAppDutchTranslations, queryFieldTranslations.nl);
+  var frenchTranslationsCollection = _.merge(udbFrenchTranslations, udbAppFrenchTranslations, queryFieldTranslations.fr);
 
   var splitView = {
     templateUrl: 'views/split-view.html',
@@ -126,6 +129,7 @@ function udbAppConfig(
 
   $translateProvider
     .translations('nl', dutchTranslationsCollection)
+    .translations('fr', frenchTranslationsCollection)
     .preferredLanguage('nl')
     .fallbackLanguage('nl')
     .storageKey('udb-language')
@@ -558,5 +562,7 @@ udbAppConfig.$inject = [
   'ngMetaProvider',
   '$provide',
   'udbDutchTranslations',
-  'udbAppDutchTranslations'
+  'udbAppDutchTranslations',
+  'udbFrenchTranslations',
+  'udbAppFrenchTranslations'
 ];
