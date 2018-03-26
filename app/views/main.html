@@ -3,16 +3,15 @@
     <udb-homepage-splash></udb-homepage-splash>
     <h1 class="brand">UiTdatabank</h1>
     <p class="lead">
-      Organiseer je een activiteit? <br/>
-      <span class="muted">Voeg gratis je activiteiten toe en bereik een groter publiek</span>
+      <span translate="main.lead"></span> <br/>
+      <span class="muted" translate="main.lead_sub"></span>
     </p>
   </div>
 </div>
 
 <div class="start">
   <div class="container-fluid">
-    <p class="text-center"><a ng-hide="user" class="btn btn-lg btn-primary" ng-href="#" ng-click="login()">
-      Start hier</a>
+    <p class="text-center"><a ng-hide="user" class="btn btn-lg btn-primary" ng-href="#" ng-click="login()" translate="main.start"></a>
     </p>
     <p class="text-center"><a ng-show="user" class="btn btn-lg btn-danger" ui-sref="split.footer.search">
       Zoeken</a>

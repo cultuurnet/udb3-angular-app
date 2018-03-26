@@ -560,9 +560,9 @@ udbAppConfig.$inject = [
   'UitpasLabelsProvider',
   'ExternalUitpasLabels',
   'ngMetaProvider',
-  '$provide',
   'udbDutchTranslations',
   'udbAppDutchTranslations',
   'udbFrenchTranslations',
-  'udbAppFrenchTranslations'
+  'udbAppFrenchTranslations',
+  '$provide',
 ];
