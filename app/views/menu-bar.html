@@ -5,20 +5,20 @@
     <div id="udb-navbar-collapse" class="sidebar-loggedin">
         <span ng-show="mbc.user" ng-cloak>
             <ul>
-                <li><a ui-sref="split.footer.dashboard" ui-sref-opts="{reload:true}"><i class="fa fa-home"></i> <span class="menu-text">Home</span></a></li>
-                <li ng-if="mbc.toggleAddOffer"><a ui-sref="split.offer" ui-sref-opts="{reload:true}"><i class="fa fa-plus-circle"></i> <span class="menu-text">Invoeren</span></a></li>
-                <li><a ui-sref="split.footer.search" ui-sref-opts="{reload:true}"><i class="fa fa-search"></i> <span class="menu-text">Zoeken</span></a></li>
+                <li><a ui-sref="split.footer.dashboard" ui-sref-opts="{reload:true}"><i class="fa fa-home"></i> <span class="menu-text" translate-once="menu.home"></span></a></li>
+                <li ng-if="mbc.toggleAddOffer"><a ui-sref="split.offer" ui-sref-opts="{reload:true}"><i class="fa fa-plus-circle"></i> <span class="menu-text" translate="menu.add"></span></a></li>
+                <li><a ui-sref="split.footer.search" ui-sref-opts="{reload:true}"><i class="fa fa-search"></i> <span class="menu-text" translate-once="menu.search"></span></a></li>
             </ul>
         </span>
 
         <div class="management-block" ng-if="::mbc.managementListItems.length">
-            <p class="menu-title">Beheer</p>
+            <p class="menu-title" translate-once="menu.management"></p>
             <ul>
                 <li ng-repeat="listItem in ::mbc.managementListItems | orderBy: 'index'">
                     <a ui-sref="{{::listItem.sref}}" ui-sref-opts="{reload:true}">
                         <i class="fa" ng-class="::listItem.icon"></i>
                         <span class="menu-text">
-                            <span ng-bind="::listItem.name" class="menu-text-label"></span>
+                            <span ng-bind="::mbc.translateMenu(listItem.name)" class="menu-text-label"></span>
                             <span class="badge menu-text-badge" ng-show="listItem.notificationCount" ng-bind="listItem.notificationCount"></span>
                         </span>
                     </a>
@@ -32,7 +32,7 @@
                     <a href="#" ng-click="mbc.toggleJobLog()">
                         <i class="fa fa-bell"></i>
                         <udb-job-logo></udb-job-logo>
-                        <span class="menu-text">Meldingen</span>
+                        <span class="menu-text" translate-once="menu.notifications"></span>
                     </a>
                 </li>
                 <li class="hidden-xs">
@@ -43,7 +43,7 @@
                         </div>
                         <div class="media-body">
                             <span class="nick">{{ mbc.user.nick }}</span><br />
-                            <a href="#" ng-click="mbc.logout()" class="small"><i class="fa fa-sign-out" aria-hidden="true"></i> Afmelden</a>
+                            <a href="#" ng-click="mbc.logout()" class="small"><i class="fa fa-sign-out" aria-hidden="true"></i> <span translate-once="menu.signOut"></span></a>
                         </div>
                     </div>
                 </li>
@@ -51,7 +51,7 @@
             <div class="visible-xs profile-pic dropup">
                 <img class="img-responsive dropdown-toggle" id="logoutMenu" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true" width="50" height="50" src="images/avatar.svg">
                 <ul class="dropdown-menu pull-left" aria-labelledby="logoutnMenu">
-                    <li><a href="#" ng-click="mbc.logout()">Afmelden</a></li>
+                    <li><a href="#" ng-click="mbc.logout()" translate-once="menu."></a></li>
                 </ul>
             </div>
         </div>
