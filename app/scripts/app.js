@@ -269,6 +269,22 @@ function udbAppConfig(
         'titleSuffix': ' | Plaats bewerken'
       }
     })
+    .state('split.eventTranslate', {
+      url: '/event/:id/translate',
+      controller: 'offerTranslatorUIController',
+      templateUrl: 'templates/event-translate.html',
+      meta: {
+        'titleSuffix': ' | Evenement vertalen'
+      }
+    })
+    .state('split.placeTranslate', {
+      url: '/place/:id/translate',
+      controller: 'offerTranslatorUIController',
+      templateUrl: 'templates/event-translate.html',
+      meta: {
+        'titleSuffix': ' | Plaats vertalen'
+      }
+    })
     .state('useragreement', {
       url: '/user-agreement',
       template: '<div btf-markdown ng-include="\'docs/user-agreement.md\'"></div>',
