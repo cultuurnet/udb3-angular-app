@@ -15,7 +15,7 @@ angular
 function OfferTranslatorUIController($controller, $scope, offerLocator, $q, $stateParams) {
   var offerCdbid = $stateParams.id;
 
-  angular.extend(this, $controller('EventTranslateController', {
+  angular.extend(this, $controller('OfferTranslateController', {
     $scope: $scope,
     offerId: offerCdbid ? offerLocator.get(offerCdbid) : $q.reject()
   }));

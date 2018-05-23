@@ -272,7 +272,7 @@ function udbAppConfig(
     .state('split.eventTranslate', {
       url: '/event/:id/translate',
       controller: 'offerTranslatorUIController',
-      templateUrl: 'templates/event-translate.html',
+      templateUrl: 'templates/offer-translate.html',
       meta: {
         'titleSuffix': ' | Evenement vertalen'
       }
@@ -280,7 +280,7 @@ function udbAppConfig(
     .state('split.placeTranslate', {
       url: '/place/:id/translate',
       controller: 'offerTranslatorUIController',
-      templateUrl: 'templates/event-translate.html',
+      templateUrl: 'templates/offer-translate.html',
       meta: {
         'titleSuffix': ' | Plaats vertalen'
       }
