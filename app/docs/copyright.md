@@ -1,8 +1,8 @@
 # Auteursrecht
 
-__Wat doet CultuurNet Vlaanderen met foto's die ik upload?__
+__Wat doet publiq vzw met foto's die ik upload?__
 
-Indien de foto auteursrechtelijk beschermd is, dient de naam van de maker te worden vermeld in het copyright-veld. De foto's moeten rechtenvrij zijn. De ingevoerde foto’s kunnen door CultuurNet Vlaanderen gebruikt worden voor publicatie op de website of in promotie- en perscampagnes. CultuurNet Vlaanderen behoudt zich het recht om op de verzamelde afbeeldingen een fotoredactie uit te voeren. De foto's worden ook opgenomen in het fotoarchief van CultuurNet Vlaanderen en kunnen gebruikt worden in de communicatiekanalen van CultuurNet Vlaanderen zoals de website, nieuwsbrieven, perscommunicatie,…
+Indien de foto auteursrechtelijk beschermd is, dient de naam van de maker te worden vermeld in het copyright-veld. De foto's moeten rechtenvrij zijn. De ingevoerde foto’s kunnen door publiq vzw gebruikt worden voor publicatie op de website of in promotie- en perscampagnes. publiq vzw behoudt zich het recht om op de verzamelde afbeeldingen een fotoredactie uit te voeren. De foto's worden ook opgenomen in het fotoarchief van publiq vzw en kunnen gebruikt worden in de communicatiekanalen van publiq vzw zoals de website, nieuwsbrieven, perscommunicatie,…
 
 
 __Welke soorten werk zijn onderworpen aan het auteursrecht?__
