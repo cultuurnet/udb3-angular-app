@@ -76,7 +76,6 @@ function menuBarController(
    * @param {ManagementListItem[]} listItems
    */
   function showManagementListItems(listItems) {
-    console.log(listItems);
     controller.managementListItems = listItems;
   }
 
