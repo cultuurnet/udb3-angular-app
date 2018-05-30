@@ -162,6 +162,7 @@ function udbAppConfig(
     }
   };
 
+
   $stateProvider
     .state('main', {
       url: '/',
@@ -259,6 +260,14 @@ function udbAppConfig(
       templateUrl: 'templates/event-form.html',
       meta: {
         'titleSuffix': ' | Evenement bewerken'
+      }
+    })
+    .state('split.eventTranslate', {
+      url: '/event/:id/translate',
+      controller: 'offerTranslatorUIController',
+      templateUrl: 'templates/event-translate.html',
+      meta: {
+        'titleSuffix': ' | Evenement vertalen'
       }
     })
     .state('split.placeEdit', {
