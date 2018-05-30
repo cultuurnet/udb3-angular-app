@@ -18,7 +18,8 @@ function menuBarController(
   jobLogger,
   appConfig,
   managementListItems,
-  gaExportManager
+  gaExportManager,
+  $translate
 ) {
   var controller = this; // jshint ignore:line
 
@@ -88,6 +89,10 @@ function menuBarController(
     // call the userListener callback to remove the watcher once the user is loaded
     userListener();
   }, true);
+
+  controller.translateMenu = function(listItem) {
+    return $translate.instant('menu.' + listItem);
+  };
 }
 menuBarController.$inject = [
   'uitidAuth',
@@ -95,5 +100,6 @@ menuBarController.$inject = [
   'jobLogger',
   'appConfig',
   'managementListItems',
-  'gaExportManager'
+  'gaExportManager',
+  '$translate'
 ];
