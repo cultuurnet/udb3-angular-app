@@ -262,14 +262,6 @@ function udbAppConfig(
         'titleSuffix': ' | Evenement bewerken'
       }
     })
-    .state('split.eventTranslate', {
-      url: '/event/:id/translate',
-      controller: 'offerTranslatorUIController',
-      templateUrl: 'templates/event-translate.html',
-      meta: {
-        'titleSuffix': ' | Evenement vertalen'
-      }
-    })
     .state('split.placeEdit', {
       url: '/place/:id/edit',
       controller: 'offerEditorUIController',
