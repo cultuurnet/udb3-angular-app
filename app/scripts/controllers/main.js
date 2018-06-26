@@ -22,6 +22,11 @@ function MainController($scope, uitidAuth, $translate) {
   $scope.register = function () {
     uitidAuth.register();
   };
+  
+  $scope.changeLanguage = function(language) {
+    $scope.language = language;
+    $translate.use($scope.language);
+  }
 
   $scope.$watch(function () {
     return uitidAuth.getUser();

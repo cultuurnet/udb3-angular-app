@@ -17,7 +17,7 @@
       Zoeken</a>
     </p>
     <p class="text-muted text-center">
-      Eerste keer? Maak een <a ng-hide="user" ng-href="#" ng-click="register()">nieuwe account</a> aan
+      <span translate="main.register_prefix"></span> <a ng-hide="user" ng-href="#" ng-click="register()" translate="main.account"></a> <span translate="main.register_suffix"></span>
     </p>
   </div>
 </div>
@@ -28,39 +28,28 @@
       <div class="col-sm-4">
         <blockquote class="quoted-number">
           <p class="accent">215.000</p>
-          <h2>activiteiten per jaar</h2>
+          <h2 translate="main.activities"></h2>
         </blockquote>
-        <p class="info">
-          Een uitstap, sportactiviteit, kaartavond, kermis of cursus? Een concert, tentoonstelling of film?
-          UiTdatabank staat open voor de meest uiteenlopende vrijetijdsactiviteiten.
-        </p>
+        <p class="info" translate="main.activities_info"></p>
       </div>
       <div class="col-sm-4">
         <blockquote class="quoted-number">
           <p class="accent">500</p>
-          <h2>verschillende kanalen</h2>
+          <h2 translate="main.channels"></h2>
         </blockquote>
-        <p class="info">
-          UiTdatabank levert informatie aan meer dan <a href="http://www.cultuurnet.be/nl/publicatiekanalen">500 agenda's</a>,
-          waaronder UiTinvlaanderen, websites van steden en gemeenten, thema-agenda’s, gedrukte bladen en mobiele apps.
-          Ook jouw activiteit kan verschijnen op vele agenda's.
-        </p>
+        <p class="info" translate="main.channels_info"></p>
       </div>
       <div class="col-sm-4">
         <blockquote class="quoted-number">
           <p class="accent">28.000</p>
-          <h2>organisatoren</h2>
+          <h2 translate="main.organizers"></h2>
         </blockquote>
-        <p class="info">
-          Jaarlijks promoten 25.000 organisatoren hun activiteiten via UiTdatabank.
-          In totaal bereiken ze daarmee jaarlijks meer dan 3 miljoen mensen.
-          Voeg net als andere organisatoren je activiteit snel en eenvoudig toe.
-        </p>
+        <p class="info" translate="main.organizers_info"></p>
       </div>
     </div>
     <div class="row">
       <div class="col-sm-12">
-        <p class="text-center lead mission">Zo geef je meer mensen meer goesting in jouw activiteit.</p>
+        <p class="text-center lead mission" translate="main.mission"></p>
       </div>
     </div>
   </div>
@@ -71,16 +60,19 @@
     <div class="row">
       <div class="col-sm-6">
         <ul class="footer-links">
-          <li><a href="mailto:vragen@uitdatabank.be" class="footer-link">Contacteer ons</a></li>
-          <li><a href="http://www.publiq.be/nl/project/uitdatabank" class="footer-link">Over UiTdatabank</a></li>
-          <li><a href="http://documentatie.uitdatabank.be" class="footer-link">Voor ontwikkelaars</a></li>
-          <li><a href="http://www.publiq.be/nl/gebruikersovereenkomst-uitdatabank" class="footer-link">Gebruiksvoorwaarden</a> | <a href="http://www.publiq.be/nl/privacy-uitdatabank" class="footer-link">Privacy</a></li>
+          <li><a href="mailto:vragen@uitdatabank.be" class="footer-link" translate="footer.contact"></a></li>
+          <li><a href="http://www.publiq.be/nl/project/uitdatabank" class="footer-link" translate="footer.about">Over UiTdatabank</a></li>
+          <li><a href="http://documentatie.uitdatabank.be" class="footer-link" translate="footer.dev">Voor ontwikkelaars</a></li>
+          <li><a href="http://www.publiq.be/nl/gebruikersovereenkomst-uitdatabank" class="footer-link" translate="footer.legal">Gebruiksvoorwaarden</a> | <a href="http://www.publiq.be/nl/privacy-uitdatabank" class="footer-link" translate="footer.privacy">Privacy</a></li>
         </ul>
       </div>
 
       <div class="col-sm-6">
-        <p class="footer-by">Een product van <a href="http://www.publiq.be" class="footer-link">publiq vzw</a></p>
+        <p class="footer-by"><span translate="footer.by">Een product van</span> <a href="http://www.publiq.be" class="footer-link">publiq vzw</a></p>
         <img src="images/vlaanderen-logo.png" class="logo-flanders-full">
+        <p class="language-switcher">
+          <a ng-click="changeLanguage('nl')">Nederlands</a> <a ng-click="changeLanguage('fr')">Français</a>
+        </p>
       </div>
     </div>
   </div>
