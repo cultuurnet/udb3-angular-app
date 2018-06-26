@@ -10,7 +10,7 @@
     "angular-cookies": "~1.5.5",
     "angular-sanitize": "~1.5.5",
     "angular-touch": "~1.5.5",
-    "udb3-angular": "cultuurnet/udb3-angular#master",
+    "udb3-angular": "cultuurnet/udb3-angular#92d8ec9e69982d433ef99edb33049cd2afc3f9f5",
     "angular-markdown-directive": "^0.3.1",
     "angular-ui-router": "^0.3.1",
     "es6-shim": "^0.35.1",
