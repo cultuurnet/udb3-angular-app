@@ -30,7 +30,8 @@ angular
     'btford.socket-io',
     'btford.markdown',
     'pascalprecht.translate',
-    'ngMeta'
+    'ngMeta',
+    'tmh.dynamicLocale'
   ])
   .config(udbAppConfig)
   /* @ngInject */
@@ -64,6 +65,11 @@ angular
       $rootScope
         .$on('$stateChangeStart', migrationRedirect.migrateEventBeforeState);
 
+      /*$rootScope.$on('$localeChangeSuccess', function (id, local) {
+        console.log(id);
+        console.log(local);
+      });*/
+
        // track pageview on state change
       $rootScope.$on('$stateChangeSuccess', function (event) {
         if ($window.tm) {
@@ -96,7 +102,8 @@ function udbAppConfig(
   udbAppDutchTranslations,
   udbFrenchTranslations,
   udbAppFrenchTranslations,
-  $provide
+  $provide,
+  tmhDynamicLocaleProvider
 ) {
   UitpasLabelsProvider.useLabels(ExternalUitpasLabels);
 
@@ -126,6 +133,9 @@ function udbAppConfig(
       }]
     }
   };
+
+  tmhDynamicLocaleProvider.localeLocationPattern('/bower_components/angular-i18n/angular-locale_{{locale}}.js');
+  tmhDynamicLocaleProvider.defaultLocale('nl-be');
 
   $translateProvider
     .translations('nl', dutchTranslationsCollection)
@@ -565,4 +575,5 @@ udbAppConfig.$inject = [
   'udbFrenchTranslations',
   'udbAppFrenchTranslations',
   '$provide',
+  'tmhDynamicLocaleProvider'
 ];
