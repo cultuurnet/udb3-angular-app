@@ -162,6 +162,7 @@ function udbAppConfig(
     }
   };
 
+
   $stateProvider
     .state('main', {
       url: '/',
@@ -267,6 +268,22 @@ function udbAppConfig(
       templateUrl: 'templates/event-form.html',
       meta: {
         'titleSuffix': ' | Plaats bewerken'
+      }
+    })
+    .state('split.eventTranslate', {
+      url: '/event/:id/translate',
+      controller: 'offerTranslatorUIController',
+      templateUrl: 'templates/offer-translate.html',
+      meta: {
+        'titleSuffix': ' | Evenement vertalen'
+      }
+    })
+    .state('split.placeTranslate', {
+      url: '/place/:id/translate',
+      controller: 'offerTranslatorUIController',
+      templateUrl: 'templates/offer-translate.html',
+      meta: {
+        'titleSuffix': ' | Plaats vertalen'
       }
     })
     .state('useragreement', {
