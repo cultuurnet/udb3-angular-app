@@ -46,5 +46,7 @@
     "url": "http://localhost/mail-microservice/web",
     "list": "1766017"
   },
-  "publicationRulesLink": ""
+  "publicationRulesLink": "",
+  "exportLogoUrl": "https://udb3-export-logo.s3.amazonaws.com/",
+  "restrictedExportBrands": []
 }
