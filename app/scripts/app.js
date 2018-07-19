@@ -44,6 +44,7 @@ angular
     'uitidAuth',
     'ngMeta',
     'migrationRedirect',
+    'tmhDynamicLocale',
     function (
       udbApi,
       amMoment,
@@ -52,7 +53,8 @@ angular
       $window,
       uitidAuth,
       ngMeta,
-      migrationRedirect
+      migrationRedirect,
+      tmhDynamicLocale
     ) {
       amMoment.changeLocale('nl');
 
@@ -62,13 +64,12 @@ angular
         $location.path('/search');
       });
 
+      $rootScope.$on('$changeLocales', function (event, language) {
+        tmhDynamicLocale.set(language);
+      });
+
       $rootScope
         .$on('$stateChangeStart', migrationRedirect.migrateEventBeforeState);
-
-      /*$rootScope.$on('$localeChangeSuccess', function (id, local) {
-        console.log(id);
-        console.log(local);
-      });*/
 
        // track pageview on state change
       $rootScope.$on('$stateChangeSuccess', function (event) {
@@ -102,7 +103,6 @@ function udbAppConfig(
   udbAppDutchTranslations,
   udbFrenchTranslations,
   udbAppFrenchTranslations,
-  $provide,
   tmhDynamicLocaleProvider
 ) {
   UitpasLabelsProvider.useLabels(ExternalUitpasLabels);
@@ -134,8 +134,9 @@ function udbAppConfig(
     }
   };
 
-  tmhDynamicLocaleProvider.localeLocationPattern('/bower_components/angular-i18n/angular-locale_{{locale}}.js');
-  tmhDynamicLocaleProvider.defaultLocale('nl-be');
+  tmhDynamicLocaleProvider
+    .localeLocationPattern('/bower_components/angular-i18n/angular-locale_{{locale}}.js')
+    .defaultLocale('nl-be');
 
   $translateProvider
     .translations('nl', dutchTranslationsCollection)
@@ -591,6 +592,6 @@ udbAppConfig.$inject = [
   'udbAppDutchTranslations',
   'udbFrenchTranslations',
   'udbAppFrenchTranslations',
-  '$provide',
   'tmhDynamicLocaleProvider'
+  //'$provide',
 ];
