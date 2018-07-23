@@ -12,7 +12,7 @@ angular
   .controller('MainCtrl', MainController);
 
 /* @ngInject */
-function MainController($scope, uitidAuth, $translate) {
+function MainController($scope, $rootScope, uitidAuth, $translate) {
   $scope.language = $translate.use();
 
   $scope.login = function () {
@@ -22,11 +22,11 @@ function MainController($scope, uitidAuth, $translate) {
   $scope.register = function () {
     uitidAuth.register();
   };
-  
+
   $scope.changeLanguage = function(language) {
     $scope.language = language;
     $translate.use($scope.language);
-  }
+  };
 
   $scope.$watch(function () {
     return uitidAuth.getUser();
@@ -34,4 +34,4 @@ function MainController($scope, uitidAuth, $translate) {
     $scope.user = user;
   }, true);
 }
-MainController.$inject = ['$scope', 'uitidAuth', '$translate'];
+MainController.$inject = ['$scope', '$rootScope', 'uitidAuth', '$translate'];

@@ -12,11 +12,13 @@ angular
   .controller('footerController', footerController);
 
 /* @ngInject */
-function footerController(ZendeskWidget) {
+function footerController(ZendeskWidget, $translate) {
   var footer = this; // jshint ignore:line
 
   footer.activateZendeskWidget = function () {
     ZendeskWidget.activate({hideOnClose:true});
   };
+
+  footer.language = $translate.use();
 }
-footerController.$inject = ['ZendeskWidget'];
+footerController.$inject = ['ZendeskWidget', '$translate'];
