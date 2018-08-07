@@ -2,7 +2,6 @@
   "name": "udb3-angular-app",
   "version": "0.0.0",
   "dependencies": {
-    "jsonminify": "^0.2.3",
     "@bower_components/accounting": "josscrowcroft/accounting.js#~0.3.2",
     "@bower_components/angular": "angular/bower-angular#1.5.11",
     "@bower_components/angular-bootstrap": "angular-ui/bootstrap-bower#~1.3.2",
@@ -49,7 +48,8 @@
     "@bower_components/rxjs": "Reactive-Extensions/RxJS#*",
     "@bower_components/showdown": "showdownjs/showdown#~0.3.1",
     "@bower_components/socket.io-client": "LearnBoost/socket.io-client#~1.2.0",
-    "@bower_components/udb3-angular": "cultuurnet/udb3-angular#feature/III-2709"
+    "@bower_components/udb3-angular": "cultuurnet/udb3-angular#feature/III-2709",
+    "jsonminify": "^0.2.3"
   },
   "devDependencies": {
     "connect-modrewrite": "^0.7.9",
