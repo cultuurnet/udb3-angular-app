@@ -1,12 +1,10 @@
 language: node_js
 node_js:
-  - "4"
-  - "4.5"
   - "6"
+  - "8"
 before_install:
   - npm install -g npm@2
-  - npm install -g grunt-cli bower
+  - npm install -g grunt-cli yarn
 install:
-  - npm install
-  - bower install
+  - yarn install
 script: grunt build
