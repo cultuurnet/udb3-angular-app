@@ -31,6 +31,11 @@
     "angular-translate": "~2.18.1"
   },
   "overrides": {
+    "angular-i18n":{
+     "main":[
+       "angular-locale_nl-be.js"
+     ]
+    },
     "codemirror": {
       "main": [
         "lib/codemirror.js",
