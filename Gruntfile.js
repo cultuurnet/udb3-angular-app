@@ -200,16 +200,16 @@ module.exports = function (grunt) {
         exclude: [
           'bower_components/bootstrap/dist/css/bootstrap.css',
           'bower_components/components-font-awesome/css/font-awesome.css',
-          'bower_components/udb3-angular/dist/udb3-angular.css'
+          'bower_components/udb3-angular/dist/udb3-angular.css',
+          // We implement angular-i18n manually with the copy task.
+          // In that case angular can switch dynamically it's translation files on the basis of the user's language.
+          'bower_components/angular-i18n'
         ],
         ignorePath:  /\.\.\//,
         options: {
           'overrides': {
             'socket.io-client': {
               'main': 'socket.io.js'
-            },
-            'angular-i18n': {
-              'main': 'angular-locale_nl-be.js'
             },
             'moment': {
               'main': [
@@ -402,6 +402,14 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>/css',
           dest: '.tmp/css/',
           src: '{,*/}*.css'
+        }, {
+          expand: true,
+          cwd: 'bower_components/angular-i18n',
+          dest: '<%= yeoman.dist %>/languages',
+          src: [
+            'angular-locale_nl-be.js',
+            'angular-locale_fr-be.js'
+          ]
         }]
       },
       styles: {

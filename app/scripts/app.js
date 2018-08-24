@@ -65,7 +65,7 @@ angular
       });
 
       $rootScope.$on('$changeLocales', function (event, language) {
-        tmhDynamicLocale.set(language);
+        tmhDynamicLocale.set(language + '-be');
       });
 
       $rootScope
@@ -135,7 +135,7 @@ function udbAppConfig(
   };
 
   tmhDynamicLocaleProvider
-    .localeLocationPattern('/bower_components/angular-i18n/angular-locale_{{locale}}.js')
+    .localeLocationPattern('/languages/angular-locale_{{locale}}.js')
     .defaultLocale('nl-be');
 
   $translateProvider
