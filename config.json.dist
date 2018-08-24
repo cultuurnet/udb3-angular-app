@@ -48,5 +48,11 @@
   },
   "publicationRulesLink": "",
   "exportLogoUrl": "https://udb3-export-logo.s3.amazonaws.com/",
+  "exportBrands": [
+      {"name": "vlieg", "label": "Vlieg", "logo": "vlieg.svg"},
+      {"name": "uit", "label": "UiT", "logo": "uit.svg"},
+      {"name": "uitpas", "label": "UiTPAS", "logo": "uitpas.svg"},
+      {"name": "paspartoe", "label": "Paspartoe", "logo": "paspartoe.svg"}
+  ],
   "restrictedExportBrands": []
 }
