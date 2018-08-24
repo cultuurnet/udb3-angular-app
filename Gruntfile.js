@@ -208,9 +208,9 @@ module.exports = function (grunt) {
             'socket.io-client': {
               'main': 'socket.io.js'
             },
-            'angular-i18n': {
+            /*'angular-i18n': {
               'main': 'angular-locale_nl-be.js'
-            },
+            },*/
             'moment': {
               'main': [
                 'moment.js',
