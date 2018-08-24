@@ -402,6 +402,14 @@ module.exports = function (grunt) {
           cwd: '<%= yeoman.app %>/css',
           dest: '.tmp/css/',
           src: '{,*/}*.css'
+        }, {
+          expand: true,
+          cwd: 'bower_components/angular-i18n',
+          dest: '<%= yeoman.dist %>/languages',
+          src: [
+            'angular-locale_nl-be.js',
+            'angular-locale_fr-be.js'
+          ]
         }]
       },
       styles: {
