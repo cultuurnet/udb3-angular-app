@@ -54,5 +54,9 @@
       {"name": "uitpas", "label": "UiTPAS", "logo": "uitpas.svg"},
       {"name": "paspartoe", "label": "Paspartoe", "logo": "paspartoe.svg"}
   ],
-  "restrictedExportBrands": []
+  "restrictedExportBrands": [],
+  "publicationUrl": {
+    "event": "https://www.uitinvlaanderen.be/agenda/e//",
+    "place": "https://www.uitinvlaanderen.be/agenda/p//"
+  }
 }
