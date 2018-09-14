@@ -40,7 +40,8 @@
     "ignoreDuplicates": true,
     "disablePriceInfo": false,
     // The defaultPublicationDate option accords to the availableFrom in the json-ld.
-    "defaultPublicationDate": ""
+    "defaultPublicationDate": "",
+    "defaultOrganizerLabel": ""
   },
   "newsLetterManager": {
     "url": "http://localhost/mail-microservice/web",
