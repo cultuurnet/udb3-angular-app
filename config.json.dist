@@ -62,6 +62,7 @@
   "restrictedExportBrands": [],
   "publicationUrl": {
     "event": "https://www.uitinvlaanderen.be/agenda/e//",
-    "place": "https://www.uitinvlaanderen.be/agenda/p//"
+    "place": "https://www.uitinvlaanderen.be/agenda/p//",
+    "brand": "UiT in Vlaanderen"
   }
 }
