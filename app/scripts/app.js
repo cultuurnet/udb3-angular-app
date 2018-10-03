@@ -1,45 +1,6 @@
 'use strict';
 
-/*require('@bower_components/jquery');
-require('@bower_components/angular');
-require('@bower_components/bootstrap');
-require('@bower_components/angular-resource');
-require('@bower_components/angular-cookies');
-require('@bower_components/angular-sanitize');
-require('@bower_components/angular-touch');
-require('@bower_components/angular-messages');
-require('@bower_components/angular-translate');
-require('@bower_components/angular-ui-select');
-require('@bower_components/angular-bootstrap');
-require('@bower_components/angular-socket-io');
-require('@bower_components/lodash');
-require('@bower_components/socket.io-client');
-require('@bower_components/moment');
-require('@bower_components/accounting');
-require('@bower_components/bootstrap-multiselect');
-require('@bower_components/ng-file-upload');
-require('@bower_components/codemirror');
-require('@bower_components/angular-ui-codemirror');
-require('@bower_components/angular-moment');
-require('@bower_components/angular-xeditable');
-require('@bower_components/levenshtein');
-require('@bower_components/rxjs');
-require('@bower_components/rx-angular');
-require('@bower_components/angular-ui-router');
-require('@bower_components/ng-focus-if');
-require('@bower_components/angular-scroll');
-require('@bower_components/ng-tags-input');
-require('@bower_components/angular-filter');
-require('@bower_components/udb3-angular');
-require('@bower_components/showdown');
-require('@bower_components/angular-markdown-directive');
-require('@bower_components/es6-shim');
-require('@bower_components/angular-zendesk-widget');
-require('@bower_components/ngMeta');
-require('@bower_components/angular-deferred-bootstrap');
-require('@bower_components/angular-translate-once');
-require('@bower_components/angular-translate-storage-cookie');
-require('@bower_components/angular-dynamic-locale');*/
+require('angular');
 
 /**
  * @ngdoc overview

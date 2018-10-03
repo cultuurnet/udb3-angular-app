@@ -56,7 +56,8 @@ module.exports = function (grunt) {
         tasks: ['less', 'newer:copy:styles', 'autoprefixer']
       },
       gruntfile: {
-        files: ['Gruntfile.js']
+        files: ['Gruntfile.js'],
+        tasks: ['browserify']
       },
       livereload: {
         options: {
@@ -91,7 +92,7 @@ module.exports = function (grunt) {
               connect.static('.tmp'),
               connect().use(
                 '/bower_components',
-                connect.static('./bower_components')
+                connect.static('./node_modules')
               ),
               connect.static(appConfig.app)
             ];
@@ -106,8 +107,8 @@ module.exports = function (grunt) {
               connect.static('.tmp'),
               connect.static('test'),
               connect().use(
-                '/bower_components',
-                connect.static('./bower_components')
+                '/node_modules',
+                connect.static('./node_modules')
               ),
               connect.static(appConfig.app)
             ];
@@ -162,9 +163,9 @@ module.exports = function (grunt) {
       app: {
         options: {
           paths: [
-            'bower_components/bootstrap/less',
-            'bower_components/components-font-awesome/less',
-            'bower_components/udb3-angular/src/styles'
+            'node_modules/bootstrap/less',
+            'node_modules/components-font-awesome/less',
+            'node_modules/udb3-angular/src/styles'
           ],
           strictMath: true,
           sourceMap: true,
@@ -227,6 +228,30 @@ module.exports = function (grunt) {
           }
         }
       }
+    },
+
+    browserify: {
+      vendor: {
+        src: [],
+        dest: 'app/scripts/vendor.js',
+        options: {
+          require: [
+            'angular', 'json3', 'es5-shim', 'bootstrap', 'angular-resource',
+            'angular-cookies', 'angular-sanitize', 'angular-touch',
+            'angular-markdown-directive', '@uirouter/angularjs', 'es5-shim', 'angular-zendesk-widget',
+            'ng-meta', 'angular-deferred-bootstrap', 'angular-translate-once',
+            'angular-translate-storage-cookie', 'angular-dynamic-locale',
+            'udb3-angular'
+          ],
+        }
+      },
+//      client: {
+//        src: ['client/**/*.js'],
+//        dest: 'public/app.js',
+//        options: {
+//          external: ['jquery', 'momentWrapper'],
+//        }
+//      }
     },
 
     // Renames files for browser caching purposes
@@ -379,22 +404,22 @@ module.exports = function (grunt) {
           src: ['generated/*']
         }, {
           expand: true,
-          cwd: 'bower_components/udb3-angular/images/icons',
+          cwd: 'node_modules/udb3-angular/images/icons',
           dest: '<%= yeoman.dist %>/images/icons',
           src: ['*']
         }, {
           expand: true,
-          cwd: 'bower_components/udb3-angular/images/form-calendar',
+          cwd: 'node_modules/udb3-angular/images/form-calendar',
           dest: '<%= yeoman.dist %>/images/form-calendar',
           src: ['*']
         }, {
           expand: true,
-          cwd: 'bower_components/bootstrap/dist',
+          cwd: 'node_modules/bootstrap/dist',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>'
         }, {
           expand: true,
-          cwd: 'bower_components/components-font-awesome',
+          cwd: 'node_modules/components-font-awesome',
           src: 'fonts/*',
           dest: '<%= yeoman.dist %>'
         },{
@@ -412,7 +437,7 @@ module.exports = function (grunt) {
       },
       fonts: {
         expand: true,
-        cwd: 'bower_components/components-font-awesome/fonts',
+        cwd: 'node_modules/components-font-awesome/fonts',
         dest: '<%= yeoman.app %>/fonts',
         src: '*'
       }
@@ -475,6 +500,7 @@ module.exports = function (grunt) {
 
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-ng-constant');
+  grunt.loadNpmTasks('grunt-browserify');
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
@@ -483,7 +509,8 @@ module.exports = function (grunt) {
 
     grunt.task.run([
       'clean:server',
-      'wiredep',
+      //'wiredep',
+      'browserify',
       'concurrent:server',
       'ngconstant:dev',
       'less',
@@ -510,7 +537,8 @@ module.exports = function (grunt) {
 
   grunt.registerTask('build', [
     'clean:dist',
-    'wiredep',
+    //'wiredep',
+    'browserify',
     'useminPrepare',
     'concurrent:dist',
     'ngconstant:dist',
@@ -519,7 +547,7 @@ module.exports = function (grunt) {
     'concat',
     'ngAnnotate:src',
     'copy:dist',
-    'cdnify',
+    //'cdnify',
     'cssmin',
     'uglify',
     'filerev',
