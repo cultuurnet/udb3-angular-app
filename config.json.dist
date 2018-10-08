@@ -41,7 +41,11 @@
     "disablePriceInfo": false,
     // The defaultPublicationDate option accords to the availableFrom in the json-ld.
     "defaultPublicationDate": "",
-    "defaultOrganizerLabel": ""
+    "defaultOrganizerLabel": "",
+    "countries": [
+      {"code": "BE", "default": true},
+      {"code": "NL", "default": false}
+    ]
   },
   "newsLetterManager": {
     "url": "http://localhost/mail-microservice/web",
@@ -58,7 +62,9 @@
   "restrictedExportBrands": [],
   "publicationUrl": {
     "event": "https://www.uitinvlaanderen.be/agenda/e//",
-    "place": "https://www.uitinvlaanderen.be/agenda/p//"
+    "place": "https://www.uitinvlaanderen.be/agenda/p//",
+    "brand": "UiT in Vlaanderen"
   },
-  "enableMyOrganizers": true
+  "enableMyOrganizers": true,
+  "translatableLanguages": ["nl", "fr", "en", "de"]
 }
