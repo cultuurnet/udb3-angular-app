@@ -297,6 +297,31 @@ function udbAppConfig(
         'titleSuffix': ' | Plaats vertalen'
       }
     })
+    // Organisations
+    .state('split.organizer', {
+      template: '<div ui-view></div>',
+      meta: {
+        'titleSuffix': ' | Organisaties'
+      }
+    })
+    .state('split.organizer.detail', {
+      url: '/organizer/:id',
+      templateUrl: 'templates/organizer-detail.html',
+      controller: 'OrganizerDetailController',
+      controllerAs: 'odc',
+      meta: {
+        'titleSuffix': ' | Organisatie detail'
+      }
+    })
+    .state('split.organizer.edit', {
+      url: '/organizer/:id/edit',
+      templateUrl: 'templates/organizer-edit.html',
+      controller: 'OrganizerEditController',
+      controllerAs: 'oec',
+      meta: {
+        'titleSuffix': ' | Organisatie edit'
+      }
+    })
     .state('useragreement', {
       url: '/user-agreement',
       template: '<div btf-markdown ng-include="\'docs/user-agreement.md\'"></div>',
