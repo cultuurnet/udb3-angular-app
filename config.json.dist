@@ -64,5 +64,6 @@
     "event": "https://www.uitinvlaanderen.be/agenda/e//",
     "place": "https://www.uitinvlaanderen.be/agenda/p//",
     "brand": "UiT in Vlaanderen"
-  }
+  },
+  "translatableLanguages": ["nl", "fr", "en", "de"]
 }
