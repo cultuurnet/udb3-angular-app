@@ -4,6 +4,7 @@
 var modRewrite = require('connect-modrewrite');
 var xml2js = require('xml2js');
 var jsonminify = require('jsonminify');
+const webpackConfig = require('./webpack.config');
 
 // # Globbing
 // for performance reasons we're only matching one level down:
@@ -91,7 +92,7 @@ module.exports = function (grunt) {
               modRewrite(['!\\.html|\\.js|\\.svg|\\.css|\\.png|\\.eot|\\.woff|\\.ttf|\\.swf|\\.otf|\\.md$ /index.html [L]']),
               connect.static('.tmp'),
               connect().use(
-                '/bower_components',
+                '/node_modules',
                 connect.static('./node_modules')
               ),
               connect.static(appConfig.app)
@@ -236,9 +237,9 @@ module.exports = function (grunt) {
         dest: 'app/scripts/vendor.js',
         options: {
           require: [
-            'angular', 'json3', 'es5-shim', 'bootstrap', 'angular-resource',
+            'es5-shim', 'angular', 'json3', 'bootstrap', 'angular-resource',
             'angular-cookies', 'angular-sanitize', 'angular-touch',
-            'angular-markdown-directive', '@uirouter/angularjs', 'es5-shim', 'angular-zendesk-widget',
+            'angular-markdown-directive', '@uirouter/angularjs', 'angular-zendesk-widget',
             'ng-meta', 'angular-deferred-bootstrap', 'angular-translate-once',
             'angular-translate-storage-cookie', 'angular-dynamic-locale',
             'udb3-angular'
@@ -252,6 +253,24 @@ module.exports = function (grunt) {
 //          external: ['jquery', 'momentWrapper'],
 //        }
 //      }
+    },
+
+    webpack: {
+      prod: webpackConfig,
+      dev: Object.assign({ watch: true }, webpackConfig)
+    },
+
+    'webpack-dev-server': {
+      options: {
+        contentBase: 'app',
+        port: 9999,
+        keepAlive: true
+      },
+      frontend: {
+        webpack: {
+          devtool: 'cheap-eval-sourcemap'
+        }
+      }
     },
 
     // Renames files for browser caching purposes
@@ -501,6 +520,7 @@ module.exports = function (grunt) {
   grunt.loadNpmTasks('grunt-contrib-less');
   grunt.loadNpmTasks('grunt-ng-constant');
   grunt.loadNpmTasks('grunt-browserify');
+  grunt.loadNpmTasks('grunt-webpack');
 
   grunt.registerTask('serve', 'Compile then start a connect web server', function (target) {
     if (target === 'dist') {
@@ -510,12 +530,13 @@ module.exports = function (grunt) {
     grunt.task.run([
       'clean:server',
       //'wiredep',
-      'browserify',
+      //'browserify',
       'concurrent:server',
       'ngconstant:dev',
       'less',
       'autoprefixer',
-      'connect:livereload',
+      //'connect:livereload',
+      'webpack:dev',
       'watch'
     ]);
   });
@@ -538,7 +559,8 @@ module.exports = function (grunt) {
   grunt.registerTask('build', [
     'clean:dist',
     //'wiredep',
-    'browserify',
+    //'browserify',
+    'webpack:prod',
     'useminPrepare',
     'concurrent:dist',
     'ngconstant:dist',

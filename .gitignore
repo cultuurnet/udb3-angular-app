@@ -6,6 +6,7 @@ bower_components
 app/css/
 app/scripts/parsers/
 app/scripts/config.js
+app/scripts/*.bundle.js
 app/fonts/FontAwesome.otf
 app/fonts/fontawesome-webfont*
 npm-debug.log

@@ -1,7 +1,5 @@
 'use strict';
 
-require('angular');
-
 /**
  * @ngdoc overview
  * @name udbApp
@@ -58,23 +56,23 @@ angular
       migrationRedirect,
       tmhDynamicLocale
     ) {
-      amMoment.changeLocale('nl');
+      amMoment.changeLocale('./nl');
 
       ngMeta.init();
 
-      $rootScope.$on('searchSubmitted', function () {
-        $location.path('/search');
+      $rootScope.$on('./searchSubmitted', function () {
+        $location.path('.//search');
       });
 
-      $rootScope.$on('$changeLocales', function (event, language) {
+      $rootScope.$on('./$changeLocales', function (event, language) {
         tmhDynamicLocale.set(language);
       });
 
       $rootScope
-        .$on('$stateChangeStart', migrationRedirect.migrateEventBeforeState);
+        .$on('./$stateChangeStart', migrationRedirect.migrateEventBeforeState);
 
        // track pageview on state change
-      $rootScope.$on('$stateChangeSuccess', function (event) {
+      $rootScope.$on('./$stateChangeSuccess', function (event) {
         if ($window.tm) {
           $window.tm.push({
             'event': 'VirtualPageview',
@@ -84,7 +82,7 @@ angular
         }
       });
 
-  }]);
+  }])
 
   angular.module('udbApp.translate', []);
 
@@ -111,7 +109,7 @@ function udbAppConfig(
 
   $locationProvider.html5Mode(true);
 
-  $httpProvider.interceptors.push('udbHttpInterceptor');
+  $httpProvider.interceptors.push('./udbHttpInterceptor');
 
   $sceDelegateProvider.resourceUrlWhitelist([
     'self',
@@ -137,15 +135,15 @@ function udbAppConfig(
   };
 
   tmhDynamicLocaleProvider
-    .localeLocationPattern('/bower_components/angular-i18n/angular-locale_{{locale}}.js')
-    .defaultLocale('nl-be');
+    .localeLocationPattern('.//bower_components/angular-i18n/angular-locale_{{locale}}.js')
+    .defaultLocale('./nl-be');
 
   $translateProvider
-    .translations('nl', dutchTranslationsCollection)
-    .translations('fr', frenchTranslationsCollection)
-    .preferredLanguage('nl')
-    .fallbackLanguage('nl')
-    .storageKey('udb-language')
+    .translations('./nl', dutchTranslationsCollection)
+    .translations('./fr', frenchTranslationsCollection)
+    .preferredLanguage('./nl')
+    .fallbackLanguage('./nl')
+    .storageKey('./udb-language')
     .useCookieStorage();
   // end of translation configuration
 
@@ -153,10 +151,10 @@ function udbAppConfig(
 
   ngMetaProvider
     .useTitleSuffix(true)
-    .setDefaultTitle('UiTdatabank')
-    .setDefaultTitleSuffix(' | Voeg gratis je activiteiten toe')
-    .setDefaultTag('description', 'Organiseer je een activiteit? Voeg gratis je activiteiten toe en bereik een groter publiek')
-    .setDefaultTag('googleSiteVerification', _.get(appConfig, 'gaTagManager.googleSiteVerification'));
+    .setDefaultTitle('./UiTdatabank')
+    .setDefaultTitleSuffix('./ | Voeg gratis je activiteiten toe')
+    .setDefaultTag('./description', 'Organiseer je een activiteit? Voeg gratis je activiteiten toe en bereik een groter publiek')
+    .setDefaultTag('./googleSiteVerification', _.get(appConfig, 'gaTagManager.googleSiteVerification'));
 
   var placeDetail = {
     url: '/place/:id',
@@ -177,7 +175,7 @@ function udbAppConfig(
 
 
   $stateProvider
-    .state('main', {
+    .state('./main', {
       url: '/',
       templateUrl: 'views/main.html',
       controller: 'MainCtrl',
@@ -185,22 +183,22 @@ function udbAppConfig(
         /* @ngInject */
         redirectDash: ['authorizationService', function (authorizationService) {
           return authorizationService
-            .redirectIfLoggedIn('/dashboard');
+            .redirectIfLoggedIn('.//dashboard');
         }]
       }
     })
-    .state('split', angular.copy(splitView))
-    .state('split.footer', {
+    .state('./split', angular.copy(splitView))
+    .state('./split.footer', {
       templateUrl: 'views/footer-template.html'
     })
-    .state('split.footer.dashboard', {
+    .state('./split.footer.dashboard', {
       url: '/dashboard',
       template: '<udb-dashboard>',
       meta: {
         'titleSuffix': ' | Dashboard'
       }
     })
-    .state('split.footer.search', {
+    .state('./split.footer.search', {
       url: '/search',
       templateUrl: 'views/search.html',
       onEnter: ['searchHelper', '$location', '$timeout', function (searchHelper, $location, $timeout) {
@@ -220,46 +218,46 @@ function udbAppConfig(
       }
     })
 
-    .state('split.footer.place', placeDetail)
-    .state('split.footer.place-published', _.merge(_.clone(placeDetail), {
+    .state('./split.footer.place', placeDetail)
+    .state('./split.footer.place-published', _.merge(_.clone(placeDetail), {
       url: '/place/:id/published',
       meta: {
         titleSuffix: ' | Gepubliceerd'
       }
     }))
-    .state('split.footer.place-saved', _.merge(_.clone(placeDetail), {
+    .state('./split.footer.place-saved', _.merge(_.clone(placeDetail), {
       url: '/place/:id/saved',
       meta: {
         'titleSuffix': ' | Bewaard'
       }
     }))
-    .state('split.footer.place-preview', _.merge(_.clone(placeDetail), {
+    .state('./split.footer.place-preview', _.merge(_.clone(placeDetail), {
       url: '/place/:id/preview',
       meta: {
         'titleSuffix': ' | Voorbeeld'
       }
     }))
-    .state('split.footer.event', eventDetail)
-    .state('split.footer.event-published', _.merge(_.clone(eventDetail), {
+    .state('./split.footer.event', eventDetail)
+    .state('./split.footer.event-published', _.merge(_.clone(eventDetail), {
       url: '/event/:id/published',
       meta: {
         'titleSuffix': ' | Gepubliceerd'
       }
     }))
-    .state('split.footer.event-saved', _.merge(_.clone(eventDetail), {
+    .state('./split.footer.event-saved', _.merge(_.clone(eventDetail), {
       url: '/event/:id/saved',
       meta: {
         'titleSuffix': ' | Bewaard'
       }
     }))
-    .state('split.footer.event-preview', _.merge(_.clone(eventDetail), {
+    .state('./split.footer.event-preview', _.merge(_.clone(eventDetail), {
       url: '/event/:id/preview',
       meta: {
         'titleSuffix': ' | Voorbeeld'
       }
     }))
 
-    .state('split.offer', {
+    .state('./split.offer', {
       url: '/event',
       controller: 'offerEditorUIController',
       templateUrl: 'templates/event-form.html',
@@ -267,7 +265,7 @@ function udbAppConfig(
         'titleSuffix': ' | Toevoegen'
       }
     })
-    .state('split.eventEdit', {
+    .state('./split.eventEdit', {
       url: '/event/:id/edit',
       controller: 'offerEditorUIController',
       templateUrl: 'templates/event-form.html',
@@ -275,7 +273,7 @@ function udbAppConfig(
         'titleSuffix': ' | Evenement bewerken'
       }
     })
-    .state('split.placeEdit', {
+    .state('./split.placeEdit', {
       url: '/place/:id/edit',
       controller: 'offerEditorUIController',
       templateUrl: 'templates/event-form.html',
@@ -283,7 +281,7 @@ function udbAppConfig(
         'titleSuffix': ' | Plaats bewerken'
       }
     })
-    .state('split.eventTranslate', {
+    .state('./split.eventTranslate', {
       url: '/event/:id/translate',
       controller: 'offerTranslatorUIController',
       templateUrl: 'templates/offer-translate.html',
@@ -291,7 +289,7 @@ function udbAppConfig(
         'titleSuffix': ' | Evenement vertalen'
       }
     })
-    .state('split.placeTranslate', {
+    .state('./split.placeTranslate', {
       url: '/place/:id/translate',
       controller: 'offerTranslatorUIController',
       templateUrl: 'templates/offer-translate.html',
@@ -299,21 +297,21 @@ function udbAppConfig(
         'titleSuffix': ' | Plaats vertalen'
       }
     })
-    .state('useragreement', {
+    .state('./useragreement', {
       url: '/user-agreement',
       template: '<div btf-markdown ng-include="\'docs/user-agreement.md\'"></div>',
       meta: {
         'titleSuffix': ' | Gebruikersovereenkomst'
       }
     })
-    .state('copyright', {
+    .state('./copyright', {
       url: '/copyright',
       template: '<div btf-markdown ng-include="\'docs/copyright.md\'"></div>',
       meta: {
         'titleSuffix': ' | Auteursrecht'
       }
     })
-    .state('split.savedsearches', {
+    .state('./split.savedsearches', {
       url: '/saved-searches',
       templateUrl: 'templates/saved-searches-list.html',
       controller: 'SavedSearchesListController',
@@ -323,7 +321,7 @@ function udbAppConfig(
     })
     // Manage stuff
     // Labels
-    .state('split.manageLabels', {
+    .state('./split.manageLabels', {
       template: '<div ui-view></div>',
       resolve: {
         /* @ngInject */
@@ -331,12 +329,12 @@ function udbAppConfig(
           return authorizationService
             .hasPermission(authorization.manageLabels)
             .then(function (hasPermission) {
-              return hasPermission ? $q.resolve(true) : $state.go('split.footer.dashboard');
+              return hasPermission ? $q.resolve(true) : $state.go('./split.footer.dashboard');
             });
         }]
       }
     })
-    .state('split.manageLabels.list', {
+    .state('./split.manageLabels.list', {
       url: '/manage/labels/overview',
       controller: 'LabelsListController',
       controllerAs: 'llc',
@@ -345,7 +343,7 @@ function udbAppConfig(
         'titleSuffix': ' | Labels'
       }
     })
-    .state('split.manageLabels.create', {
+    .state('./split.manageLabels.create', {
       url: '/manage/labels/create',
       templateUrl: 'templates/label-creator.html',
       controller: 'LabelCreatorController',
@@ -354,7 +352,7 @@ function udbAppConfig(
         'titleSuffix': ' | Label toevoegen'
       }
     })
-    .state('split.manageLabels.edit', {
+    .state('./split.manageLabels.edit', {
       url: '/manage/labels/:id',
       templateUrl: 'templates/label-editor.html',
       controller: 'LabelEditorController',
@@ -364,7 +362,7 @@ function udbAppConfig(
       }
     })
     // Roles
-    .state('split.manageRoles', {
+    .state('./split.manageRoles', {
       template: '<div ui-view></div>',
       resolve: {
         /* @ngInject */
@@ -372,12 +370,12 @@ function udbAppConfig(
           return authorizationService
             .hasPermission(authorization.manageUsers)
             .then(function (hasPermission) {
-              return hasPermission ? $q.resolve(true) : $state.go('split.footer.dashboard');
+              return hasPermission ? $q.resolve(true) : $state.go('./split.footer.dashboard');
             });
         }]
       }
     })
-    .state('split.manageRoles.list', {
+    .state('./split.manageRoles.list', {
       url: '/manage/roles/overview',
       controller: 'RolesListController',
       controllerAs: 'rlc',
@@ -386,7 +384,7 @@ function udbAppConfig(
         'titleSuffix': ' | Rollen'
       }
     })
-    .state('split.manageRoles.create', {
+    .state('./split.manageRoles.create', {
       url: '/manage/roles/create',
       templateUrl: 'templates/role-form.html',
       controller: 'RoleFormController',
@@ -395,7 +393,7 @@ function udbAppConfig(
         'titleSuffix': ' | Rol toevoegen'
       }
     })
-    .state('split.manageRoles.edit', {
+    .state('./split.manageRoles.edit', {
       url: '/manage/roles/:id',
       templateUrl: 'templates/role-form.html',
       controller: 'RoleFormController',
@@ -406,8 +404,8 @@ function udbAppConfig(
     })
 
     // Users
-    .state('management', angular.copy(splitView))
-    .state('management.users', {
+    .state('./management', angular.copy(splitView))
+    .state('./management.users', {
       template: '<div ui-view></div>',
       resolve: {
         /* @ngInject */
@@ -415,12 +413,12 @@ function udbAppConfig(
           return authorizationService
             .hasPermission(authorization.manageUsers)
             .then(function (hasPermission) {
-              return hasPermission ? $q.resolve(true) : $state.go('split.footer.dashboard');
+              return hasPermission ? $q.resolve(true) : $state.go('./split.footer.dashboard');
             });
         }]
       }
     })
-    .state('management.users.list', {
+    .state('./management.users.list', {
       url: '/manage/users/overview',
       controller: 'UsersListController',
       controllerAs: 'ulc',
@@ -429,7 +427,7 @@ function udbAppConfig(
         'titleSuffix': ' | Gebruikers'
       }
     })
-    .state('management.users.edit', {
+    .state('./management.users.edit', {
       url: '/manage/users/:id',
       templateUrl: 'templates/user-editor.html',
       controller: 'UserEditorController',
@@ -440,7 +438,7 @@ function udbAppConfig(
     })
 
     // Organisations
-    .state('management.organizers', {
+    .state('./management.organizers', {
       template: '<div ui-view></div>',
       resolve: {
         /* @ngInject */
@@ -448,7 +446,7 @@ function udbAppConfig(
           return authorizationService
             .hasPermission(authorization.manageOrganisations)
             .then(function (hasPermission) {
-              return hasPermission ? $q.resolve(true) : $state.go('split.footer.dashboard');
+              return hasPermission ? $q.resolve(true) : $state.go('./split.footer.dashboard');
             });
         }]
       },
@@ -456,7 +454,7 @@ function udbAppConfig(
         'titleSuffix': ' | Organisaties'
       }
     })
-    .state('management.organizers.detail', {
+    .state('./management.organizers.detail', {
       url: '/manage/organisations/:id',
       templateUrl: 'templates/organizer-detail.html',
       controller: 'OrganizerDetailController',
@@ -465,7 +463,7 @@ function udbAppConfig(
         'titleSuffix': ' | Organisatie detail'
       }
     })
-    .state('management.organizers.edit', {
+    .state('./management.organizers.edit', {
       url: '/manage/organisations/:id/edit',
       templateUrl: 'templates/organizer-edit.html',
       controller: 'OrganizerEditController',
@@ -474,7 +472,7 @@ function udbAppConfig(
         'titleSuffix': ' | Organisatie edit'
       }
     })
-    .state('management.organizers.search', {
+    .state('./management.organizers.search', {
       url: '/manage/organizations',
       templateUrl: 'templates/organization-search.html',
       controller: 'OrganizationSearchController',
@@ -483,7 +481,7 @@ function udbAppConfig(
         'titleSuffix': ' | Organisaties'
       }
     })
-    .state('management.organizers.search.delete', {
+    .state('./management.organizers.search.delete', {
       params: {
         id: null
       },
@@ -504,14 +502,14 @@ function udbAppConfig(
           })
           .result
           .finally(function() {
-            $state.go('^');
+            $state.go('./^');
           });
       }],
       meta: {
         'titleSuffix': ' | Organisatie verwijderen'
       }
     })
-    .state('management.organizers.search.create', {
+    .state('./management.organizers.search.create', {
       onEnter: ['$state', '$uibModal', function($state, $uibModal) {
         $uibModal
           .open({
@@ -526,10 +524,10 @@ function udbAppConfig(
           .result
           .then(
             function(organization) {
-              $state.go('management.organizers.detail', {id: organization.id});
+              $state.go('./management.organizers.detail', {id: organization.id});
             },
             function () {
-              $state.go('^');
+              $state.go('./^');
             }
           );
       }],
@@ -539,10 +537,10 @@ function udbAppConfig(
     })
 
     // Moderation
-    .state('management.moderation', {
+    .state('./management.moderation', {
       template:'<div ui-view></div>'
     })
-    .state('management.moderation.list', {
+    .state('./management.moderation.list', {
       url: '/manage/moderation/overview',
       templateUrl: 'templates/moderation-list.html',
       controller: 'ModerationListController',
@@ -553,8 +551,8 @@ function udbAppConfig(
     })
 
     // Migration
-    .state('migration', angular.copy(splitView))
-    .state('migration.event', {
+    .state('./migration', angular.copy(splitView))
+    .state('./migration.event', {
       templateUrl: 'templates/event-migration.html',
       controller: 'offerEditorUIController',
       url: '/event/:id/migrate?location',
@@ -567,8 +565,8 @@ function udbAppConfig(
     })
 
     // Duplication
-    .state('duplication', angular.copy(splitView))
-    .state('duplication.event', {
+    .state('./duplication', angular.copy(splitView))
+    .state('./duplication.event', {
       templateUrl: 'templates/event-duplication.html',
       controller: 'offerEditorUIController',
       url: '/event/:id/duplicate',
@@ -597,3 +595,29 @@ udbAppConfig.$inject = [
   'tmhDynamicLocaleProvider'
   //'$provide',
 ];
+
+require('./ga-tag-manager/ga-tag-manager.module.js');
+require('./zendesk/zendesk.module.js');
+require('./services/ga-export-manager.js');
+require('./config.js');
+//require('./translations/dutch-translations.constant.js');
+//require('./translations/french-translations.constant.js');
+require('./controllers/main.js');
+require('./controllers/header.js');
+require('./controllers/split-view.js');
+require('./controllers/footer.js');
+require('./controllers/menu-bar.js');
+require('./controllers/place-detail-ui.js');
+require('./controllers/event-detail-ui.js');
+require('./controllers/offer-editor-ui.js');
+require('./controllers/offer-translator-ui.js');
+require('./controllers/newsletter.js');
+require('./services/udbhttpinterceptor.js');
+require('./services/migration-redirect.js');
+require('./components/footer.component.js');
+require('./components/menu-bar.component.js');
+require('./components/logo.component.js');
+require('./components/homepage-splash.component.js');
+require('./components/newsletter.component.js');
+require('./url-shim.js');
+require('./bootstrap.js');
