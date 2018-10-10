@@ -42,6 +42,8 @@
     // The defaultPublicationDate option accords to the availableFrom in the json-ld.
     "defaultPublicationDate": "",
     "defaultOrganizerLabel": "",
+    "excludeOrganizerLabel": "",
+    "includeOrganizerLabel": "",
     "countries": [
       {"code": "BE", "default": true},
       {"code": "NL", "default": false}
