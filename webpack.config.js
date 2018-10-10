@@ -51,6 +51,11 @@ module.exports = {
     new HtmlWebpackPlugin({
       title: 'Hot Module Replacement'
     }),*/
-    new webpack.HotModuleReplacementPlugin()
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.ProvidePlugin({
+      $: 'jquery',
+      angular: 'angular',
+      udb: 'udb3-angular'
+    })
   ]
 };
