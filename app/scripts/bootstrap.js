@@ -1,5 +1,9 @@
 'use strict';
 
+/*require('udb3-angular');
+require('angular-ui-bootstrap');
+var deferredBootstrapper = require('angular-deferred-bootstrap');*/
+
 deferredBootstrapper.bootstrap({
   element: document.body,
   module: 'udbApp',

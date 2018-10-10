@@ -1,5 +1,5 @@
 //const path = require('path');
-//const webpack = require('webpack');
+const webpack = require('webpack');
 
 /*module.exports = {
   mode: 'development',
@@ -27,7 +27,8 @@ module.exports = {
   devServer: {
     contentBase: __dirname + '/app',
     port: 9999,
-    watchContentBase: true
+    watchContentBase: true,
+    hot: true
   },
   output: {
     path: __dirname + '/app',
@@ -44,5 +45,12 @@ module.exports = {
         }
       }
     }
-  }
+  },
+  plugins: [
+    /*new CleanWebpackPlugin(['dist']),
+    new HtmlWebpackPlugin({
+      title: 'Hot Module Replacement'
+    }),*/
+    new webpack.HotModuleReplacementPlugin()
+  ]
 };

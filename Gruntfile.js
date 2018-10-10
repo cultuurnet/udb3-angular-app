@@ -560,7 +560,7 @@ module.exports = function (grunt) {
     'clean:dist',
     //'wiredep',
     //'browserify',
-    'webpack:prod',
+    'webpack',
     'useminPrepare',
     'concurrent:dist',
     'ngconstant:dist',
