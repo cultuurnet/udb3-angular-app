@@ -299,27 +299,30 @@ function udbAppConfig(
     })
     // Organisations
     .state('split.organizer', {
-      template: '<div ui-view></div>',
+      url: '/organizer',
+      controller: 'OrganizerFormController',
+      controllerAs: 'ofc',
+      templateUrl: 'templates/organizer-form.html',
       meta: {
-        'titleSuffix': ' | Organisaties'
+        'titleSuffix': ' | Organisatie Toevoegen'
       }
     })
-    .state('split.organizer.detail', {
-      url: '/organizer/:id',
+    .state('split.organizerDetail', {
+      url: '/organizer/:id/preview',
       templateUrl: 'templates/organizer-detail.html',
       controller: 'OrganizerDetailController',
       controllerAs: 'odc',
       meta: {
-        'titleSuffix': ' | Organisatie detail'
+        'titleSuffix': ' | Organisatie preview'
       }
     })
-    .state('split.organizer.edit', {
-      url: '/organizer/:id/edit',
-      templateUrl: 'templates/organizer-edit.html',
-      controller: 'OrganizerEditController',
-      controllerAs: 'oec',
+    .state('split.organizerEdit', {
+      url: 'organizer/:id/edit',
+      templateUrl: 'templates/organizer-form.html',
+      controller: 'OrganizerFormController',
+      controllerAs: 'ofc',
       meta: {
-        'titleSuffix': ' | Organisatie edit'
+        'titleSuffix': ' | Organisatie bewerken'
       }
     })
     .state('useragreement', {
@@ -477,24 +480,6 @@ function udbAppConfig(
       },
       meta: {
         'titleSuffix': ' | Organisaties'
-      }
-    })
-    .state('management.organizers.detail', {
-      url: '/manage/organisations/:id',
-      templateUrl: 'templates/organizer-detail.html',
-      controller: 'OrganizerDetailController',
-      controllerAs: 'odc',
-      meta: {
-        'titleSuffix': ' | Organisatie detail'
-      }
-    })
-    .state('management.organizers.edit', {
-      url: '/manage/organisations/:id/edit',
-      templateUrl: 'templates/organizer-edit.html',
-      controller: 'OrganizerEditController',
-      controllerAs: 'oec',
-      meta: {
-        'titleSuffix': ' | Organisatie edit'
       }
     })
     .state('management.organizers.search', {
