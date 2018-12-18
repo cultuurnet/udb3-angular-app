@@ -325,6 +325,14 @@ function udbAppConfig(
         'titleSuffix': ' | Organisatie bewerken'
       }
     })
+    .state('split.organizerTranslate', {
+      url: 'organizer/:id/translate',
+      controller: 'offerTranslatorUIController',
+      templateUrl: 'templates/offer-translate.html',
+      meta: {
+        'titleSuffix': ' | Organisatie vertalen'
+      }
+    })
     .state('useragreement', {
       url: '/user-agreement',
       template: '<div btf-markdown ng-include="\'docs/user-agreement.md\'"></div>',
