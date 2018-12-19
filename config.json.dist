@@ -29,7 +29,9 @@
     "toggle": true,
     "expirationDate": "2018-07-21 23:59:59",
     // This message can be used when the toggle of addOffer is false or the expirationDate has expired.
-    "expirationMessage": ""
+    "expirationMessage": "",
+    // Default number of days for the end date of a period.
+    "defaultEndPeriod": 365
   },
   "disableVariations": true,
   "zendesk": {
