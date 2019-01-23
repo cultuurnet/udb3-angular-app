@@ -7,7 +7,14 @@
   "uitpasUrl" : "http://udb-uitpas.dev/",
   "uitpasMaxDelay": 8,
   "socketUrl": "http://culudb-websocket-server.dev:3000/",
-  "cultuurkuurUrl": "http://dev.cultuurkuur.be/",
+  "cultuurkuur": {
+      "enabled": true,
+      "maintenance": false,
+      // When this plugin is NOT in maintenance mode, the following url will be used.
+      "cultuurkuurUrl": "http://dev.cultuurkuur.be/",
+      // When this plugin is in maintenance mode, the following message will be shown.
+      "cultuurkuurMessage": "Er wordt momenteel gewerkt aan cultuurkuur."
+    },
   "media": {
     // This limit is passed directly to ngf-max-size attribute of ng-file-upload
     // e.g.: "10KB" or "10MB" or "10GB"
