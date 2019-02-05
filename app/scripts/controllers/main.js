@@ -20,7 +20,7 @@ function MainController($scope, $rootScope, uitidAuth, $translate) {
   };
 
   $scope.register = function () {
-    uitidAuth.register();
+    uitidAuth.register($scope.language);
   };
 
   $scope.changeLanguage = function(language) {
