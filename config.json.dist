@@ -77,5 +77,6 @@
     "brand": "UiT in Vlaanderen"
   },
   "enableMyOrganizers": true,
-  "translatableLanguages": ["nl", "fr", "en", "de"]
+  "translatableLanguages": ["nl", "fr", "en", "de"],
+  "roleConstraintsMode": "v3"
 }
