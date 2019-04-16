@@ -78,5 +78,8 @@
   },
   "enableMyOrganizers": true,
   "translatableLanguages": ["nl", "fr", "en", "de"],
-  "roleConstraintsMode": "v3"
+  "roleConstraintsMode": "v3",
+  "search": {
+    "defaultApiVersion": "2"
+  }
 }
