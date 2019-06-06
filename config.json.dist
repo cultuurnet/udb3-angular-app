@@ -81,5 +81,11 @@
   "roleConstraintsMode": "v3",
   "search": {
     "defaultApiVersion": "2"
+  },
+  "dashboard": {
+    "defaultApi": "udb3"
+  },
+  "places": {
+    "defaultApi": "udb3"
   }
 }
