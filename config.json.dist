@@ -87,5 +87,6 @@
   },
   "places": {
     "defaultApi": "udb3"
-  }
+  },
+  "created_by_query_mode": "mixed"
 }
