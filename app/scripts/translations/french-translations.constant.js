@@ -29,10 +29,10 @@ angular.module('udbApp.translate')
     footer: {
       contact: 'Contactez-nous',
       about: 'Sur UiTdatabank',
-      dev: 'Pour développeurs',
+      dev: 'Pour développeurs (NL)',
       legal: 'Conditions d\'utilisation',
-      privacy: 'Privacy',
-      by: 'A produit de'
+      privacy: 'Confidentialité',
+      by: 'Un produit de'
     },
     menu: {
       home: 'Home',
