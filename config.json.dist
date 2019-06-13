@@ -78,6 +78,7 @@
   },
   "enableMyOrganizers": true,
   "translatableLanguages": ["nl", "fr", "en", "de"],
+  "uitidUrl": "https://acc.uitid.be/uitid/rest/admin/users/uuid/",
   "roleConstraintsMode": "v3",
   "search": {
     "defaultApiVersion": "2"
