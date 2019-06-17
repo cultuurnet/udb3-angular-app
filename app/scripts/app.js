@@ -333,10 +333,17 @@ function udbAppConfig(
       }
     })
     .state('copyright', {
-      url: '/copyright',
+      url: "/{code:nl/copyright|copyright}",
       template: '<div btf-markdown ng-include="\'docs/copyright.md\'"></div>',
       meta: {
         'titleSuffix': ' | Auteursrecht'
+      }
+    })
+    .state('copyright-fr', {
+      url: '/fr/copyright',
+      template: '<div btf-markdown ng-include="\'docs/copyright-fr.md\'"></div>',
+      meta: {
+        'titleSuffix': ' | Droits d\'auteur'
       }
     })
     .state('split.savedsearches', {
