@@ -31,6 +31,7 @@ angular.module('udbApp.translate')
       about: 'Sur UiTdatabank',
       dev: 'Pour développeurs (NL)',
       legal: 'Conditions d\'utilisation',
+      legalPath: 'accord-utilisation-uitdatabank',
       privacy: 'Confidentialité',
       by: 'Un produit de'
     },
