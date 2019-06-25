@@ -19,10 +19,7 @@
     // This limit is passed directly to ngf-max-size attribute of ng-file-upload
     // e.g.: "10KB" or "10MB" or "10GB"
     "fileSizeLimit": "5MB",
-    "userAgreementUrl": {
-      "nl":"http://www.publiq.be/nl/gebruikersovereenkomst-uitdatabank",
-      "fr":"https://www.publiq.be/fr/accord-utilisation-uitdatabank"
-    },
+    "userAgreementUrl": "http://localhost:9999/user-agreement",
     "copyrightUrl": "http://localhost:9999/copyright"
   },
   "gaTagManager": {
@@ -59,10 +56,7 @@
     "countries": [
       {"code": "BE", "default": true},
       {"code": "NL", "default": false}
-    ],
-    "calendar": {
-      "maxYearTimeSpan": 10
-    }
+    ]
   },
   "newsLetterManager": {
     "url": "http://localhost/mail-microservice/web",
