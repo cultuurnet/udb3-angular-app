@@ -56,7 +56,10 @@
     "countries": [
       {"code": "BE", "default": true},
       {"code": "NL", "default": false}
-    ]
+    ],
+    "calendar": {
+      "maxYearTimeSpan": 10
+    }
   },
   "newsLetterManager": {
     "url": "http://localhost/mail-microservice/web",
