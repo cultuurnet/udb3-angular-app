@@ -33,7 +33,11 @@ angular.module('udbApp.translate')
       legal: 'Gebruiksvoorwaarden',
       legalPath: 'gebruikersovereenkomst-uitdatabank',
       privacy: 'Privacy',
-      by: 'Een product van'
+      by: 'Een product van',
+      questions: 'Vragen of feedback?',
+      changeProfile: 'Mijn profiel wijzigen',
+      withSupport: 'met steun van de',
+      flemishGovernment: 'Vlaamse overheid'
     },
     menu: {
       home: 'Home',

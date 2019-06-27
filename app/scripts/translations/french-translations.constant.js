@@ -33,7 +33,11 @@ angular.module('udbApp.translate')
       legal: 'Conditions d\'utilisation',
       legalPath: 'accord-utilisation-uitdatabank',
       privacy: 'Confidentialité',
-      by: 'Un produit de'
+      by: 'Un produit de',
+      questions: 'Questions ou remarques?',
+      changeProfile: 'Modifier mon profil',
+      withSupport: 'avec le soutien de la',
+      flemishGovernment: 'Communauté Flamande'
     },
     menu: {
       home: 'Home',
