@@ -73,6 +73,11 @@
       {"name": "uitpas", "label": "UiTPAS", "logo": "uitpas.svg"},
       {"name": "paspartoe", "label": "Paspartoe", "logo": "paspartoe.svg"}
   ],
+  "exportTemplateUrl": "https://udb3-export-template.s3.amazonaws.com/",
+  "exportTemplateTypes": [
+    {"name": "tips", "label": "Tipsrapport", "img": "tips.svg"},
+    {"name": "map", "label": "Weergave op kaart (beta)", "img": "map.svg"}
+  ],
   "restrictedExportBrands": [],
   "publicationUrl": {
     "event": "https://www.uitinvlaanderen.be/agenda/e//",
