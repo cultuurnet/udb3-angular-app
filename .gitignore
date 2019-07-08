@@ -11,3 +11,4 @@ app/fonts/fontawesome-webfont*
 npm-debug.log
 config*.json
 taxonomy-terms.xml
+.bash_profile
