@@ -13,6 +13,7 @@ angular
 
 /* @ngInject */
 function MainController($scope, $rootScope, uitidAuth, $translate) {
+
   $scope.language = $translate.use();
 
   $scope.login = function () {
@@ -27,6 +28,7 @@ function MainController($scope, $rootScope, uitidAuth, $translate) {
     $scope.language = language;
     $translate.use($scope.language);
   };
+
 
   $scope.$watch(function () {
     return uitidAuth.getUser();
