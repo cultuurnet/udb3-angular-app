@@ -1,6 +1,8 @@
  <div class="row">
   <div class="col-xs-12">
-     <p class="feedback-prefooter" translate="footer.questions"> <a href="#" ng-click="footer.activateZendeskWidget()" class="feedback-link" translate="footer.contact"></a>
+     <p class="feedback-prefooter">
+        <span translate="footer.questions"></span>
+        <a href="#" ng-show="footer.language == 'nl'" ng-click="footer.activateZendeskWidget()" class="feedback-link" translate="footer.contact"></a>
         <udb-newsletter ng-show="footer.language == 'nl'"></udb-newsletter>
      </p>
   </div>
