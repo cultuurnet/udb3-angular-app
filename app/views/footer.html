@@ -2,7 +2,8 @@
   <div class="col-xs-12">
      <p class="feedback-prefooter">
         <span translate="footer.questions"></span>
-        <a href="#" ng-show="footer.language == 'nl'" ng-click="footer.activateZendeskWidget()" class="feedback-link" translate="footer.contact"></a>
+        <a ng-show="footer.language == 'nl'" href="#"  ng-click="footer.activateZendeskWidget()" class="feedback-link" translate="footer.contact"></a>
+        <a ng-show="footer.language == 'fr'" href="mailto:vragen@uitdatabank.be"  class="feedback-link" translate="footer.contact"></a>
         <udb-newsletter ng-show="footer.language == 'nl'"></udb-newsletter>
      </p>
   </div>
