@@ -463,7 +463,7 @@ function udbAppConfig(
       }
     })
     .state('management.users.edit', {
-      url: '/manage/users/:id',
+      url: '/manage/users/:email',
       templateUrl: 'templates/user-editor.html',
       controller: 'UserEditorController',
       controllerAs: 'editor',
