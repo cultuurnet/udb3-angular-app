@@ -16,7 +16,7 @@
     <p class="text-center"><a ng-show="user" class="btn btn-lg btn-danger" ui-sref="split.footer.search">
       Zoeken</a>
     </p>
-    <p class="text-muted text-center">
+    <p ng-hide="hideRegister" class="text-muted text-center">
       <span translate="main.register_prefix"></span> <a ng-hide="user" ng-href="#" ng-click="register()" translate="main.account"></a> <span translate="main.register_suffix"></span>
     </p>
   </div>
