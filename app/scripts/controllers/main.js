@@ -12,9 +12,10 @@ angular
   .controller('MainCtrl', MainController);
 
 /* @ngInject */
-function MainController($scope, $rootScope, uitidAuth, $translate) {
+function MainController($scope, $rootScope, uitidAuth, $translate, appConfig) {
 
   $scope.language = $translate.use();
+  $scope.hideRegister = appConfig.hideRegister;
 
   $scope.login = function () {
     uitidAuth.login($scope.language);
