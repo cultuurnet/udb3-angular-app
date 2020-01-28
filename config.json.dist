@@ -74,7 +74,7 @@
     "url": "http://localhost/mail-microservice/web",
     "list": "1766017"
   },
-  "publicationRulesLink": "",
+  "publicationRulesLink": "https://helpdesk.publiq.be/hc/nl/articles/360008702459-Welke-activiteiten-mag-ik-invoeren-in-UiTdatabank",
   "exportLogoUrl": "https://udb3-export-logo.s3.amazonaws.com/",
   "exportBrands": [
       {"name": "vlieg", "label": "Vlieg", "logo": "vlieg.svg"},
