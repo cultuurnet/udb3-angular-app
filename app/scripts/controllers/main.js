@@ -37,4 +37,4 @@ function MainController($scope, $rootScope, uitidAuth, $translate, appConfig) {
     $scope.user = user;
   }, true);
 }
-MainController.$inject = ['$scope', '$rootScope', 'uitidAuth', '$translate'];
+MainController.$inject = ['$scope', '$rootScope', 'uitidAuth', '$translate', 'appConfig'];
