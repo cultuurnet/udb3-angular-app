@@ -459,7 +459,8 @@ module.exports = function (grunt) {
       dev: {
         constants: function() {
           return {
-            appConfig: JSON.parse(JSON.minify(grunt.file.read('config.json')))
+            appConfig: JSON.parse(JSON.minify(grunt.file.read('config.json'))),
+            cultuurkuurLabels: JSON.parse(JSON.minify(grunt.file.read('cultuurkuur-labels.json')))
           };
         }
       },
@@ -474,7 +475,8 @@ module.exports = function (grunt) {
           }
 
           return {
-            appConfig: config
+            appConfig: config,
+            cultuurkuurLabels: JSON.parse(JSON.minify(grunt.file.read('cultuurkuur-labels.json')))
           };
         }
       }
