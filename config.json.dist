@@ -36,6 +36,11 @@
     "endTime": "",
     "extraClass": ""
   },
+  "toggleInfoMessage": true,
+  "infoMessage": {
+    "nl": "boodschap van algemeen nut",
+    "fr": "message de service public"
+  },
   "addOffer": {
     "toggle": true,
     "expirationDate": "2018-07-21 23:59:59",
