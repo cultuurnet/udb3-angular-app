@@ -49,7 +49,6 @@
     // Default number of days for the end date of a period.
     "defaultEndPeriod": 365
   },
-  "disableVariations": true,
   "zendesk": {
     "accountUrl": ""
   },
