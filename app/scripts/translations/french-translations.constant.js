@@ -24,10 +24,7 @@ angular.module('udbApp.translate')
       mission: 'Plus d\'audience pour votre activité.',
       register_prefix: 'Première fois? Créer',
       account: 'un nouveau compte',
-      register_suffix: '',
-      online_activities_prefix: 'Offre de loisirs en ligne ou corona proof? ',
-      online_activities_cta: 'Créez-le ici',
-      online_activities_suffix: ''
+      register_suffix: ''
     },
     footer: {
       contact: 'Contactez-nous',

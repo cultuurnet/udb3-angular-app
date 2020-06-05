@@ -24,10 +24,7 @@ angular.module('udbApp.translate')
       mission: 'Zo geef je meer mensen meer goesting in jouw activiteit.',
       register_prefix: 'Eerste keer? Maak een',
       account: 'nieuw account',
-      register_suffix: 'aan',
-      online_activities_prefix: 'Online of coronaproof vrijetijdsaanbod? Maak het ',
-      online_activities_cta: 'hier',
-      online_activities_suffix: 'aan'
+      register_suffix: 'aan'
     },
     footer: {
       contact: 'Contacteer ons',
