@@ -89,7 +89,7 @@
   "exportTemplateUrl": "https://udb3-export-template.s3.amazonaws.com/",
   "exportTemplateTypes": [
     {"name": "tips", "label": "Tipsrapport", "img": "tips.svg"},
-    {"name": "map", "label": "Weergave op kaart", "img": "map.svg"}
+    {"name": "map", "label": "Weergave op kaart (beta)", "img": "map.svg"}
   ],
   "restrictedExportBrands": [],
   "publicationUrl": {
