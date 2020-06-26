@@ -80,6 +80,7 @@ angular
             'pageTitle': event.targetScope.ngMeta.title
           });
         }
+        window.parent.postMessage({type: 'UDB', message: $location.path()}, '*');
       });
 
   }]);
