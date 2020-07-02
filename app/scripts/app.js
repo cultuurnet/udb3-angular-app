@@ -80,7 +80,11 @@ angular
             'pageTitle': event.targetScope.ngMeta.title
           });
         }
-        window.parent.postMessage({type: 'UDB', message: $location.path()}, '*');
+        window.parent.postMessage({
+          source: 'UDB',
+          type: 'URL_CHANGE',
+          path: $location.path()
+        }, '*');
       });
 
   }]);
