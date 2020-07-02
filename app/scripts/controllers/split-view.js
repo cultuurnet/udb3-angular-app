@@ -13,7 +13,9 @@ angular
 
 /* @ngInject */
 function splitViewController(uitidAuth, $scope) {
+  const urlParams = new URLSearchParams(window.location.search);
   var controller = this; // jshint ignore:line
   controller.user = uitidAuth.getUser();
+  controller.embedded = !!urlParams.get('embedded');
 }
 splitViewController.$inject = ['uitidAuth', '$scope'];
