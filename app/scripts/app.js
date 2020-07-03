@@ -66,7 +66,7 @@ angular
 
       $rootScope.$on('$locationChangeSuccess', function () {
         var queryString = new URLSearchParams($location.search()).toString();
-        var path = `${$location.path()}${queryString ? `?${queryString}` : ''}`;
+        var path = $location.path() + (queryString ? '?' + queryString : '');
 
         window.parent.postMessage({
           source: 'UDB',
