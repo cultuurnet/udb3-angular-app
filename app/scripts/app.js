@@ -71,7 +71,7 @@ angular
         window.parent.postMessage({
           source: 'UDB',
           type: 'URL_CHANGED',
-          path
+          path: path
         }, '*');
       });
 
