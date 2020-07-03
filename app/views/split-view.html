@@ -1,7 +1,7 @@
-<div id="app-sidebar" class="navbar-inverse" ng-show="svc.user">
+<div id="app-sidebar" class="navbar-inverse" ng-show="svc.user && !svc.embedded">
     <udb-menubar></udb-menubar>
 </div>
-<div id="app-content" class="container-fluid" ng-if="svc.user != undefined">
+<div id="app-content" class="container-fluid" ng-if="svc.user != undefined" ng-class="{'no-sidebar': svc.embedded}">
     <div ui-view></div>
 </div>
 <div class="container-fluid" ng-if="svc.user == undefined">
