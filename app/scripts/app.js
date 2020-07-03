@@ -64,6 +64,18 @@ angular
         $location.path('/search');
       });
 
+      $rootScope.$on('$locationChangeSuccess', function () {
+
+        var queryString = new URLSearchParams($location.search()).toString();
+        var path = `${$location.path()}${queryString ? `?${queryString}` : ''}`;
+
+        window.parent.postMessage({
+          source: 'UDB',
+          type: 'URL_CHANGED',
+          path
+        }, '*');
+      });
+
       $rootScope.$on('$changeLocales', function (event, language) {
         tmhDynamicLocale.set(language + '-be');
       });
@@ -80,11 +92,6 @@ angular
             'pageTitle': event.targetScope.ngMeta.title
           });
         }
-        window.parent.postMessage({
-          source: 'UDB',
-          type: 'URL_CHANGE',
-          path: $location.path()
-        }, '*');
       });
 
   }]);
