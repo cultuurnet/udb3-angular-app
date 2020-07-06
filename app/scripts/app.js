@@ -65,7 +65,10 @@ angular
       });
 
       $rootScope.$on('$locationChangeSuccess', function () {
-        var queryString = new URLSearchParams($location.search()).toString();
+        var queryStringParams = new URLSearchParams($location.search());
+        queryStringParams.delete('jwt');
+
+        var queryString = queryStringParams.toString();
         var path = $location.path() + (queryString ? '?' + queryString : '');
 
         window.parent.postMessage({
