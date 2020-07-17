@@ -64,7 +64,11 @@ angular
         $location.path('/search');
       });
 
-      $rootScope.$on('$locationChangeSuccess', function () {
+      $rootScope.$on('$locationChangeStart', function (e, newUrl, oldUrl) {
+        if (window !== window.parent && newUrl !== oldUrl) {
+          e.preventDefault();
+        }
+
         var queryStringParams = new URLSearchParams($location.search());
         queryStringParams.delete('jwt');
 
