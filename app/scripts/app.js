@@ -41,6 +41,8 @@ angular
     '$rootScope',
     '$location',
     '$window',
+    '$cookies',
+    '$translate',
     'uitidAuth',
     'ngMeta',
     'migrationRedirect',
@@ -51,12 +53,21 @@ angular
       $rootScope,
       $location,
       $window,
+      $cookies,
+      $translate,
       uitidAuth,
       ngMeta,
       migrationRedirect,
       tmhDynamicLocale
     ) {
       amMoment.changeLocale('nl');
+
+      var queryStringParams = new URLSearchParams($location.search());
+      if (queryStringParams.has('lang')) {
+        var language = queryStringParams.get('lang');
+        $cookies.put('udb-language', language);
+        $translate.use(language);
+      }
 
       ngMeta.init();
 
@@ -71,6 +82,7 @@ angular
 
         var queryStringParams = new URLSearchParams($location.search());
         queryStringParams.delete('jwt');
+        queryStringParams.delete('lang');
 
         var queryString = queryStringParams.toString();
         var path = $location.path() + (queryString ? '?' + queryString : '');
