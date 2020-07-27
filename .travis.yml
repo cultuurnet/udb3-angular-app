@@ -1,10 +1,9 @@
 language: node_js
 node_js:
-  - "8"
+  - "14"
 before_install:
   - npm install -g npm@2
-  - npm install -g grunt-cli bower
 install:
   - npm install
-  - bower install
-script: grunt build
+  - npm run bower -- install
+script: npm run build
