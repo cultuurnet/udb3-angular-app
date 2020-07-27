@@ -38,6 +38,7 @@
     "karma-jasmine": "^0.1.5",
     "karma-phantomjs-launcher": "^1.0.4",
     "load-grunt-tasks": "^0.4.0",
+    "serve-static": "^1.14.1",
     "time-grunt": "^0.3.1",
     "xml2js": "^0.4.4"
   },
@@ -46,6 +47,7 @@
   },
   "scripts": {
     "build": "grunt build",
+    "serve": "grunt serve",
     "bower": "bower"
   }
 }
