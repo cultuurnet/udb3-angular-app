@@ -111,5 +111,7 @@
     "defaultApi": "udb3"
   },
   "created_by_query_mode": "mixed",
-  "hideRegister": true
+  "hideRegister": true,
+  "redirectToVueWhenNotInIframe": true,
+  "baseUrlVueApp": "http://localhost:3000"
 }
