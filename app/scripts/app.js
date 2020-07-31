@@ -37,6 +37,7 @@ angular
   /* @ngInject */
   .run([
     'udbApi',
+    'appConfig',
     'amMoment',
     '$rootScope',
     '$location',
@@ -49,6 +50,7 @@ angular
     'tmhDynamicLocale',
     function (
       udbApi,
+      appConfig,
       amMoment,
       $rootScope,
       $location,
@@ -61,6 +63,12 @@ angular
       tmhDynamicLocale
     ) {
       amMoment.changeLocale('nl');
+
+      var runningInIframe = window !== window.parent;
+      var needsToRunInIframe = appConfig.redirectToVueWhenNotInIframe;
+      if (!runningInIframe && needsToRunInIframe) {
+        $window.location.href = appConfig.baseUrlVueApp + $location.url();
+      }
 
       var queryStringParams = new URLSearchParams($location.search());
       if (queryStringParams.has('lang')) {
