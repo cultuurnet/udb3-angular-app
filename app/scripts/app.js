@@ -355,7 +355,7 @@ function udbAppConfig(
       }
     })
     .state('split.organizerEdit', {
-      url: 'organizer/:id/edit',
+      url: '/organizer/:id/edit',
       templateUrl: 'templates/organizer-form.html',
       controller: 'OrganizerFormController',
       controllerAs: 'ofc',
