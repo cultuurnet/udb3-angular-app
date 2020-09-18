@@ -44,6 +44,7 @@ angular
     '$window',
     '$cookies',
     '$translate',
+    '$state',
     'uitidAuth',
     'ngMeta',
     'migrationRedirect',
@@ -57,6 +58,7 @@ angular
       $window,
       $cookies,
       $translate,
+      $state,
       uitidAuth,
       ngMeta,
       migrationRedirect,
@@ -99,6 +101,36 @@ angular
           source: 'UDB',
           type: 'URL_CHANGED',
           path: path
+        }, '*');
+      });
+
+      $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
+        // Don't block any state changes if not running inside an iframe
+        if (!runningInIframe) {
+          return;
+        }
+
+        // Allow the first state change, because the initial page rendering is also a "state change".
+        if (fromState.name === '') {
+          return;
+        }
+
+        // Generate to and from paths with actual param values
+        var to = $state.href(toState.name, toParams, {absolute: false});
+        var from = $state.href(fromState.name, fromState, {absolute: false});
+
+        // Don't block any reloading of the same state.
+        // For example, after deleting an organizer from the overview list of organizers and the list reloads.
+        if (to === from) {
+          return;
+        }
+
+        // Block the state change and emit the new path to the parent window for further handling.
+        event.preventDefault();
+        window.parent.postMessage({
+          source: 'UDB',
+          type: 'URL_CHANGED',
+          path: to
         }, '*');
       });
 
