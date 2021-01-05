@@ -166,6 +166,7 @@ function udbAppConfig(
   appConfig,
   queryFieldTranslations,
   $stateProvider,
+  $urlRouterProvider,
   UitpasLabelsProvider,
   ExternalUitpasLabels,
   ngMetaProvider,
@@ -661,6 +662,13 @@ function udbAppConfig(
         'titleSuffix': ' | Evenement dupliceren'
       }
     });
+
+    $urlRouterProvider.otherwise(function () {
+      window.parent.postMessage({
+        source: 'UDB',
+        type: 'URL_UNKNOWN',
+      }, '*');
+    });
 }
 
 udbAppConfig.$inject = [
@@ -672,6 +680,7 @@ udbAppConfig.$inject = [
   'appConfig',
   'queryFieldTranslations',
   '$stateProvider',
+  '$urlRouterProvider',
   'UitpasLabelsProvider',
   'ExternalUitpasLabels',
   'ngMetaProvider',
