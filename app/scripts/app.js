@@ -86,22 +86,26 @@ angular
       });
 
       $rootScope.$on('$locationChangeStart', function (e, newUrl, oldUrl) {
-        if (window !== window.parent && newUrl !== oldUrl) {
+        // Only redirect to the new url in the new app when the new url is different from the old url, and when it doesn't concern pagination
+        var runningInIframe = window !== window.parent;
+        var hasChangedPage = new URL(newUrl).searchParams.get('page') !== new URL(oldUrl).searchParams.get('page');
+        var shouldRedirectInNewApp = newUrl !== oldUrl && !hasChangedPage;
+        if (runningInIframe && shouldRedirectInNewApp) {
           e.preventDefault();
-        }
 
-        var queryStringParams = new URLSearchParams($location.search());
-        queryStringParams.delete('jwt');
-        queryStringParams.delete('lang');
+          var queryStringParams = new URLSearchParams($location.search());
+          queryStringParams.delete('jwt');
+          queryStringParams.delete('lang');
 
-        var queryString = queryStringParams.toString();
-        var path = $location.path() + (queryString ? '?' + queryString : '');
+          var queryString = queryStringParams.toString();
+          var path = $location.path() + (queryString ? '?' + queryString : '');
 
-        window.parent.postMessage({
-          source: 'UDB',
-          type: 'URL_CHANGED',
-          path: path
-        }, '*');
+          window.parent.postMessage({
+            source: 'UDB',
+            type: 'URL_CHANGED',
+            path: path
+          }, '*');
+        }  
       });
 
       $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
