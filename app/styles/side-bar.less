@@ -82,9 +82,10 @@
   height: 100%;
   width: 100%;
 
-  .fa {
+  .fa, .fas, .far, .fal, .fad, .fab {
     color: lighten(@sidebar-background-color, 60%);
     font-size: 15px;
+    margin-right: 8px;
   }
 
   ul {
@@ -94,10 +95,10 @@
 
   li a {
     color: @white;
-    display: inline-block;
+    display: flex;
+    align-items: center;
     width: 100%;
     padding: 3px;
-    position: relative;
   }
 
   li a:hover {
@@ -154,14 +155,8 @@
         li {
 
           a {
-            padding: @sidebar-padding @sidebar-padding @sidebar-padding 30px;
+            padding: @sidebar-padding @sidebar-padding @sidebar-padding @sidebar-padding;
             position: relative;
-
-            .fa {
-              position: absolute;
-              left: 5px;
-              top: 10px;
-            }
           }
         }
       }
