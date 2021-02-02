@@ -16,7 +16,7 @@
             <ul>
                 <li ng-repeat="listItem in ::mbc.managementListItems | orderBy: 'index'">
                     <a ui-sref="{{::listItem.sref}}" ui-sref-opts="{reload:true}">
-                        <i class="fa" ng-class="::listItem.icon"></i>
+                        <i ng-class="::listItem.icon"></i>
                         <span class="menu-text">
                             <span ng-bind="::mbc.translateMenu(listItem.name)" class="menu-text-label"></span>
                             <span class="badge menu-text-badge" ng-show="listItem.notificationCount" ng-bind="listItem.notificationCount"></span>
