@@ -201,7 +201,7 @@ module.exports = function (grunt) {
         src: ['<%= yeoman.app %>/index.html'],
         exclude: [
           'bower_components/bootstrap/dist/css/bootstrap.css',
-          'bower_components/components-font-awesome/css/font-awesome.css',
+          'bower_components/components-font-awesome/css/fontawesome.css',
           'bower_components/udb3-angular/dist/udb3-angular.css',
           // We implement angular-i18n manually with the copy task.
           // In that case angular can switch dynamically it's translation files on the basis of the user's language.
@@ -415,7 +415,7 @@ module.exports = function (grunt) {
       },
       fonts: {
         expand: true,
-        cwd: 'bower_components/components-font-awesome/fonts',
+        cwd: 'bower_components/components-font-awesome/webfonts',
         dest: '<%= yeoman.app %>/fonts',
         src: '*'
       }
