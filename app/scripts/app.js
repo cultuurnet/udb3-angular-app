@@ -90,6 +90,10 @@ angular
           e.preventDefault();
         }
 
+        if (_.get(appConfig, 'omdSpecific', false)) {
+          return;
+        }
+
         var queryStringParams = new URLSearchParams($location.search());
         queryStringParams.delete('jwt');
         queryStringParams.delete('lang');
@@ -107,6 +111,10 @@ angular
       $rootScope.$on('$stateChangeStart', function(event, toState, toParams, fromState, fromParams) {
         // Don't block any state changes if not running inside an iframe
         if (!runningInIframe) {
+          return;
+        }
+
+        if (_.get(appConfig, 'omdSpecific', false)) {
           return;
         }
 
@@ -664,6 +672,9 @@ function udbAppConfig(
     });
 
     $urlRouterProvider.otherwise(function () {
+      if (_.get(appConfig, 'omdSpecific', false)) {
+        return;
+      }
       window.parent.postMessage({
         source: 'UDB',
         type: 'URL_UNKNOWN',
