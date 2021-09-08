@@ -28,7 +28,7 @@
   "appPath": "app",
   "resolutions": {
     "angular": "~1.5.5",
-    "angular-translate": "~2.18.1"
+    "angular-translate": "~2.15.1"
   },
   "overrides": {
     "codemirror": {
