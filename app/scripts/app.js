@@ -174,6 +174,8 @@ function udbAppConfig(
   udbAppDutchTranslations,
   udbFrenchTranslations,
   udbAppFrenchTranslations,
+  udbGermanTranslations,
+  udbAppGermanTranslations,
   tmhDynamicLocaleProvider
 ) {
   UitpasLabelsProvider.useLabels(ExternalUitpasLabels);
@@ -190,6 +192,7 @@ function udbAppConfig(
   // Translation configuration
   var dutchTranslationsCollection = _.merge(udbDutchTranslations, udbAppDutchTranslations, queryFieldTranslations.nl);
   var frenchTranslationsCollection = _.merge(udbFrenchTranslations, udbAppFrenchTranslations, queryFieldTranslations.fr);
+  var germanTranslationsCollection = _.merge(udbGermanTranslations, udbAppGermanTranslations, queryFieldTranslations.de);
 
   var splitView = {
     templateUrl: 'views/split-view.html',
@@ -212,6 +215,7 @@ function udbAppConfig(
   $translateProvider
     .translations('nl', dutchTranslationsCollection)
     .translations('fr', frenchTranslationsCollection)
+    .translations('de', germanTranslationsCollection)
     .preferredLanguage('nl')
     .fallbackLanguage('nl')
     .storageKey('udb-language')
@@ -688,6 +692,8 @@ udbAppConfig.$inject = [
   'udbAppDutchTranslations',
   'udbFrenchTranslations',
   'udbAppFrenchTranslations',
+  'udbGermanTranslations',
+  'udbAppGermanTranslations',
   'tmhDynamicLocaleProvider'
   //'$provide',
 ];
