@@ -348,6 +348,12 @@ function udbAppConfig(
         'titleSuffix': ' | Evenement bewerken'
       }
     })
+    .state('split.eventEditMovie', {
+      url: '/manage/movies/:id',
+      meta: {
+        'titleSuffix': ' | Film bewerken'
+      }
+    })
     .state('split.placeEdit', {
       url: '/place/:id/edit',
       controller: 'offerEditorUIController',
