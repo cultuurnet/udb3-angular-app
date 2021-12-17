@@ -349,7 +349,7 @@ function udbAppConfig(
       }
     })
     .state('split.eventEditMovie', {
-      url: '/manage/movies/:id',
+      url: '/manage/movies/:id/edit',
       meta: {
         'titleSuffix': ' | Film bewerken'
       }
