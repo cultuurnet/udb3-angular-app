@@ -354,6 +354,12 @@ function udbAppConfig(
         'titleSuffix': ' | Film bewerken'
       }
     })
+    .state('split.eventDuplicateMovie', {
+      url: '/manage/movies/:id/duplicate',
+      meta: {
+        'titleSuffix': ' | Film dupliceren'
+      }
+    })
     .state('split.placeEdit', {
       url: '/place/:id/edit',
       controller: 'offerEditorUIController',
