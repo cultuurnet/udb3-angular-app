@@ -1,6 +1,6 @@
 //font-awesome
 @import "fontawesome.less";
-@fa-font-path:   "../fonts";
+@fa-font-path: "../fonts";
 
 @import "bootstrap.less";
 // custom bootstrap variables
@@ -16,7 +16,37 @@
 @import "footer.less";
 @import "side-bar.less";
 
-[ng-cloak]
-{
+[ng-cloak] {
   display: none !important;
+}
+
+body button,
+a,
+input,
+select,
+.panel,
+.alert {
+  border-radius: 8px !important;
+}
+
+body .btn:not(.btn-link) {
+  padding: 0.5rem 0.9rem !important;
+  border: none;
+  box-shadow: 0px 2px 3px 0px rgba(210, 210, 210, 0.5);
+}
+
+body .dropdown .btn:not(.btn-link):first-child {
+  border-bottom-right-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+body .dropdown .dropdown-toggle {
+  border-bottom-left-radius: 0 !important;
+  border-top-left-radius: 0 !important;
+}
+
+body .list-inline {
+  display: flex;
+  flex-wrap: wrap;
+  row-gap: 0.3rem;
 }
