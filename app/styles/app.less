@@ -20,6 +20,7 @@
   display: none !important;
 }
 
+// styling for rounded / 2022 look
 body {
   button,
   a,
@@ -58,7 +59,11 @@ body {
     }
   }
 
-  .btn:not(.btn-link) {
+  .btn-primary,
+  .btn-secondary,
+  .btn-success,
+  .btn-danger,
+  .btn-default {
     padding: 0.5rem 0.9rem !important;
     border: none;
     box-shadow: 0px 2px 3px 0px rgba(210, 210, 210, 0.5);
@@ -73,6 +78,10 @@ body {
     .dropdown-toggle {
       border-bottom-left-radius: 0 !important;
       border-top-left-radius: 0 !important;
+    }
+
+    .dropdown-menu {
+      border-radius: 8px;
     }
   }
 }
