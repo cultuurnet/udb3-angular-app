@@ -1,5 +1,6 @@
 //font-awesome
 @import "fontawesome.less";
+
 @fa-font-path: "../fonts";
 
 @import "bootstrap.less";
@@ -31,10 +32,6 @@ body {
   .alert,
   .uib-datepicker-popup {
     border-radius: 8px !important;
-  }
-
-  .uib-datepicker-popup {
-    padding: 0.75rem;
   }
 
   .list-group .list-group-item:not(:last-child) {
@@ -95,18 +92,66 @@ body {
     }
   }
 
+  .uib-datepicker-popup {
+    padding: 1rem;
+  }
+
   .calendar-time-span {
     input {
       border-top-right-radius: 0 !important;
       border-bottom-right-radius: 0 !important;
     }
 
-    .btn {
+    // the datepicker button next to the input
+    .btn:not(ul *) {
       border-top-left-radius: 0 !important;
       border-bottom-left-radius: 0 !important;
       border: 1px solid #ccc;
       padding: 4px 10px !important;
       box-shadow: none;
+    }
+
+    thead {
+      display: flex;
+      flex-direction: column;
+      row-gap: 0.75rem;
+
+      tr:nth-child(1) {
+        display: flex;
+        justify-content: center;
+      }
+
+      tr:nth-child(2) {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        padding-left: 0.9rem;
+        padding-right: 0.9rem;
+      }
+    }
+
+    tbody {
+      display: flex;
+      flex-direction: column;
+      row-gap: 0.75rem;
+
+      tr {
+        display: inline-flex;
+        column-gap: 0.75rem;
+      }
+
+      .btn {
+        box-shadow: 0px 4px 6px 0px rgba(210, 210, 210, 0.7);
+      }
+
+      .btn:disabled {
+        box-shadow: none;
+        border: none;
+      }
+
+      .btn.active {
+        font-weight: bold !important;
+      }
     }
   }
 }
