@@ -1,6 +1,7 @@
 //font-awesome
 @import "fontawesome.less";
-@fa-font-path:   "../fonts";
+
+@fa-font-path: "../fonts";
 
 @import "bootstrap.less";
 // custom bootstrap variables
@@ -16,7 +17,141 @@
 @import "footer.less";
 @import "side-bar.less";
 
-[ng-cloak]
-{
+[ng-cloak] {
   display: none !important;
+}
+
+// styling for rounded / 2022 look
+body {
+  button,
+  a,
+  input,
+  select,
+  textarea,
+  .panel,
+  .alert,
+  .uib-datepicker-popup {
+    border-radius: 8px !important;
+  }
+
+  .list-group .list-group-item:not(:last-child) {
+    margin-bottom: 0.53rem;
+  }
+
+  .pagination li:not(.active) a {
+    border-color: #ccc !important;
+  }
+
+  .list-inline {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 0.75rem;
+
+    > li {
+      padding: 0;
+    }
+
+    .btn {
+      margin-right: 0.53rem;
+    }
+  }
+
+  .extra-leeftijd div:has(.form-age-range-button) {
+    display: flex;
+    flex-wrap: wrap;
+    row-gap: 0.75rem;
+
+    .btn {
+      margin-right: 0.53rem;
+    }
+  }
+
+  .btn-primary,
+  .btn-secondary,
+  .btn-success,
+  .btn-danger,
+  .btn-default:not(.btn-link) {
+    padding: 0.5rem 0.9rem !important;
+    border: none;
+    box-shadow: 0px 2px 3px 0px rgba(210, 210, 210, 0.5);
+  }
+
+  .dropdown {
+    .btn:not(.btn-link):first-child {
+      border-bottom-right-radius: 0 !important;
+      border-top-right-radius: 0 !important;
+    }
+
+    .dropdown-toggle {
+      border-bottom-left-radius: 0 !important;
+      border-top-left-radius: 0 !important;
+    }
+
+    .dropdown-menu {
+      border-radius: 8px;
+    }
+  }
+
+  .uib-datepicker-popup {
+    padding: 1rem;
+  }
+
+  .calendar-time-span {
+    input {
+      border-top-right-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
+
+    // the datepicker button next to the input
+    .btn:not(ul *) {
+      border-top-left-radius: 0 !important;
+      border-bottom-left-radius: 0 !important;
+      border: 1px solid #ccc;
+      padding: 4px 10px !important;
+      box-shadow: none;
+    }
+
+    thead {
+      display: flex;
+      flex-direction: column;
+      row-gap: 0.75rem;
+
+      tr:nth-child(1) {
+        display: flex;
+        justify-content: center;
+      }
+
+      tr:nth-child(2) {
+        display: flex;
+        width: 100%;
+        justify-content: space-between;
+        padding-left: 0.9rem;
+        padding-right: 0.9rem;
+      }
+    }
+
+    tbody {
+      display: flex;
+      flex-direction: column;
+      row-gap: 0.75rem;
+
+      tr {
+        display: inline-flex;
+        column-gap: 0.75rem;
+      }
+
+      .btn {
+        box-shadow: 0px 4px 6px 0px rgba(210, 210, 210, 0.7);
+      }
+
+      .btn:disabled {
+        box-shadow: none;
+        border: none;
+      }
+
+      .btn.active {
+        font-weight: bold !important;
+      }
+    }
+  }
 }
