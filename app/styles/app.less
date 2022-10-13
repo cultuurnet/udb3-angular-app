@@ -92,12 +92,18 @@ body {
     }
   }
 
+  table.uib-timepicker {
+    border-top: none;
+    border-bottom: none;
+  }
+
   .uib-datepicker-popup {
     padding: 1rem;
   }
 
-  .calendar-time-span {
-    input {
+  .calendar-time-span,
+  .form-calendar-period {
+    input:not(.uib-time *) {
       border-top-right-radius: 0 !important;
       border-bottom-right-radius: 0 !important;
     }
@@ -130,7 +136,7 @@ body {
       }
     }
 
-    tbody {
+    tbody:not(.uib-timepicker *) {
       display: flex;
       flex-direction: column;
       row-gap: 0.75rem;
