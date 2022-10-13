@@ -34,6 +34,14 @@ body {
     border-radius: 8px !important;
   }
 
+  .dropdown-menu {
+    border-radius: 0 !important;
+
+    li a {
+      border-radius: 0 !important;
+    }
+  }
+
   .list-group .list-group-item:not(:last-child) {
     margin-bottom: 0.53rem;
   }
@@ -42,7 +50,14 @@ body {
     border-color: #ccc !important;
   }
 
-  .list-inline {
+  .nav-tabs {
+    li[role="tab"] a {
+      border-bottom-left-radius: 0 !important;
+      border-bottom-right-radius: 0 !important;
+    }
+  }
+
+  .list-inline:not(udb-label-select *) {
     display: flex;
     flex-wrap: wrap;
     row-gap: 0.75rem;
@@ -63,6 +78,10 @@ body {
 
     .btn {
       margin-right: 0.53rem;
+    }
+
+    #form-age {
+      width: 100%;
     }
   }
 
@@ -92,12 +111,18 @@ body {
     }
   }
 
+  table.uib-timepicker {
+    border-top: none;
+    border-bottom: none;
+  }
+
   .uib-datepicker-popup {
     padding: 1rem;
   }
 
-  .calendar-time-span {
-    input {
+  .calendar-time-span,
+  .form-calendar-period {
+    input:not(.uib-time *) {
       border-top-right-radius: 0 !important;
       border-bottom-right-radius: 0 !important;
     }
@@ -130,7 +155,7 @@ body {
       }
     }
 
-    tbody {
+    tbody:not(.uib-timepicker *) {
       display: flex;
       flex-direction: column;
       row-gap: 0.75rem;
