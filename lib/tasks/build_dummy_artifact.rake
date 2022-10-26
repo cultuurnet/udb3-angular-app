@@ -1,7 +1,7 @@
 require 'json'
 
 desc "Create a debian package from the binaries."
-task :build_artifact do |task|
+task :build_dummy_artifact do |task|
 
   git_short_ref        = `git rev-parse --short HEAD`.strip
   artifact_name        = 'uitdatabank-angular'
