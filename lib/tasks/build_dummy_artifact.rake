@@ -10,6 +10,7 @@ task :build_dummy_artifact do |task|
   license              = 'Apache-2.0'
   description          = 'AngularJS library for UiTDatabank 3 (dummy package)'
   source               = 'https://github.com/cultuurnet/udb3-angular/'
+  build_url            = ENV['JOB_DISPLAY_URL'].nil? ? "" : ENV['JOB_DISPLAY_URL']
 
   bowerfile            = File.read('bower_components/udb3-angular/.bower.json')
   udb3_angular_data    = JSON.parse(bowerfile)
@@ -32,6 +33,7 @@ task :build_dummy_artifact do |task|
     --license '#{license}' -m '#{maintainer}' \
     --deb-field 'Pipeline-Version: #{calver_version}' \
     --deb-field 'Git-Ref: #{short_angular_gitref}' \
+    --deb-field 'Build-Url: #{build_url}' \
     ."
   ) or exit 1
 end

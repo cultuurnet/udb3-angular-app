@@ -10,6 +10,7 @@ task :build_artifact do |task|
   license        = 'Apache-2.0'
   description    = 'AngularJS frontend for UiTDatabank 3'
   source         = 'https://github.com/cultuurnet/udb3-angular-app/'
+  build_url      = ENV['JOB_DISPLAY_URL'].nil? ? "" : ENV['JOB_DISPLAY_URL']
 
   FileUtils.mkdir_p('pkg')
 
@@ -23,6 +24,7 @@ task :build_artifact do |task|
     --license '#{license}' -m '#{maintainer}' \
     --deb-field 'Pipeline-Version: #{calver_version}' \
     --deb-field 'Git-Ref: #{git_short_ref}' \
+    --deb-field 'Build-Url: #{build_url}' \
     ."
   ) or exit 1
 end
