@@ -90,6 +90,7 @@ pipeline {
         }
 
         stage('Deploy to testing') {
+            input { message "Deploy to Testing?" }
             agent any
             options { skipDefaultCheckout() }
             environment {
