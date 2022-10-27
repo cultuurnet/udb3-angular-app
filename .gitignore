@@ -12,3 +12,5 @@ npm-debug.log
 config*.json
 taxonomy-terms.xml
 .bash_profile
+.bundle/
+vendor/
