@@ -57,7 +57,7 @@ body {
     }
   }
 
-  .list-inline:not(udb-label-select *) {
+  *:not(.calendar-timing-info) .list-inline {
     display: flex;
     flex-wrap: wrap;
     row-gap: 0.75rem;
@@ -118,24 +118,25 @@ body {
 
   .uib-datepicker-popup {
     padding: 1rem;
+  }  
+
+  // the datepicker button next to the input
+  #wanneer > udb-form-event-calendar udb-form-calendar-datepicker > p > span > button {
+    border-top-left-radius: 0 !important;
+    border-bottom-left-radius: 0 !important;
+    border: 1px solid #ccc;
+    padding: 4px 10px !important;
+    box-shadow: none;
   }
+
+  #wanneer > udb-form-event-calendar udb-form-calendar-datepicker > p > input {
+    border-top-right-radius: 0 !important;
+    border-bottom-right-radius: 0 !important;
+  }
+
 
   .calendar-time-span,
   .form-calendar-period {
-    input:not(.uib-time *) {
-      border-top-right-radius: 0 !important;
-      border-bottom-right-radius: 0 !important;
-    }
-
-    // the datepicker button next to the input
-    .btn:not(ul *) {
-      border-top-left-radius: 0 !important;
-      border-bottom-left-radius: 0 !important;
-      border: 1px solid #ccc;
-      padding: 4px 10px !important;
-      box-shadow: none;
-    }
-
     thead {
       display: flex;
       flex-direction: column;
@@ -155,7 +156,7 @@ body {
       }
     }
 
-    tbody:not(.uib-timepicker *) {
+    *:not(.uib-timepicker) tbody {
       display: flex;
       flex-direction: column;
       row-gap: 0.75rem;
