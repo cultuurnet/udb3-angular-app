@@ -136,10 +136,15 @@ body {
 
   .uib-datepicker-popup {
     padding: 1rem;
-  }  
+  }
 
   // the datepicker button next to the input
-  #wanneer > udb-form-event-calendar udb-form-calendar-datepicker > p > span > button {
+  #wanneer
+    > udb-form-event-calendar
+    udb-form-calendar-datepicker
+    > p
+    > span
+    > button {
     border-top-left-radius: 0 !important;
     border-bottom-left-radius: 0 !important;
     border: 1px solid #ccc;
@@ -152,6 +157,26 @@ body {
     border-bottom-right-radius: 0 !important;
   }
 
+  udb-query-editor-field .btn-group-justified {
+    display: flex;
+    width: 100%;
+
+    > .btn {
+      display: flex;
+      min-width: 5rem;
+      justify-content: center;
+    }
+  }
+
+  // And button
+  udb-query-editor-field
+    > div
+    > div.col-md-2.col-xs-8
+    > div
+    > div
+    > a:nth-child(1) {
+    margin-right: 1rem;
+  }
 
   .calendar-time-span,
   .form-calendar-period {
