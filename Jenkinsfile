@@ -35,7 +35,7 @@ pipeline {
                     steps {
                         sh label: 'Build artifact', script: "bundle exec rake build_artifact ARTIFACT_VERSION=${env.ARTIFACT_VERSION}"
                         sh label: 'Build dummy artifact', script: "bundle exec rake build_dummy_artifact ARTIFACT_VERSION=${env.ARTIFACT_VERSION}"
-                        archiveArtifacts artifacts: "pkg/*${env.ARTIFACT_VERSION}*.deb", onlyIfSuccessful: true
+                        archiveArtifacts artifacts: "pkg/*${env.PIPELINE_VERSION}*.deb", onlyIfSuccessful: true
                     }
                 }
             }
