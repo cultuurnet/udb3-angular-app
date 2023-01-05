@@ -353,9 +353,7 @@ function udbAppConfig(
       }
     })
     .state('split.placeEdit', {
-      url: '/place/:id/edit',
-      controller: 'offerEditorUIController',
-      templateUrl: 'templates/event-form.html',
+      url: '/places/:id/edit',
       meta: {
         'titleSuffix': ' | Plaats bewerken'
       }
