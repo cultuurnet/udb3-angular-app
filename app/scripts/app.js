@@ -341,9 +341,7 @@ function udbAppConfig(
       }
     })
     .state('split.eventEdit', {
-      url: '/event/:id/edit',
-      controller: 'offerEditorUIController',
-      templateUrl: 'templates/event-form.html',
+      url: '/events/:id/edit',
       meta: {
         'titleSuffix': ' | Evenement bewerken'
       }
