@@ -26,19 +26,6 @@ function MigrationRedirect($state, offerLocator, udbApi, eventMigration) {
       }
     };
 
-    /**
-     * @param {string[]} requiredMigrationSteps
-     */
-    function redirectIfMigrationIsNeeded(requiredMigrationSteps) {
-      if (requiredMigrationSteps.length) {
-        uiEvent.preventDefault();
-        toParams.location = 'true';
-        toParams.id = eventId;
-        toParams.destination = beforeStates[toState.name];
-        $state.transitionTo('migration.event', toParams, {location: 'replace'});
-      }
-    }
-
     if(!_.includes(_.keys(beforeStates), toState.name)) {
       return;
     }
@@ -49,9 +36,7 @@ function MigrationRedirect($state, offerLocator, udbApi, eventMigration) {
 
     offerLocator
       .get(eventId)
-      .then(udbApi.getOffer)
-      .then(eventMigration.checkRequirements)
-      .then(redirectIfMigrationIsNeeded);
+      .then(udbApi.getOffer);
   };
 }
 MigrationRedirect.$inject = ['$state', 'offerLocator', 'udbApi', 'eventMigration'];
