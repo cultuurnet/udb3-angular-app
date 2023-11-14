@@ -23,6 +23,9 @@
 
 // styling for rounded / 2022 look
 body {
+
+  background-color: #F5F5F5 !important;
+
   button,
   a,
   input,
@@ -66,6 +69,17 @@ body {
   ul.pagination li:nth-last-child(2) a {
     border-top-right-radius: 8px !important;
     border-bottom-right-radius: 8px !important;
+  }
+
+
+  ul.pagination  > .active > a {
+    background-color: #0083B8 !important;
+    border-color: #0083B8 !important;
+  }
+
+  ul.pagination > li > a:hover {
+    background-color: #005C7C !important;
+    border-color: #005C7C !important;
   }
 
   .nav-tabs {
@@ -232,4 +246,73 @@ body {
   .udb-query-editor .control-in-uitsluiten > button:first-child {
     margin-right: 0.75rem;
   }
+
+  .btn-primary {
+    background-color: #0083B8 !important;
+  }
+
+  .btn-primary:hover {
+    background-color: #005C7C !important;
+  }
+
+  .dropdown-menu > .active > a {
+    background-color: #0083B8 !important;
+  }
+
+  .alert {
+    position: relative;
+    color: #141515 !important;
+
+    &::before {
+      position: absolute;
+      content: '';
+      top: 0;
+      left: 0;
+      width: 6px;
+      height: 100%;
+      display: block;
+      border-top-left-radius: 8px;
+      border-bottom-left-radius: 8px;
+    }
+  }
+
+  .alert-info {
+    background-color:#D1DEFA !important;
+    border-color: #3868EC !important;
+
+    &::before {
+      background-color:#3868EC;
+    }
+  }
+
+  .alert-danger {
+    background-color: #FAE5E3 !important;
+    border-color: #DD5242 !important;
+
+    &::before {
+      background-color: #DD5242 !important;
+    }
+  }
+
+  .alert-success {
+    background-color: #F3FCF7 !important;
+    border-color: #6BCD69 !important;
+
+    &::before {
+      background-color:#6BCD69 !important;
+    }
+  }
+
+  .alert-warning {
+    background-color: #FCF0CB !important;
+    border-color: #F5B041 !important;
+
+    &::before {
+      background-color:#F5B041 !important;
+    }
+  }
+
+
 }
+
+
