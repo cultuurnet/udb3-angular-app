@@ -30,6 +30,10 @@ function httpInterceptor($q, $location, $window, appConfig, $translate) {
         return $q.reject(rejection);
       }
 
+      if (rejection.status === 403 && rejection.title === 'Label not allowed') {
+        return $q.reject(rejection);
+      }
+
       // Check if the request got rejected because of authorization and redirect
       if (rejection.status === 401) {
         login();
