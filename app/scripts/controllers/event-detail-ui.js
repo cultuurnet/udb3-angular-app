@@ -23,6 +23,8 @@ function eventDetailUIController($controller, $scope, offerLocator, $q, authoriz
   var id = $stateParams.id;
   offerLocator.get(id).then(function(eventLocation) {
     deferredEventLocation.resolve(eventLocation);
+  }).catch(function (error) {
+    deferredEventLocation.reject(error);
   });
 
 }
