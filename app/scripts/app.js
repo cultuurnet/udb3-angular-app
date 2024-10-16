@@ -553,7 +553,7 @@ function udbAppConfig(
       }
     })
     .state("split.organizerOwnership", {
-      url: "/organizer/:id/ownership",
+      url: "/organizer/:id/ownerships",
     })
 
     // Organisations
