@@ -552,6 +552,9 @@ function udbAppConfig(
         'titleSuffix': ' | Gebruiker bewerken'
       }
     })
+    .state("split.organizerOwnership", {
+      url: "/organizer/:id/ownerships",
+    })
 
     // Organisations
     .state('management.organizers', {
