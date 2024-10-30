@@ -81,6 +81,27 @@ angular
 
       ngMeta.init();
 
+      function sendHeightToParent() {
+        var height = document.body.scrollHeight || document.documentElement.scrollHeight;
+
+        window.parent.postMessage(
+          {
+            source: "UDB",
+            type: "PAGE_HEIGHT",
+            height: height,
+          },
+          "*"
+        );
+      }
+
+      $rootScope.$on('searchComponentReady', function() {
+        sendHeightToParent()
+      });
+
+      window.onresize = function() {
+        sendHeightToParent();
+      };
+
       $rootScope.$on('searchSubmitted', function () {
         $location.path('/search');
       });
