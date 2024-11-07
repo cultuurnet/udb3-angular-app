@@ -275,6 +275,16 @@ function udbAppConfig(
     })
     .state('split.footer.search', {
       url: '/search',
+      template: '<ui-view></ui-view>',
+      controller: ['$state', '$location', function($state, $location) {
+        if ($location.search().tab === 'organizers') {
+          $state.go('split.footer.search.organizers')
+        } else {
+          $state.go('split.footer.search.events-places') 
+        }
+      }],
+    })
+    .state('split.footer.search.events-places', {
       templateUrl: 'views/search.html',
       onEnter: ['searchHelper', '$location', '$timeout', function (searchHelper, $location, $timeout) {
         function setQueryFromSearchParams() {
@@ -290,6 +300,14 @@ function udbAppConfig(
       }],
       meta: {
         'titleSuffix': ' | Zoeken'
+      }
+    })     
+    .state('split.footer.search.organizers', {
+      templateUrl: 'templates/organization-search-new.html',
+      controller: 'OrganizationSearchControllerNew',
+      controllerAs: '$ctrl',
+      meta: {
+        'titleSuffix': ' | Organisaties'
       }
     })
 
