@@ -23,7 +23,7 @@ function NewsLetterController($scope,appConfig,$http,$cookies) {
   vm.showThanks = false;
   vm.showError = false;
   vm.hideNewsLetter = $cookies.get('hideNewsLetter') || (! vm.url || ! vm.list);
-  vm.token = $cookies.get('token')
+  vm.token = $cookies.get('token');
 
   function submit() {
     vm.showError = false;
