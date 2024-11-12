@@ -75,7 +75,7 @@
     }
   },
   "newsLetterManager": {
-    "url": "http://localhost/mail-microservice/web",
+    "url": "http://localhost:8000/mailing-list/",
     "list": "1766017"
   },
   "publicationRulesLink": "https://helpdesk.publiq.be/hc/nl/articles/360008702459-Welke-activiteiten-mag-ik-invoeren-in-UiTdatabank",
