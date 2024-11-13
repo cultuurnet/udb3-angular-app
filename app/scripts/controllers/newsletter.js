@@ -23,18 +23,21 @@ function NewsLetterController($scope,appConfig,$http,$cookies) {
   vm.showThanks = false;
   vm.showError = false;
   vm.hideNewsLetter = $cookies.get('hideNewsLetter') || (! vm.url || ! vm.list);
+  vm.token = $cookies.get('token');
 
   function submit() {
     vm.showError = false;
     if (vm.email && vm.email !=='') {
-     var form = new FormData();
-     form.append('Email', vm.email);
      $http({
        method: 'PUT',
        headers: {
-         "Content-Type": "text/html"
+         "Content-Type": "application/json",
+         "Authorization": "Bearer " + vm.token 
        },
-       url: vm.url + '/' + vm.email + '/' + vm.list
+       data: JSON.stringify({
+        email: vm.email
+       }),
+       url: vm.url + vm.list
      }).then(function successCallback(response) {
        vm.showThanks = true;
        $cookies.put('hideNewsLetter',true);
