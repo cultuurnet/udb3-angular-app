@@ -3,6 +3,8 @@ require 'json'
 desc "Create a debian package from the binaries."
 task :build_dummy_artifact do |task|
 
+  basedir        = '/var/www/udb3-angular-app'
+
   git_short_ref  = `git rev-parse --short HEAD`.strip
   artifact_name  = 'uitdatabank-angular'
   vendor         = 'publiq VZW'
@@ -21,8 +23,7 @@ task :build_dummy_artifact do |task|
   FileUtils.mkdir_p('empty')
 
   system("fpm -s dir -t deb -n #{artifact_name} -v #{version} \
-    -a all -p pkg -C empty \
-    --prefix /var/www/udb3-app \
+    -a all -p pkg -C empty --prefix #{basedir} \
     --description '#{description}' --url '#{source}' --vendor '#{vendor}' \
     --license '#{license}' -m '#{maintainer}' \
     --deb-field 'Pipeline-Version: #{calver_version}' \
