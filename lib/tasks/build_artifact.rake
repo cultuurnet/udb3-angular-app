@@ -10,7 +10,7 @@ task :build_artifact do |task|
   license        = 'Apache-2.0'
   description    = 'AngularJS frontend for UiTDatabank 3'
   source         = 'https://github.com/cultuurnet/udb3-angular-app/'
-  build_url      = ENV['JOB_DISPLAY_URL'].nil? ? "" : ENV['JOB_DISPLAY_URL']
+  build_url      = ENV['JOB_DISPLAY_URL'].nil? ? '' : ENV['JOB_DISPLAY_URL']
 
   FileUtils.mkdir_p('pkg')
 
