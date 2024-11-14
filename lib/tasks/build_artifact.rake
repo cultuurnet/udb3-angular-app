@@ -1,5 +1,5 @@
 desc "Create a debian package from the binaries."
-task :build_artifact do |task|
+task :build_artifact => [:build_dummy_artifact] do |task|
 
   basedir        = '/var/www/udb3-angular-app'
 
@@ -15,19 +15,21 @@ task :build_artifact do |task|
   build_url      = ENV['JOB_DISPLAY_URL'].nil? ? '' : ENV['JOB_DISPLAY_URL']
 
   FileUtils.mkdir_p('pkg')
+  FileUtils.touch('dist/config.json')
+
+  uitdatabank_angular_version = `dpkg -f pkg/uitdatabank-angular_*.deb Version`[/^Version: (.*)$/, 1]
 
   system("fpm -s dir -t deb -n #{artifact_name} -v #{version} -a all -p pkg \
     -x Jenkinsfile -x 'Gemfile*' -x vendor -x .bundle -x lib -x Rakefile -x '.git*' \
+    -d rubygem-angular-config -d uitdatabank-angular=#{uitdatabank_angular_version} \
     --prefix #{basedir} --config-files #{basedir}/config.json \
-
     --before-remove lib/tasks/prerm -C dist \
-    --depends rubygem-angular-config \
     --deb-user www-data --deb-group www-data \
     --description '#{description}' --url '#{source}' --vendor '#{vendor}' \
     --license '#{license}' -m '#{maintainer}' \
     --deb-field 'Pipeline-Version: #{calver_version}' \
-    --deb-field 'Git-Ref: #{git_short_ref}' \
     --deb-field 'Build-Url: #{build_url}' \
+    --deb-field 'Git-Ref: #{git_short_ref}' \
     ."
   ) or exit 1
 end
