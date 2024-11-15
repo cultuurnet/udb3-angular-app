@@ -28,8 +28,8 @@ task :build_dummy_artifact do |task|
     --description '#{description}' --url '#{source}' --vendor '#{vendor}' \
     --license '#{license}' -m '#{maintainer}' \
     --deb-field 'Pipeline-Version: #{calver_version}' \
-    --deb-field 'Build-Url: #{build_url}' \
     --deb-field 'Git-Ref: #{angular_gitref}' \
+    --deb-field 'Build-Url: #{build_url}' \
     ."
   ) or exit 1
 end
