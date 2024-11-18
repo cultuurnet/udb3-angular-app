@@ -94,6 +94,20 @@ angular
         );
       }
 
+      $rootScope.$on('ownershipRequestDialogOpened', function() {
+        window.parent.postMessage(
+          {
+            source: "UDB",
+            type: "OWNERSHIP_REQUEST_DIALOG_OPENED",
+          },
+          "*"
+        );
+      });
+
+      $rootScope.$on('organizerDetailPageReady', function() {
+        sendHeightToParent()
+      })
+
       $rootScope.$on('searchComponentReady', function() {
         sendHeightToParent()
       });
@@ -428,7 +442,7 @@ function udbAppConfig(
       }
     })
     .state('split.organizerDetail', {
-      url: '/organizer/:id/preview',
+      url: '/organizers/:id/preview',
       templateUrl: 'templates/organizer-detail.html',
       controller: 'OrganizerDetailController',
       controllerAs: 'odc',
