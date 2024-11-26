@@ -14,3 +14,4 @@ taxonomy-terms.xml
 .bash_profile
 .bundle/
 vendor/
+pkg/
