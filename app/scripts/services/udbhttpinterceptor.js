@@ -30,7 +30,7 @@ function httpInterceptor($q, $location, $window, appConfig, $translate) {
         return $q.reject(rejection);
       }
 
-      if (rejection.status === 403 && rejection.title === 'Label not allowed') {
+      if (rejection.status === 403 && (rejection.data && rejection.data.title === 'Label not allowed')) {
         return $q.reject(rejection);
       }
 
