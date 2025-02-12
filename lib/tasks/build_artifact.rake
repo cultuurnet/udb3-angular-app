@@ -10,7 +10,7 @@ task :build_artifact => [:build_dummy_artifact] do |task|
   vendor         = 'publiq VZW'
   maintainer     = 'Infra publiq <infra@publiq.be>'
   license        = 'Apache-2.0'
-  description    = 'AngularJS frontend for UiTDatabank 3'
+  description    = 'AngularJS frontend for UiTdatabank'
   source         = 'https://github.com/cultuurnet/udb3-angular-app/'
   build_url      = ENV['JOB_DISPLAY_URL'].nil? ? '' : ENV['JOB_DISPLAY_URL']
 
