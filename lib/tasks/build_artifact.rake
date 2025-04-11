@@ -22,7 +22,7 @@ task :build_artifact => [:build_dummy_artifact] do |task|
 
   system("fpm -s dir -t deb -n #{artifact_name} -v #{version} -a all -p pkg \
     -x Jenkinsfile -x 'Gemfile*' -x vendor -x .bundle -x lib -x Rakefile -x '.git*' \
-    -d rubygem-angular-config -d 'uitdatabank-angular (= #{uitdatabank_angular_version})' \
+    -d 'uitdatabank-angular (= #{uitdatabank_angular_version})' \
     --prefix #{basedir} --config-files #{basedir}/config.json \
     --before-remove lib/tasks/prerm -C dist \
     --deb-user www-data --deb-group www-data \
