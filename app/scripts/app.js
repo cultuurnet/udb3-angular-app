@@ -332,6 +332,35 @@ function udbAppConfig(
       }
     })
 
+    .state('split.footer.search.organizers.delete', {
+      params: {
+        id: null
+      },
+      resolve: {
+        organization: ['$stateParams', 'OrganizerManager', function($stateParams, OrganizerManager) {
+          return OrganizerManager.get($stateParams.id);
+        }]
+      },
+      onEnter: ['$state', '$uibModal', 'organization', function($state, $uibModal, organization) {
+        $uibModal
+          .open({
+            templateUrl: 'templates/organization-delete.modal.html',
+            resolve: {
+              organization: function() { return organization; }
+            },
+            controller: 'OrganizationDeleteModalController',
+            controllerAs: 'odc'
+          })
+          .result
+          .finally(function() {
+            $state.go('^');
+          });
+      }],
+      meta: {
+        'titleSuffix': ' | Organisatie verwijderen'
+      }
+    })
+
     .state('split.footer.place', placeDetail)
     .state('split.footer.place-published', _.merge(_.clone(placeDetail), {
       url: '/place/:id/published',
@@ -619,34 +648,6 @@ function udbAppConfig(
       controllerAs: '$ctrl',
       meta: {
         'titleSuffix': ' | Organisaties'
-      }
-    })
-    .state('management.organizers.search.delete', {
-      params: {
-        id: null
-      },
-      resolve: {
-        organization: ['$stateParams', 'OrganizerManager', function($stateParams, OrganizerManager) {
-          return OrganizerManager.get($stateParams.id);
-        }]
-      },
-      onEnter: ['$state', '$uibModal', 'organization', function($state, $uibModal, organization) {
-        $uibModal
-          .open({
-            templateUrl: 'templates/organization-delete.modal.html',
-            resolve: {
-              organization: function() { return organization; }
-            },
-            controller: 'OrganizationDeleteModalController',
-            controllerAs: 'odc'
-          })
-          .result
-          .finally(function() {
-            $state.go('^');
-          });
-      }],
-      meta: {
-        'titleSuffix': ' | Organisatie verwijderen'
       }
     })
     .state('management.organizers.search.create', {
