@@ -19,18 +19,46 @@ pipeline {
         }
 
         stage('Setup and build') {
-            agent { label 'ubuntu && 20.04 && nodejs16' }
-            environment {
-                GIT_SHORT_COMMIT = util.shortCommitRef()
-                ARTIFACT_VERSION = "${env.PIPELINE_VERSION}" + '+sha.' + "${env.GIT_SHORT_COMMIT}"
-            }
-                        steps {
-                sh label: 'Install rubygems', script: 'bundle install --deployment'
-                sh label: 'Build binaries', script: 'bundle exec rake build'
-                sh label: 'Build artifact', script: "bundle exec rake build_artifact ARTIFACT_VERSION=${env.ARTIFACT_VERSION}"
-                archiveArtifacts artifacts: "pkg/*${env.PIPELINE_VERSION}*.deb", onlyIfSuccessful: true
-            }
+            agent { label 'docker' }
+            stages {
+                stage('Build project') {
+                    agent {
+                        docker {
+                            image 'base_images/node:16'
+                            reuseNode true
+                        }
+                    }
+                    options { skipDefaultCheckout() }
+                    environment {
+                        HOME = '/tmp'
+                    }
+                    steps {
+                        sh label: 'Install node modules', script: 'npm ci'
+                        sh label: 'Install bower components', script: 'npm run bower -- cache clean && npm run bower -- install --production'
+                        sh label: 'Generate config', script: 'node lib/hash-config.js config.json.dist > config.json'
+                        sh label: 'Build project', script: 'npm run build -- --dist=./dist'
+                    }
+                }
 
+                stage('Build artifact') {
+                    agent {
+                        docker {
+                            image 'base_images/ruby:2.7'
+                            reuseNode true
+                        }
+                    }
+                    options { skipDefaultCheckout() }
+                    environment {
+                        GIT_SHORT_COMMIT = util.shortCommitRef()
+                        ARTIFACT_VERSION = "${env.PIPELINE_VERSION}" + '+sha.' + "${env.GIT_SHORT_COMMIT}"
+                    }
+                    steps {
+                        sh label: 'Install rubygems', script: 'bundle install --deployment'
+                        sh label: 'Build artifact', script: "bundle exec rake build_artifact ARTIFACT_VERSION=${env.ARTIFACT_VERSION}"
+                        archiveArtifacts artifacts: "pkg/*${env.PIPELINE_VERSION}*.deb", onlyIfSuccessful: true
+                    }
+                }
+            }
             post {
                 cleanup {
                     cleanWs()
@@ -60,7 +88,7 @@ pipeline {
                 APPLICATION_ENVIRONMENT = 'development'
             }
             steps {
-                publishAptlySnapshot snapshotName: "${env.REPOSITORY_NAME}-${env.PIPELINE_VERSION}", publishTarget: "${env.REPOSITORY_NAME}-${env.APPLICATION_ENVIRONMENT}", distributions: 'focal'
+                publishAptlySnapshot snapshotName: "${env.REPOSITORY_NAME}-${env.PIPELINE_VERSION}", publishTarget: "${env.REPOSITORY_NAME}-${env.APPLICATION_ENVIRONMENT}", distributions: ['focal', 'noble']
             }
         }
 
@@ -71,8 +99,8 @@ pipeline {
                 APPLICATION_ENVIRONMENT = 'acceptance'
             }
             steps {
-                publishAptlySnapshot snapshotName: "${env.REPOSITORY_NAME}-${env.PIPELINE_VERSION}", publishTarget: "${env.REPOSITORY_NAME}-${env.APPLICATION_ENVIRONMENT}", distributions: 'focal'
-                triggerDeployment nodeName: 'uitdatabank-web-acc01'
+                publishAptlySnapshot snapshotName: "${env.REPOSITORY_NAME}-${env.PIPELINE_VERSION}", publishTarget: "${env.REPOSITORY_NAME}-${env.APPLICATION_ENVIRONMENT}", distributions: ['focal', 'noble']
+                triggerDeployment nodeName: 'uitdatabank-web-acc02'
             }
             post {
                 always {
@@ -89,8 +117,8 @@ pipeline {
                 APPLICATION_ENVIRONMENT = 'testing'
             }
             steps {
-                publishAptlySnapshot snapshotName: "${env.REPOSITORY_NAME}-${env.PIPELINE_VERSION}", publishTarget: "${env.REPOSITORY_NAME}-${env.APPLICATION_ENVIRONMENT}", distributions: 'focal'
-                triggerDeployment nodeName: 'uitdatabank-web-test01'
+                publishAptlySnapshot snapshotName: "${env.REPOSITORY_NAME}-${env.PIPELINE_VERSION}", publishTarget: "${env.REPOSITORY_NAME}-${env.APPLICATION_ENVIRONMENT}", distributions: ['focal', 'noble']
+                triggerDeployment nodeName: 'uitdatabank-web-test02'
             }
             post {
                 always {
@@ -107,8 +135,8 @@ pipeline {
                 APPLICATION_ENVIRONMENT = 'production'
             }
             steps {
-                publishAptlySnapshot snapshotName: "${env.REPOSITORY_NAME}-${env.PIPELINE_VERSION}", publishTarget: "${env.REPOSITORY_NAME}-${env.APPLICATION_ENVIRONMENT}", distributions: 'focal'
-                triggerDeployment nodeName: 'uitdatabank-web-prod01'
+                publishAptlySnapshot snapshotName: "${env.REPOSITORY_NAME}-${env.PIPELINE_VERSION}", publishTarget: "${env.REPOSITORY_NAME}-${env.APPLICATION_ENVIRONMENT}", distributions: ['focal', 'noble']
+                triggerDeployment nodeName: 'uitdatabank-web-prod02'
             }
             post {
                 always {
