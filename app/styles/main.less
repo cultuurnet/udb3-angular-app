@@ -284,6 +284,25 @@
 
 }
 
+.organization-search-results {
+
+  .table-responsive {
+    border-radius: 10px;
+    background-color: #fff;
+    box-shadow: 0px 4px 16px 0px #00000012;
+
+    table {
+      margin-bottom: 0;
+      box-shadow: none;
+    }
+  }
+
+  .panel-footer {
+    background-color: transparent;
+  }
+
+}
+
 .rv-result-viewer {
   padding: 20px;
 }
@@ -386,8 +405,26 @@
   }
 }
 
-.udb-header-search .warning-icon {
-  color: #ffc400;
+.udb-header-search {
+
+  .warning-icon {
+    color: #ffc400;
+  }
+
+  .open.saved-search-icon {
+    color: #222;
+  }
+
+  input.form-control {
+    background-color: #fff;
+    border: 1px solid @input-border;
+    padding-left: @padding-base-horizontal;
+
+    &:focus {
+      border-color: @input-border-focus;
+    }
+  }
+
 }
 
 .alert-info {
